@@ -3,11 +3,135 @@
 <head>
   <title>Cholon</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Fjalla+One">
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body class="cnt-home">
+  <header class="header-style-1">
+    <div class="top-bar animate-dropdown">
+      <div class="container">
+        <div class="header-top-inner">
+          <!-- top bar left side -->
+          <div class="cnt-account">
+            <ul class="list-unstyled">
+              
+            </ul>
+          </div>
 
+          <!-- top bar right side: language and currency -->
+          <div class="cnt-block">
+            <ul class="list-unstyled list-inline">
+              <li class="dropdown dropdown-small">
+                <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown"><span class="key">Language :</span><span class="value"><%=current_language %> </span><b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li class="<%= 'active' if current_locale == :en %>"><a href="/?locale=en">English</a></li>
+                  <li class="<%= 'active' if current_locale == :vi_VN %>"><a href="/?locale=vi_VN">Tieng Viet</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Logo, search bar and shopping cart start -->
+  <div class="main-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-3 logo-holder">
+          <div class="logo">
+            <a href="home.html">
+              <%= image_tag("logo.png", alt: "Cho Lon VietNam") %>
+            </a>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 top-search-holder">
+          <div class="contact-row">
+            <div class="contact inline">
+              <i class="icon fa fa-envelope"></i> sale@cholonvietnam.com
+            </div>
+          </div>
+          <!-- search box -->
+          <div class="search-area">
+            <form>
+              <div class="control-group">
+                <ul class="categories-filter animate-dropdown">
+                  <li class="dropdown">
+                    <a class="dropdown-toggle"  data-toggle="dropdown" href="category.html">Categories <b class="caret"></b></a>
+                    <ul class="dropdown-menu" role="menu" >
+                      <li class="menu-header">Computer</li>
+                      
+                    </ul>
+                  </li>
+                </ul>
+                <input class="search-field" placeholder="" />
+                <a class="search-button" href="#" ></a>
+              </div>
+            </form>
+          </div>
+          <!-- search box end -->
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 animate-dropdown top-cart-row">
+          <!-- ======= SHOPPING CART DROPDOWN ============== -->
+          <div class="dropdown dropdown-cart">
+            <a href="#" class="dropdown-toggle lnk-cart" data-toggle="dropdown">
+              <div class="items-cart-inner">
+                <div class="total-price-basket">
+                  <span class="lbl">Cart -</span>
+                  <span class="total-price">
+                    <span class="sign">$</span>
+                    <span class="value">600.00</span>
+                  </span>
+                </div>
+                <div class="basket">
+                  <i class="fa fa-shopping-cart"></i>
+                </div>
+                <div class="basket-item-count">
+                  <span class="count">2</span>
+                </div>
+              </div>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <div class="cart-item product-summary">
+                  <div class="row">
+                    <div class="col-xs-4">
+                      <div class="image">
+                        <a href="detail.html"><%= image_tag("cart.jpg", alt: "Cart") %></a>
+                      </div>
+                    </div>
+                    <div class="col-xs-7">
+
+                      <h3 class="name"><a href="index.php?page-detail">Simple Product</a></h3>
+                      <div class="price">$600.00</div>
+                    </div>
+                    <div class="col-xs-1 action">
+                      <a href="#"><i class="fa fa-trash"></i></a>
+                    </div>
+                  </div>
+                </div><!-- /.cart-item -->
+                <div class="clearfix"></div><hr>
+                <div class="clearfix cart-total">
+                  <div class="pull-right">
+                    <span class="text">Sub Total :</span><span class='price'>$600.00</span>
+                  </div>
+                  <div class="clearfix"></div>
+                  <a href="checkout.html" class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  </header>
 <%= yield %>
 
 </body>
