@@ -4,6 +4,17 @@
   <title>Cholon</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Fjalla+One">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.js"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
@@ -23,10 +34,10 @@
           <div class="cnt-block">
             <ul class="list-unstyled list-inline">
               <li class="dropdown dropdown-small">
-                <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown"><span class="key">Language :</span><span class="value"><%=current_language %> </span><b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown"><span class="kesy">Language :</span><span class="value"><%=current_language %> </span><b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li class="<%= 'active' if current_locale == :en %>"><a href="/?locale=en">English</a></li>
-                  <li class="<%= 'active' if current_locale == :vi_VN %>"><a href="/?locale=vi_VN">Tieng Viet</a></li>
+                  <li class="<%= 'active' if current_locale == :vi_VN %>"><a href="/?locale=vi_VN">Tiếng Việt</a></li>
                 </ul>
               </li>
             </ul>

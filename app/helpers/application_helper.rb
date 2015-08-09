@@ -7,7 +7,7 @@ module ApplicationHelper
 		if current_locale == :en
 			"English"
 		else
-			"Tieng Viet"
+			"Tiếng Việt"
 		end
 	end
 end
