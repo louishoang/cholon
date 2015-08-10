@@ -20,4 +20,24 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  categories: "Categories"
+  "Car Electronics & GPS": "Car Electronics & GPS"
+  "Cameras & Camcorders": "Cameras & Camcorders"
+  "Computer Parts & Components": "Computer Parts & Components"
+  "Commercials Appliances": "Commercials Appliances"
+  "Desktops & Monitors": "Desktops & Monitors"
+  "Digital Electronics": "Digital Electronics"
+  "Electronics & Computers": "Electronics & Computers"
+  "Electronics Accessories": "Electronics Accessories"
   hello_flash: "Hello world"
+  "Home Appliances": "Home Appliances"
+  "Home Audios & Theaters": "Home Audios & Theaters"
+  "Laptops & Tablets": "Laptops & Tablets"
+  "Laptops & Tablets & Desktops": "Laptops & Tablets & Desktops"
+  "Kitchen Appliances": "Kitchen Appliances"
+  "Other Electronics": "Appliances & Others"
+  "Office Machines": "Office Machines"
+  "Others Machines": "Others Machines"
+  "TVs & Videos": "TVs & Videos"
+  "Video Games & Softwares & DVDs": "Video Games & Softwares & DVDs"
+
