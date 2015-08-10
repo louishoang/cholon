@@ -20,6 +20,8 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  "Baby & Kids": "Baby & Kids"
+  "Baby & Kids Sub": "Baby & Kids"
   "Bath & Body": "Bath & Body"
   "Beauty": "Beauty"
   categories: "Categories"
@@ -41,6 +43,9 @@ en:
   "Lifestyle & Health": "Lifestyle & Health"
   "Make Up": "Make Up"
   "Mens Fashions": "Mens"
+  "Men Shirts & Pants": "Shirts & Pants"
+  "Men Shoes": "Men Shoes"
+  "Men Accessories": "Men Accessories"
   "Other Electronics": "Appliances & Others"
   "Office Machines": "Office Machines"
   "Office Attire & Occasional Wear": "Office Attire & Occasional Wear"
