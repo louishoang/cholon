@@ -31,6 +31,10 @@ gem 'pry-rails', :group => :development
 gem 'bootstrap-sass', '~> 3.3.5'
 gem "font-awesome-rails"
 
+gem 'devise'
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-google'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
