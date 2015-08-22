@@ -34,7 +34,7 @@ gem "font-awesome-rails"
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
-gem 'omniauth-google'
+gem 'omniauth-google-oauth2'
 
 gem 'dotenv-rails', :groups => [:development, :test]
 # Use ActiveModel has_secure_password
