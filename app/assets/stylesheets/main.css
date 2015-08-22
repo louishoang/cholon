@@ -5213,4 +5213,8 @@ a.dropdown-toggle{
 .nomargin{
   margin: 0px !important;
 }
+#error_explanation{
+  color: red;
+  margin-bottom: 30px;
+}
 

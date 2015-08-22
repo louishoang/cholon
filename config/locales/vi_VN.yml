@@ -65,6 +65,21 @@ vi_VN:
   "Womens Fashions": "Thời Trang Nữ"
   "Women Shoes": "Gìay, Dép Nữ"
   "Women Accessories": "Phụ Kiện Nữ"
+
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email: 
+              blank: "Email không thể bỏ trống"
+              taken: "Xin vui lòng sử dụng email khác, đã có tài khoản đăng kí bằng email này."
+            password:
+              blank: "Mật Khẩu không thể bỏ trống"
+              too_short: "Mật khẩu quá ngắn. Tối thiểu 8 kí tự."
+            password_confirmation:
+              confirmation: "Nhập lại mật khẩu không khớp."
+
   devise:
     confirmations:
       confirmed: "Tài khoản của quý khách đã được kích hoạt. Xin Cám Ơn"
@@ -121,4 +136,4 @@ vi_VN:
       not_locked: "was not locked"
       not_saved:
         one: "Lỗi %{resource}:"
-        other: "%{count} Lỗi - %{resource}:"
+        other: "Xin vui lòng sửa %{count} lỗi sau:"
