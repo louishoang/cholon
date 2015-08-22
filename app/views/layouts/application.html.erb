@@ -27,19 +27,27 @@
             <!-- top bar left side -->
             <div class="cnt-account">
               <ul class="list-unstyled">
-                <li>
-                  <a href="#">
-                    <i class="icon fa fa-user"></i><%= t"My Account" %>
-                  </a>
-                </li>
-               <!--  <li><a href="#"><i class="icon fa fa-heart"></i>Wishlist</a></li>
-                <li><a href="#"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
-                <li><a href="#"><i class="icon fa fa-key"></i>Checkout</a></li> -->
-                <li>
-                  <a href="<%= new_user_session_path %>">
-                    <i class="icon fa fa-sign-in"></i><%= t"Login" %>
-                  </a>
-                </li>
+                <% if current_user %>
+                  <li>
+                    <a href="#">
+                      <i class="icon fa fa-user"></i><%= t"My Account" %>
+                    </a>
+                  </li>
+                  <!--  <li><a href="#"><i class="icon fa fa-heart"></i>Wishlist</a></li>
+                  <li><a href="#"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
+                  <li><a href="#"><i class="icon fa fa-key"></i>Checkout</a></li> -->
+                  <li>
+                    <%= link_to destroy_user_session_path, :method => :delete do %>
+                      <i class="icon fa fa-sign-out"></i><%= t"Logout" %>
+                    <% end %>
+                  </li>
+                <% else %>
+                  <li>
+                    <a href="<%= new_user_session_path %>">
+                      <i class="icon fa fa-sign-in"></i><%= t"Login" %>
+                    </a>
+                  </li>
+                <% end %>
               </ul>
             </div>
 
