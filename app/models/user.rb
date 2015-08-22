@@ -13,8 +13,8 @@ class User < ActiveRecord::Base
     User.find_or_create_by(uid: auth_hash[:uid], provider: auth_hash[:provider]) do |user|
       user.email = auth_hash[:info][:email]
       user.avatar_url = auth_hash[:info][:image]
-      user.first_name = auth_hash[:info][:first_name]
-      user.last_name = auth_hash[:info][:last_name]
+      user.first_name = auth_hash[:info][:name].split(" ").first rescue nil
+      user.last_name = auth_hash[:info][:name].split(" ").last rescue nil
     end
   end
 
@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   def self.new_with_session(params, session)
     if session["devise.user_attributes"]
       new(session["devise.user_attributes"], without_protection: true) do |user|
-        user_attributes = params
+        user.attributes = params
         user.valid?
       end
     else
