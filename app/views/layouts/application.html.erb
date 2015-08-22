@@ -27,7 +27,19 @@
             <!-- top bar left side -->
             <div class="cnt-account">
               <ul class="list-unstyled">
-                
+                <li>
+                  <a href="#">
+                    <i class="icon fa fa-user"></i><%= t"My Account" %>
+                  </a>
+                </li>
+               <!--  <li><a href="#"><i class="icon fa fa-heart"></i>Wishlist</a></li>
+                <li><a href="#"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
+                <li><a href="#"><i class="icon fa fa-key"></i>Checkout</a></li> -->
+                <li>
+                  <a href="<%= new_user_session_path %>">
+                    <i class="icon fa fa-sign-in"></i><%= t"Login" %>
+                  </a>
+                </li>
               </ul>
             </div>
 
@@ -308,8 +320,10 @@
     </div>
 
   </header>
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
+  <% if flash.present? %>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+  <% end %>
   <%= yield %>
 
 </body>

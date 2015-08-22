@@ -3096,7 +3096,6 @@ a {
   font-size: 12px;
   line-height: 24px;
   margin-left: 9px;
-  margin-right: -4px;
   padding: 0px;
 }
 .breadcrumb ul li:last-child:after {
@@ -5170,6 +5169,14 @@ a {
 .body-content .sign-in-page .sign-in .social-sign-in .twitter-sign-in:focus {
   background-color: #0084B9;
 }
+.body-content .sign-in-page .sign-in .social-sign-in .google-sign-in:hover,
+.body-content .sign-in-page .sign-in .social-sign-in .google-sign-in:focus {
+  background-color: #D32F2F;
+}
+.body-content .sign-in-page .sign-in .social-sign-in .google-sign-in {
+  background-color: #F44336;
+  margin-right: 10px;
+}
 .body-content .sign-in-page .create-new-account > span {
   font-size: 20px;
   font-family: 'Fjalla One';
@@ -5197,3 +5204,13 @@ a {
 a.dropdown-toggle{
   text-decoration: none !important;
 }
+.breadcrumb-unstyled{
+  background-color: white !important;
+}
+.nopadding{
+  padding: 0px !important;
+}
+.nomargin{
+  margin: 0px !important;
+}
+

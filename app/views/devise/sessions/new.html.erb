@@ -1,26 +1,84 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+<div class="breadcrumb breadcrumb-unstyled">
+  <div class="container">
+    <div class="breadcrumb-inner">
+      <ul class="list-inline list-unstyled nopadding">
+        <li><a href="/"><%= t"Home" %></a></li>
+        <li class='active'><%= t"Login" %></li>
+      </ul>
     </div>
-  <% end -%>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
-<% end %>
+</div>
 
-<%= render "devise/shared/links" %>
+<div class="body-content outer-top-bd">
+  <div class="container">
+    <div class="sign-in-page inner-bottom-sm">
+      <div class="row">
+        <!-- Sign-in -->      
+        <div class="col-md-6 col-sm-6 sign-in">
+          <h4 class=""><%= t"Login" %></h4>
+          <p class="">Hello, Welcome to your account.</p>
+          <div class="social-sign-in outer-top-xs">
+            <%- resource_class.omniauth_providers.each do |provider| %>
+              <% if provider.to_s.titleize == "Facebook" %>
+                <a href="<%= omniauth_authorize_path(resource_name, provider) %>" class="facebook-sign-in"><i class="fa fa-facebook"></i> <%= t"Sign In with Facebook" %></a>
+              <% elsif provider.to_s.titleize == "Google" %>
+                <a href="<%= omniauth_authorize_path(resource_name, provider) %>" class="google-sign-in"><i class="fa fa-google-plus"></i> <%= t"Sign In with Google" %></a>
+              <% end %>
+            <% end -%>     
+          </div>
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "register-form outer-top-xs"}) do |f| %>
+            <div class="form-group">
+              <%= f.label class: "info-title" do %>
+                <%= t"Email Address" %> <span>*</span>
+              <% end %>
+              <br/>
+              <%= f.email_field :email, autofocus: true, class: "form-control unicase-form-control text-input" %>   
+            </div>
+            <div class="form-group">
+              <div class="field">
+                <%= f.label class: "info-title" do %>
+                  <%= t"Password" %> <span>*</span>
+                <% end %><br/>
+                <%= f.password_field :password, autocomplete: "off", class: "form-control unicase-form-control text-input" %>
+              </div>
+            </div>
+            <div class="radio outer-xs">
+              <label class="nopadding">
+                <input type="checkbox" name="user[remember_me]" value="true"> <%= t"Remember me" %> !
+              </label>
+              <a href="<%= new_password_path(resource_name) %>" class="forgot-password pull-right"><%= t"Forgot your Password" %>?</a>
+            </div>
+            <button type="submit" class="btn-upper btn btn-primary checkout-page-button"><%= t"Login" %></button>
+          <% end %>         
+        </div>
+        <!-- Sign-in -->
+
+        <!-- create a new account -->
+        <div class="col-md-6 col-sm-6 create-new-account">
+          <h4 class="checkout-subtitle">create a new account</h4>
+          <p class="text title-tag-line">Create your own Unicase account.</p>
+          <form class="register-form outer-top-xs" role="form">
+            <div class="form-group">
+              <label class="info-title" for="exampleInputEmail2">Email Address <span>*</span></label>
+              <input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail2" >
+            </div>
+            <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Sign Up</button>
+          </form>
+          <span class="checkout-subtitle outer-top-xs">Sign Up Today And You'll Be Able To :  </span>
+          <div class="checkbox">
+            <label class="checkbox">
+              <input type="checkbox" id="speed" value="option1"> Speed your way through the checkout.
+            </label>
+            <label class="checkbox">
+              <input type="checkbox" id="track" value="option2"> Track your orders easily.
+            </label>
+            <label class="checkbox">
+              <input type="checkbox" id="keep" value="option3"> Keep a record of all your purchases.
+            </label>
+          </div>
+        </div>  
+       </div>
+    </div>
+  </div>
+  <%= render "devise/shared/links" %>
+</div>
