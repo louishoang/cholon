@@ -65,3 +65,60 @@ vi_VN:
   "Womens Fashions": "Thời Trang Nữ"
   "Women Shoes": "Gìay, Dép Nữ"
   "Women Accessories": "Phụ Kiện Nữ"
+  devise:
+    confirmations:
+      confirmed: "Tài khoản của quý khách đã được kích hoạt. Xin Cám Ơn"
+      send_instructions: "Xin vui lòng kiểm tra email để kích hoạt tài khoản."
+      send_paranoid_instructions: "Hệ thống đang tìm kiếm email. Quý khách sẽ nhận được email trong vòng vài phút."
+    failure:
+      already_authenticated: "Quý khách đã đăng nhập."
+      inactive: "Xin vui lòng kích hoạt tài khoản bằng đường liên kết(link) trong email."
+      invalid: "Xin kiểm tra lại %{authentication_keys} hoặc mật khẩu."
+      locked: "Tài khoản đã bị khoá."
+      last_attempt: "Quý khách chỉ còn một lần thử nữa trước khi tài khoản bị khoá."
+      not_found_in_database: "Xin vui lòng kiểm tra lại %{authentication_keys} hoặc mật khẩu."
+      timeout: "Hệ thống đã tự đăng xuất tài khoản của bạn vì lí do an toàn. Xin vui lòng đăng nhập lại."
+      unauthenticated: "Xin vui lòng đăng kí thành viên hoặc đăng nhập để tiếp tục sử dụng."
+      unconfirmed: "Xin vui lòng kích hoạt tài khoản trước khi sử dụng."
+    mailer:
+      confirmation_instructions:
+        subject: "Hướng dẫn kích hoạt tài khoản."
+      reset_password_instructions:
+        subject: "Hướng dẫn thay đổi tài khoản."
+      unlock_instructions:
+        subject: "Hướng dẫn tháo khoá tài khoản"
+    omniauth_callbacks:
+      failure: "Đăng nhập lỗi: %{kind} vì những lí do sau: \"%{reason}\"."
+      success: "Đăng nhập thành công - %{kind}."
+    passwords:
+      no_token: "Xin vui lòng click vào liên kết(link) trong email hoặc copy đầy đủ link."
+      send_instructions: "Xin vui lòng kiểm tra email để thay đổi mật khẩu."
+      send_paranoid_instructions: "Hệ thống đang tìm kiếm email. Quý khách sẽ nhận được email trong vòng vài phút."
+      updated: "Tài khoản đã đuợc thay đổi thành công. Hệ thống đã tự động đăng nhập."
+      updated_not_active: "Mật khẩu đã được thay đổi thành công."
+    registrations:
+      destroyed: "Bye! Your account has been successfully cancelled. We hope to see you again soon."
+      signed_up: "Xin cám ơn đã sử dụng website. Tài khoản của bạn đã được đăng kí thành công."
+      signed_up_but_inactive: "Tài khoản đã được đăng kí thành công. Xin vui lòng kiểm tra email để kích hoạt tài khoản trước khi sử dụng"
+      signed_up_but_locked: "Tài khoản đã bị khoá."
+      signed_up_but_unconfirmed: "Email kích hoạt tài khoản đã được gửi đi. Xin vui lòng kiểm tra tài khoản email của quý khách và kích hoạt tài khoản theo hướng dẫn."
+      update_needs_confirmation: "Tài khoản đã được thay đổi. Xin vui lòng kiểm tra email."
+      updated: "Tài khoản đã được thay đổi thành công."
+    sessions:
+      signed_in: "Đăng nhập thành công. Chào mừng quay trở lại"
+      signed_out: "Đăng xuất thành công. Hẹn gặp laị."
+      already_signed_out: "Đăng xuất thành công."
+    unlocks:
+      send_instructions: "You will receive an email with instructions for how to unlock your account in a few minutes."
+      send_paranoid_instructions: "If your account exists, you will receive an email with instructions for how to unlock it in a few minutes."
+      unlocked: "Your account has been unlocked successfully. Please sign in to continue."
+  errors:
+    messages:
+      already_confirmed: "Xin vui lòng đăng nhập"
+      confirmation_period_expired: "Xin vui lòng kích hoạt trong %{period}."
+      expired: "Xui vui lòng liên hệ quản lí web"
+      not_found: "Không tìm thấy"
+      not_locked: "was not locked"
+      not_saved:
+        one: "Lỗi %{resource}:"
+        other: "%{count} Lỗi - %{resource}:"
