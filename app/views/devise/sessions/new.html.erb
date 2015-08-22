@@ -16,7 +16,7 @@
         <!-- Sign-in -->      
         <div class="col-md-6 col-sm-6 sign-in">
           <h4 class=""><%= t"Login" %></h4>
-          <p class="">Hello, Welcome to your account.</p>
+          <p class=""><%= t"Hello, Welcome to your account" %>!</p>
           <div class="social-sign-in outer-top-xs">
             <%- resource_class.omniauth_providers.each do |provider| %>
               <% if provider.to_s.titleize == "Facebook" %>
@@ -35,12 +35,10 @@
               <%= f.email_field :email, autofocus: true, class: "form-control unicase-form-control text-input" %>   
             </div>
             <div class="form-group">
-              <div class="field">
-                <%= f.label class: "info-title" do %>
-                  <%= t"Password" %> <span>*</span>
-                <% end %><br/>
-                <%= f.password_field :password, autocomplete: "off", class: "form-control unicase-form-control text-input" %>
-              </div>
+              <%= f.label class: "info-title" do %>
+                <%= t"Password" %> <span>*</span>
+              <% end %><br/>
+              <%= f.password_field :password, autocomplete: "off", class: "form-control unicase-form-control text-input" %>
             </div>
             <div class="radio outer-xs">
               <label class="nopadding">
@@ -55,16 +53,40 @@
 
         <!-- create a new account -->
         <div class="col-md-6 col-sm-6 create-new-account">
-          <h4 class="checkout-subtitle">create a new account</h4>
-          <p class="text title-tag-line">Create your own Unicase account.</p>
-          <form class="register-form outer-top-xs" role="form">
+          <h4 class="checkout-subtitle"><%= t"create a new account" %></h4>
+          <p class="text title-tag-line"><%= t"New Customer? Create an account here" %>.</p>
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: "register-form outer-top-xs"}) do |f| %>
+            <%= devise_error_messages! %>
             <div class="form-group">
-              <label class="info-title" for="exampleInputEmail2">Email Address <span>*</span></label>
-              <input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail2" >
+              <%= f.label class: "info-title" do %>
+                <%= t"Email Address" %> <span>*</span>
+              <% end %><br/>
+              <%= f.email_field :email, autofocus: true, class: "form-control unicase-form-control text-input" %>   
             </div>
-            <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Sign Up</button>
-          </form>
-          <span class="checkout-subtitle outer-top-xs">Sign Up Today And You'll Be Able To :  </span>
+            <% if f.object.password_required? %>
+              <div class="form-group">
+                <%= f.label class: "info-title" do %>
+                  <%= t"Password" %> <span>*</span>
+                <% end %><br/>
+                <% if @minimum_password_length %>
+                  <em>
+                    (<%= @minimum_password_length %> characters minimum)
+                  </em>
+                <% end %><br />
+                <%= f.password_field :password, autocomplete: "off", class: "form-control unicase-form-control text-input" %>
+              </div>
+              <div class="form-group">
+                <%= f.label class: "info-title" do %>
+                  <%= t"Password Confirmation" %> <span>*</span>
+                <% end %><br/>
+                <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control unicase-form-control text-input" %>
+              </div>
+            <% end %>
+            <button type="submit" class="btn-upper btn btn-primary checkout-page-button"><%= t"Sign Up" %></button>
+          <% end %>
+
+          
+          <!-- <span class="checkout-subtitle outer-top-xs">Sign Up Today And You'll Be Able To :  </span>
           <div class="checkbox">
             <label class="checkbox">
               <input type="checkbox" id="speed" value="option1"> Speed your way through the checkout.
@@ -75,7 +97,7 @@
             <label class="checkbox">
               <input type="checkbox" id="keep" value="option3"> Keep a record of all your purchases.
             </label>
-          </div>
+          </div> -->
         </div>  
       </div>
       <%= render "devise/shared/links" %>
