@@ -5204,6 +5204,9 @@ a {
 a.dropdown-toggle{
   text-decoration: none !important;
 }
+
+
+/*# CUSTOM START*/
 .breadcrumb-unstyled{
   background-color: white !important;
 }
@@ -5216,5 +5219,45 @@ a.dropdown-toggle{
 #error_explanation{
   color: red;
   margin-bottom: 30px;
+}
+.product-form .input-name{
+  text-indent: 10px;
+  font-size: 30px;
+  line-height: 45px;
+  letter-spacing: 1px;
+}
+
+.product-form label{
+  color: #777777;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.product-form .char-count{
+  text-align: right;
+  padding-top: 8px;
+  font-size: 12px;
+  color: #999999;
+  display: inline-block;
+  float: right;
+}
+
+.product-form .input-styling{
+  background-color: #fff;
+  color: #777777;
+  border: 1px #b2b2b2 solid;
+  padding: 6px 7px 7px 7px;
+  margin: 0;
+  resize: none;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.product-form .form-group{
+  margin-bottom: 35px;
 }
 

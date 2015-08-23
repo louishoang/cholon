@@ -38,16 +38,21 @@
                   <li><a href="#"><i class="icon fa fa-key"></i>Checkout</a></li> -->
                   <li>
                     <%= link_to destroy_user_session_path, :method => :delete do %>
-                      <i class="icon fa fa-sign-out"></i><%= t"Logout" %>
+                      <i class="icon fa fa-sign-out"></i> <%= t"Logout" %>
                     <% end %>
                   </li>
                 <% else %>
                   <li>
                     <a href="<%= new_user_session_path %>">
-                      <i class="icon fa fa-sign-in"></i><%= t"Login" %>
+                      <i class="icon fa fa-sign-in"></i> <%= t"Login" %>
                     </a>
                   </li>
                 <% end %>
+                <li>
+                  <a href="<%= new_products_path %>">
+                    <i class="fa fa-paper-plane-o"></i> <%= t"Sell An Item" %>
+                  </a>
+                </li>
               </ul>
             </div>
 

@@ -1,4 +1,4 @@
-class ProductsCategories < ActiveRecord::Base
+class ProductsCategory < ActiveRecord::Base
   belongs_to :product
   belongs_to :category
 

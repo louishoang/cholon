@@ -1,4 +1,4 @@
-class Products < ActiveRecord::Base
+class Product < ActiveRecord::Base
   has_many :product_categories
   has_many :categories, through: :product_categories
   belongs_to :user
