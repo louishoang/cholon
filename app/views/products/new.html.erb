@@ -50,6 +50,12 @@
             <%= f.select(:condition, options_for_select(Product.condition_select_option.map{|x| [x.first, x.last]}), {},{class: "form-control unicase-form-control text-input input-styling"}) %>
           </div>
         </div>
+        <div class="form-group">
+          <%= f.label :description, class: "info-title" do %>
+            <%= t"Description" %>: <span>*</span>
+          <% end %>
+          <textarea class="form-control unicase-form-control text-input input-styling wysihtml5" id="product_description" name="product[description]" placeholder="ex: USA Seller - Come with Apple Care - Fast Shipping!!" rows="10" required></textarea>
+        </div>
 
       <% end %>
     </div>
