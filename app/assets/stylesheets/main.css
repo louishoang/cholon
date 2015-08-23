@@ -52,7 +52,7 @@ a {
 body {
   font-size: 13px;
   color: #666666;
-  background-color: #fff;
+  background-color: #f8f8f8 !important;
   overflow-x: hidden;
   margin: 0;
   padding: 0;
@@ -284,7 +284,7 @@ img[src="assets/images/blank.gif"] {
   margin-bottom: 50px;
 }
 .outer-top-bd {
-  margin-top: 50px;
+  margin-top: 20px;
 }
 .inner-bottom-30 {
   padding-bottom: 30px;
@@ -1035,6 +1035,7 @@ a {
 }
 .main-header {
   padding: 50px 0px 60px 0px;
+  background-color: white;
 }
 .main-header .logo-holder {
   margin-top: 10px;
@@ -3084,7 +3085,7 @@ a {
   padding: 0;
 }
 .breadcrumb ul {
-  border-bottom: 1px solid #F2F2F2;
+  border-bottom: 1px solid rgb(230, 228, 228);
   margin: auto;
   padding: 20px 0 10px;
   text-align: right;
@@ -5207,8 +5208,8 @@ a.dropdown-toggle{
 
 
 /*# CUSTOM START*/
-.breadcrumb-unstyled{
-  background-color: white !important;
+.breadcrumb.breadcrumb-unstyled{
+  background-color: #f8f8f8;
 }
 .nopadding{
   padding: 0px !important;
@@ -5259,4 +5260,11 @@ a.dropdown-toggle{
 
 .product-form .form-group{
   margin-bottom: 35px;
+}
+
+.container .form-container{
+  background-color: white;
+  padding: 10px 30px 20px 30px;
+  border-radius: 5px 5px 0 0;
+  border: 1px #dddddd solid;
 }
