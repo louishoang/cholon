@@ -28,14 +28,14 @@
           </div>
           <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "register-form outer-top-xs"}) do |f| %>
             <div class="form-group">
-              <%= f.label class: "info-title" do %>
+              <%= f.label :email, class: "info-title" do %>
                 <%= t"Email Address" %> <span>*</span>
               <% end %>
               <br/>
               <%= f.email_field :email, autofocus: true, required: true, class: "form-control unicase-form-control text-input" %>   
             </div>
             <div class="form-group">
-              <%= f.label class: "info-title" do %>
+              <%= f.label :password, class: "info-title" do %>
                 <%= t"Password" %> <span>*</span>
               <% end %><br/>
               <%= f.password_field :password, autocomplete: "off", required: true, class: "form-control unicase-form-control text-input" %>
@@ -58,14 +58,14 @@
           <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: "register-form outer-top-xs"}) do |f| %>
             <%= devise_error_messages! %>
             <div class="form-group">
-              <%= f.label class: "info-title" do %>
+              <%= f.label :email, class: "info-title" do %>
                 <%= t"Email Address" %> <span>*</span>
               <% end %><br/>
               <%= f.email_field :email, autofocus: true, required: true, class: "form-control unicase-form-control text-input" %>   
             </div>
             <% if f.object.password_required? %>
               <div class="form-group">
-                <%= f.label class: "info-title" do %>
+                <%= f.label :password, class: "info-title" do %>
                   <%= t"Password" %> <span>*</span>
                 <% end %><br/>
                 <% if @minimum_password_length %>
@@ -76,7 +76,7 @@
                 <%= f.password_field :password, autocomplete: "off", required: true, class: "form-control unicase-form-control text-input" %>
               </div>
               <div class="form-group">
-                <%= f.label class: "info-title" do %>
+                <%= f.label :password_confirmation, class: "info-title" do %>
                   <%= t"Password Confirmation" %> <span>*</span>
                 <% end %><br/>
                 <%= f.password_field :password_confirmation, required: true, autocomplete: "off", class: "form-control unicase-form-control text-input" %>
