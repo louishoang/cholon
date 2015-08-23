@@ -1,4 +1,5 @@
 $(function() {
+  // Get paras attributes
   function getUrlParameter(sParam){
     var sPageURL = window.location.search.substring(1);
     var sURLVariables = sPageURL.split('&');
@@ -11,11 +12,19 @@ $(function() {
         }
     }
   };
-
+  // Find language for text editor
   if (getUrlParameter("locale") == "vi_VN"){
-    var wbbOpt = { lang: "vi"};
+    var wbbOptLang = "vi";
   }else{
-    var wbbOpt = { lang: "en"};
+    var wbbOptLang = "en";
   }
+  var wbbOpt = { 
+    lang: wbbOptLang,
+    buttons: "bold,italic,underline,strike,|,img,video,link,|,bullist,numlist,|,fontcolor,fontsize,fontfamily,|,justifyleft,justifycenter,justifyright,|,quote,code,table,removeFormat"
+  };
+
   $(".text-editor").wysibb(wbbOpt);
+
+
+
 })
