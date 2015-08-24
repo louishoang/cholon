@@ -34,27 +34,27 @@
             <% end %>
             <div class="input-group">
               <div class="input-group-addon">$</div>
-              <input type="number" class="form-control unicase-form-control text-input input-styling" name="product[price]" value="" data-tooltip="Product price in USD" data-tooltip-title="Price" data-tooltip-parent=".row-fluid"/>
+              <input type="text" class="form-control unicase-form-control text-input input-styling" name="product[price]" value="" data-tooltip="Product price in USD" data-tooltip-title="Price" data-tooltip-parent=".row-fluid" required/>
             </div>
           </div>
           <div class="form-group col-sm-4">
             <%= f.label :quantity, class: "info-title" do %>
               <%= t"Quantity" %>: <span>*</span>
             <% end %>
-            <input type="number" class="form-control unicase-form-control text-input input-styling" name="product[quantity]" value="" data-tooltip="Total quantity of the products listed under this post" data-tooltip-title="Quantity" data-tooltip-parent=".row-fluid"/>
+            <input type="number" class="form-control unicase-form-control text-input input-styling" name="product[quantity]" value="" data-tooltip="Total quantity of the products listed under this post" data-tooltip-title="Quantity" data-tooltip-parent=".row-fluid" required/>
           </div>
           <div class="form-group col-sm-4">
             <%= f.label :condition, class: "info-title" do %>
               <%= t"Condition" %>: <span>*</span>
             <% end %>
-            <%= f.select(:condition, options_for_select(Product.condition_select_option.map{|x| [x.first, x.last]}), {},{class: "form-control unicase-form-control text-input input-styling"}) %>
+            <%= f.select(:condition, options_for_select(Product.condition_select_option.map{|x| [x.first, x.last]}), {},{required: true, class: "form-control unicase-form-control text-input input-styling"}) %>
           </div>
         </div>
         <div class="form-group" data-tooltip="This is the main content of the post. Be as detailed as possible so buyers will be able to understand if this meets their needs." data-tooltip-title="Description" data-tooltip-parent=".product_description_label">
           <%= f.label :description, class: "info-title product_description_label" do %>
             <%= t"Description" %>: <span>*</span>
           <% end %>
-          <textarea class="form-control unicase-form-control text-input input-styling text-editor" id="product_description" name="product[description]" rows="10" required></textarea>
+          <textarea class="form-control unicase-form-control text-input input-styling text-editor" id="product_description" name="product[description]" rows="10"></textarea>
         </div>
         <div class="form-actions text-center">
           <button type="submit" class="btn-upper btn btn-lg btn-success"><%= t"Save & Preview" %></button>
