@@ -20,11 +20,54 @@ $(function() {
   }
   var wbbOpt = { 
     lang: wbbOptLang,
-    buttons: "bold,italic,underline,strike,|,img,video,link,|,bullist,numlist,|,fontcolor,fontsize,fontfamily,|,justifyleft,justifycenter,justifyright,|,quote,code,table,removeFormat"
+    buttons: "bold,italic,underline,strike,|,img,video,link,|,bullist,numlist,|,fontcolor,fontsize,fontfamily,|,justifyleft,justifycenter,justifyright,|,quote,code,table,removeFormat",
+    traceTextarea: true
   };
 
   $(".text-editor").wysibb(wbbOpt);
 
+  // #form tooltip start
+  $(document).on("focus", "textarea[data-tooltip], input[data-tooltip], div[data-tooltip]", function(e){
+    e.preventDefault();
+    // Find the element that has data-tooltip
+    if ($(e.target).data("tooltip") !== undefined){
+      $this = $(e.target);
+    }else{
+      $this = $($(e.target).parents("[data-tooltip]"));
+    } 
+    
+    // handle wysibb text editor 
+    $toBeAlignWidth = $($this.closest($this.data("tooltip-parent")));
+    if($toBeAlignWidth.size() > 0){
+      $parent = $toBeAlignWidth;
+    }else{
+      $parent = $this.find($this.data("tooltip-parent"));;
+    }
 
+    title = $this.data("tooltip-title");
+    content = $this.data("tooltip");
+    $container = $this.closest(".container");
+    $tooltipPanel = $container.find(".tooltip-panel");
 
+    // if multiple elements are in one row, use position of parent
+    if ($parent.size() > 0){
+      pos = $parent.position();
+      pos["top"] += 25;
+    }else{
+      pos = $this.position();
+    }
+    $tooltipPanel.find(".panel-title").html(title);
+    $tooltipPanel.find(".panel-body").html(content);
+    $tooltipPanel.trigger("showAndPosition", pos);
+  });
+
+  $(".tooltip-panel").on("showAndPosition", function(e, position){
+    e.preventDefault();
+    $(e.target).fadeIn(1000);
+    $(e.target).css({
+      position: "relative",
+      top: position.top + "px"
+    });  
+  });
+  // #form tooltip end
 })

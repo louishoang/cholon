@@ -5268,3 +5268,7 @@ a.dropdown-toggle{
   border-radius: 5px 5px 0 0;
   border: 1px #dddddd solid;
 }
+
+.tooltip-panel{
+  display: none;
+}
