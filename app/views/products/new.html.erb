@@ -34,7 +34,7 @@
               <%= f.label :category, class: "info-title" do %>
                 <%= t"Category" %>: <span>*</span>
               <% end %>
-              <%= top_level_category_select("product[category_id]", nil, {required: true, class: "form-control unicase-form-control text-input input-styling select2class col-sm-4", :include_blank => true}) %>
+              <%= top_level_category_select("product[category_id]", nil, {class: "form-control unicase-form-control text-input input-styling select2class col-sm-4", :include_blank => true}) %>
             </div>
           </div>
         </div>
