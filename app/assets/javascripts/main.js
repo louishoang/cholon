@@ -70,4 +70,7 @@ $(function() {
     });  
   });
   // #form tooltip end
+
+  //select
+  $(".select2class").select2({});
 })
