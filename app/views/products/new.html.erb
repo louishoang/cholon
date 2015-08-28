@@ -34,7 +34,9 @@
               <%= f.label :category, class: "info-title" do %>
                 <%= t"Category" %>: <span>*</span>
               <% end %>
-              <%= top_level_category_select("product[category_id]", nil, {class: "form-control unicase-form-control text-input input-styling select2class col-sm-4", :include_blank => true}) %>
+              <%= top_level_category_select("product[category_id]", nil, {class: "form-control unicase-form-control text-input input-styling select2class multilevel col-sm-4", :include_blank => true, "data-url": sub_category_categories_path}) %>
+            </div>
+            <div class="form-group col-sm-4 spinner-box hide" id="sub_cat_select">
             </div>
           </div>
         </div>

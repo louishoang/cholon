@@ -73,4 +73,22 @@ $(function() {
 
   //select
   $(".select2class").select2({});
+
+  $(document).on("change", ".select2class.multilevel", function(e){
+    selected = $(e.target).val();
+    url = $(e.target).data("url");
+    $subCat = $(e.target).parents(".row-fluid").find("#sub_cat_select");
+    $subCat.removeClass("hide");
+    $subCat.addClass("spinner");
+    
+    $.ajax({
+      type: "GET",
+      url: url,
+      data: {"category_id": selected},
+      success: function(resp){
+        $subCat.html(resp);
+        $subCat.removeClass("spinner spinner-box");
+      }
+    });
+  });
 })

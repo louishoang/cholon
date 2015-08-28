@@ -5,4 +5,10 @@ Rails.application.routes.draw do
   resource :home
 
   resource :products
+
+  resource :categories do 
+    collection do
+      get "sub_category"
+    end
+  end
 end
