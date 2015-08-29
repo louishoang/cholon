@@ -11,10 +11,9 @@ class CategoriesController < ApplicationController
   end
 
   def sub_category
-    @categories = Category.all.order(:name).map{|x| [t("#{x.name}"), x.id]}
-    # @categories = Category.where("parent_id = ?", params[:category_id])
+    @categories = Category.where("parent_id = ?", params[:category_id])
+                    .order(:name).map{|x| [t("#{x.name}"), x.id]}
       
-
     render(:partial => "sub_category.html", :locals => {entities: @categories})
   end
 end

@@ -25,4 +25,95 @@ categories.each do |cat|
   Category.find_or_create_by(name: cat)
 end
 
-# NOTE : write a cat mapper for parent cat
+# Catergory parent_id mapper start
+  #1
+lap_tab_desk = ["Laptops & Tablets", "Desktops & Monitors", "Office Machines",
+                "Computer Parts & Components", "Electronics Accessories",
+                "Video Games & Softwares & DVDs"]
+ltd_parent = Category.find_by_name("Laptops & Tablets & Desktops")
+
+Category.where(:name => lap_tab_desk).update_all(:parent_id => ltd_parent)
+
+  #2
+dig_elc = ["TVs & Videos", "Home Audios & Theaters", "Cameras & Camcorders",
+          "Car Electronics & GPS"]
+dig_elc_parent = Category.find_by_name("Digital Electronics")
+
+Category.where(:name => dig_elc).update_all(:parent_id => dig_elc_parent)
+
+  #3
+other_elc = ["Home Appliances", "Kitchen Appliances", "Commercials Appliances",
+              "Others Machines"] 
+other_elc_parent = Category.find_by_name("Other Electronics")
+
+Category.where(:name => other_elc).update_all(:parent_id => other_elc_parent)
+
+  #4
+
+beauty = ["Makeup", "Skin Care", "Bath & Body", "Lifestyle & Health",
+        "Tools & Accessories"]
+beauty_parent = Category.find_by_name("Beauty")
+
+Category.where(:name => beauty).update_all(:parent_id => beauty_parent)
+
+  #5
+women_fashion = ["Office Attire & Occasional Wear", "Outerwear", "Shirts & Pants",
+                "Women Shoes", "Women Accessories"]
+women_fashion_parent = Category.find_by_name("Womens Fashions")
+
+Category.where(:name => women_fashion).update_all(:parent_id => women_fashion_parent)
+
+  # 6
+men_fashion = ["Men Shirts & Pants", "Men Shoes", "Men Accessories"]
+men_fashion_parent = Category.find_by_name("Mens Fashions")
+
+Category.where(:name => men_fashion).update_all(:parent_id => men_fashion_parent)
+
+  #7
+baby = ["Baby & Kids Sub"]
+baby_parent = Category.find_by_name("Baby & Kids")
+
+Category.where(:name => baby).update_all(:parent_id => baby_parent)
+
+  #8
+trade = ["House For Sale", "House For Rent", "Room For Rent/Share",
+          "Business For Sale", "Cars & Trucks & Motocycles"]
+
+trade_parent = Category.find_by_name("Trade")
+
+Category.where(:name => trade).update_all(:parent_id => trade_parent)
+
+  #9
+jobs = ["Looking To Hire", "Looking For Job"]
+jobs_parent = Category.find_by_name("Jobs")
+
+Category.where(:name => jobs).update_all(:parent_id => jobs_parent)
+
+  #10
+service = ["Services Ads"]
+service_parent = Category.find_by_name("Services")
+
+Category.where(:name => service).update_all(:parent_id => service_parent)
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
