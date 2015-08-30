@@ -1,5 +1,6 @@
 class ProductVariant < ActiveRecord::Base
   belongs_to :product
+  mount_uploaders :photos, PhotoUploader
 
   validates :name, presence: true
   validates :price, presence: true
