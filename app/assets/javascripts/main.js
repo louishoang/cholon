@@ -74,6 +74,7 @@ $(function() {
   //select
   $(".select2class").select2({});
 
+  //selec2 multi level for sub category
   $(document).on("change", ".select2class.multilevel", function(e){
     selected = $(e.target).val();
     url = $(e.target).data("url");
@@ -89,6 +90,33 @@ $(function() {
         $subCat.html(resp);
         $subCat.removeClass("spinner spinner-box");
       }
+    });
+  });
+
+  //modal ajax
+  $(document).on("click", "a[data-toggle='modal-ajax']", function(e){
+    e.preventDefault();
+    debugger;
+    var $target = $(e.target).is("[data-toggle]") ? $(e.target) : $(e.target).parents("[data-toggle]");
+    var $url = $target.attr("href");
+    var $title = $target.attr("title");
+
+    $.get($url, { ajax: true },  function(data){
+      $("#modal-ajax .modal-body").html(data);
+      $("#modal-ajax .modal-header h3").html($title);
+      if ($target.is("[data-size]")) {
+        // remove previous size
+        $("#modal-ajax").removeClass("modal-large modal-xlarge modal-full");
+        // assign new size
+        $("#modal-ajax").addClass("modal-" + $target.data("size"));
+      } else {
+        // reset modal size
+        $("#modal-ajax").removeClass("modal-large modal-xlarge modal-full");
+      }
+      $("#modal-ajax").modal();
+      $("#modal-ajax").on("shown", function(){
+        renderUI("#modal-ajax");
+      });
     });
   });
 });
