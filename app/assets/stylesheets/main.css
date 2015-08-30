@@ -5312,3 +5312,20 @@ a.dropdown-toggle{
   position: relative;
 }
 
+@-moz-document url-prefix() {
+  fieldset { display: table-cell; }
+}
+
+.table-styled thead{
+  background-color: #F5F5F5;
+  color: #555;
+}
+
+.table-styled thead tr th{
+  line-height: 25px;
+  padding: 5px 8px 8px 8px;
+}
+
+.input-small{
+  width: 15% !important;
+}

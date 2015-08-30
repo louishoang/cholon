@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!
+  before_filter :find_product, :only => [:create_variants, :edit, :update, :show]
 
   def index
   end
@@ -10,29 +11,33 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
-    binding.pry
     if @product.save
       if params[:has_variants].present? && params[:has_variants] == true
         #redirect to create variants page
-        format.html { redirect_to products_path, notice: 'Client was successfully created.' }
-        format.json
+        render js: "window.location='#{products_path}'"
       else
-        format.html { redirect_to products_path, notice: 'Client was successfully created.' }
-        format.json
+        render js: "window.location='#{products_path}'"
       end
     else
       respond_to do |format|
         format.json { render json: @product.errors.full_messages.to_sentence, status: :unprocessable_entity }
         format.html { render action: "new" }
-        # format.js{ render json: @product.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def create_variants
+    @product.product_variants.build
   end
 
   private
   def product_params
     params.require(:product).permit(:name, :short_description,
       :price, :stock_quantity, :condition, :description,
-      :user_id, category_ids: [])
+      :user_id, category_ids: [], product_variants_attributes: [:name, :price, :stock_quantity, :condition])
+  end
+
+  def find_product
+    @product = Product.find(params[:id])
   end
 end

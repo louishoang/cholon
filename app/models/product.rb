@@ -8,6 +8,7 @@ class Product < ActiveRecord::Base
   has_many :categories, through: :product_categories
   belongs_to :user
   has_many :product_variants, dependent: :destroy
+  accepts_nested_attributes_for :product_variants, allow_destroy: true
 
   validates :name, presence: true
   validates :name, length: { in: 8..80 }
