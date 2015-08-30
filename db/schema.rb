@@ -20,6 +20,15 @@ ActiveRecord::Schema.define(version: 20150817005243) do
     t.datetime "updated_at"
   end
 
+  create_table "product_categories", force: true do |t|
+    t.integer  "product_id"
+    t.integer  "category_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "product_categories", ["product_id", "category_id"], name: "index_product_categories_on_product_id_and_category_id", unique: true
+
   create_table "product_variants", force: true do |t|
     t.integer  "product_id",                            null: false
     t.boolean  "is_default",                            null: false
@@ -48,15 +57,6 @@ ActiveRecord::Schema.define(version: 20150817005243) do
   end
 
   add_index "products", ["sku"], name: "index_products_on_sku"
-
-  create_table "products_categories", force: true do |t|
-    t.integer  "product_id",  null: false
-    t.integer  "category_id", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "products_categories", ["product_id", "category_id"], name: "index_products_categories_on_product_id_and_category_id", unique: true
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
