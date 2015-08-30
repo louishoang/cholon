@@ -5328,3 +5328,8 @@ a.dropdown-toggle{
 .table-actions{
   text-align: center;
 }
+
+.mfp-content{
+  background-color: #F8F8F8 !important;
+  padding: 10px 10px 30px 10px !important;
+}

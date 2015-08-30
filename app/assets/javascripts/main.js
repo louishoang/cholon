@@ -93,30 +93,11 @@ $(function() {
     });
   });
 
-  //modal ajax
-  $(document).on("click", "a[data-toggle='modal-ajax']", function(e){
-    e.preventDefault();
-    debugger;
-    var $target = $(e.target).is("[data-toggle]") ? $(e.target) : $(e.target).parents("[data-toggle]");
-    var $url = $target.attr("href");
-    var $title = $target.attr("title");
-
-    $.get($url, { ajax: true },  function(data){
-      $("#modal-ajax .modal-body").html(data);
-      $("#modal-ajax .modal-header h3").html($title);
-      if ($target.is("[data-size]")) {
-        // remove previous size
-        $("#modal-ajax").removeClass("modal-large modal-xlarge modal-full");
-        // assign new size
-        $("#modal-ajax").addClass("modal-" + $target.data("size"));
-      } else {
-        // reset modal size
-        $("#modal-ajax").removeClass("modal-large modal-xlarge modal-full");
-      }
-      $("#modal-ajax").modal();
-      $("#modal-ajax").on("shown", function(){
-        renderUI("#modal-ajax");
-      });
-    });
+  $('.ajax-popup-link').magnificPopup({
+    type: 'ajax',
+    cursor: 'mfp-ajax-cur',
+    closeOnBgClick: false,
+    showCloseBtn: true,
+    closeBtnInside: true
   });
 });
