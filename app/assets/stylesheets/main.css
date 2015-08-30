@@ -5325,3 +5325,6 @@ a.dropdown-toggle{
   line-height: 25px;
   padding: 5px 8px 8px 8px;
 }
+.table-actions{
+  text-align: center;
+}

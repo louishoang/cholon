@@ -6,8 +6,7 @@ class CreateProductVariants < ActiveRecord::Migration
       t.string :name, null: false
       t.decimal :price, precision: 10, scale: 2
       t.string :sku
-      t.string :condition
-      t.boolean :availability
+      t.integer :stock_quantity
 
       t.timestamps
     end

@@ -30,13 +30,12 @@ ActiveRecord::Schema.define(version: 20150817005243) do
   add_index "product_categories", ["product_id", "category_id"], name: "index_product_categories_on_product_id_and_category_id", unique: true
 
   create_table "product_variants", force: true do |t|
-    t.integer  "product_id",                            null: false
-    t.boolean  "is_default",                            null: false
-    t.string   "name",                                  null: false
-    t.decimal  "price",        precision: 10, scale: 2
+    t.integer  "product_id",                              null: false
+    t.boolean  "is_default",                              null: false
+    t.string   "name",                                    null: false
+    t.decimal  "price",          precision: 10, scale: 2
     t.string   "sku"
-    t.string   "condition"
-    t.boolean  "availability"
+    t.integer  "stock_quantity"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

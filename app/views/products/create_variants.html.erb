@@ -25,7 +25,6 @@
                 <th><%= t"Photos" %></th>
                 <th><%= t"Name" %></th>
                 <th><%= t"Price" %></th>
-                <th><%= t"Condition" %></th>
                 <th><%= t"Quantity" %></th>
                 <th><%= t"Actions" %></th>
               </thead>
@@ -33,22 +32,21 @@
                 <%= form_for @product, :url => create_variants_product_path(@product), html: {class: "form-vertical register-form outer-top-xs product-form form_ajax", method: "POST", :remote => true} do |f| %>
                   <%= f.fields_for :product_variants do |variants_form| %>
                     <tr>
-                      <td><%= variants_form.options[:child_index] + 1 %></td>
-                      <td>Photo here</td>
-                      <td><%= variants_form.text_field :name, class: "form-control unicase-form-control text-input input-styling"%></td>
+                      <td widht="5%"><%= variants_form.options[:child_index] + 1 %></td>
+                      <td width="30%">Photo here</td>
+                      <td width="35%">
+                        <%= variants_form.text_field :name, class: "form-control unicase-form-control text-input input-styling"%>
+                      </td>
                       <td width="15%">
                         <div class="input-group">
                         <div class="input-group-addon">$</div>
-                          <%= variants_form.number_field :price, class: "form-control unicase-form-control text-input input-styling"%>
+                          <%= variants_form.text_field :price, class: "form-control unicase-form-control text-input input-styling"%>
                         </div>
                       </td>
-                      <td width="20%">
-                        <%= f.select(:condition, options_for_select(Product.condition_select_option.map{|x| [x.first, x.last]}), {},{required: true, class: "form-control unicase-form-control text-input input-styling"}) %>
+                      <td width="10%">
+                        <%= variants_form.number_field :stock_quantity, class: "form-control unicase-form-control text-input input-styling" %>
                       </td>
-                      <td>
-                        1
-                      </td>
-                      <td width="5%">
+                      <td width="5%" class="table-actions">
                         <i class="fa fa-trash"></i>
                       </td>
                     </tr>
