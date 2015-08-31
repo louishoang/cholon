@@ -13,7 +13,7 @@ class ProductPhotosController < ApplicationController
     @product_photo = ProductPhoto.new(product_photo_params)
     if @product_photo.save
       respond_to do |format|
-        format.json{ render :json => @product_photo }
+        format.json{ render :json => @product_photo.to_json }
       end
     else
       respond_to do |format|
