@@ -1,4 +1,4 @@
 <h3>one two three</h3>
-<%= form_for @product_photo, :url => product_photos_path(@product_photo), html: {class: "form-vertical register-form outer-top-xs product-form form_ajax dropzone uploadform", method: :post, :remote => true} do |f| %>
-<%= f.file_field :photos, class: "fileupload", multiple: true %>
+<%= form_for @product_photo, :url => product_photos_path(@product_photo), html: {class: "form-vertical register-form outer-top-xs product-form form_ajax dropzone uploadform", method: :post, :remote => true, multipart: true} do |f| %>
+  <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
 <% end %>

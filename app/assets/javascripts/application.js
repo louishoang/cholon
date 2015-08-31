@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require bootstrap
+//= require dropzone
 //= require_tree .
 $(document).ready(function(){
   toastr.options = {

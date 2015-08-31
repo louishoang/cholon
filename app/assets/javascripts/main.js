@@ -98,6 +98,17 @@ $(function() {
     cursor: 'mfp-ajax-cur',
     closeOnBgClick: false,
     showCloseBtn: true,
-    closeBtnInside: true
+    closeBtnInside: true,
+    callbacks: {
+      elementParse: function(item) {
+        // Function will fire for each target element
+        // "item.el" is a target DOM element (if present)
+        // "item.src" is a source that you may modify
+      },
+       ajaxContentAdded: function() {
+        $(".uploadform").dropzone();
+      }
+    }
   });
+
 });
