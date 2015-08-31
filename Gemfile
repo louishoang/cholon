@@ -35,9 +35,10 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 
-gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
-gem "mini_magick"
+gem "paperclip", "~> 4.3"
+gem 'rmagick', '~> 2.15.3'
 gem "fog"
+gem "fog-aws"
 
 gem 'dotenv-rails', :groups => [:development, :test]
 # Use ActiveModel has_secure_password

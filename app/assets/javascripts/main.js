@@ -106,7 +106,33 @@ $(function() {
         // "item.src" is a source that you may modify
       },
        ajaxContentAdded: function() {
-        $(".uploadform").dropzone();
+        
+
+
+
+          Dropzone.autoDiscover = false;
+ 
+
+          var dropzone = new Dropzone (".dropzone", {
+            maxFilesize: 10, // Set the maximum file size to 256 MB
+            paramName: "product_photo[photo]", // Rails expects the file upload to be something like model[field_name]
+            addRemoveLinks: false, // Don't show remove links on dropzone itself. 
+            headers: {
+              'X-CSRF-Token': $('meta[name="token"]').attr('content')
+            }
+          }); 
+
+          dropzone.on("success", function(file) {
+            debugger;
+          });
+
+
+
+
+
+
+
+
       }
     }
   });
