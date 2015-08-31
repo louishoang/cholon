@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap-sprockets
 //= require_tree .
 $(document).ready(function(){
   toastr.options = {
@@ -36,15 +37,5 @@ $(document).ready(function(){
     toastr.success(xhr.responseText);
   }).on("ajax:error", function(e, xhr, status, error){
     toastr.error(xhr.responseText, "Error");
-  });
-
-
-  $('.fileupload').fileupload({
-    dataType: 'json',
-    done: function (e, data) {
-      $.each(data.result.files, function (index, file) {
-          $('<p/>').text(file.name).appendTo(document.body);
-      });
-    }
   });
 });
