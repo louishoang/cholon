@@ -37,4 +37,14 @@ $(document).ready(function(){
   }).on("ajax:error", function(e, xhr, status, error){
     toastr.error(xhr.responseText, "Error");
   });
+
+
+  $('.fileupload').fileupload({
+    dataType: 'json',
+    done: function (e, data) {
+      $.each(data.result.files, function (index, file) {
+          $('<p/>').text(file.name).appendTo(document.body);
+      });
+    }
+  });
 });
