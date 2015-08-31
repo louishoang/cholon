@@ -39,6 +39,7 @@ gem "paperclip", "~> 4.3"
 gem 'rmagick', '~> 2.15.3'
 gem "fog"
 gem "fog-aws"
+gem 'aws-sdk', '~> 1.6'
 
 gem 'dotenv-rails', :groups => [:development, :test]
 # Use ActiveModel has_secure_password
