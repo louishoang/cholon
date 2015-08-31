@@ -1,4 +1,4 @@
-<h3>one two three</h3>
+<h3><%= t"Product Photo Upload" %></h3>
 <%= form_for(@product_photo, url: product_photos_path, html: { multipart: true, class: "dropzone"}) do |f|  %>
   <div class="fallback">
     <%= f.file_field :photo %><br>
