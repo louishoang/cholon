@@ -24,7 +24,56 @@ $(function() {
     traceTextarea: true
   };
 
-  $(".text-editor").wysibb(wbbOpt);
+  var renderUI = function(){
+    $(".text-editor").wysibb(wbbOpt);
+
+    //select2
+    $(".select2class").select2({});
+
+    var dropZoneExist = $(document).find(".dropzone").size() > 0;
+
+    if (dropZoneExist){
+      $dropZone = $(document).find(".dropzone");
+
+      Dropzone.autoDiscover = false;
+      var dropzone = new Dropzone (".dropzone", {
+        maxFilesize: 10, // Set the maximum file size to 256 MB
+        paramName: "product_photo[photo]", // Rails expects the file upload to be something like model[field_name]
+        addRemoveLinks: false, // Don't show remove links on dropzone itself. 
+        headers: {
+          'X-CSRF-Token': $('meta[name="token"]').attr('content')
+        }
+      }); 
+      dropzone.on("success", function(file) {
+        $input = $(document).find("#product_product_variants_attributes_0_product_photo_ids")
+        resp = jQuery.parseJSON(file.xhr.response);
+        $input.val($input.val() + ',' + resp.id);
+      });
+    }
+
+    // popup modal ajax
+    $('.ajax-popup-link').magnificPopup({
+      type: 'ajax',
+      cursor: 'mfp-ajax-cur',
+      closeOnBgClick: false,
+      showCloseBtn: true,
+      closeBtnInside: true,
+      callbacks: {
+        elementParse: function(item) {
+          // Function will fire for each target element
+          // "item.el" is a target DOM element (if present)
+          // "item.src" is a source that you may modify
+        },
+        ajaxContentAdded: function() {
+          debugger;
+          renderUI();
+        }
+      }
+    });
+  };
+
+  // calling render jquery 
+  renderUI();
 
   // #form tooltip start
   $(document).on("focus", "textarea[data-tooltip], input[data-tooltip], div[data-tooltip]", function(e){
@@ -71,9 +120,6 @@ $(function() {
   });
   // #form tooltip end
 
-  //select
-  $(".select2class").select2({});
-
   //selec2 multi level for sub category
   $(document).on("change", ".select2class.multilevel", function(e){
     selected = $(e.target).val();
@@ -91,36 +137,5 @@ $(function() {
         $subCat.removeClass("spinner spinner-box");
       }
     });
-  });
-
-  $('.ajax-popup-link').magnificPopup({
-    type: 'ajax',
-    cursor: 'mfp-ajax-cur',
-    closeOnBgClick: false,
-    showCloseBtn: true,
-    closeBtnInside: true,
-    callbacks: {
-      elementParse: function(item) {
-        // Function will fire for each target element
-        // "item.el" is a target DOM element (if present)
-        // "item.src" is a source that you may modify
-      },
-      ajaxContentAdded: function() {
-        Dropzone.autoDiscover = false;
-        var dropzone = new Dropzone (".dropzone", {
-          maxFilesize: 10, // Set the maximum file size to 256 MB
-          paramName: "product_photo[photo]", // Rails expects the file upload to be something like model[field_name]
-          addRemoveLinks: false, // Don't show remove links on dropzone itself. 
-          headers: {
-            'X-CSRF-Token': $('meta[name="token"]').attr('content')
-          }
-        }); 
-        dropzone.on("success", function(file) {
-          $input = $(document).find("#product_product_variants_attributes_0_product_photo_ids")
-          resp = jQuery.parseJSON(file.xhr.response);
-          $input.val($input.val() + ',' + resp.id);
-        });
-      }
-    }
   });
 });
