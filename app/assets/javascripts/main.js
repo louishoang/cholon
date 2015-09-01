@@ -33,7 +33,8 @@ $(function() {
     var dropZoneExist = $(document).find(".dropzone").size() > 0;
 
     if (dropZoneExist){
-      $dropZone = $(document).find(".dropzone");
+      $myDropZone = $(document).find(".dropzone");
+      $replaceValue = $($myDropZone.data("replace-value"));;
 
       Dropzone.autoDiscover = false;
       var dropzone = new Dropzone (".dropzone", {
@@ -45,9 +46,10 @@ $(function() {
         }
       }); 
       dropzone.on("success", function(file) {
-        $input = $(document).find("#product_product_variants_attributes_0_product_photo_ids")
         resp = jQuery.parseJSON(file.xhr.response);
-        $input.val($input.val() + ',' + resp.id);
+        if ($replaceValue.size() > 0){
+          $replaceValue.val($replaceValue.val() + ',' + resp.id);
+        }
       });
     }
 
@@ -65,7 +67,6 @@ $(function() {
           // "item.src" is a source that you may modify
         },
         ajaxContentAdded: function() {
-          debugger;
           renderUI();
         }
       }

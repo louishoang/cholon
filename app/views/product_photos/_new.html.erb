@@ -1,6 +1,11 @@
 <h3><%= t"Product Photo Upload" %></h3>
-<%= form_for(@product_photo, url: product_photos_path, html: { multipart: true, class: "dropzone"}) do |f|  %>
+<%= form_for(@product_photo, url: product_photos_path, html: { multipart: true, class: "dropzone", "data-replace-value" => ".product_photo_ids"}) do |f|  %>
   <div class="fallback">
     <%= f.file_field :photo %><br>
   </div>
+  <input type="hidden" class="product_photo_ids" value=""/>
+  <input type="hidden" class="preview_element" value="<%= params[:data_replace_value] %>"/>
 <% end %>
+<div class="form-actions">
+  <a href="javascript;" class="btn-upper btn btn-success save_photos"><%= t"Save Photos" %></a>
+</div>

@@ -5355,3 +5355,7 @@ a.dropdown-toggle{
 .dropzone::after{
   opacity: 0.3;
 }
+
+.form-actions{
+  padding: 15px;
+}
