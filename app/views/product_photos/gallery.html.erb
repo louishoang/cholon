@@ -1,0 +1,24 @@
+<div id="jssor" style="position: relative; top: 0px; left: 0px; width: 600px; height: 300px;">
+  <!-- Slides Container -->
+  <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0px; top: 0px; width: 600px; height: 300px;">
+    <% @product_photos.each do |p| %>
+      <div><img u="image" src="<%= p.photo.url(:original) %>" /></div>
+    <% end %>
+  </div>
+  <span u="arrowleft" class="jssora01l" style="top: 123px; left: 8px;">
+  </span>
+  <!-- Arrow Right -->
+  <span u="arrowright" class="jssora01r" style="top: 123px; right: 8px;">
+  </span>
+  <div u="thumbnavigator" class="jssort01" style="left: 0px; bottom: 0px;">
+            <!-- Thumbnail Item Skin Begin -->
+            <div u="slides" style="cursor: default;">
+                <div u="prototype" class="p">
+                    <div class=w><div u="thumbnailtemplate" class="t"></div></div>
+                    <div class=c></div>
+                </div>
+            </div>
+            <!-- Thumbnail Item Skin End -->
+        </div>
+</div>
+

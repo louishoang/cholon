@@ -19,5 +19,9 @@ Rails.application.routes.draw do
   end
 
   resources :product_variants
-  resources :product_photos
+  resources :product_photos do
+    collection do
+      get 'gallery'
+    end
+  end
 end

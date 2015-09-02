@@ -22,6 +22,10 @@ class ProductPhotosController < ApplicationController
     end
   end
 
+  def gallery
+    @product_photos = ProductPhoto.where(:id => params[:ids].split(","))
+  end
+
   private
 
   def product_photo_params

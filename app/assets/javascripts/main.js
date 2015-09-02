@@ -71,6 +71,32 @@ $(function() {
         }
       }
     });
+
+    //jquery gallery jssor
+    jssorExist = $(document).find("#jssor").size() > 0;
+    if (jssorExist){
+      var options = {
+                $DragOrientation: 3,                                //[Optional] Orientation to drag slide, 0 no drag, 1 horizental, 2 vertical, 3 either, default value is 1 (Note that the $DragOrientation should be the same as $PlayOrientation when $DisplayPieces is greater than 1, or parking position is not 0)
+                $SlideDuration: 500,                                //[Optional] Specifies default duration (swipe) for slide in milliseconds, default value is 500
+
+                $ArrowNavigatorOptions: {                       //[Optional] Options to specify and enable arrow navigator or not
+                    $Class: $JssorArrowNavigator$,              //[Requried] Class to create arrow navigator instance
+                    $ChanceToShow: 2,                               //[Required] 0 Never, 1 Mouse Over, 2 Always
+                    $AutoCenter: 2,                                 //[Optional] Auto center arrows in parent container, 0 No, 1 Horizontal, 2 Vertical, 3 Both, default value is 0
+                    $Steps: 1                                       //[Optional] Steps to go for each navigation request, default value is 1
+                },
+                $ThumbnailNavigatorOptions: {                       //[Optional] Options to specify and enable thumbnail navigator or not
+                    $Class: $JssorThumbnailNavigator$,              //[Required] Class to create thumbnail navigator instance
+                    $ChanceToShow: 2,                               //[Required] 0 Never, 1 Mouse Over, 2 Always
+
+                    $ActionMode: 1,                                 //[Optional] 0 None, 1 act by click, 2 act by mouse hover, 3 both, default value is 1
+                    $SpacingX: 8,                                   //[Optional] Horizontal space between each thumbnail in pixel, default value is 0
+                    $DisplayPieces: 10,                             //[Optional] Number of pieces to display, default value is 1
+                    $ParkingPosition: 360                           //[Optional] The offset position to park thumbnail
+                }
+            };
+      var jssor_slider1 = new $JssorSlider$('jssor', options);
+    }
   };
 
   // calling render jquery 
@@ -136,6 +162,37 @@ $(function() {
       success: function(resp){
         $subCat.html(resp);
         $subCat.removeClass("spinner spinner-box");
+      }
+    });
+  });
+
+  $(document).on("click", ".save_photos", function(e){
+    $this = $(e.target).hasClass("save_photos") ? $(e.target) : $(e.target).closest(".save_photos");
+    $save = $($this.data("save-what"));
+    $saveTo = $($this.data("save-to"));
+
+    if ($save.val().length > 0){
+      // turn value into array of ids
+      saveValue = $save.val().split(",");
+      saveValue.shift();
+      $saveTo.val("[" + saveValue + "]").trigger('change');;
+    }
+
+    //close popup
+    var magnificPopup = $.magnificPopup.instance;
+    magnificPopup.close();
+  });
+
+  $(".photo_preview_list").on("change", function(e){
+    $appendTo = $(e.target).closest("td");
+    ids = $(e.target).val().replace("[", "").replace("]", "");
+
+    $.ajax({
+      type: "GET",
+      url: "/product_photos/gallery",
+      data: {ids: ids},
+      success: function(resp){
+        debugger;
       }
     });
   });

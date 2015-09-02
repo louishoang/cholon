@@ -35,9 +35,9 @@
                     <tr>
                       <td widht="5%"><%= row_index + 1 %></td>
                       <td width="30%">
-                        <% klass = ".variant_photo_ids_#{row_index}" %> <!-- css class to find which element to append photo after uploading-->
-                        <a href="<%= new_product_photo_path(data_replace_value: klass) %>" class="ajax-popup-link"><%= t"Upload photos" %></a>
-                        <%= variants_form.hidden_field :product_photo_ids, class: klass %>
+                        <% klass = "variant_photo_ids_#{row_index}" %> <!-- css class to find which element to append photo after uploading-->
+                        <a href="<%= new_product_photo_path(data_replace_value: "." + klass) %>" class="ajax-popup-link"><%= t"Upload photos" %></a>
+                        <%= variants_form.hidden_field :product_photo_ids, class: "#{klass} photo_preview_list"%>
                       </td>
                       <td width="35%">
                         <%= variants_form.text_field :name, class: "form-control unicase-form-control text-input input-styling"%>
@@ -52,7 +52,7 @@
                         <%= variants_form.number_field :stock_quantity, class: "form-control unicase-form-control text-input input-styling" %>
                       </td>
                       <td width="5%" class="table-actions">
-                        <i class="fa fa-trash"></i>
+                        <i class="fa fa-trash fa-lg"></i>
                       </td>
                     </tr>
                   <% end %>
@@ -60,7 +60,7 @@
               </tbody>
             </table>
             <div class="form-actions">
-              <button type="submit" class="btn-upper btn btn-lg btn-success pull-right"><%= t"Submit" %></button>
+              <button type="submit" class="btn-upper btn btn-success pull-right"><%= t"Submit" %></button>
             </div>
           </div>
         </div>
