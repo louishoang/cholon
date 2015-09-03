@@ -23,9 +23,7 @@
               <thead>
                 <th>#</th>
                 <th><%= t"Photos" %></th>
-                <th><%= t"Name" %></th>
-                <th><%= t"Price" %></th>
-                <th><%= t"Quantity" %></th>
+                <th><%= t"Variant Details" %></th>
                 <th><%= t"Actions" %></th>
               </thead>
               <tbody>
@@ -33,25 +31,35 @@
                   <%= f.fields_for :product_variants do |variants_form| %>
                    <% row_index = variants_form.options[:child_index] %>
                     <tr>
-                      <td widht="5%"><%= row_index + 1 %></td>
-                      <td width="30%">
+                      <td widht="10%"><%= row_index + 1 %></td>
+                      <td width="40%">
+                        <div class="gallery-ajax"></div>
                         <% klass = "variant_photo_ids_#{row_index}" %> <!-- css class to find which element to append photo after uploading-->
                         <a href="<%= new_product_photo_path(data_replace_value: "." + klass) %>" class="ajax-popup-link"><%= t"Upload photos" %></a>
                         <%= variants_form.hidden_field :product_photo_ids, class: "#{klass} photo_preview_list"%>
                       </td>
-                      <td width="35%">
-                        <%= variants_form.text_field :name, class: "form-control unicase-form-control text-input input-styling"%>
-                      </td>
-                      <td width="15%">
-                        <div class="input-group">
-                        <div class="input-group-addon">$</div>
-                          <%= variants_form.text_field :price, class: "form-control unicase-form-control text-input input-styling"%>
+                      <td width="40%">
+                        <div class="form-group">
+                          <label for="exampleInputEmail1"><%= t"Name" %></label>
+                          <%= variants_form.text_field :name, class: "form-control unicase-form-control text-input input-styling"%>
+                        </div>
+                      
+                        <div class="col-xs-12 nopadding">
+                          <div class="form-group col-xs-12 col-md-6 nopadding">
+                            <label for="exampleInputEmail1"><%= t"Price" %></label>
+                            <div class="input-group">
+                              <div class="input-group-addon">$</div>
+                              <%= variants_form.text_field :price, class: "form-control unicase-form-control text-input input-styling"%>
+                            </div>
+                          </div>
+
+                          <div class="form-group col-xs-12 col-md-6">
+                            <label for="exampleInputEmail1"><%= t"Quantity" %></label>
+                            <%= variants_form.number_field :stock_quantity, class: "form-control unicase-form-control text-input input-styling" %>
+                          </div>
                         </div>
                       </td>
-                      <td width="10%">
-                        <%= variants_form.number_field :stock_quantity, class: "form-control unicase-form-control text-input input-styling" %>
-                      </td>
-                      <td width="5%" class="table-actions">
+                      <td width="10%" class="table-actions">
                         <i class="fa fa-trash fa-lg"></i>
                       </td>
                     </tr>

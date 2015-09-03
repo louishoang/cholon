@@ -24,6 +24,7 @@ class ProductPhotosController < ApplicationController
 
   def gallery
     @product_photos = ProductPhoto.where(:id => params[:ids].split(","))
+    render :partial => "/product_photos/gallery.html", locals: {:entities => @product_photos}
   end
 
   private
