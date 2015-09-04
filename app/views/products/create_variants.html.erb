@@ -30,13 +30,13 @@
                 <%= form_for @product, :url => create_variants_product_path(@product), html: {class: "form-vertical register-form outer-top-xs product-form form_ajax", method: "POST", :remote => true} do |f| %>
                   <%= f.fields_for :product_variants do |variants_form| %>
                    <% row_index = variants_form.options[:child_index] %>
-                    <%= render "/products/entity.html", row_index: row_index, :variants_form => variants_form %>
+                    <%= render :partial => "/product_variants/entity.html", row_index: row_index, :variants_form => variants_form %>
                   <% end %>
                 <% end %>
               </tbody>
             </table>
-            <div class="pull-right">
-              <a href="javascript:;" class="clone_product_variant_form" data-url="<%= clone_form_product_variants_path %>"><%= t("Add Variant")  %></a>
+            <div class="text-right table-bott-right">
+              <a href="javascript:;" class="clone_product_variant_form" data-url="<%= clone_form_product_variants_path %>"><i class="fa fa-plus"></i>&nbsp;&nbsp;<%= t("Add More Variant")  %></a>
             </div>
             <div class="form-actions">
               <button type="submit" class="btn-upper btn btn-success pull-right"><%= t"Submit" %></button>

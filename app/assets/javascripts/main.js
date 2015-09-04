@@ -212,4 +212,8 @@ $(function() {
       }
     });
   });
+
+  $(document).on("click", ".remove-row", function(e){
+    $(e.target).parents("tr").remove();
+  });
 });
