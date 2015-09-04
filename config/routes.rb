@@ -18,7 +18,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :product_variants
+  resources :product_variants do
+    collection do 
+      get 'clone_form'
+    end
+  end
+  
   resources :product_photos do
     collection do
       get 'gallery'

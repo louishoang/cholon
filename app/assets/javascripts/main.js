@@ -197,4 +197,19 @@ $(function() {
       }
     });
   });
+
+  $(document).on("click", ".clone_product_variant_form", function(e){
+    //find index of next row by counting number of row in table - 1(header)
+    index = $("#table-product-variants tr").length - 1;
+    url = $(this).data("url");
+    $.ajax({
+      type: "GET",
+      url: url,
+      data: {index: index},
+      success: function(resp){
+        $("#table-product-variants").append(resp)
+        renderUI();
+      }
+    });
+  });
 });
