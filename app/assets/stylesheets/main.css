@@ -5269,6 +5269,10 @@ a.dropdown-toggle{
   border: 1px #dddddd solid;
 }
 
+.container .form-container.padding-top{
+  padding-top: 35px;
+}
+
 .tooltip-panel{
   display: none;
 }

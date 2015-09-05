@@ -23,4 +23,17 @@ class Product < ActiveRecord::Base
     [CONDITION_REFURBISHED, CONDITION_REFURBISHED],
     [CONDITION_FOR_PART_OR_NOT_WORKING, CONDITION_FOR_PART_OR_NOT_WORKING]]
   end
+
+  def create_default_variant
+    if self.product_variants.blank?
+      variant = ProductVariant.new()
+      variant.product_id = self.id
+      variant.is_default = true
+      variant.name = self.name
+      variant.price = self.price
+      variant.stock_quantity = self.stock_quantity
+      variant.save
+      return variant
+    end
+  end
 end

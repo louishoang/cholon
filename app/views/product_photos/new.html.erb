@@ -1,1 +1,30 @@
-new.html.erb
+<div class="breadcrumb breadcrumb-unstyled">
+  <div class="container">
+    <div class="breadcrumb-inner">
+      <ul class="list-inline list-unstyled nopadding">
+        <li><a href="/"><%= t"Home" %></a></li>
+        <li class=""><%= t"Sell An Item" %></li>
+        <li class=""><%= t"Create Product Variants" %></li>
+        <li class="active"><%= t"Product Photo Upload" %></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="body-content outer-top-bd">
+  <div class="container">
+    <div class="col-sm-12 nopadding">
+      <h2><%= t"Product Photo Upload" %></h2>
+    </div>
+    <div class="col-md-12 col-sm-12 form-container padding-top">
+      <%= form_for(@product_photo, url: product_photos_path(product_variant_id: params[:product_variant_id]), html: { multipart: true, class: "dropzone" }) do |f|  %>
+        <div class="fallback">
+          <%= f.file_field :photo %><br>
+        </div>
+      <% end %>
+      <div class="form-actions">
+        <a href="<%= products_path %>" class="btn-upper btn btn-success pull-right"><%= t"Save & Done" %></a>
+      </div>
+    </div>
+  </div>
+</div>

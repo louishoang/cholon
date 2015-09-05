@@ -13,6 +13,7 @@ class ProductPhotosController < ApplicationController
   end
 
   def create
+    binding.pry
     @product_photo = ProductPhoto.new(product_photo_params)
     if @product_photo.save
       respond_to do |format|
@@ -33,6 +34,6 @@ class ProductPhotosController < ApplicationController
   private
 
   def product_photo_params
-    params.require(:product_photo).permit(:photo)
+    params.require(:product_photo).permit(:photo, :product_variant_id)
   end
 end
