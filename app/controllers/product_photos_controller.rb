@@ -6,7 +6,10 @@ class ProductPhotosController < ApplicationController
 
   def new
     @product_photo = ProductPhoto.new
-    render :partial => "new.html"
+    if params[:popup].present?
+      render :partial => "new.html"
+    else
+    end
   end
 
   def create

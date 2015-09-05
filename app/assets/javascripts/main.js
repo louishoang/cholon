@@ -1,4 +1,8 @@
 $(function() {
+   $(document).ready(function(){
+      $('.dropdown-toggle').dropdown()
+    });
+
   // Get paras attributes
   function getUrlParameter(sParam){
     var sPageURL = window.location.search.substring(1);

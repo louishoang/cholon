@@ -14,7 +14,7 @@ class ProductsController < ApplicationController
     if @product.save
       if params[:has_variants].present? && params[:has_variants] == true
         #redirect to create variants page
-        render js: "window.location='#{products_path}'"
+        render js: "window.location='#{new_product_photo_path(product: @product)}'"
       else
         render js: "window.location='#{products_path}'"
       end
