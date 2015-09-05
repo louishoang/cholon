@@ -41,14 +41,13 @@ ActiveRecord::Schema.define(version: 20150831045558) do
 
   create_table "product_variants", force: true do |t|
     t.integer  "product_id",                              null: false
-    t.boolean  "is_default",                              null: false
+    t.boolean  "is_default"
     t.string   "name",                                    null: false
     t.decimal  "price",          precision: 10, scale: 2
     t.string   "sku"
     t.integer  "stock_quantity"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "images"
   end
 
   create_table "products", force: true do |t|

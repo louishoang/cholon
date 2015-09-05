@@ -5360,23 +5360,17 @@ a.dropdown-toggle{
   padding: 15px;
 }
 
-.jssor_product_photos{
-  position: relative;
-  top: 0px;
-  left: 0px;
-  width: 300px;
-  height: 200px;
-}
-
-.jssor_product_photos .jssor-slides{
-  cursor: move;
-  position: absolute;
-  overflow: hidden;
-  left: 0px;
-  top: 0px;
-  width: 300px;
-  height: 200px;
-}
 .gallery-ajax{
   margin-bottom: 10px;
+}
+
+@media only screen and (min-width : 768px) {
+  .padding-lg-only{
+    padding: 0px;
+  }
+}
+
+.gallery{
+  width: 300px !important;
+  height: 200px !important; 
 }
