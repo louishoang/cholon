@@ -3,6 +3,7 @@ class ProductsController < ApplicationController
   before_filter :find_product, :only => [:create_variants, :edit, :update, :show]
 
   def index
+    @products = Product.join_all
   end
 
   def new

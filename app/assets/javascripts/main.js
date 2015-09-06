@@ -83,14 +83,16 @@ $(function() {
       "transition":"moveToLeft_moveFromRight",
       "transitionCols":"1",
       "transitionRows":"1",
-      "thumbnailsPosition":"right",
+      "thumbnailsPosition":"bottom",
       "thumbType":"image",
       "width": '200px',
       "height": "200px",
-      "mode": 'slider'
+      "mode": 'slider',
+      "browserHistory": true,
+      "thumbHeight": 30,
+      "thumbWidth": 30,
+      "slideshow": false,
     });
-
-
   };
 
   $(document).on("renderUI", function(e, context){

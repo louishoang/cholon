@@ -1,0 +1,30 @@
+<div class="breadcrumb breadcrumb-unstyled">
+  <div class="container">
+    <div class="breadcrumb-inner">
+      <ul class="list-inline list-unstyled nopadding">
+        <li><a href="/"><%= t"Home" %></a></li>
+        <li class=""><%= t"Sell An Item" %></li>
+        <li class=""><%= t"Create Product Variants" %></li>
+        <li class="active"><%= t"Product Photo Upload" %></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="body-content outer-top-bd">
+  <div class="container-fluid">
+    <div class="col-md-2">
+      filter here
+    </div>
+    <div class="col-md-10 col-sm-12">
+      <div class="col-md-10 col-sm-12 showroom-container">
+        <% if @products.present? %>
+          <%= render partial: "entity.html", collection: @products, :locals => { view_mode: :showroom } %>
+        <% end %>
+      </div>
+      <div class="col-md-2">
+        ads here
+      </div>
+    </div>
+  </div>
+</div>

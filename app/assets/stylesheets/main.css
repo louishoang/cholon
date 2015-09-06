@@ -603,6 +603,24 @@ a {
 .product .cart .action ul li.add-cart-button .btn-primary.icon:focus {
   background: #0b816a;
 }
+
+.showroom-container .product{
+}
+
+.showroom-container .product .product-info{
+  background-color: #f2f2f2;
+  padding: 1px 1px 1px 8px;
+  width: 100%;
+}
+
+.showroom-container .product .product-image .image img{
+  width: 100%;
+}
+
+.showroom-container .product .top:hover{
+  box-shadow: 0 1px 3px rgba(0,0,0,.3);
+}
+
 .tag.sale {
   background: #abd07e;
 }
@@ -5271,6 +5289,16 @@ a.dropdown-toggle{
 
 .container .form-container.padding-top{
   padding-top: 35px;
+}
+
+.container-fluid .showroom-container{
+  background-color: white;
+  padding: 10px 30px 20px 30px;
+  border-radius: 3px;
+  border: 1px #dddddd solid;
+  box-shadow: 4px 4px 1px #EEE;
+  height: 100%;
+  overflow:hidden;
 }
 
 .tooltip-panel{

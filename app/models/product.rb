@@ -17,6 +17,12 @@ class Product < ActiveRecord::Base
   validates :stock_quantity, presence: true
   validates :user_id, presence: true
 
+  scope :join_all, lambda{ |*args|
+    select("DISTINCT products.*")
+    .joins("LEFT OUTER JOIN product_variants ON products.id = product_variants.product_id")
+    .joins("LEFT OUTER JOIN product_categories ON products.id = product_categories.product_id")
+  }
+
   def self.condition_select_option
     [[CONDITION_NEW, CONDITION_NEW],
     [CONDITION_USED, CONDITION_USED],
@@ -35,5 +41,13 @@ class Product < ActiveRecord::Base
       variant.save
       return variant
     end
+  end
+
+  def default_variant
+    variant = self.product_variants.default_variant rescue nil
+    if variant.blank?
+      variant = self.product_variants.first
+    end
+    variant
   end
 end
