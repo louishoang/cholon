@@ -14,7 +14,10 @@
 
 $(function() {
    $(document).ready(function(){
-      $('.dropdown-toggle').dropdown()
+      $('.dropdown-toggle').dropdownHover({
+        delay: 0,
+        hoverDelay: 300
+      });
     });
 
   // Find language for text editor

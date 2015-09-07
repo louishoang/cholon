@@ -5443,3 +5443,12 @@ span.ratenup{
 .filter-link span:hover{
   color: #F47555;
 }
+
+.searchby{
+  padding: 0px 10px 0px 10px;
+  color: #555;
+}
+
+.search-area .searchby-menu{
+  padding: 10px 0px 0px 10px;
+}

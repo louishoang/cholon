@@ -88,17 +88,13 @@
             <div class="search-area">
               <form>
                 <div class="control-group">
-                  <ul class="categories-filter animate-dropdown nomargin">
-                    <li class="dropdown">
-                      <a href="/" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <%= t :categories %>
-                        <span class="caret"></span>
-                      </a>
-                      <ul class="dropdown-menu" role="menu" >
-                        <li class="menu-header"><%= t :computer %></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="category.html">- Laptops</a></li>
-                      </ul>
-                    </li>
+                  <a href="/" role="button" class="categories-filter animate-dropdown nomargin dropdown-toggle searchby" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <%= t :categories %>
+                    <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu searchby-menu" role="menu" >
+                    <li class="menu-header"><%= t :computer %></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="category.html">- Laptops</a></li>
                   </ul>
                   <input class="search-field" placeholder="" />
                   <a class="search-button" href="#" ></a>
@@ -182,7 +178,7 @@
                     <a href="/"><%= t"Home" %></a>
                   </li>
                   <li class="dropdown yamm">
-                    <a href="#" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown"><%= t"Electronics & Computers" %></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= t"Electronics & Computers" %></a>
                     <ul class="dropdown-menu">
                       <li>
                         <div class="yamm-content">
@@ -224,7 +220,7 @@
                     </ul>
                   </li>
                   <li class="dropdown">
-                    <a href="#" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown"><%= t"Fashions & Beauty" %>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= t"Fashions & Beauty" %>
                       <span class="menu-label hot-menu hidden-xs">Hot</span>
                     </a>
                     <ul class="dropdown-menu">
@@ -273,7 +269,7 @@
                     </ul>
                   </li>
                   <li class="dropdown hidden-sm">
-                    <a href="catgory.html" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">
+                    <a href="catgory.html" class="dropdown-toggle" data-toggle="dropdown">
                       <!-- <span class="menu-label new-menu hidden-xs">new</span> -->
                       <%= t("Classified Ads") %>
                     </a>
