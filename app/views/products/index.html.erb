@@ -11,7 +11,7 @@
   </div>
 </div>
 
-<div class="body-content outer-top-bd">
+<div class="body-content neg-m-t-20">
   <div class="container-fluid">
     <div class="col-md-2 sidebar nopadding">
       <h3 class="section-title"><%= t"Filter By" %></h3>
@@ -53,7 +53,7 @@
               <input type="text" class="price-slider" data-min="200.00" data-max="800.00" data-value="200.00, 800.00">
             </div>
             <div class="text-right">
-              <a href="#" class="lnk btn btn-primary"><%= t"Show Now" %></a>
+              <a href="#" class="lnk btn btn-lime"><%= t"Show Now" %></a>
             </div>
           </div>
         </div>
@@ -92,7 +92,7 @@
                 <a href="<%= url_no_location %>">
                   <label>
                     <input type="checkbox" id="item_location" name="location" value="" class="checkbox-as-link" <%= 'checked' unless params[:location].present? %>/>&nbsp;&nbsp;
-                    <%= t"Anywhere" %>
+                    <%= t"United States" %>
                   </label>
                 </a>
               </li>
@@ -109,7 +109,7 @@
                     </div>
                   </div>
                   <div class="row-fluid text-right m-t-20">
-                    <button type="submit" class="btn btn-primary"><%= t"Show Now"%></button>
+                    <button type="submit" class="btn btn-lime"><%= t"Show Now"%></button>
                   </div>
                 </form>
               </li>
@@ -140,13 +140,48 @@
         </div>
       </div>
     </div>
+
+    <!-- Middle panel start -->
     <div class="col-md-10 col-sm-12">
-      <div class="col-md-10 col-sm-12 showroom-container">
-        <% if @products.present? %>
-          <%= render partial: "entity.html", collection: @products, :locals => { view_mode: :showroom } %>
-        <% end %>
+      <div class="col-md-10 col-sm-12">
+        <div class="col-sm-12 col-md-12 filters-container text-right">
+          <div class="col col-sm-6 col-md-10 nopadding">
+            <div class="lbl-cnt">
+              <span class="lbl"><%= t"Sort by" %>:</span>
+              <div class="fld inline">
+                <div class="dropdown dropdown-small dropdown-med dropdown-white inline">
+                  <button data-toggle="dropdown" type="button" class="btn dropdown-toggle btn-sort-by">
+                    <%= t"Best Match" %> <span class="caret"></span>
+                  </button>
+                  <ul role="menu" class="dropdown-menu">
+                    <li role="presentation"><a href="#"><%= t"Best Match" %></a></li>
+                    <li role="presentation"><a href="#"><%= t"Price: Lowest first" %></a></li>
+                    <li role="presentation"><a href="#"><%= t"Price: Highest first" %></a></li>
+                    <li role="presentation"><a href="#"><%= t"Item Location: Nearest first " %></a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col col-sm-6 col-md-2 text-right gridlist">
+            <div class="filter-tabs">
+              <ul id="filter-tabs" class="nav nav-tabs nav-tab-box nav-tab-fa-icon">
+                <li class="<%= 'active' if params[:gl] == 'grid' || params[:gl].blank? %>">
+                  <a href="<%= url_for(params.merge({:gl => 'grid'})) %>"><i class="icon fa fa-th-list"></i>Grid</a>
+                </li>
+                <li class="<%= 'active' if params[:gl] == 'list'%>"><a href="<%= url_for(params.merge({:gl => 'list'})) %>"><i class="icon fa fa-th"></i>List</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12 showroom-container">
+          <% gl = params[:gl] || "grid" %> <!-- grid or list view-->
+          <% if @products.present? %>
+            <%= render partial: "entity.html", collection: @products, :locals => { view_mode: :showroom, gl: gl } %>
+          <% end %>
+        </div>
       </div>
-      <div class="col-md-2 ads-right">
+      <div class="col-md-2 ads-right m-t-15">
         <img src="http://www.detourdesign.com/misc/120x600banner1.jpg"/>
       </div>
     </div>
