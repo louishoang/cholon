@@ -1,9 +1,4 @@
-$(function() {
-   $(document).ready(function(){
-      $('.dropdown-toggle').dropdown()
-    });
-
-  // Get paras attributes
+// Get paras attributes
   function getUrlParameter(sParam){
     var sPageURL = window.location.search.substring(1);
     var sURLVariables = sPageURL.split('&');
@@ -16,6 +11,12 @@ $(function() {
         }
     }
   };
+
+$(function() {
+   $(document).ready(function(){
+      $('.dropdown-toggle').dropdown()
+    });
+
   // Find language for text editor
   if (getUrlParameter("locale") == "vi_VN"){
     var wbbOptLang = "vi";
@@ -29,11 +30,23 @@ $(function() {
   };
 
   var renderUI = function(cx){
+    //lazy load
+    echo.init({
+      offset: 100,
+      throttle: 250,
+      unload: false,
+      callback: function (element, op) {
+      }
+    });
+
+    echo.render();
+
     $(".text-editor", cx).wysibb(wbbOpt);
 
     //select2
     $(".select2class", cx).select2({});
 
+    //image upload dropzone
     var dropZoneExist = $(cx).find(".dropzone").size() > 0;
 
     if (dropZoneExist){
@@ -78,7 +91,6 @@ $(function() {
       }
     });
 
-    
     $('.gallery', cx ).jGallery({
       "transition":"moveToLeft_moveFromRight",
       "transitionCols":"1",
@@ -217,4 +229,38 @@ $(function() {
   $(document).on("click", ".remove-row", function(e){
     $(e.target).parents("tr").remove();
   });
+
+  //price range slider
+  if ($(".price-slider") !== []){
+    min = parseFloat($(".price-slider").data("min"));
+    max = parseFloat($(".price-slider").data("max"));
+    $( ".price-slider" ).slider({
+      range: true,
+      min: min,
+      max: max,
+      value: [min, max],
+      tooltip: 'hide',
+    }).on("slide", function( event, ui ) {
+      $holder = $(this).closest(".price-range-holder");
+      $holder.find(".min").text("$" + event.value[0].toFixed(2));
+      $holder.find(".max").text("$" + event.value[1].toFixed(2));
+   });
+  }
+
+  $(".filter-params").on("click", function(e){
+    urlOnChecked = $(this).data("checked-url");
+    urlOnUnchecked = $(this).data("unchecked-url");
+
+    // when clicked element is a div
+    isSelectedValue = $(this).is("div") && getUrlParameter("rating") === undefined && $(this).data("rateit-value") + "Up";
+    // when clicked element is a checkbox
+    isChecked = $(this).is(":checked") && $(this).is("input");
+
+    if(isChecked || isSelectedValue){
+      window.location.href = urlOnChecked;
+    }else{
+      window.location.href = urlOnUnchecked;
+    }
+    $(e.target)
+  })
 });

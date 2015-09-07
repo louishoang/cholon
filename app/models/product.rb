@@ -21,6 +21,7 @@ class Product < ActiveRecord::Base
     select("DISTINCT products.*")
     .joins("LEFT OUTER JOIN product_variants ON products.id = product_variants.product_id")
     .joins("LEFT OUTER JOIN product_categories ON products.id = product_categories.product_id")
+    .joins("LEFT OUTER JOIN categories ON product_categories.category_id = categories.id")
   }
 
   def self.condition_select_option
@@ -28,6 +29,10 @@ class Product < ActiveRecord::Base
     [CONDITION_USED, CONDITION_USED],
     [CONDITION_REFURBISHED, CONDITION_REFURBISHED],
     [CONDITION_FOR_PART_OR_NOT_WORKING, CONDITION_FOR_PART_OR_NOT_WORKING]]
+  end
+
+  def self.condition_array
+    [CONDITION_NEW, CONDITION_USED, CONDITION_REFURBISHED, CONDITION_FOR_PART_OR_NOT_WORKING]
   end
 
   def create_default_variant

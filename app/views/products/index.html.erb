@@ -13,8 +13,70 @@
 
 <div class="body-content outer-top-bd">
   <div class="container-fluid">
-    <div class="col-md-2">
-      filter here
+    <div class="col-md-2 sidebar nopadding">
+      <h3 class="section-title"><%= t"Filter By" %></h3>
+      <!-- Filter by condition -->
+      <div class="sidebar-module-container">
+        <div class="sidebar-widget outer-bottom-xs wow fadeInUp">
+          <div class="widget-header">
+            <h4 class="widget-title"><%= t"Condition" %></h4>
+          </div>
+          <div class="sidebar-widget-body m-t-20">
+            <ul>
+              <% Product.condition_array.each do |condition| %>
+                <% url_on_checked = url_for(params.merge({:condition => condition})) %>
+                <% url_on_unchecked = url_for(params.except(:condition)) %>
+                <li>
+                  <label>
+                    <input data-checked-url="<%= url_on_checked %>" data-unchecked-url="<%= url_on_unchecked %>" type="checkbox" id="<%= condition %>" name="condition" value="New" class="filter-params" <%= 'checked' if params[:condition] == condition %>/>&nbsp;&nbsp;
+                    <%= condition %>
+                  </label>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- Filter by price range -->
+      <div class="sidebar-module-container">
+        <div class="sidebar-widget outer-bottom-xs wow fadeInUp">
+          <div class="widget-header">
+            <h4 class="widget-title"><%= t"Price Range" %></h4>
+          </div>
+          <div class="sidebar-widget-body m-t-20">
+            <div class="price-range-holder">
+              <span class="min-max">
+                <span class="min pull-left">$200.00</span>
+                <span class="max pull-right">$800.00</span>
+              </span>
+              <input type="hidden" class="amount">
+              <input type="text" class="price-slider" data-min="200.00" data-max="800.00" data-value="200.00, 800.00">
+            </div>
+            <a href="#" class="lnk btn btn-primary"><%= t"Show Now" %></a>
+          </div>
+        </div>
+      </div>
+      <!-- Filter by seller rating -->
+      <div class="sidebar-module-container">
+        <div class="sidebar-widget outer-bottom-xs wow fadeInUp">
+          <div class="widget-header">
+            <h4 class="widget-title"><%= t"Seller Ratings" %></h4>
+          </div>
+          <div class="sidebar-widget-body m-t-20">
+            <ul>
+              <% [4, 3, 2, 1].each do |number| %>
+                <li>
+                  <% url_rating = url_for(params.merge({:rating => number.to_s + "Up"})) %>
+                  <% url_no_rating = url_for(params.except(:rating)) %>
+                  <label class="filter-link">
+                    <div class="filter-params rateit <%= 'selected' if params[:rating] == number.to_s + "Up" %>" data-rateit-value="<%=number %>" data-rateit-ispreset="true" data-rateit-readonly="true" data-checked-url="<%= url_rating %>" data-unchecked-url="<%= url_no_rating %>"><span class="ratenup"><%= t"& Up" %></span></div>
+                  </label>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="col-md-10 col-sm-12">
       <div class="col-md-10 col-sm-12 showroom-container">
@@ -22,8 +84,8 @@
           <%= render partial: "entity.html", collection: @products, :locals => { view_mode: :showroom } %>
         <% end %>
       </div>
-      <div class="col-md-2">
-        ads here
+      <div class="col-md-2 ads-right">
+        <img src="http://www.detourdesign.com/misc/120x600banner1.jpg"/>
       </div>
     </div>
   </div>

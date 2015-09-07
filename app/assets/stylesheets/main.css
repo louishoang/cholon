@@ -617,12 +617,15 @@ a {
   width: 100%;
 }
 
-.showroom-container .product .top:hover{
+.showroom-container .product .top{
   box-shadow: 0 1px 3px rgba(0,0,0,.3);
 }
 
 .tag.sale {
   background: #abd07e;
+}
+.tag.used {
+  background: #F47555;
 }
 .copyright-bar .copyright a {
   color: #12cca7;
@@ -5293,12 +5296,16 @@ a.dropdown-toggle{
 
 .container-fluid .showroom-container{
   background-color: white;
-  padding: 10px 30px 20px 30px;
+  padding: 30px 30px 20px 30px;
   border-radius: 3px;
   border: 1px #dddddd solid;
   box-shadow: 4px 4px 1px #EEE;
   height: 100%;
   overflow:hidden;
+}
+
+.ads-right{
+  text-align: right;
 }
 
 .tooltip-panel{
@@ -5405,4 +5412,34 @@ a.dropdown-toggle{
 .gallery{
   width: 300px !important;
   height: 200px !important; 
+}
+
+.sidebar-widget-body ul li{
+  list-style-type: none;
+}
+
+.sidebar-widget-body ul li a{
+  text-decoration: none;
+  color: #555;
+}
+
+.selected .ratenup{
+  font-size: 13px;
+  color: #F47555;
+}
+
+span.ratenup{
+  position: relative;
+  margin-left: 7px;
+  color: #555;
+  font-size: 12px;
+  float: right;
+}
+
+.filter-link:hover{
+  color: #F47555;
+}
+
+.filter-link span:hover{
+  color: #F47555;
 }

@@ -7,12 +7,12 @@
       <div class="product-image">
         <div class="image">
           <% if photo.present? %>
-            <a href="#"><img  src="<%= photo %>" data-echo="<%= photo %>" alt="<%= entity.name %>"></a>
+            <a href="#"><img  src="/images/blank.gif" data-echo="<%= photo %>" alt="<%= entity.name %>"></a>
           <% else %>
             <a href="#"><img  src="http://placehold.it/240x240" data-echo="http://placehold.it/240x240" alt="<%= entity.name %>"></a>
           <% end %>
         </div>     
-        <!-- <div class="tag new"><span>new</span></div>   -->
+        <div class="tag new"><span><%= entity.condition %></span></div>  
       </div> 
       <div class="product-info text-left">
         <h3 class="name"><a href="detail.html"><%= entity.name %></a></h3>
@@ -30,7 +30,7 @@
             <button class="btn btn-primary icon" data-toggle="dropdown" type="button">
               <i class="fa fa-shopping-cart"></i>     
             </button>
-            <button class="btn btn-primary" type="button">Add to cart</button>              
+            <button class="btn btn-success" type="button">Add to cart</button>              
           </li>           
           <li class="lnk wishlist">
             <a class="add-to-cart" href="detail.html" title="Wishlist"><i class="icon fa fa-heart"></i>

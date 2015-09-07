@@ -68,6 +68,7 @@ vi_VN:
   "Womens Fashions": "Thời Trang Nữ"
   "Women Shoes": "Gìay, Dép Nữ"
   "Women Accessories": "Phụ Kiện Nữ"
+  "& Up": "Trở Lên"
 
   activerecord:
     errors:
