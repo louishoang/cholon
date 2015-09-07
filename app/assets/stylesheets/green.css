@@ -103,10 +103,10 @@ a {
 .product .cart .action ul li.add-cart-button .btn-primary:focus {
   background: #abd07e;
 }
-.product .cart .action ul li.add-cart-button .btn-primary.icon:hover,
+/*.product .cart .action ul li.add-cart-button .btn-primary.icon:hover,
 .product .cart .action ul li.add-cart-button .btn-primary.icon:focus {
   background: #84b943;
-}
+}*/
 .tag.sale {
   background: #abd07e;
 }
