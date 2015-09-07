@@ -77,6 +77,28 @@
           </div>
         </div>
       </div>
+      <!-- Filter by shipping -->
+      <div class="sidebar-module-container">
+        <div class="sidebar-widget outer-bottom-xs wow fadeInUp">
+          <div class="widget-header">
+            <h4 class="widget-title"><%= t"Shipping Method" %></h4>
+          </div>
+          <div class="sidebar-widget-body m-t-20">
+            <ul>
+              <% ["Free Shipping", "Local Delivery"].each do |method| %>
+                <li>
+                  <% url_shipping = url_for(params.merge({:shipping => method})) %>
+                  <% url_no_shipping = url_for(params.except(:shipping)) %>
+                  <label>
+                    <input data-checked-url="<%= url_shipping %>" data-unchecked-url="<%= url_no_shipping %>" type="checkbox" id="<%= method %>" name="shipping" value="New" class="filter-params" <%= 'checked' if params[:shipping] == method %>/>&nbsp;&nbsp;
+                    <%= method %>
+                  </label>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="col-md-10 col-sm-12">
       <div class="col-md-10 col-sm-12 showroom-container">

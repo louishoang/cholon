@@ -231,7 +231,7 @@ $(function() {
   });
 
   //price range slider
-  if ($(".price-slider") !== []){
+  if ($(".price-slider").length > 0){
     min = parseFloat($(".price-slider").data("min"));
     max = parseFloat($(".price-slider").data("max"));
     $( ".price-slider" ).slider({
