@@ -15,7 +15,7 @@
 $(function() {
    $(document).ready(function(){
       $('.dropdown-toggle').dropdownHover({
-        delay: 0,
+        delay: 200,
         hoverDelay: 300
       });
     });
@@ -250,6 +250,8 @@ $(function() {
    });
   }
 
+
+  // Filter checkbox
   $(".filter-params").on("click", function(e){
     urlOnChecked = $(this).data("checked-url");
     urlOnUnchecked = $(this).data("unchecked-url");
@@ -266,4 +268,11 @@ $(function() {
     }
     $(e.target)
   })
+
+  //Filter checkbox wrapped inside anchor
+  $(".checkbox-as-link").on("click", function(e){
+    if($(this).is(":checked")){
+      window.location.href = $($(this).parents("a")).attr("href");
+    }
+  });
 });

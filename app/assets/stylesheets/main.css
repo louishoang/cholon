@@ -5452,3 +5452,22 @@ span.ratenup{
 .search-area .searchby-menu{
   padding: 10px 0px 0px 10px;
 }
+
+.input-mini{
+  width: 66px !important;
+}
+
+li.dist-or{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+li.dist-or span{
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.row-dist{
+  text-align: center;
+}

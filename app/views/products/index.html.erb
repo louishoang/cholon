@@ -79,6 +79,44 @@
           </div>
         </div>
       </div>
+      <!-- Filter by Location -->
+      <div class="sidebar-module-container">
+        <div class="sidebar-widget outer-bottom-xs wow fadeInUp">
+          <div class="widget-header">
+            <h4 class="widget-title"><%= t"Item Location" %></h4>
+          </div>
+          <div class="sidebar-widget-body m-t-20">
+            <ul>
+              <li>
+                <% url_no_location = url_for(params.except(:location)) %>
+                <a href="<%= url_no_location %>">
+                  <label>
+                    <input type="checkbox" id="item_location" name="location" value="" class="checkbox-as-link" <%= 'checked' unless params[:location].present? %>/>&nbsp;&nbsp;
+                    <%= t"Anywhere" %>
+                  </label>
+                </a>
+              </li>
+              <li class="dist-or"><span><%= t"OR" %></span></li>
+              <li>
+                <form class="form-inline">
+                  <div class="row row-dist">
+                    <div class="form-group nopadding">
+                      <input type="text" class="form-control input-mini" name="distance_from" value="100">
+                    </div>
+                    <div class="form-group nopadding">
+                      <span><%= t"miles within" %></span>
+                      <input type="text" class="form-control input-mini" id="zip_code" placeholder="94512">
+                    </div>
+                  </div>
+                  <div class="row-fluid text-right m-t-20">
+                    <button type="submit" class="btn btn-primary"><%= t"Show Now"%></button>
+                  </div>
+                </form>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
       <!-- Filter by shipping -->
       <div class="sidebar-module-container">
         <div class="sidebar-widget outer-bottom-xs wow fadeInUp">
