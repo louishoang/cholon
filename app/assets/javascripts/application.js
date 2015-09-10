@@ -15,7 +15,18 @@
 //= require bootstrap-sprockets
 //= require bootstrap
 //= require dropzone
+//= require jquery.form-validator
 //= require_tree .
+$(document).ready(function() {
+    $.validate({
+      ignore: '[]',
+      form: ".register-form",
+      modules : 'html5',
+      validateOnBlur : true,
+    });
+  });
+
+
 $(document).ready(function(){
   toastr.options = {
     "closeButton": true,

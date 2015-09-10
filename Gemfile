@@ -41,6 +41,8 @@ gem "fog"
 gem "fog-aws"
 gem 'aws-sdk', '~> 1.6'
 
+gem 'jquery-form-validator-rails'
+
 gem 'dotenv-rails', :groups => [:development, :test]
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
