@@ -13,12 +13,14 @@
   };
 
 $(function() {
-   $(document).ready(function(){
-      $('.dropdown-toggle').dropdownHover({
-        delay: 200,
-        hoverDelay: 300
-      });
-    });
+  // Jquery validation
+  
+
+
+  $('.dropdown-toggle').dropdownHover({
+    delay: 200,
+    hoverDelay: 300
+  });
 
   // Find language for text editor
   if (getUrlParameter("locale") == "vi_VN"){
@@ -33,6 +35,7 @@ $(function() {
   };
 
   var renderUI = function(cx){
+
     //lazy load
     echo.init({
       offset: 100,
@@ -62,7 +65,7 @@ $(function() {
         parallelUploads: 5,
         maxFiles: 10, //maximum number of file can be uploaded
         paramName: "product_photo[photo]", // Rails expects the file upload to be something like model[field_name]
-        addRemoveLinks: false, // Don't show remove links on dropzone itself. 
+        addRemoveLinks: true, // show remove links on dropzone itself. 
         headers: {
           'X-CSRF-Token': $('meta[name="token"]').attr('content')
         }
@@ -275,4 +278,7 @@ $(function() {
       window.location.href = $($(this).parents("a")).attr("href");
     }
   });
+
+  //jquery equal height
+  $(".top").matchHeight();
 });

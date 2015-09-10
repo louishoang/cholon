@@ -617,12 +617,14 @@ a {
   background-color: #f2f2f2;
   padding: 1px 1px 1px 8px;
   width: 100%;
+  word-break: break-all;
 }
 
 .showroom-container .product-list.product .product-info{
   background-color: white;
   padding: 1px 1px 1px 8px;
   width: 100%;
+  word-break: break-all;
 }
 
 .showroom-container .product .product-image .image img{
@@ -631,6 +633,7 @@ a {
 
 .showroom-container .product .top{
   box-shadow: 0 1px 3px rgba(0,0,0,.3);
+  background-color: #f2f2f2;
 }
 
 /*.showroom-container .product .top:hover{
