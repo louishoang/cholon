@@ -15,15 +15,23 @@ class ProductsController < ApplicationController
     if @product.save
       if params[:has_variants].present? && params[:has_variants] == true
         #redirect to create variants page
-        render js: "window.location='#{create_variant_product_photos_path(id: @product)}'"
+        # create_variant_product_photos_path(id: @product)
+          respond_to do |format|
+            format.json{}
+          end
+
       else
         #create a default variant and redirect to upload photo page
-        default_variant = @product.create_default_variant
-        render js: "window.location='#{new_product_photo_path(product_variant_id: default_variant.id)}'"
+        @default_variant = @product.create_default_variant
+        @redirect_url = "#{new_product_photo_path(product_variant_id: @default_variant.id) }"
+        respond_to do |format|
+          format.json{ render json: {:location => @redirect_url, :message => "nothing"} }
+        end
+        # redirect_to new_product_photo_path(product_variant_id: @default_variant.id)
       end
     else
       respond_to do |format|
-        format.json { render json: @product.errors.full_messages.to_sentence, status: :unprocessable_entity }
+        format.json { render json: @product.errors.full_messages.to_sentence, status: :unprocessable_entity  }
         format.html { render action: "new" }
       end
     end

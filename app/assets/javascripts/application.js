@@ -37,8 +37,20 @@ $(document).ready(function(){
   };
 
   $(".form_ajax").on("ajax:success", function(e, data, status, xhr){
-    toastr.success(xhr.responseText);
+    message = data.message;
+    if(message !== undefined){
+      toastr.success(message);
+    }
   }).on("ajax:error", function(e, xhr, status, error){
-    toastr.error(xhr.responseText, "Error");
+    message = xhr.message;
+    if(message !== undefined){
+      toastr.error(message, "Error");
+    }  
+  }).on("ajax:complete", function(e, xhr, settings){
+    resp = $.parseJSON(xhr.responseText);
+    location = resp.location;
+    if(location){
+      $(location).attr('href', location);
+    }
   });
 });
