@@ -16,8 +16,6 @@ $(function() {
   // Jquery validation
   $('#product_name').restrictLength($('#maxlength'));
 
-  $.validate();
-
   $('.dropdown-toggle').dropdownHover({
     delay: 200,
     hoverDelay: 300

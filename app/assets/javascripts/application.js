@@ -18,13 +18,41 @@
 //= require jquery.form-validator
 //= require_tree .
 $(document).ready(function() {
-    $.validate({
-      ignore: '[]',
-      form: ".register-form",
-      modules : 'html5',
-      validateOnBlur : true,
-    });
+  $.validate({
+    ignore: '[]',
+    form: ".register-form",
+    modules : 'html5',
+    validateOnBlur : true,
+    onError : function($form) {
+      $form.find(".has-error").each(function(index, elm){
+        $select2 = $(elm).find(".select2class.error");
+        if($select2.length > 0){
+          $(elm).find(".select2-selection--single").attr("style", "border-color: red");
+          $(elm).removeClass("has-error");
+        }
+      });
+    },
+    onSuccess : function($form) {
+    },
+    onValidate : function($form) {
+    },
+    onElementValidate : function(valid, $el, $form, errorMess) {
+      console.log('Input ' +$el.attr('name')+ ' is ' + ( valid ? 'VALID':'NOT VALID') );
+    }
   });
+
+  $(".register-form").on("select2:select", function(e){
+    if($(e.target).hasClass("error")){
+      if($(e.target).val() !== undefined){
+        $formGroup = $(e.target).parents(".form-group")
+        $formGroup.addClass("has-success");
+        $formGroup.find(".select2-selection--single").attr("style", "border-color: #3c763d")
+        $formGroup.find(".help-block").remove();
+        $(e.target).removeClass("error");
+      }
+    }
+  });
+});
 
 
 $(document).ready(function(){
