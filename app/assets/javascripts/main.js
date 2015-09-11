@@ -15,7 +15,45 @@
 $(function() {
   // Jquery validation
   $('#product_name').restrictLength($('#maxlength'));
+  $.validate({
+    ignore: '[]',
+    form: ".register-form",
+    modules : 'html5',
+    validateOnBlur : false,
+    onError : function($form) {
+      $form.find(".has-error").each(function(index, elm){
+        $select2 = $(elm).find(".select2class.error");
+        if($select2.length > 0){
+          $(elm).find(".select2-selection--single").attr("style", "border-color: red");
+          $(elm).removeClass("has-error");
+        }
+      });
+    },
+    onSuccess : function($form) {
+    },
+    onValidate : function($form) {
+    },
+    onElementValidate : function(valid, $el, $form, errorMess) {
+      console.log('Input ' +$el.attr('name')+ ' is ' + ( valid ? 'VALID':'NOT VALID') );
+    }
+  });
 
+  //adjust for jquery validation on select2
+  $(".register-form").on("select2:select", function(e){
+    if($(e.target).hasClass("error")){
+      if($(e.target).val() !== undefined){
+        $formGroup = $(e.target).parents(".form-group")
+        $formGroup.addClass("has-success");
+        $formGroup.find(".select2-selection--single").attr("style", "border-color: #3c763d")
+        $formGroup.find(".help-block").remove();
+        $(e.target).removeClass("error");
+      }
+    }
+  });
+
+
+
+  //jquery hover dropdown
   $('.dropdown-toggle').dropdownHover({
     delay: 200,
     hoverDelay: 300
@@ -145,7 +183,7 @@ $(function() {
     // if multiple elements are in one row, use position of parent
     if ($parent.size() > 0){
       pos = $parent.position();
-      pos["top"] += 25;
+      pos["top"] += 100;
     }else{
       pos = $this.position();
     }

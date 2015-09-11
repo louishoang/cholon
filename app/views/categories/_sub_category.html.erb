@@ -1,4 +1,4 @@
 <%= label_tag :sub_category, class: "info-title" do %>
   <%= t"Sub Category" %>: <span>*</span>
 <% end %>
-<%= select_tag("product[category_ids][]", options_for_select(@categories), {class: "form-control unicase-form-control text-input input-styling select2class col-sm-4", :include_blank => true, required: true}) %>
+<%= select_tag("product[category_ids][]", options_for_select(@categories), {class: "form-control unicase-form-control text-input input-styling select2class col-sm-4", :include_blank => true, required: true, "data-validation" => "required"}) %>
