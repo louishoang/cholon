@@ -9,25 +9,37 @@ RSpec.describe ProductsController, :type => :controller do
   end
 
 
-  describe "post to #create WITHOUT params has variant" do
-    it "creates variant and redirect to upload photo page" do
-      expect do
-        post :create, product: FactoryGirl.build(:product, user_id: @user.id).attributes, format: :json
-      end.to change(Product, :count).by(1)
+  describe "post to #create" do
+    context "WITHOUT params has variant" do
+      it "creates variant and redirect to upload photo page" do
+        expect do
+          post :create, product: FactoryGirl.build(:product, user_id: @user.id).attributes, format: :json
+        end.to change(Product, :count).by(1)
 
-      variant = ProductVariant.last
-      expect(variant.product_id).to eql(assigns(:product).id)
-      expect(response.body).to include("product_photos/new")
+        variant = ProductVariant.last
+        expect(variant.product_id).to eql(assigns(:product).id)
+        expect(response.body).to include("product_photos/new")
+      end
     end
-  end
 
-  describe "post to #create WITH has_variant param" do
-    it "creates variant and redirect to create variants page" do
-      expect do
-        post :create, product: FactoryGirl.build(:product, user_id: @user.id).attributes, format: :json, has_variants: true
-      end.to change(Product, :count).by(1)
+    context "WITH has_variant param" do
+      it "creates variant and redirect to create variants page" do
+        expect do
+          post :create, product: FactoryGirl.build(:product, user_id: @user.id).attributes, format: :json, has_variants: true
+        end.to change(Product, :count).by(1)
 
-      expect(response.body).to include("create_variants")
+        expect(response.body).to include("create_variants")
+      end
+    end
+
+    context "with invalid product params" do
+      it "doesn't create variant and return errors" do
+        expect do
+          post :create, product: {name: "Invalid", user_id: @user.id}, format: :json
+        end.not_to change{Product.count}
+
+        expect(assigns(:product).errors.messages.size).to be >= 1
+      end
     end
   end
 end
