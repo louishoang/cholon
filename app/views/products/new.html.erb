@@ -13,7 +13,7 @@
   <div class="container">
     <div class="col-sm-12"><h2><%= t"Product Information" %></h2></div>
     <div class="col-md-9 col-sm-9 form-container">
-      <%= form_for @product, url: products_path, html: {class: "form-vertical register-form outer-top-xs product-form form_ajax", method: "POST", :remote => true, :novalidate => true} do |f| %>
+      <%= form_for @product, url: products_path, html: {class: "form-vertical register-form outer-top-xs product-form form_ajax jvalidate", method: "POST", :remote => true, :novalidate => true} do |f| %>
         <div class="form-group">
           <%= f.label :title, class: "info-title" do %>
             <%= t"Title" %>: <span>*</span>
