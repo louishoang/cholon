@@ -54,6 +54,6 @@ class Product < ActiveRecord::Base
   end
 
   def name_utf8
-    self.name.force_encoding(Encoding.locale_charmap).encode('UTF-8').parameterize
+    self.name.mb_chars.normalize(:kd).gsub(/\p{Mn}/, '').to_s.downcase.parameterize
   end
 end

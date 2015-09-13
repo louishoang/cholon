@@ -43,7 +43,6 @@ gem 'aws-sdk', '~> 1.6'
 gem 'jquery-form-validator-rails'
 
 gem 'friendly_id'
-gem 'remove_accents'
 
 group :development, :test do
   gem 'dotenv-rails'
