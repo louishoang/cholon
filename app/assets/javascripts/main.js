@@ -1,16 +1,38 @@
-// Get paras attributes
-  function getUrlParameter(sParam){
-    var sPageURL = window.location.search.substring(1);
-    var sURLVariables = sPageURL.split('&');
-    for (var i = 0; i < sURLVariables.length; i++)
-    {
-        var sParameterName = sURLVariables[i].split('=');
-        if (sParameterName[0] == sParam)
-        {
-            return sParameterName[1];
+// IF user press browser back button, marks create form dirty to prevent duplicates
+$(document).ready(function($) {
+  if (window.history && window.history.pushState) {
+    $(window).on('popstate', function() {
+      var hashLocation = location.hash;
+      var hashSplit = hashLocation.split("#!/");
+      var hashName = hashSplit[1];
+
+      if (hashName !== '') {
+        var hash = window.location.hash;
+        if (hash === '') {
+          var dirty_bit = document.getElementById('page_is_dirty');
+    
+          if (dirty_bit.length > 0 ){
+            dirty_bit.value = '1';
+          }          
         }
-    }
-  };
+      }
+    });
+  }
+});
+
+// Get params attributes
+function getUrlParameter(sParam){
+  var sPageURL = window.location.search.substring(1);
+  var sURLVariables = sPageURL.split('&');
+  for (var i = 0; i < sURLVariables.length; i++)
+  {
+      var sParameterName = sURLVariables[i].split('=');
+      if (sParameterName[0] == sParam)
+      {
+          return sParameterName[1];
+      }
+  }
+};
 
 $(function() {
   // Jquery validation

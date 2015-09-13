@@ -75,11 +75,13 @@
           </label>
         </div>
         <%= f.hidden_field :seller_id, :value => current_user.id %>
+        <input type="hidden" id="page_is_dirty" name="page_is_dirty" value="0" />
         <div class="text-center">
           <button type="submit" class="btn-upper btn btn-lg btn-success"><%= t"Save & Continue" %></button>
         </div>
       <% end %>
     </div>
+    <!-- Tootip on the right -->
     <div class="col-md-3 col-sm-3">
       <div class="panel panel-default tooltip-panel">
         <div class="panel-heading">

@@ -6,7 +6,7 @@ FactoryGirl.define do
     stock_quantity Faker::Number.between(1, 100)
     condition ["New", "Used", "Refurbished", "For Part or Not Working"].sample
 
-    user
+    seller
     
     after(:create) do |product|
       FactoryGirl.create(:product_variant, :product => product)

@@ -11,8 +11,11 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(product_params)
-    if @product.save
+    handle_create_or_update
+    if @product.persisted?
+      # set cookie to prevent browser back button allow user to submit form again
+      cookies[:product_slug] = @product.slug
+
       if params[:has_variants].present? && params[:has_variants] == true
         #redirect to create variants page
         @redirect_url = create_variants_product_path(id: @product)
@@ -29,10 +32,23 @@ class ProductsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.json { render json: @product.errors.full_messages.to_sentence, status: :unprocessable_entity  }
+        format.json { render json: {:message => @product.errors.full_messages.to_sentence}, status: :unprocessable_entity  }
         format.html { render action: "new" }
       end
     end
+  end
+
+  def handle_create_or_update
+    # prevent user creates duplicates product by pressing back button, when he/she presses back button , params page_is_dirty is '1'
+    if params[:page_is_dirty].present? && params[:page_is_dirty] == '1'
+      @product = Product.find_by(slug: cookies[:product_slug], seller_id: current_user.id)
+      if @product.present?
+        @product.update_attributes(product_params)
+      end
+    else
+      @product = Product.create(product_params)
+    end
+    @product
   end
 
   def create_variants
