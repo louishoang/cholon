@@ -15,8 +15,9 @@ class ProductsController < ApplicationController
     if @product.save
       if params[:has_variants].present? && params[:has_variants] == true
         #redirect to create variants page
+        @redirect_url = create_variants_product_path(id: @product)
         respond_to do |format|
-          format.json{}
+          format.json {render json: {:location => @redirect_url }}
         end
       else
         #create a default variant and redirect to upload photo page
