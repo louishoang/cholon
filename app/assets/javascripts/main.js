@@ -1,25 +1,3 @@
-// IF user press browser back button, marks create form dirty to prevent duplicates
-$(document).ready(function($) {
-  if (window.history && window.history.pushState) {
-    $(window).on('popstate', function() {
-      var hashLocation = location.hash;
-      var hashSplit = hashLocation.split("#!/");
-      var hashName = hashSplit[1];
-
-      if (hashName !== '') {
-        var hash = window.location.hash;
-        if (hash === '') {
-          var dirty_bit = document.getElementById('page_is_dirty');
-    
-          if (dirty_bit.length > 0 ){
-            dirty_bit.value = '1';
-          }          
-        }
-      }
-    });
-  }
-});
-
 // Get params attributes
 function getUrlParameter(sParam){
   var sPageURL = window.location.search.substring(1);
@@ -34,7 +12,22 @@ function getUrlParameter(sParam){
   }
 };
 
+
 $(function() {
+  // if user click back button , mark form to update instead of create
+  if(Cookies.get("product_name") !== undefined){
+    $productNameTextArea = $(".register-form").find("#product_name");
+    if($productNameTextArea.length > 0){
+      noBlankSpaceString = $productNameTextArea.val().replace(/ /g,'');
+      if(noBlankSpaceString === Cookies.get("product_name")){
+        $pageIsDirty = $(".register-form").find("#page_is_dirty");
+        if($pageIsDirty.length > 0){
+          $pageIsDirty.val('1');
+        }
+      }
+    }
+  };
+
   // Jquery validation
   if($(".jvalidate").length > 0){
     $('#product_name').restrictLength($('#maxlength'));

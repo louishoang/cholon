@@ -1,6 +1,13 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!
   before_filter :find_product, :only => [:create_variants, :edit, :update, :show]
+  before_filter :clear_browser_cache, :only => [:new, :create_variants]
+
+  def clear_browser_cache
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"    
+    response.headers["Expires"] = "Fri, 01 Jan 1970 00:00:00 GMT"
+  end
 
   def index
     @products = Product.join_all
@@ -14,6 +21,7 @@ class ProductsController < ApplicationController
     handle_create_or_update
     if @product.persisted?
       # set cookie to prevent browser back button allow user to submit form again
+      cookies[:product_name] = @product.name.gsub(" ", "")
       cookies[:product_slug] = @product.slug
 
       if params[:has_variants].present? && params[:has_variants] == true

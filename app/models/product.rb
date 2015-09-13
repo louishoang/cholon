@@ -46,6 +46,8 @@ class Product < ActiveRecord::Base
       variant.stock_quantity = self.stock_quantity
       variant.save
       return variant
+    else
+      self.product_variants.first
     end
   end
 
