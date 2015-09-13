@@ -38,5 +38,19 @@ RSpec.describe ProductsController, :type => :controller do
         expect(assigns(:product).errors.messages.size).to be >= 1
       end
     end
+
+    context "with params page_is_dirty" do
+      it "update the record instead of creating new" do
+        product = FactoryGirl.create(:product, seller_id: @user.id)
+        request.cookies['product_slug'] = product.slug
+
+        expect do
+          post :create, product: product.attributes, format: :json, page_is_dirty: '1'
+        end.not_to change{Product.count}
+
+        expect(response.body).to include("product_photos/new")
+        expect(assigns(:product).product_variants.size).to eql(1)
+      end
+    end
   end
 end
