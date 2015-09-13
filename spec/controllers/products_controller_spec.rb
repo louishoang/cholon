@@ -1,14 +1,10 @@
 require "rails_helper"
 
 RSpec.describe ProductsController, :type => :controller do
-  before(:each) do
-    @request.env["devise.mapping"] = Devise.mappings[:user]
-    @user = FactoryGirl.create(:user)
-    @user.confirm!
-    sign_in @user
+  before do
+    login_user
   end
-
-
+  
   describe "post to #create" do
     context "WITHOUT params has variant" do
       it "creates variant and redirect to upload photo page" do
