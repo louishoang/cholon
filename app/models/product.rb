@@ -1,4 +1,7 @@
 class Product < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :name_utf8, use: [:slugged, :history]
+
   CONDITION_USED = "Used"
   CONDITION_NEW = "New"
   CONDITION_REFURBISHED = "Refurbished"
@@ -6,16 +9,15 @@ class Product < ActiveRecord::Base
 
   has_many :product_categories
   has_many :categories, through: :product_categories
-  belongs_to :user
+  belongs_to :seller, class_name: "User", foreign_key: "seller_id"
   has_many :product_variants, dependent: :destroy
   accepts_nested_attributes_for :product_variants, allow_destroy: true
 
   validates :name, presence: true
   validates :name, length: { in: 8..80 }
-  validates :short_description, length: {maximum: 200}
   validates :price, presence: true
   validates :stock_quantity, presence: true
-  validates :user_id, presence: true
+  validates :seller_id, presence: true
 
   scope :join_all, lambda{ |*args|
     select("DISTINCT products.*")
@@ -39,7 +41,6 @@ class Product < ActiveRecord::Base
     if self.product_variants.blank?
       variant = ProductVariant.new()
       variant.product_id = self.id
-      variant.is_default = true
       variant.name = self.name
       variant.price = self.price
       variant.stock_quantity = self.stock_quantity
@@ -49,10 +50,10 @@ class Product < ActiveRecord::Base
   end
 
   def default_variant
-    variant = self.product_variants.default_variant rescue nil
-    if variant.blank?
-      variant = self.product_variants.first
-    end
-    variant
+    variant = self.product_variants.first
+  end
+
+  def name_utf8
+    self.name.force_encoding(Encoding.locale_charmap).encode('UTF-8').parameterize
   end
 end

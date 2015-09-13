@@ -12,7 +12,7 @@
           <div class="product-image">
             <div class="image">
               <% if photo.present? %>
-                <a href="#"><img  src="/assets/blank.gif" data-echo="<%= photo %>" alt="<%= entity.name %>"></a>
+                <a href="<%= product_path(entity)%>"><img  src="/assets/blank.gif" data-echo="<%= photo %>" alt="<%= entity.name %>"></a>
               <% else %>
                 <a href="#"><img  src="http://placehold.it/240x240" data-echo="http://placehold.it/240x240" alt="<%= entity.name %>"></a>
               <% end %>
@@ -25,9 +25,7 @@
             <div class="rating rateit-small"></div>
             <div class="product-price"> 
               <span class="price"><%= number_to_currency(entity.price, locale: :en) %></span>
-            </div>
-            <div class="description m-t-10"><%= entity.short_description %>
-            </div>          
+            </div>         
           </div> 
           <div class="cart clearfix animate-effect">
             <div class="action">
@@ -68,7 +66,6 @@
         </div> 
         <div class="product-info text-left">
           <h3 class="name"><a href="detail.html"><%= entity.name %></a></h3>
-          <div class="short_description"><%= entity.short_description %></div>
           <!-- <%= entity.condition %> -->
           <div class="product-price"> 
             <span class="price"><%= number_to_currency(entity.price, locale: :en) %></span>        

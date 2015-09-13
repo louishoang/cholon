@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :confirmable, :omniauthable
+         :confirmable, :omniauthable, :lockable, :timeoutable
 
   #find or create new account from omniauth response
   def self.from_omniauth(auth_hash)
