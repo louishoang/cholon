@@ -5552,3 +5552,7 @@ li.dist-or span{
   bottom: 0px;
   left: 20px;
 }
+
+.dz-remove{
+  margin-left: -20px;
+}

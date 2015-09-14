@@ -4,17 +4,16 @@ function getUrlParameter(sParam){
   var sURLVariables = sPageURL.split('&');
   for (var i = 0; i < sURLVariables.length; i++)
   {
-      var sParameterName = sURLVariables[i].split('=');
-      if (sParameterName[0] == sParam)
-      {
-          return sParameterName[1];
-      }
+    var sParameterName = sURLVariables[i].split('=');
+    if (sParameterName[0] == sParam)
+    {
+      return sParameterName[1];
+    }
   }
 };
 
-
 $(function() {
-  // if user click back button , mark form to update instead of create
+  // if user click back button , put a mark in the form to update instead of create
   if(Cookies.get("product_name") !== undefined){
     $productNameTextArea = $(".register-form").find("#product_name");
     if($productNameTextArea.length > 0){
@@ -113,9 +112,8 @@ $(function() {
 
       Dropzone.autoDiscover = false;
       var dropzone = new Dropzone (".dropzone", {
-        maxFilesize: 10, // Set the maximum file size to 256 MB
-        parallelUploads: 5,
-        maxFiles: 10, //maximum number of file can be uploaded
+        maxFilesize: 5, // Set the maximum file size to 10 MB
+        maxFiles: 5, //maximum number of file can be uploaded
         paramName: "product_photo[photo]", // Rails expects the file upload to be something like model[field_name]
         addRemoveLinks: true, // show remove links on dropzone itself. 
         headers: {
@@ -127,6 +125,16 @@ $(function() {
         if ($replaceValue.size() > 0){
           $replaceValue.val($replaceValue.val() + ',' + resp.id);
         }
+      });
+      dropzone.on("queuecomplete", function(elm){
+        $spinner = $(".dropzone").parent().find(".spinner");
+        if($spinner.length > 0){
+          $spinner.removeAttr("onclick");
+          $spinner.removeAttr("disabled").removeClass("spinner");
+        } 
+      });
+      dropzone.on("addedfile", function(file) {
+        $(".dropzone").parent().find(".btn").trigger("loading");
       });
     }
 
@@ -285,7 +293,12 @@ $(function() {
   });
 
   $(document).on("click", ".remove-row", function(e){
-    $(e.target).parents("tr").remove();
+    $table = $(e.target).parents("table");
+    if($table.find("tr").length > 2){
+      $(e.target).parents("tr").remove();
+    }else{
+      toastr.error("Couldn't remove the only variant of product", "Error");
+    }
   });
 
   //price range slider
@@ -333,4 +346,10 @@ $(function() {
 
   //jquery equal height
   $(".top").matchHeight();
+
+  $(".btn").on("loading", function(e){
+    $(this).addClass("spinner");
+    $(this).attr("onclick", "return false;");
+    $(this).attr("disabled", "disabled");
+  });
 });

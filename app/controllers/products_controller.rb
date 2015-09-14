@@ -24,7 +24,7 @@ class ProductsController < ApplicationController
       cookies[:product_name] = @product.name.gsub(" ", "")
       cookies[:product_slug] = @product.slug
 
-      if params[:has_variants].present? && params[:has_variants] == true
+      if params[:has_variants].present? && params[:has_variants] == 'true'
         #redirect to create variants page
         @redirect_url = create_variants_product_path(id: @product)
         respond_to do |format|
@@ -66,6 +66,8 @@ class ProductsController < ApplicationController
   def update
     fix_params_product_photo_ids
     if @product.update_attributes(product_params)
+      @product.status = Product::STATUS_PUBLISHABLE
+      @produt.save
       render js: "window.location='#{products_path}'"
     else
       respond_to do |format|
@@ -90,11 +92,11 @@ class ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(:name, :price, :stock_quantity, :condition,
-      :description,:seller_id, category_ids: [],
+      :description,:seller_id, :status, category_ids: [],
       product_variants_attributes: [:name, :price, :stock_quantity, :condition, product_photo_ids: []])
   end
 
   def find_product
-    @product = Product.find(params[:id])
+    @product = Product.find_by_slug(params[:id])
   end
 end

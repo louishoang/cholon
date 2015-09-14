@@ -7,6 +7,9 @@ class Product < ActiveRecord::Base
   CONDITION_REFURBISHED = "Refurbished"
   CONDITION_FOR_PART_OR_NOT_WORKING = "For Part or Not Working"
 
+  STATUS_DRAFT = "Draft"
+  STATUS_PUBLISHABLE = "Publishable"
+
   has_many :product_categories
   has_many :categories, through: :product_categories
   belongs_to :seller, class_name: "User", foreign_key: "seller_id"
@@ -18,6 +21,7 @@ class Product < ActiveRecord::Base
   validates :price, presence: true
   validates :stock_quantity, presence: true
   validates :seller_id, presence: true
+  validate :has_at_least_one_photo, if: :status_publishable
 
   scope :join_all, lambda{ |*args|
     select("DISTINCT products.*")
@@ -25,6 +29,20 @@ class Product < ActiveRecord::Base
     .joins("LEFT OUTER JOIN product_categories ON products.id = product_categories.product_id")
     .joins("LEFT OUTER JOIN categories ON product_categories.category_id = categories.id")
   }
+
+  def status_publishable
+    self.status == STATUS_PUBLISHABLE
+  end
+
+  def has_at_least_one_photo
+    return_str = false
+    self.product_variants.each do |variant|
+      if variant.product_photos.present?
+        return_str = true
+        return return_str
+      end
+    end
+  end
 
   def self.condition_select_option
     [[CONDITION_NEW, CONDITION_NEW],
