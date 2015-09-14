@@ -65,13 +65,12 @@ class ProductsController < ApplicationController
 
   def update
     fix_params_product_photo_ids
+    @product.status = Product::STATUS_PUBLISHABLE
     if @product.update_attributes(product_params)
-      @product.status = Product::STATUS_PUBLISHABLE
-      @produt.save
       render js: "window.location='#{products_path}'"
     else
       respond_to do |format|
-        format.json { render json: @product.errors.full_messages.to_sentence, status: :unprocessable_entity }
+        format.json { render json: {:message => @product.errors.full_messages.to_sentence }, status: :unprocessable_entity }
         format.html { render action: "create_variants" }
       end
     end

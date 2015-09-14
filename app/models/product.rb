@@ -42,6 +42,9 @@ class Product < ActiveRecord::Base
         return return_str
       end
     end
+    if return_str == false
+      errors[:base] << "Product needs at least one photo"
+    end
   end
 
   def self.condition_select_option

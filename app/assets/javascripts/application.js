@@ -42,7 +42,8 @@ $(document).ready(function(){
       toastr.success(_message);
     }
   }).on("ajax:error", function(e, xhr, status, error){
-    _message = xhr.message;
+    resp = $.parseJSON(xhr.responseText);
+    _message = resp.message;
     if(_message !== undefined){
       toastr.error(_message, "Error");
     }  
