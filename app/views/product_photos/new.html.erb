@@ -23,7 +23,7 @@
         </div>
       <% end %>
       <div class="form-actions">
-        <a href="<%= products_path %>" class="btn-upper btn btn-success pull-right" onclick="return false;" disabled="disabled"><%= t"Save & Done" %></a>
+        <a href="javascript:;" data-url="<%= set_publishable_products_path(product_variant_id: params[:product_variant_id]) %>" class="btn-upper btn btn-success pull-right btn-publishable" disabled="disabled"><%= t"Save & Done" %></a>
       </div>
     </div>
   </div>

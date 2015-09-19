@@ -44,6 +44,8 @@ gem 'jquery-form-validator-rails'
 
 gem 'friendly_id'
 
+gem 'kaminari'
+
 group :development, :test do
   gem 'dotenv-rails'
   gem 'rspec-rails'

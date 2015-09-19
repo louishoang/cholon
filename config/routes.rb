@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   resources :home
 
   resources :products do
+    collection do
+      get 'set_publishable'
+    end
     member do
       get 'create_variants'
       post 'create_variants'

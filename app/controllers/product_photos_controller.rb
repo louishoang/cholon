@@ -8,7 +8,6 @@ class ProductPhotosController < ApplicationController
     @product_photo = ProductPhoto.new
     if params[:popup].present?
       render :partial => "new.html"
-    else
     end
   end
 

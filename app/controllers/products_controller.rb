@@ -10,7 +10,7 @@ class ProductsController < ApplicationController
   end
 
   def index
-    @products = Product.join_all
+    @products = Product.join_all.order(:name).page params[:page]
   end
 
   def new
@@ -72,6 +72,20 @@ class ProductsController < ApplicationController
       respond_to do |format|
         format.json { render json: {:message => @product.errors.full_messages.to_sentence }, status: :unprocessable_entity }
         format.html { render action: "create_variants" }
+      end
+    end
+  end
+
+  def set_publishable
+    @product = ProductVariant.find(params[:product_variant_id]).product rescue nil
+    @product.status = Product::STATUS_PUBLISHABLE
+    if @product.save
+      respond_to do |format|
+        format.json {render json: {:location => products_path, :message => "Product is created successfully" }}
+      end
+    else
+      respond_to do |format|
+        format.json { render json: {:message => @product.errors.full_messages.to_sentence }, status: :unprocessable_entity }
       end
     end
   end
