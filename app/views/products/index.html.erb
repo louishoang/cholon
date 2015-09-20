@@ -180,21 +180,19 @@
             <%= t"There is no product matching your criteria!" %>
           <% end %>
         </div>
-        <div class="col-sm-12 col-md-12 text-right">
-
-            <div class="pagination-container">
-              <ul class="list-inline list-unstyled">
-                <li class="prev"><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                <li><a href="#">1</a></li>  
-                <li class="active"><a href="#">2</a></li> 
-                <li><a href="#">3</a></li>  
-                <li><a href="#">4</a></li>  
-                <li class="next"><a href="#"><i class="fa fa-angle-right"></i></a></li>
-              </ul>
-            </div>               
-
-
-          <%= paginate @products %>
+        <div class="col-sm-12 col-md-12 nopadding">
+          <div class="col-sm-4 col-md-4 per-page">
+            <span class="pp-text"><%= t"Per Page" %></span>
+            <select class="form-control pp-select">
+              <option data-url="<%= url_for(params.except(:page).merge({:per_page => 12})) %>" value="12" <%= 'selected' if params[:per_page] == '12'%>>12</option>
+              <option data-url="<%= url_for(params.except(:page).merge({:per_page => 24})) %>" value="24" <%= 'selected' if params[:per_page] == '24'%>>24</option>
+              <option data-url="<%= url_for(params.except(:page).merge({:per_page => 48})) %>" value="24" <%= 'selected' if params[:per_page] == '48'%>>48</option>
+              <option data-url="<%= url_for(params.except(:page).merge({:per_page => 96})) %>" value="24" <%= 'selected' if params[:per_page] == '96'%>>96</option>
+            </select>
+          </div>
+          <div class="col-sm-8 col-md-8 text-right">
+            <%= paginate @products %>
+          </div>
         </div>
       </div>
       <div class="col-md-2 ads-right m-t-15">

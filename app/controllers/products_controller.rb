@@ -10,7 +10,7 @@ class ProductsController < ApplicationController
   end
 
   def index
-    @products = Product.join_all.order(:name).page params[:page]
+    @products = Product.join_all.order(:name).page(params[:page]).per(params[:per_page].to_i || 48)
   end
 
   def new

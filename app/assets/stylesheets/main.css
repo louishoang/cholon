@@ -5556,3 +5556,19 @@ li.dist-or span{
 .dz-remove{
   margin-left: -20px;
 }
+
+.per-page{
+  margin: 20px 0;
+}
+
+.per-page .pp-select{
+  display: inline-block;
+  line-height: 1.2;
+  width: 52px;
+  height: 32px;
+  margin-left: 5px;
+}
+
+.per-page .pp-text{
+  display: inline-block;
+}

@@ -369,4 +369,8 @@ $(function() {
       }
     });
   });
+
+  $(document).on("change", ".pp-select", function(e){
+    $(location).attr('href', $(".pp-select option:selected").data("url"));
+  });
 });
