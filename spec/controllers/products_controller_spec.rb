@@ -32,6 +32,30 @@ RSpec.describe ProductsController, :type => :controller do
       end
     end
   end
+
+  describe "put to #update" do
+    context "create variants" do
+      it "creates variants successfully with product_photos" do
+        product = FactoryGirl.create(:product, :draft, seller_id: @user.id)
+        product.product_variants.destroy_all
+        product.reload
+
+        product_variant1 = FactoryGirl.create(:product_variant, product_id: product.id)
+        product_variant2 = FactoryGirl.create(:product_variant, product_id: product.id)
+        product_photo1 = product_variant1.product_photos.first
+        product_photo2 = product_variant2.product_photos.first
+
+        put :update, "product"=>{"product_variants_attributes"=>{
+          "0"=>{"product_photo_ids"=> product_photo1.id.to_s.split(""), "name"=>"red", "price"=>"1", "stock_quantity"=>"1"},
+          "1"=>{"product_photo_ids"=> product_photo2.id.to_s.split(""), "name"=>"blue", "price"=>"1", "stock_quantity"=>"1"}
+          }}, "commit"=>"Lưu Lại & Tiếp Tục", "locale"=>"vi_VN", "id"=> product.slug, format: :json
+
+        expect(assigns(:product).status) == Product::STATUS_PUBLISHABLE
+        expect(assigns(:product).product_variants.size).to eq(4)
+        expect(assigns(:product).product_variants.last.product_photos.size).to eq(1)
+      end
+    end
+  end
   
   describe "post to #create" do
     context "WITHOUT params has variant" do
