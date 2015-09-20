@@ -1,0 +1,14 @@
+<div class="col-sm-12 col-md-12 nopadding">
+  <div class="col-sm-8 col-md-8 text-left">
+    <%= paginate entities %>
+  </div>
+  <div class="col-sm-4 col-md-4 per-page text-right">
+    <span class="pp-text"><%= t"Items Per Page" %></span>
+    <select class="form-control pp-select">
+      <option data-url="<%= url_for(params.except(:page).merge({:per_page => 12})) %>" value="12" <%= 'selected' if params[:per_page] == '12'%>>12</option>
+      <option data-url="<%= url_for(params.except(:page).merge({:per_page => 24})) %>" value="24" <%= 'selected' if params[:per_page] == '24'%>>24</option>
+      <option data-url="<%= url_for(params.except(:page).merge({:per_page => 48})) %>" value="24" <%= 'selected' if params[:per_page] == '48' || params[:per_page].blank? %>>48</option>
+      <option data-url="<%= url_for(params.except(:page).merge({:per_page => 96})) %>" value="24" <%= 'selected' if params[:per_page] == '96'%>>96</option>
+    </select>
+  </div>
+</div>
