@@ -27,6 +27,16 @@ $(function() {
     }
   };
 
+  $.formUtils.addValidator({
+    name : 'currency',
+    validatorFunction : function(value, $el, config, language, $form) {
+      var isValidMoney = /^\d{0,9}(\.\d{0,2})?$/.test($el.val());
+      return $el.val().length > 0 && isValidMoney;
+    },
+    errorMessage : 'Wrong currency format. Ex: 20 or 20.95',
+    errorMessageKey: 'badCurrencyFormat'
+  });
+
   // Jquery validation
   if($(".jvalidate").length > 0){
     $('#product_name').restrictLength($('#maxlength'));
@@ -169,6 +179,19 @@ $(function() {
       "browserHistory": true,
       "thumbHeight": 30,
       "thumbWidth": 30,
+      "slideshow": false,
+    });
+
+    $( ".product_gallery", cx ).jGallery( {
+      "transition":"moveToLeft_moveFromRight",
+      "transitionCols":"1",
+      "transitionRows":"1",
+      "thumbnailsPosition":"bottom",
+      "thumbType":"image",
+      "backgroundColor":"F8F8F8",
+      "textColor":"000000",
+      "mode":"standard",
+      "browserHistory": true,
       "slideshow": false,
     });
   };

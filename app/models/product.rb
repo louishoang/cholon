@@ -34,6 +34,16 @@ class Product < ActiveRecord::Base
     self.status == STATUS_PUBLISHABLE
   end
 
+  def all_photos
+    to_return = []
+    self.product_variants.each do |variant|
+      variant.product_photos.each do |pp|
+        to_return << pp
+      end
+    end
+    to_return.flatten
+  end
+
   def has_at_least_one_photo
     return_str = false
     self.product_variants.each do |variant|

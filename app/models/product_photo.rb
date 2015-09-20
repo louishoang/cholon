@@ -2,8 +2,9 @@ class ProductPhoto < ActiveRecord::Base
   include Paperclip::Glue
   belongs_to :product_variant
 
-  has_attached_file :photo, styles: { medium: "220x220#", thumb: "100x100#" },
+  has_attached_file :photo, styles: { medium: "220x220#", thumb: "100x100#", detail: "500x500#" },
     convert_options: {
+      detail: " -gravity center -crop '500x500+0+0'",
       medium: " -gravity center -crop '200x200+0+0'",
       thumb: " -gravity center -crop '100x100+0+0'"
     },

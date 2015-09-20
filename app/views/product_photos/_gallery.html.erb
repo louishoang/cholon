@@ -1,5 +1,5 @@
 <div class="gallery">
   <% @product_photos.each do |p| %>
-    <a href="<%= p.photo.url(:thumb) %>"><img src="<%= p.photo.url(:medium) %>" /></a>
+    <a href="<%= p.photo.url(:detail) %>"><img src="<%= p.photo.url(:medium) %>" /></a>
   <% end %>
 </div>

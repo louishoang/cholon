@@ -13,6 +13,9 @@ class ProductsController < ApplicationController
     @products = Product.join_all.order(:name).page(params[:page]).per(current_per_page)
   end
 
+  def show
+  end
+
   def new
     @product = Product.new
   end

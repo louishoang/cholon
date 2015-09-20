@@ -629,6 +629,18 @@ a {
 
 .showroom-container .product .product-image .image img{
   width: 100%;
+  border-radius: 3px;
+}
+
+.showroom-container .product .product-image{
+  padding: 3px 3px 0px 3px;
+}
+
+.showroom-container .product{
+  position: relative;
+  min-height: 1px;
+  padding-right: 10px;
+  padding-left: 10px;
 }
 
 .showroom-container .product .top{
@@ -5583,4 +5595,34 @@ li.dist-or span{
   color: #ABD07E !important;
 }
 
+.reviews{
+  display: inline-block;
+}
 
+.rating-reviews .prepend{
+  color: #aaaaaa;
+}
+
+.single-product .product-info .name {
+  font-size: 25px;
+  line-height: 18px;
+  font-family: 'Fjalla One';
+  color: #555;
+  margin-top: 5px;
+}
+
+.product-info-block .product-info .rateit .rateit-range{
+  width: 80px;
+  height: 14px !important;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.product-info-block .product-info .stock-container .stock-box{
+  display: inline-block;
+}
+
+.product-info-block .product-info .stock-container .stock-box .value{
+  font-size: 16px;
+  margin-left: 10px;
+}
