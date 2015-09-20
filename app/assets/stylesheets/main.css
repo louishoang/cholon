@@ -5567,6 +5567,7 @@ li.dist-or span{
   width: 52px;
   height: 30px;
   margin-left: 5px;
+  color: #ABD07E;
 }
 
 .per-page .pp-text{
@@ -5581,3 +5582,5 @@ li.dist-or span{
 .pagination > li:not(.active) > a{
   color: #ABD07E !important;
 }
+
+

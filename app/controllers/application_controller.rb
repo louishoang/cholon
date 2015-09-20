@@ -25,6 +25,10 @@ class ApplicationController < ActionController::Base
 	end
 
   def current_per_page
-    params[:per_page].to_i || 48
+    if params[:per_page].present?
+      params[:per_page].to_i
+    else
+      48
+    end
   end
 end
