@@ -5565,10 +5565,19 @@ li.dist-or span{
   display: inline-block;
   line-height: 1.2;
   width: 52px;
-  height: 32px;
+  height: 30px;
   margin-left: 5px;
 }
 
 .per-page .pp-text{
   display: inline-block;
+}
+
+.pagination > .active > a{
+  background-color: #abd07e !important;
+  border-color: #abd07e !important;
+}
+
+.pagination > li:not(.active) > a{
+  color: #ABD07E !important;
 }
