@@ -4,6 +4,34 @@ RSpec.describe ProductsController, :type => :controller do
   before do
     login_user
   end
+
+  describe "post to #set_publishable" do
+    context "when product has photo" do
+      it "changes status of product to publishable and redirects to products path" do
+        product = FactoryGirl.create(:product, :draft, seller_id: @user.id)
+        product_variant = product.product_variants.first
+        
+        post :set_publishable, product_variant_id: product_variant.id, format: :json
+        expect(response.body).to include("/products?")
+        expect(response.body).to include("location")
+        expect(assigns(:product).status).to eq(Product::STATUS_PUBLISHABLE)
+      end
+    end
+
+    context "when product has no photo" do
+      it "changes status of product and fails valiation" do
+        product = FactoryGirl.create(:product, :draft, seller_id: @user.id)
+        product_variant = product.product_variants.first
+        product_variant.product_photos.destroy_all
+        
+        post :set_publishable, product_variant_id: product_variant.id, format: :json
+        
+        expect(response.code).to eq("422")
+        expect(response.body).to include("message")
+        expect(assigns(:product).status).to eq(Product::STATUS_PUBLISHABLE)
+      end
+    end
+  end
   
   describe "post to #create" do
     context "WITHOUT params has variant" do
@@ -21,7 +49,7 @@ RSpec.describe ProductsController, :type => :controller do
     context "WITH has_variant param" do
       it "creates variant and redirect to create variants page" do
         expect do
-          post :create, product: FactoryGirl.build(:product, seller_id: @user.id).attributes, format: :json, has_variants: true
+          post :create, product: FactoryGirl.build(:product, seller_id: @user.id).attributes, format: :json, has_variants: "true"
         end.to change(Product, :count).by(1)
 
         expect(response.body).to include("create_variants")

@@ -12,5 +12,13 @@ FactoryGirl.define do
       FactoryGirl.create(:product_variant, :product => product)
     end
 
+    trait :draft do
+      status Product::STATUS_DRAFT
+    end
+
+    trait :publishable do
+      status Product::STATUS_PUBLISHABLE
+    end
+
   end
 end
