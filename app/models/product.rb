@@ -30,6 +30,8 @@ class Product < ActiveRecord::Base
     .joins("LEFT OUTER JOIN categories ON product_categories.category_id = categories.id")
   }
 
+  scope :publishable, -> { where(status: STATUS_PUBLISHABLE) } 
+
   def status_publishable
     self.status == STATUS_PUBLISHABLE
   end

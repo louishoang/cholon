@@ -1,35 +1,45 @@
-<% row_index = row_index || params[:index].to_i %>
-<tr>
-  <td widht="10%"><%= row_index + 1 %></td>
-  <td width="40%">
-    <div class="gallery-ajax"></div>
-    <% klass = "variant_photo_ids_#{row_index}" %> <!-- css class to find which element to append photo after uploading-->
-    <a href="<%= new_product_photo_path(popup: true, data_replace_value: "." + klass) %>" class="ajax-popup-link"><%= t"Upload photos" %></a>
-    <input class="variant_photo_ids_<%= row_index %> photo_preview_list" id="product_product_variants_attributes_<%= row_index %>_product_photo_ids" name="product[product_variants_attributes][<%= row_index %>][product_photo_ids]" type="hidden" value="[]" required>
-  </td>
-  <td width="40%">
-    <div class="form-group">
-      <label for="exampleInputEmail1"><%= t"Name" %></label>
-      <input class="form-control unicase-form-control text-input input-styling" id="product_product_variants_attributes_<%= row_index %>_name" name="product[product_variants_attributes][<%= row_index %>][name]" type="text" data-validation="required">
-    </div>
-  
-    <div class="col-xs-12 nopadding">
-      <div class="form-group col-xs-12 col-md-6 nopadding">
-        <label for="exampleInputEmail1"><%= t"Price" %></label>
-        <div class="input-group">
-          <div class="input-group-addon">$</div>
-          <input class="form-control unicase-form-control text-input input-styling" id="product_product_variants_attributes_<%= row_index %>_price" name="product[product_variants_attributes][<%= row_index %>][price]" type="text" data-validation="currency">
+<% view_mode = local_assigns.fetch(:view_mode, nil) %>
+
+<% if view_mode == :product_detail_page_button %>
+  <button class="btn btn-variants">
+    <div><%= entity.name %></div>
+    <div class="price-red"><%= number_to_currency(entity.price) %></div>
+  </button>
+<% else %>
+
+  <% row_index = row_index || params[:index].to_i %>
+  <tr>
+    <td widht="10%"><%= row_index + 1 %></td>
+    <td width="40%">
+      <div class="gallery-ajax"></div>
+      <% klass = "variant_photo_ids_#{row_index}" %> <!-- css class to find which element to append photo after uploading-->
+      <a href="<%= new_product_photo_path(popup: true, data_replace_value: "." + klass) %>" class="ajax-popup-link"><%= t"Upload photos" %></a>
+      <input class="variant_photo_ids_<%= row_index %> photo_preview_list" id="product_product_variants_attributes_<%= row_index %>_product_photo_ids" name="product[product_variants_attributes][<%= row_index %>][product_photo_ids]" type="hidden" value="[]" required>
+    </td>
+    <td width="40%">
+      <div class="form-group">
+        <label for="exampleInputEmail1"><%= t"Name" %></label>
+        <input class="form-control unicase-form-control text-input input-styling" id="product_product_variants_attributes_<%= row_index %>_name" name="product[product_variants_attributes][<%= row_index %>][name]" type="text" data-validation="required">
+      </div>
+    
+      <div class="col-xs-12 nopadding">
+        <div class="form-group col-xs-12 col-md-6 nopadding">
+          <label for="exampleInputEmail1"><%= t"Price" %></label>
+          <div class="input-group">
+            <div class="input-group-addon">$</div>
+            <input class="form-control unicase-form-control text-input input-styling" id="product_product_variants_attributes_<%= row_index %>_price" name="product[product_variants_attributes][<%= row_index %>][price]" type="text" data-validation="currency">
+          </div>
+        </div>
+
+        <div class="form-group col-xs-12 col-md-6 padding-lg-only">
+          <label for="exampleInputEmail1"><%= t"Quantity" %></label>
+          <input class="form-control unicase-form-control text-input input-styling" id="product_product_variants_attributes_<%= row_index %>_stock_quantity" name="product[product_variants_attributes][<%= row_index %>][stock_quantity]" type="number" required>
         </div>
       </div>
-
-      <div class="form-group col-xs-12 col-md-6 padding-lg-only">
-        <label for="exampleInputEmail1"><%= t"Quantity" %></label>
-        <input class="form-control unicase-form-control text-input input-styling" id="product_product_variants_attributes_<%= row_index %>_stock_quantity" name="product[product_variants_attributes][<%= row_index %>][stock_quantity]" type="number" required>
-      </div>
-    </div>
-  </td>
-  <td width="10%" class="table-actions">
-    <i class="fa fa-trash fa-lg remove-row"></i>
-  </td>
-</tr>
+    </td>
+    <td width="10%" class="table-actions">
+      <i class="fa fa-trash fa-lg remove-row"></i>
+    </td>
+  </tr>
+<% end %>
 
