@@ -176,7 +176,7 @@ $(function() {
       "width": '200px',
       "height": "200px",
       "mode": 'slider',
-      "browserHistory": true,
+      // "browserHistory": true,
       "thumbHeight": 30,
       "thumbWidth": 30,
       "slideshow": false,
