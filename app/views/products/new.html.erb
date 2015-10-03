@@ -63,11 +63,11 @@
             <%= f.select(:condition, options_for_select(Product.condition_select_option.map{|x| [x.first, x.last]}), {},{required: true, class: "form-control unicase-form-control text-input input-styling", "data-validation" => "required"}) %>
           </div>
         </div>
-        <div class="form-group" data-tooltip="This is the main content of the post. Be as detailed as possible so buyers will be able to understand if this meets their needs." data-tooltip-title="Description" data-tooltip-parent=".product_description_label">
+        <div class="form-group">
           <%= f.label :description, class: "info-title product_description_label" do %>
             <%= t"Description" %>: <span>*</span>
           <% end %>
-          <textarea class="form-control unicase-form-control text-input input-styling text-editor" id="product_description" name="product[description]" rows="10"></textarea>
+          <textarea class="form-control unicase-form-control text-input input-styling text-editor" id="product_description" name="product[description]" rows="10" data-tooltip="This is the main content of the post. Be as detailed as possible so buyers will be able to understand if this meets their needs." data-tooltip-title="Description" data-tooltip-parent=".product_description_label"></textarea>
         </div>
         <div class="form-group">
           <label class="nopadding">

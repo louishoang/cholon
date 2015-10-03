@@ -93,26 +93,47 @@ $(function() {
 
   var renderUI = function(cx){
 
-
     //HTML text editor
     tinymce.init({
-        selector: ".text-editor",
-        menubar: false,
-        language: wbbOptLang,
-        plugins: [
-             "advlist autolink link image lists charmap hr anchor pagebreak spellchecker",
-             "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-             "table contextmenu directionality emoticons template paste textcolor"
-       ],
-       toolbar: "styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | media fullpage | forecolor backcolor emoticons | insertfile undo redo" , 
-       style_formats: [
-            {title: 'Bold text', inline: 'b'},
-            {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
-            {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
-            {title: 'Example 1', inline: 'span', classes: 'example1'},
-            {title: 'Example 2', inline: 'span', classes: 'example2'},
-            {title: 'Table styles'},
-            {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+      selector: ".text-editor",
+      menubar: false,
+      language: wbbOptLang,
+      setup: function(editor) {
+        // handle instruction tooltip on the side
+        editor.on('focus', function(e) {
+          $this = $("#product_description");
+
+          title = $this.data("tooltip-title");
+          content = $this.data("tooltip");
+          $container = $this.closest(".container");
+          $tooltipPanel = $container.find(".tooltip-panel");
+
+          pos = $(".product_description_label").position();
+          $tooltipPanel.find(".panel-title").html(title);
+          $tooltipPanel.find(".panel-body").html(content);
+          $tooltipPanel.trigger("showAndPosition", pos);
+
+          $("#product_description").trigger("focus");
+        });
+
+        editor.on('blur', function(e){
+            
+        });
+      },
+      plugins: [
+        "advlist autolink link image lists charmap hr anchor pagebreak spellchecker",
+        "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+        "table contextmenu directionality emoticons template paste textcolor"
+      ],
+      toolbar: "styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | media fullpage | forecolor backcolor emoticons | insertfile undo redo" , 
+      style_formats: [
+        {title: 'Bold text', inline: 'b'},
+        {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+        {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+        {title: 'Example 1', inline: 'span', classes: 'example1'},
+        {title: 'Example 2', inline: 'span', classes: 'example2'},
+        {title: 'Table styles'},
+        {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
         ]
      });
 
@@ -193,7 +214,6 @@ $(function() {
       "width": '200px',
       "height": "200px",
       "mode": 'slider',
-      // "browserHistory": true,
       "thumbHeight": 30,
       "thumbWidth": 30,
       "slideshow": false,
@@ -230,7 +250,11 @@ $(function() {
       $this = $($(e.target).parents("[data-tooltip]"));
     } 
     
-    // handle wysibb text editor 
+    //============================================== 
+    // NOTE: wysig text editor has its own tooltip method that is similar to this,
+    // please find in tinymce callback above
+    //================================================
+
     $toBeAlignWidth = $($this.closest($this.data("tooltip-parent")));
     if($toBeAlignWidth.size() > 0){
       $parent = $toBeAlignWidth;
