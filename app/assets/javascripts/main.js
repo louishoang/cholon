@@ -85,17 +85,34 @@ $(function() {
 
   // Find language for text editor
   if (getUrlParameter("locale") == "vi_VN"){
-    var wbbOptLang = "vi";
+    var wbbOptLang = "vi_VN";
   }else{
-    var wbbOptLang = "en";
+    var wbbOptLang = "en_CA";
   }
-  var wbbOpt = { 
-    lang: wbbOptLang,
-    buttons: "bold,italic,underline,strike,|,img,video,link,|,bullist,numlist,|,fontcolor,fontsize,fontfamily,|,justifyleft,justifycenter,justifyright,|,quote,code,table,removeFormat",
-    traceTextarea: true
-  };
+
 
   var renderUI = function(cx){
+    tinymce.init({
+        selector: ".text-editor",
+        menubar: false,
+        language: wbbOptLang,
+        plugins: [
+             "advlist autolink link image lists charmap hr anchor pagebreak spellchecker",
+             "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+             "table contextmenu directionality emoticons template paste textcolor"
+       ],
+       toolbar: "styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | media fullpage | forecolor backcolor emoticons | insertfile undo redo" , 
+       style_formats: [
+            {title: 'Bold text', inline: 'b'},
+            {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+            {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+            {title: 'Example 1', inline: 'span', classes: 'example1'},
+            {title: 'Example 2', inline: 'span', classes: 'example2'},
+            {title: 'Table styles'},
+            {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+        ]
+     }); 
+
 
     //lazy load
     echo.init({
@@ -107,8 +124,6 @@ $(function() {
     });
 
     echo.render();
-
-    $(".text-editor", cx).wysibb(wbbOpt);
 
     //select2
     $(".select2class", cx).select2({});

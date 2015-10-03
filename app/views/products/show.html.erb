@@ -22,10 +22,10 @@
         <div class="row-fluid showroom-container">
           <div class="product-description">
             <div class="description-title">
-              <%= t"Description" %>
+              <%= t"Product Description" %>
             </div>
             <div class="description-body">
-              <%= @product.description %>
+              <%= @product.description.html_safe %>
             </div>
           </div>
         </div>
