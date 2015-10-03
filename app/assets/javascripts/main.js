@@ -44,9 +44,18 @@ $(function() {
       ignore: '[]',
       form: ".jvalidate",
       modules : 'html5',
-      validateOnBlur : false,
+      validateOnBlur : true,
       onError : function($form) {
         $form.find(".has-error").each(function(index, elm){
+
+          // fix html text editor on validation
+          $tinymcePanel = $(elm).find(".mce-tinymce.mce-container.mce-panel");
+          if($tinymcePanel.length > 0){
+            $tinymcePanel.attr("style", "border: 1px solid red");
+            $tinymcePanel.removeClass("has-error");
+          }
+
+          // fix select2 on validation
           $select2 = $(elm).find(".select2class.error");
           if($select2.length > 0){
             $(elm).find(".select2-selection--single").attr("style", "border-color: red");
@@ -63,7 +72,15 @@ $(function() {
       }
     });
 
-    //adjust for jquery validation on select2
+    //adjust for jquery validation on html text editor 
+    $(".text-editor").on("validation", function(evt, valid){
+      if(valid){
+        $tinymcePanel = $(".mce-tinymce.mce-container.mce-panel");
+        $tinymcePanel.attr("style", "border: 1px solid #3c763d");
+      }
+    });
+
+    //adjust for jquery validation on select2 
     $(".jvalidate").on("select2:select", function(e){
       if($(e.target).hasClass("error")){
         if($(e.target).val() !== undefined){
@@ -116,13 +133,22 @@ $(function() {
           $("#product_description").trigger("focus");
         });
 
+        editor.on("keyup change", function(e){
+          e.preventDefault();
+          // copy content to the selector for validation;
+          _content = tinyMCE.activeEditor.getContent();
+          $(".text-editor").text(tinyMCE.activeEditor.getContent()); 
+          tinyMCE.triggerSave();
+          
+        });
+
         editor.on('blur', function(e){
             
         });
       },
       plugins: [
         "advlist autolink link image lists charmap hr anchor pagebreak spellchecker",
-        "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+        "searchreplace visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
         "table contextmenu directionality emoticons template paste textcolor"
       ],
       toolbar: "styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | media fullpage | forecolor backcolor emoticons | insertfile undo redo" , 
