@@ -46,6 +46,9 @@ gem 'friendly_id'
 
 gem 'kaminari'
 
+gem 'tinymce-rails'
+gem 'tinymce-rails-langs'
+
 group :development, :test do
   gem 'dotenv-rails'
   gem 'rspec-rails'

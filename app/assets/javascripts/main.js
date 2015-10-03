@@ -92,6 +92,9 @@ $(function() {
 
 
   var renderUI = function(cx){
+
+
+    //HTML text editor
     tinymce.init({
         selector: ".text-editor",
         menubar: false,
@@ -111,8 +114,7 @@ $(function() {
             {title: 'Table styles'},
             {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
         ]
-     }); 
-
+     });
 
     //lazy load
     echo.init({
