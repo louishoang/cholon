@@ -150,7 +150,7 @@ $(function() {
         "searchreplace visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
         "table contextmenu directionality emoticons template paste textcolor"
       ],
-      toolbar: "styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | media fullpage | forecolor backcolor emoticons | insertfile undo redo" , 
+      toolbar: "code styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | media fullpage | forecolor backcolor emoticons | insertfile undo redo" , 
       style_formats: [
         {title: 'Bold text', inline: 'b'},
         {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
@@ -450,5 +450,23 @@ $(function() {
 
   $(document).on("change", ".pp-select", function(e){
     $(location).attr('href', $(".pp-select option:selected").data("url"));
+  });
+
+  $(document).on("change", ".shipping-selection", function(e){
+    $container = $(this).parents(".form-container");
+    $actualPrice = $container.find(".actual_price_shipping");
+    $fixedprice = $container.find(".fixed_price_shipping");
+    selected = $(this).val();
+
+    if(selected == "Actual Cost Shipping"){
+      $fixedprice.addClass("hide");
+      $actualPrice.removeClass("hide");
+    }else if(selected == "Fixed Cost Shipping"){
+      $fixedprice.removeClass("hide");
+      $actualPrice.addClass("hide");
+    }else if(selected == "Free Shipping"){
+      $fixedprice.addClass("hide");
+      $actualPrice.addClass("hide");
+    }
   });
 });
