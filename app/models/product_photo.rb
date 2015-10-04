@@ -1,6 +1,7 @@
 class ProductPhoto < ActiveRecord::Base
   include Paperclip::Glue
   belongs_to :product_variant
+  validates :product_variant_id, presence: true
 
   has_attached_file :photo, styles: { medium: "220x220#", thumb: "125x71#", detail: "730x411#" },
     convert_options: {

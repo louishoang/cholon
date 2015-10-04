@@ -18,6 +18,7 @@ class Product < ActiveRecord::Base
 
   validates :name, presence: true
   validates :name, length: { in: 8..80 }
+  validates :condition, presence: true
   validates :price, presence: true
   validates :stock_quantity, presence: true
   validates :seller_id, presence: true

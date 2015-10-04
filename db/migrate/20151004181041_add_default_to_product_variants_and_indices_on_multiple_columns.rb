@@ -1,7 +1,7 @@
 class AddDefaultToProductVariantsAndIndicesOnMultipleColumns < ActiveRecord::Migration
   def up
     # product variants table
-    add_column :product_variants, :is_default, :boolean
+    add_column :product_variants, :is_default, :boolean, default: false
     add_index :product_variants, :is_default
     add_index :product_variants, :product_id
     add_index :product_variants, :sku
@@ -11,7 +11,6 @@ class AddDefaultToProductVariantsAndIndicesOnMultipleColumns < ActiveRecord::Mig
 
     #product_photos table
     add_index :product_photos, :product_variant_id
-
 
     # products
     add_index :products, :shipping_carrier

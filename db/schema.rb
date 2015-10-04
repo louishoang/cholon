@@ -57,14 +57,14 @@ ActiveRecord::Schema.define(version: 20151004181041) do
   add_index "product_photos", ["product_variant_id"], name: "index_product_photos_on_product_variant_id"
 
   create_table "product_variants", force: true do |t|
-    t.integer  "product_id",                              null: false
-    t.string   "name",                                    null: false
+    t.integer  "product_id",                                              null: false
+    t.string   "name",                                                    null: false
     t.decimal  "price",          precision: 10, scale: 2
     t.string   "sku"
     t.integer  "stock_quantity"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_default"
+    t.boolean  "is_default",                              default: false
   end
 
   add_index "product_variants", ["is_default"], name: "index_product_variants_on_is_default"
