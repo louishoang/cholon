@@ -11,76 +11,139 @@
 
 <div class="body-content outer-top-bd">
   <div class="container">
-    <%= form_for @product, url: products_path, html: {class: "form-vertical register-form outer-top-xs product-form form_ajax jvalidate", method: "POST", :remote => true, :novalidate => true} do |f| %>
-      <div class="col-sm-12"><h2><%= t"Product Information" %></h2></div>
-      <div class="row-fluid">
-        <div class="col-md-9 col-sm-9 form-container">
-          <div class="form-group">
-            <%= f.label :title, class: "info-title" do %>
-              <%= t"Title" %>: <span>*</span>
-            <% end %>
-            <textarea class="form-control unicase-form-control text-input input-name input-styling" id="product_name" name="product[name]" placeholder="ex: Macbook Pro 25 inch" rows="2" data-tooltip="This is the title of your post. You can be creative but limit it to 80 character max. Minimum 8 characters" data-tooltip-title="Describe Your Product" data-validation="length" data-validation-length="8-80"></textarea>
-            <div class="char-count pull-right"><em><span id="maxlength">80</span></em> characters left</div>
-          </div>
-          <!-- <div class="form-group">
-            <%= f.label :short_description, class: "info-title" do %>
-              <%= t"Short Description" %>: <span>*</span>
-            <% end %>
-            <textarea class="form-control unicase-form-control text-input input-styling" id="product_name" name="product[short_description]" placeholder="ex: USA Seller - Come with Apple Care - Fast Shipping!!" rows="2" maxlength="200" data-tooltip="This is the short description of your post. You can be creative but limit it to 80 character max." data-tooltip-title="Short Description" required></textarea>
-            <div class="char-count pull-right"><em>0</em> / 200 max</div>
-          </div> -->
-          <div class="row-fluid">
-            <div class="col-sm-12 nopadding">
+    <%= form_for @product, url: products_path, html: {class: "form-vertical register-form product-form form_ajax jvalidate", method: "POST", :remote => true, :novalidate => true} do |f| %>
+      <div class="col-sm-12 col-md-12 nopadding">
+        <div class="col-md-9 col-sm-9 nopadding">
+          <div class="row-fluid"><h2><%= t"Product Information" %></h2></div>
+          <div class="row-fluid form-container">
+            <div class="form-group m-t-10">
+              <%= f.label :title, class: "info-title" do %>
+                <%= t"Title" %>: <span>*</span>
+              <% end %>
+              <textarea class="form-control unicase-form-control text-input input-name input-styling" id="product_name" name="product[name]" placeholder="ex: Macbook Pro 25 inch" rows="2" data-tooltip="This is the title of your post. You can be creative but limit it to 80 character max. Minimum 8 characters" data-tooltip-title="Describe Your Product" data-validation="length" data-validation-length="8-80"></textarea>
+              <div class="char-count pull-right"><em><span id="maxlength">80</span></em> characters left</div>
+            </div>
+            <!-- <div class="form-group">
+              <%= f.label :short_description, class: "info-title" do %>
+                <%= t"Short Description" %>: <span>*</span>
+              <% end %>
+              <textarea class="form-control unicase-form-control text-input input-styling" id="product_name" name="product[short_description]" placeholder="ex: USA Seller - Come with Apple Care - Fast Shipping!!" rows="2" maxlength="200" data-tooltip="This is the short description of your post. You can be creative but limit it to 80 character max." data-tooltip-title="Short Description" required></textarea>
+              <div class="char-count pull-right"><em>0</em> / 200 max</div>
+            </div> -->
+            <div class="row-fluid">
+              <div class="col-sm-12 nopadding">
+                <div class="form-group col-sm-4 nopadding">
+                  <%= f.label :category, class: "info-title" do %>
+                    <%= t"Category" %>: <span>*</span>
+                  <% end %>
+                  <%= top_level_category_select("category", nil, {class: "form-control unicase-form-control text-input input-styling select2class multilevel col-sm-4", :include_blank => true, "data-url": sub_category_categories_path, "data-validation" => "required"}) %>
+                </div>
+                <div class="form-group col-sm-4 spinner-box hide" id="sub_cat_select">
+                </div>
+              </div>
+            </div>
+            <div class="row-fluid">
               <div class="form-group col-sm-4 nopadding">
-                <%= f.label :category, class: "info-title" do %>
-                  <%= t"Category" %>: <span>*</span>
+                <%= f.label :price, class: "info-title" do %>
+                  <%= t"Price" %>: <span>*</span>
                 <% end %>
-                <%= top_level_category_select("category", nil, {class: "form-control unicase-form-control text-input input-styling select2class multilevel col-sm-4", :include_blank => true, "data-url": sub_category_categories_path, "data-validation" => "required"}) %>
+                <div class="input-group">
+                  <div class="input-group-addon">$</div>
+                  <input type="text" class="form-control unicase-form-control text-input input-styling" name="product[price]" value="" data-tooltip="Product price in USD" data-tooltip-title="Price" data-validation="currency"/>
+                </div>
               </div>
-              <div class="form-group col-sm-4 spinner-box hide" id="sub_cat_select">
+              <div class="form-group col-sm-4">
+                <%= f.label :stock_quantity, class: "info-title" do %>
+                  <%= t"Quantity" %>: <span>*</span>
+                <% end %>
+                <input type="number" class="form-control unicase-form-control text-input input-styling" name="product[stock_quantity]" value="" data-tooltip="Total quantity of the products listed under this post" data-tooltip-title="Quantity" required/>
+              </div>
+              <div class="form-group col-sm-4">
+                <%= f.label :condition, class: "info-title" do %>
+                  <%= t"Condition" %>: <span>*</span>
+                <% end %>
+                <%= f.select(:condition, options_for_select(Product.condition_select_option.map{|x| [x.first, x.last]}), {},{required: true, class: "form-control unicase-form-control text-input input-styling", "data-validation" => "required"}) %>
               </div>
             </div>
-          </div>
-          <div class="row-fluid">
-            <div class="form-group col-sm-4 nopadding">
-              <%= f.label :price, class: "info-title" do %>
-                <%= t"Price" %>: <span>*</span>
+            <div class="form-group">
+              <%= f.label :description, class: "info-title product_description_label" do %>
+                <%= t"Description" %>: <span>*</span>
               <% end %>
-              <div class="input-group">
-                <div class="input-group-addon">$</div>
-                <input type="text" class="form-control unicase-form-control text-input input-styling" name="product[price]" value="" data-tooltip="Product price in USD" data-tooltip-title="Price" data-tooltip-parent=".row-fluid" data-validation="currency"/>
+              <textarea class="form-control unicase-form-control text-input input-styling text-editor" id="product_description" name="product[description]" rows="10" data-tooltip="This is the main content of the post. Be as detailed as possible so buyers will be able to understand if this meets their needs." data-tooltip-title="Description" data-validation="length" data-validation-length="min20"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="nopadding">
+                <input type="checkbox" name="has_variants" value="true"> <%= t"I want to setup product variants (ex: color, size with different prices)" %>
+              </label>
+            </div>
+            <%= f.hidden_field :seller_id, :value => current_user.id %>
+            <%= f.hidden_field :status, :value => Product::STATUS_DRAFT %>
+            <input type="hidden" id="page_is_dirty" name="page_is_dirty" value="0" />
+          </div>
+          <div class="row-fluid"><h2><%= t"Shipping Information" %></h2></div>
+          <div class="col-xs-12 form-container">
+            <div class="form-group col-xs-4 m-t-10">
+              <%= f.label :shipping_method, class: "info-title" do %>
+                <%= t"Shipping Method" %>: <span>*</span>
+              <% end %>
+              <%= f.select(:shipping_method, options_for_select(Product.shipping_method_option.map{|x| [x.first, x.last]}), {}, {required: true, class: "form-control unicase-form-control text-input input-styling shipping-selection", "data-validation" => "required"}) %>
+            </div>
+            <div class="col-xs-12 col-md-12 fixed_price_shipping nopadding hide">
+              <div class="form-group col-xs-4">
+                <%= f.label :shipping_price, class: "info-title" do %>
+                  <%= t"Shipping Price" %>: <span>*</span>
+                <% end %>
+                <div class="input-group">
+                  <div class="input-group-addon">$</div>
+                  <input type="text" class="form-control unicase-form-control text-input input-styling" name="product[shipping_price]" value="" data-tooltip="Shipping price in USD" data-tooltip-title="Shipping Price" data-validation="currency"/> 
+                </div>        
               </div>
             </div>
-            <div class="form-group col-sm-4">
-              <%= f.label :stock_quantity, class: "info-title" do %>
-                <%= t"Quantity" %>: <span>*</span>
-              <% end %>
-              <input type="number" class="form-control unicase-form-control text-input input-styling" name="product[stock_quantity]" value="" data-tooltip="Total quantity of the products listed under this post" data-tooltip-title="Quantity" data-tooltip-parent=".row-fluid" required/>
+            <div class="col-xs-12 col-md-12 actual_price_shipping nopadding">
+              <div class="form-group col-xs-3">
+                <%= f.label :weight, class: "info-title" do %>
+                  <%= t"Weight" %>: <span>*</span>
+                <% end %>
+                <div class="input-group">
+                  <input type="text" class="form-control unicase-form-control text-input input-styling" name="product[weight]" value="" data-tooltip="Weight in lbs" data-tooltip-title="Weight" data-validation="required"/> 
+                  <div class="input-group-addon">lbs</div>
+                </div>
+              </div>
+
+              <div class="form-group col-xs-3">
+                <%= f.label :length, class: "info-title" do %>
+                  <%= t"Length" %>: <span>*</span>
+                <% end %>
+                <div class="input-group">
+                  <input type="text" class="form-control unicase-form-control text-input input-styling" name="product[length]" value="" data-tooltip="Length in inch" data-tooltip-title="Length" data-validation="required"/> 
+                  <div class="input-group-addon">in</div>
+                </div>
+              </div>
+
+              <div class="form-group col-xs-3">
+                <%= f.label :width, class: "info-title" do %>
+                  <%= t"Width" %>: <span>*</span>
+                <% end %>
+                <div class="input-group">
+                  <input type="text" class="form-control unicase-form-control text-input input-styling" name="product[width]" value="" data-tooltip="Width in inch" data-tooltip-title="Width" data-validation="required"/> 
+                  <div class="input-group-addon">in</div>
+                </div>
+              </div>
+
+              <div class="form-group col-xs-3">
+                <%= f.label :height, class: "info-title" do %>
+                  <%= t"Height" %>: <span>*</span>
+                <% end %>
+                <div class="input-group">
+                  <input type="text" class="form-control unicase-form-control text-input input-styling" name="product[height]" value="" data-tooltip="Height in inch" data-tooltip-title="Height" data-validation="required"/> 
+                  <div class="input-group-addon">in</div>
+                </div>
+              </div>
             </div>
-            <div class="form-group col-sm-4">
-              <%= f.label :condition, class: "info-title" do %>
-                <%= t"Condition" %>: <span>*</span>
-              <% end %>
-              <%= f.select(:condition, options_for_select(Product.condition_select_option.map{|x| [x.first, x.last]}), {},{required: true, class: "form-control unicase-form-control text-input input-styling", "data-validation" => "required"}) %>
+            <div class="col-xs-12 text-center">
+              <button type="submit" class="btn-upper btn btn-lg btn-success"><%= t"Save & Continue" %></button>
             </div>
           </div>
-          <div class="form-group">
-            <%= f.label :description, class: "info-title product_description_label" do %>
-              <%= t"Description" %>: <span>*</span>
-            <% end %>
-            <textarea class="form-control unicase-form-control text-input input-styling text-editor" id="product_description" name="product[description]" rows="10" data-tooltip="This is the main content of the post. Be as detailed as possible so buyers will be able to understand if this meets their needs." data-tooltip-title="Description" data-tooltip-parent=".product_description_label" data-validation="length" data-validation-length="min20"></textarea>
-          </div>
-          <div class="form-group">
-            <label class="nopadding">
-              <input type="checkbox" name="has_variants" value="true"> <%= t"I want to setup product variants (ex: color, size with different prices)" %>
-            </label>
-          </div>
-          <%= f.hidden_field :seller_id, :value => current_user.id %>
-          <%= f.hidden_field :status, :value => Product::STATUS_DRAFT %>
-          <input type="hidden" id="page_is_dirty" name="page_is_dirty" value="0" />
-          <div class="text-center">
-            <button type="submit" class="btn-upper btn btn-lg btn-success"><%= t"Save & Continue" %></button>
-          </div> 
         </div>
         <!-- Tootip on the right -->
         <div class="col-md-3 col-sm-3">
@@ -92,12 +155,6 @@
               Panel content
             </div>
           </div>
-        </div>
-      </div>
-      <div class="col-sm-12 m-t-10"><h2><%= t"How You'll Ship It" %></h2></div>
-      <div class="row-fluid">
-        <div class="col-md-9 col-sm-9 form-container">
-
         </div>
       </div>
     <% end %>

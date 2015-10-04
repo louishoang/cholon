@@ -125,7 +125,7 @@ $(function() {
           $container = $this.closest(".container");
           $tooltipPanel = $container.find(".tooltip-panel");
 
-          pos = $(".product_description_label").position();
+          pos = $(".mce-panel").offset();
           $tooltipPanel.find(".panel-title").html(title);
           $tooltipPanel.find(".panel-body").html(content);
           $tooltipPanel.trigger("showAndPosition", pos);
@@ -280,25 +280,13 @@ $(function() {
     // please find in tinymce callback above
     //================================================
 
-    $toBeAlignWidth = $($this.closest($this.data("tooltip-parent")));
-    if($toBeAlignWidth.size() > 0){
-      $parent = $toBeAlignWidth;
-    }else{
-      $parent = $this.find($this.data("tooltip-parent"));;
-    }
-
     title = $this.data("tooltip-title");
     content = $this.data("tooltip");
     $container = $this.closest(".container");
     $tooltipPanel = $container.find(".tooltip-panel");
-
-    // if multiple elements are in one row, use position of parent
-    if ($parent.size() > 0){
-      pos = $parent.position();
-      pos["top"] += 100;
-    }else{
-      pos = $this.position();
-    }
+   
+    pos = $this.offset();
+    
     $tooltipPanel.find(".panel-title").html(title);
     $tooltipPanel.find(".panel-body").html(content);
     $tooltipPanel.trigger("showAndPosition", pos);
@@ -306,10 +294,11 @@ $(function() {
 
   $(".tooltip-panel").on("showAndPosition", function(e, position){
     e.preventDefault();
+    _top = position.top - 380;
     $(e.target).fadeIn(1000);
     $(e.target).css({
       position: "relative",
-      top: position.top + "px"
+      top: _top + "px"
     });  
   });
   // #form tooltip end

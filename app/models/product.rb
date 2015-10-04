@@ -10,6 +10,15 @@ class Product < ActiveRecord::Base
   STATUS_DRAFT = "Draft"
   STATUS_PUBLISHABLE = "Publishable"
 
+  SHIPPING_METHOD_FREE = "Free Shipping"
+  SHIPPING_METHOD_FIXED_COST = "Fixed Cost Shipping"
+  SHIPPING_METHOD_ACTUAL_COST = "Actual Cost Shipping"
+
+  SHIPPING_CARRIER_FEDEX = "FedEx"
+  SHIPPING_CARRIER_USPS = "USPS"
+  # SHIPPING_CARRIER_UPS = "UPS" 
+  # NOTE: need to work with ups after website's done to get key
+
   has_many :product_categories
   has_many :categories, through: :product_categories
   belongs_to :seller, class_name: "User", foreign_key: "seller_id"
@@ -58,6 +67,19 @@ class Product < ActiveRecord::Base
     if return_str == false
       errors[:base] << "Product needs at least one photo"
     end
+  end
+
+  def self.shipping_method_option
+    [ 
+      [SHIPPING_METHOD_ACTUAL_COST, SHIPPING_METHOD_ACTUAL_COST],
+      [SHIPPING_METHOD_FIXED_COST, SHIPPING_METHOD_FIXED_COST],
+      [SHIPPING_METHOD_FREE, SHIPPING_METHOD_FREE]
+    ]
+  end
+
+  def self.shipping_carrier_array
+    #NOTE: need to add ups when it's available
+    [SHIPPING_CARRIER_FEDEX, SHIPPING_CARRIER_USPS]
   end
 
   def self.condition_select_option
