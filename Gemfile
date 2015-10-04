@@ -48,6 +48,7 @@ gem 'kaminari'
 
 gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
+gem 'active_shipping'
 
 group :development, :test do
   gem 'dotenv-rails'

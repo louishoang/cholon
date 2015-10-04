@@ -44,7 +44,7 @@ $(function() {
       ignore: '[]',
       form: ".jvalidate",
       modules : 'html5',
-      validateOnBlur : true,
+      validateOnBlur : false,
       onError : function($form) {
         $form.find(".has-error").each(function(index, elm){
 
