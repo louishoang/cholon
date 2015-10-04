@@ -2,7 +2,6 @@ class AddMoreColumnsForShippingToProducts < ActiveRecord::Migration
   def up
     add_column :products, :shipping_method, :string
     add_column :products, :shipping_price, :decimal, :precision => 10, :scale => 2
-    add_column :products, :location, :string
     add_column :products, :latitude, :float
     add_column :products, :longitude, :float
     add_column :products, :shipping_carrier, :string
@@ -15,7 +14,6 @@ class AddMoreColumnsForShippingToProducts < ActiveRecord::Migration
   def down
     remove_column :products, :shipping_method
     remove_column :products, :shipping_price
-    remove_column :products, :location
     remove_column :products, :latitude
     remove_column :products, :longitude
     remove_column :products, :shipping_carrier

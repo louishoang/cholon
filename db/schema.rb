@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150914025241) do
+ActiveRecord::Schema.define(version: 20151004181041) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 20150914025241) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "categories", ["parent_id"], name: "index_categories_on_parent_id"
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false
@@ -52,6 +54,8 @@ ActiveRecord::Schema.define(version: 20150914025241) do
     t.datetime "photo_updated_at"
   end
 
+  add_index "product_photos", ["product_variant_id"], name: "index_product_photos_on_product_variant_id"
+
   create_table "product_variants", force: true do |t|
     t.integer  "product_id",                              null: false
     t.string   "name",                                    null: false
@@ -60,12 +64,17 @@ ActiveRecord::Schema.define(version: 20150914025241) do
     t.integer  "stock_quantity"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_default"
   end
 
+  add_index "product_variants", ["is_default"], name: "index_product_variants_on_is_default"
+  add_index "product_variants", ["product_id"], name: "index_product_variants_on_product_id"
+  add_index "product_variants", ["sku"], name: "index_product_variants_on_sku"
+
   create_table "products", force: true do |t|
-    t.string   "name",                                    null: false
+    t.string   "name",                                      null: false
     t.text     "description"
-    t.decimal  "price",          precision: 10, scale: 2
+    t.decimal  "price",            precision: 10, scale: 2
     t.string   "sku"
     t.integer  "stock_quantity"
     t.integer  "seller_id"
@@ -75,11 +84,23 @@ ActiveRecord::Schema.define(version: 20150914025241) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "status"
+    t.string   "shipping_method"
+    t.decimal  "shipping_price",   precision: 10, scale: 2
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "shipping_carrier"
+    t.decimal  "weight",           precision: 10, scale: 2
+    t.string   "length"
+    t.string   "width"
+    t.string   "height"
   end
 
+  add_index "products", ["condition"], name: "index_products_on_condition"
   add_index "products", ["seller_id"], name: "index_products_on_seller_id"
+  add_index "products", ["shipping_carrier"], name: "index_products_on_shipping_carrier"
   add_index "products", ["sku"], name: "index_products_on_sku"
   add_index "products", ["slug"], name: "index_products_on_slug"
+  add_index "products", ["status"], name: "index_products_on_status"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
