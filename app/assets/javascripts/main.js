@@ -138,8 +138,7 @@ $(function() {
           // copy content to the selector for validation;
           _content = tinyMCE.activeEditor.getContent();
           $(".text-editor").text(tinyMCE.activeEditor.getContent()); 
-          tinyMCE.triggerSave();
-          
+          tinyMCE.triggerSave(); 
         });
 
         editor.on('blur', function(e){
