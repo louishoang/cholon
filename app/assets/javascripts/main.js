@@ -41,7 +41,7 @@ $(function() {
   if($(".jvalidate").length > 0){
     $('#product_name').restrictLength($('#maxlength'));
     $.validate({
-      ignore: '[]',
+      ignore: "[]",
       form: ".jvalidate",
       modules : 'html5',
       validateOnBlur : false,

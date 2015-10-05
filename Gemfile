@@ -40,7 +40,7 @@ gem "fog"
 gem "fog-aws"
 gem 'aws-sdk', '~> 1.6'
 
-gem 'jquery-form-validator-rails'
+# gem 'jquery-form-validator-rails'
 
 gem 'friendly_id'
 
