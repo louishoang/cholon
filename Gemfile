@@ -40,15 +40,20 @@ gem "fog"
 gem "fog-aws"
 gem 'aws-sdk', '~> 1.6'
 
-# gem 'jquery-form-validator-rails'
-
+gem 'jquery-form-validator-rails'
+# pretty url
 gem 'friendly_id'
-
+# pagination
 gem 'kaminari'
 
+# html editor
 gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
+
+#shipping cost calculator
 gem 'active_shipping'
+# location to coordinate
+gem 'geocoder'
 
 group :development, :test do
   gem 'dotenv-rails'

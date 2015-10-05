@@ -33,9 +33,12 @@
       <div class="col-md-4 product-right-panel">
         <div class="row-fluid product-detail-panel product-info">
           <h1 class="name"><%= @product.name %></h1>
-          <div>
-            <span class="location"><i class="fa fa-map-marker m-r-10"></i><%= @product.location %></span>
-          </div>
+          <% _location = result = Geocoder.search("#{@product.latitude},#{@product.longitude}").first %>
+          <% if _location.present? %>
+            <div>
+              <span class="location"><i class="fa fa-map-marker m-r-10"></i><%= "#{_location.city}, #{_location.state}" %></span>
+            </div>
+          <% end %>
           <div class="price-container info-container m-t-20">
             <div class="row">
               <div class="col-sm-6">
@@ -110,7 +113,7 @@
                 <span><i class="fa fa-rocket m-r-10"></i> About The Merchant</span>
                 <div class="snapshot-info m-t-10">
                   <div class="rating-reviews">
-                    <div class="prepend">Louis Hoang: </span>
+                    <span class="prepend"><%= @product.seller.full_name %>: </span>
                     <div class="rateit" data-rateit-value="5" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
                     <div class="reviews"><a href="#" class="lnk">(06 Reviews)</a></div>
                   </div>
@@ -135,7 +138,7 @@
               <li class="snapshot-title m-t-10">
                 <span><i class="fa fa-truck m-r-10"></i> <%= t"Shipping" %></span>
                 <div class="snapshot-info m-t-10">
-                  Free Shipping
+                  <%= @product.shipping_method %>
                 </div>
               </li>
             </ul>

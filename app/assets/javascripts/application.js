@@ -15,7 +15,7 @@
 //= require bootstrap-sprockets
 //= require bootstrap
 //= require dropzone
-//= require jquery.form-validator
+// = require jquery.form-validator
 //= require tinymce-jquery
 //= require_tree .
 

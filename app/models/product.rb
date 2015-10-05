@@ -1,4 +1,7 @@
 class Product < ActiveRecord::Base
+  geocoded_by :location
+  after_validation :geocode
+
   extend FriendlyId
   friendly_id :name_utf8, use: [:slugged, :history]
 
