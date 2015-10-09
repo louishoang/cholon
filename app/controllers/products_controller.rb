@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!
-  before_filter :find_product, :only => [:create_variants, :edit, :update, :show]
+  before_filter :find_product, :only => [:create_variants, :edit, :update, :show, :shipping_handling]
   before_filter :clear_browser_cache, :only => [:new, :create_variants]
 
   def clear_browser_cache
@@ -15,6 +15,7 @@ class ProductsController < ApplicationController
   end
 
   def show
+    @location = Geocoder.search("#{@product.latitude},#{@product.longitude}").first
   end
 
   def new
@@ -92,6 +93,11 @@ class ProductsController < ApplicationController
         format.json { render json: {:message => @product.errors.full_messages.to_sentence }, status: :unprocessable_entity }
       end
     end
+  end
+
+  def shipping_handling
+    @location = Geocoder.search("#{@product.latitude},#{@product.longitude}").first
+    render :partial => "shipping_handling.html"
   end
 
   private

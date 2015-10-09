@@ -6,6 +6,8 @@ class ProductVariant < ActiveRecord::Base
   validates :price, presence: true
   validates :product_id, presence: true
 
+  scope :default_variants, -> { where(is_default: true) }
+
   def default_image
     self.product_photos.first
   end

@@ -103,6 +103,7 @@ class Product < ActiveRecord::Base
       variant.name = self.name
       variant.price = self.price
       variant.stock_quantity = self.stock_quantity
+      variant.is_default = true
       variant.save
       return variant
     else
@@ -116,5 +117,34 @@ class Product < ActiveRecord::Base
 
   def name_utf8
     self.name.mb_chars.normalize(:kd).gsub(/\p{Mn}/, '').to_s.downcase.parameterize
+  end
+
+  def get_shipping_cost(destination_zip)
+    begin
+      all_rate_options = []
+
+      destination_coord = Geocoder.coordinates(destination_zip)
+      destination = Geocoder.search(destination_coord.join(",")).first
+
+      origin = ActiveShipping::Location.new( :country => 'US', :state => self.state, :city => self.city, :zip => self.location)
+
+      destination = ActiveShipping::Location.new( :country => 'US', :state => destination.state, :city => destination.city, :zip => destination_zip)
+
+      package = ActiveShipping::Package.new( self.weight.to_f * 16, [self.length, self.width, self.height], :units => :imperial)
+
+      fedex = ActiveShipping::FedEx.new(:key => ENV['FEDEX_API_KEY'], #developer API key
+        :password => ENV['FEDEX_API_PASSWORD'], #API password
+        :account => ENV['FEDEX_ACCOUNT'],
+        :login => ENV['FEDEX_METER_NUMBER'], #meter number
+        :test => true) #NOTE: false in production and change key
+
+      response = fedex.find_rates(origin, destination, package)
+
+      # find rate USPS
+
+      all_rate_options << response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
+    rescue
+      false
+    end
   end
 end

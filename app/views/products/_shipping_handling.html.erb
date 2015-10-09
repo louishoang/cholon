@@ -1,0 +1,25 @@
+<div class="product-info">
+  <h2 class="name"><%= t"Shipping and handling" %></h2>
+  <div class="row-fluid m-t-10">
+    <%= t"Item Location" %>: <%= "#{@location.city}, #{@location.state}" %>
+    <%= form_for @product, url: products_path , html: {class: "form-inline register-form product-form form_ajax jvalidate m-t-20", :novalidate => true} do |f| %>
+        <div class="form-group m-r-10">
+          <%= label_tag :quantity, class: "info-title" do %>
+            <%= t"Quantity" %>: <span>*</span>
+          <% end %>
+          <input type="number" class="form-control unicase-form-control text-input input-styling" value="1" size="5" name="quantity"/>
+        </div>
+        <div class="form-group m-r-10">
+          <%= label_tag :zip_code, class: "info-title" do %>
+            <%= t"ZIP Code" %>: <span>*</span>
+          <% end %>
+          <% binding.pry %>
+          <input type="text" class="form-control unicase-form-control text-input input-styling" name="zipCode" size="12" placeholder="94541" value=""/>
+        </div>
+        <div class="form-group m-r-10">
+          <button class="btn btn-default m-t-5"><%= t'Get Rates' %></button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

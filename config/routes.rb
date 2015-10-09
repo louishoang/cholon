@@ -16,6 +16,8 @@ Rails.application.routes.draw do
       get 'set_publishable'
     end
     member do
+      post 'calculate_shipping'
+      get 'shipping_handling'
       get 'create_variants'
       post 'create_variants'
     end

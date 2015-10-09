@@ -105,10 +105,13 @@ img[src="assets/images/blank.gif"] {
 .m-t-10 {
   margin-top: 10px;
 }
-
 .m-r-10{
   margin-right: 10px;
 }
+.m-l-10{
+  margin-left: 10px;
+}
+
 .btn-uppercase {
   text-transform: uppercase;
 }
@@ -5729,5 +5732,12 @@ li.dist-or span{
   font-family: 'Fjalla One';
 }
 
+.icon-s-link{
+  color: #7D7873;
+}
+
+.icon-s-link:hover{
+  color: #337ab7;
+}
 
 
