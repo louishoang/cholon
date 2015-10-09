@@ -33,11 +33,9 @@
       <div class="col-md-4 product-right-panel">
         <div class="row-fluid product-detail-panel product-info">
           <h1 class="name"><%= @product.name %></h1>
-          <% if @location.present? %>
-            <div>
-              <span class="location"><i class="fa fa-map-marker m-r-10"></i><%= "#{@location.city}, #{@location.state}" %></span>
-            </div>
-          <% end %>
+          <div>
+            <span class="location"><i class="fa fa-map-marker m-r-10"></i><%= "#{@product.city}, #{@product.state}" %></span>
+          </div>
           <div class="price-container info-container m-t-20">
             <div class="row">
               <div class="col-sm-6">

@@ -1,6 +1,7 @@
 class Product < ActiveRecord::Base
   geocoded_by :location
   after_validation :geocode
+  before_save :get_city_and_state
 
   extend FriendlyId
   friendly_id :name_utf8, use: [:slugged, :history]
@@ -119,8 +120,17 @@ class Product < ActiveRecord::Base
     self.name.mb_chars.normalize(:kd).gsub(/\p{Mn}/, '').to_s.downcase.parameterize
   end
 
-  def get_shipping_cost(destination_zip)
+  def get_city_and_state
+    if self.latitude.present? && self.longitude.present?
+      address = Geocoder.search("#{self.latitude},#{self.longitude}").first
+      self.city = address.city rescue nil
+      self.state = address.state rescue nil
+    end
+  end
+
+  def get_shipping_cost(destination_zip, sh_quantity)
     begin
+      sh_quantity = sh_quantity.to_i
       all_rate_options = []
 
       destination_coord = Geocoder.coordinates(destination_zip)
@@ -130,8 +140,8 @@ class Product < ActiveRecord::Base
 
       destination = ActiveShipping::Location.new( :country => 'US', :state => destination.state, :city => destination.city, :zip => destination_zip)
 
-      package = ActiveShipping::Package.new( self.weight.to_f * 16, [self.length, self.width, self.height], :units => :imperial)
-
+      package = ActiveShipping::Package.new( self.weight.to_f * 16 * sh_quantity, [self.length.to_f * sh_quantity, self.width.to_f * sh_quantity, self.height.to_f * sh_quantity], :units => :imperial)
+      
       fedex = ActiveShipping::FedEx.new(:key => ENV['FEDEX_API_KEY'], #developer API key
         :password => ENV['FEDEX_API_PASSWORD'], #API password
         :account => ENV['FEDEX_ACCOUNT'],
@@ -141,8 +151,8 @@ class Product < ActiveRecord::Base
       response = fedex.find_rates(origin, destination, package)
 
       # find rate USPS
-
-      all_rate_options << response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
+      all_rate_options += response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
+      all_rate_options
     rescue
       false
     end

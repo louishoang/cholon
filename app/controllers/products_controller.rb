@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!
-  before_filter :find_product, :only => [:create_variants, :edit, :update, :show, :shipping_handling]
+  before_filter :find_product, :only => [:create_variants, :edit, :update, :show, :shipping_handling, :calculate_shipping]
   before_filter :clear_browser_cache, :only => [:new, :create_variants]
 
   def clear_browser_cache
@@ -15,7 +15,6 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @location = Geocoder.search("#{@product.latitude},#{@product.longitude}").first
   end
 
   def new
@@ -96,8 +95,14 @@ class ProductsController < ApplicationController
   end
 
   def shipping_handling
-    @location = Geocoder.search("#{@product.latitude},#{@product.longitude}").first
     render :partial => "shipping_handling.html"
+  end
+
+  def calculate_shipping
+    @shipping_options = @product.get_shipping_cost(params[:zipcode], params[:quantity])
+    respond_to do |format|
+      format.js
+    end
   end
 
   private

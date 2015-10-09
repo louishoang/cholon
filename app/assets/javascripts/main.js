@@ -109,7 +109,6 @@ $(function() {
 
 
   var renderUI = function(cx){
-
     //HTML text editor
     tinymce.init({
       selector: ".text-editor",

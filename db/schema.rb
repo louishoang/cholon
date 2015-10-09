@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151004181041) do
+ActiveRecord::Schema.define(version: 20151009183157) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -93,13 +93,17 @@ ActiveRecord::Schema.define(version: 20151004181041) do
     t.string   "length"
     t.string   "width"
     t.string   "height"
+    t.string   "city"
+    t.string   "state"
   end
 
+  add_index "products", ["city"], name: "index_products_on_city"
   add_index "products", ["condition"], name: "index_products_on_condition"
   add_index "products", ["seller_id"], name: "index_products_on_seller_id"
   add_index "products", ["shipping_carrier"], name: "index_products_on_shipping_carrier"
   add_index "products", ["sku"], name: "index_products_on_sku"
   add_index "products", ["slug"], name: "index_products_on_slug"
+  add_index "products", ["state"], name: "index_products_on_state"
   add_index "products", ["status"], name: "index_products_on_status"
 
   create_table "users", force: true do |t|

@@ -90,4 +90,30 @@
       </div>
     </div>
   <% end %>
+<% elsif view_mode == :shipping_cost %>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover table-striped m-t-20">
+      <thead>
+        <tr>
+          <th width="50%"><%= t'Type' %></th>
+          <th><%= t'Price' %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @shipping_options && @shipping_options != false %>
+          <% @shipping_options.each do |sh_type| %>
+            <tr>
+              <td><%= sh_type.first %></td>
+              <td><%= number_to_currency(sh_type.last.to_f / 100, locale: :en) %></td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td colspan="2">
+              We encoutered a problem calculating shipping cost. Please try again
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 <% end %>
