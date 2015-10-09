@@ -1,0 +1,138 @@
+<div class="body-content outer-top-bd">
+  <div class="container">
+    <div class="row-fluid single-product">
+      <div class="col-md-8">
+        <div class="product_gallery">
+          <% product.all_photos.each do |p| %>
+            <a href="<%= p.photo.url(:detail) %>"><img src="<%= p.photo.url(:thumb) %>" /></a>
+          <% end %>
+        </div>
+        <div class="row-fluid showroom-container">
+          <div class="product-description">
+            <div class="description-title">
+              <%= t"Product Description" %>
+            </div>
+            <div class="description-body">
+              <%= product.description.html_safe %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 product-right-panel">
+        <div class="row-fluid product-detail-panel product-info">
+          <h1 class="name"><%= product.name %></h1>
+          <div>
+            <span class="location"><i class="fa fa-map-marker m-r-10"></i><%= "#{product.city}, #{product.state}" %></span>
+          </div>
+          <div class="price-container info-container m-t-20">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="price-box">
+                  <span class="price"><%= number_to_currency(product.price) %></span>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="favorite-button m-t-10">
+                  <a class="btn btn-greylime" data-toggle="tooltip" data-placement="right" title="Wishlist" href="#">
+                      <i class="fa fa-heart"></i>
+                  </a>
+                  <a class="btn btn-greylime" data-toggle="tooltip" data-placement="right" title="<%= t'Contact Seller' %>" href="#">
+                    <i class="fa fa-envelope"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="quantity-container info-container">
+            <div class="row">  
+              <div class="col-sm-12">
+                <div class="col-sm-2">
+                  <span class="label"><%= t'Qty' %> :</span>
+                </div>   
+                <div class="col-sm-3 nopadding">
+                  <div class="cart-quantity">
+                    <div class="quant-input">
+                      <div class="arrows">
+                        <div class="arrow plus gradient"><span class="ir"><i class="icon fa fa-sort-asc"></i></span></div>
+                        <div class="arrow minus gradient"><span class="ir"><i class="icon fa fa-sort-desc"></i></span></div>
+                      </div>
+                      <input type="text" value="1">
+                  </div>
+                </div>
+                </div>
+                <div class="col-sm-7">
+                  <a href="#" class="btn btn-lime"><i class="fa fa-shopping-cart inner-right-vs"></i> ADD TO CART</a>
+                </div>
+              </div>     
+            </div>
+          </div>
+          <div class="row-fluid m-t-10">
+            <div class="row-fluid">
+              <div class="product-social-link m-t-20 text-right">
+                <span class="social-label">Share :</span>
+                <div class="social-icons">
+                  <ul class="list-inline">
+                    <li><a class="fa fa-facebook" href="http://facebook.com/transvelo"></a></li>
+                    <li><a class="fa fa-twitter" href="#"></a></li>
+                    <li><a class="fa fa-linkedin" href="#"></a></li>
+                    <li><a class="fa fa-rss" href="#"></a></li>
+                    <li><a class="fa fa-pinterest" href="#"></a></li>
+                  </ul><!-- /.social-icons -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row-fluid m-t-10">
+          <% product.product_variants.non_default_variants.each do |variant| %>
+            <%= render "/product_variants/entity", view_mode: :product_detail_page_button, entity: variant %>
+          <% end %>
+        </div>
+        <div class="row-fluid m-t-10 product-snapshot">
+          <div class="snapshot-header">
+            <%= t"SnapShot" %>
+          </div>
+          <div class="snapshot-body">
+            <ul class="snapshot-dimensions">
+              <li class="snapshot-title">
+                <span><i class="fa fa-rocket m-r-10"></i> About The Merchant</span>
+                <div class="snapshot-info m-t-10">
+                  <div class="rating-reviews">
+                    <span class="prepend"><%= product.seller.full_name %>: </span>
+                    <div class="rateit" data-rateit-value="5" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                    <div class="reviews"><a href="#" class="lnk">(06 Reviews)</a></div>
+                  </div>
+                </div>
+              </li>
+              <li class="snapshot-title m-t-10">
+                <span><i class="fa fa-gift m-r-10"></i> <%= t"CONDITION" %></span>
+                <div class="snapshot-info m-t-10">
+                  <%= product.condition %>
+                </div>
+              </li>
+              <li class="snapshot-title m-t-10">
+                <span><i class="fa fa-calendar-check-o m-r-10"></i> <%= t"AVAILABILITY" %></span>
+                <div class="snapshot-info m-t-10">
+                  <% if product.stock_quantity > 0 %>
+                    <span class="in-stock">In Stock</span>(&nbsp;<span class="value nomargin"><%= product.stock_quantity %></span>&nbsp;)
+                  <% else %>
+                    <span class="out-of-stock">Out Of Stock</span>
+                  <% end %>
+                </div>
+              </li>
+              <li class="snapshot-title m-t-10">
+                <span><i class="fa fa-truck m-r-10"></i> <%= t"Shipping" %></span>
+                <div class="snapshot-info m-t-10">
+                  <%= product.shipping_method %>
+                  <% if product.shipping_method == Product::SHIPPING_METHOD_ACTUAL_COST %>
+                    <a href="<%= shipping_handling_product_path(product) %>" class="ajax-popup-link"><i class="fa fa-calculator m-l-10 fa-lg icon-s-link"></i></a>
+                  <% end %>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div> 
+      </div>
+    </div>
+  </div>
+</div>

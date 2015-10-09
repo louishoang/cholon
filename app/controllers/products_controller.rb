@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!
-  before_filter :find_product, :only => [:create_variants, :edit, :update, :show, :shipping_handling, :calculate_shipping]
+  before_filter :find_product, :only => [:create_variants, :edit, :update, :show, :shipping_handling, :calculate_shipping, :preview]
   before_filter :clear_browser_cache, :only => [:new, :create_variants]
 
   def clear_browser_cache
@@ -51,7 +51,7 @@ class ProductsController < ApplicationController
   end
 
   def handle_create_or_update
-    # prevent user creates duplicates product by pressing back button, when he/she presses back button , params page_is_dirty is '1'
+    # prevent user creates duplicated product by pressing back button, when he/she presses back button , params page_is_dirty is '1'
     if params[:page_is_dirty].present? && params[:page_is_dirty] == '1'
       @product = Product.find_by(slug: cookies[:product_slug], seller_id: current_user.id)
       if @product.present?
@@ -78,6 +78,11 @@ class ProductsController < ApplicationController
         format.html { render action: "create_variants" }
       end
     end
+  end
+
+  def preview
+    @product.status = Product::STATUS_PREVIEW
+    @product.save
   end
 
   def set_publishable

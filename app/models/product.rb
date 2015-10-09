@@ -13,6 +13,7 @@ class Product < ActiveRecord::Base
 
   STATUS_DRAFT = "Draft"
   STATUS_PUBLISHABLE = "Publishable"
+  STATUS_PREVIEW = "Preview"
 
   SHIPPING_METHOD_FREE = "Free Shipping"
   SHIPPING_METHOD_FIXED_COST = "Fixed Cost Shipping"

@@ -430,7 +430,7 @@ $(function() {
     $(this).attr("disabled", "disabled");
   });
 
-  $(document).on("click", ".btn-publishable", function(e){
+  $(document).on("click", ".btn-preview", function(e){
     $url = $(this).data("url");
 
     $.ajax({
