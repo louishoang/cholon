@@ -3559,7 +3559,6 @@ body.overlayContainer > .overlay .imageLoaderPositionAbsolute {
 }
 .jgallery .zoom-container {
   position: relative;
-  height: 410px !important;
 }
 .jgallery .zoom-container .prev {
   top: 50%;
@@ -4262,8 +4261,9 @@ body.overlayContainer > .overlay .imageLoaderPositionAbsolute {
   box-sizing: content-box;
   position: fixed;
   z-index: 10002;
-  height: 549px !important;
 }
+
+#table-product-variants 
 .jgallery * {
   outline: none;
   -moz-box-sizing: content-box;

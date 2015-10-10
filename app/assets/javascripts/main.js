@@ -237,8 +237,8 @@ $(function() {
       "transitionRows":"1",
       "thumbnailsPosition":"bottom",
       "thumbType":"image",
-      "width": '200px',
-      "height": "200px",
+      "width": '365px',
+      "height": "205px",
       "mode": 'slider',
       "thumbHeight": 30,
       "thumbWidth": 30,
@@ -254,6 +254,7 @@ $(function() {
       "backgroundColor":"F8F8F8",
       "textColor":"000000",
       "mode":"standard",
+      "height": "527px",
       "browserHistory": true,
       "slideshow": false,
     });
