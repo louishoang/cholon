@@ -39,7 +39,9 @@ $(function() {
 
   // Jquery validation
   if($(".jvalidate").length > 0){
-    $('#product_name').restrictLength($('#maxlength'));
+    if($('#product_name').length > 0){
+      $('#product_name').restrictLength($('#maxlength'));
+    }
     $.validate({
       ignore: "[]",
       form: ".jvalidate",
@@ -363,7 +365,7 @@ $(function() {
       url: url,
       data: {index: index},
       success: function(resp){
-        $("#table-product-variants").append(resp)
+        $("#table-product-variants tbody").append(resp)
         renderUI("#table-product-variants tr:last");
       }
     });

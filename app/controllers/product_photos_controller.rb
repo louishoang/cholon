@@ -12,6 +12,7 @@ class ProductPhotosController < ApplicationController
   end
 
   def create
+    binding.pry
     @product_photo = ProductPhoto.new(product_photo_params)
     if params[:product_variant_id].present?
       @product_photo.product_variant_id = params[:product_variant_id]

@@ -72,7 +72,7 @@ class ProductsController < ApplicationController
     @product.status = Product::STATUS_PREVIEW unless [Product::STATUS_PUBLISHABLE, Product::STATUS_PREVIEW].include?(@product.status)
     if @product.update_attributes(product_params)
       if params[:next_url].present?
-        ender js: "window.location='#{preview_product_path(@product)}'"
+        render js: "window.location='#{preview_product_path(@product)}'"
       else
         render js: "window.location='#{products_path}'"
       end
@@ -85,10 +85,14 @@ class ProductsController < ApplicationController
   end
 
   def preview
-    @product.status = Product::STATUS_PREVIEW unless [Product::STATUS_PUBLISHABLE, Product::STATUS_PREVIEW].include?(@product.status)
-    unless @product.save
-      respond_to do |format|
-        format.json { render json: {:message => @product.errors.full_messages.to_sentence }, status: :unprocessable_entity }
+    unless params[:checked].present?
+      @product.status = Product::STATUS_PREVIEW unless [Product::STATUS_PUBLISHABLE, Product::STATUS_PREVIEW].include?(@product.status)
+      if @product.save
+        render js: "window.location='#{preview_product_path(@product, :checked => true)}'"
+      else
+        respond_to do |format|
+          format.json { render json: {:message => @product.errors.full_messages.to_sentence }, status: :unprocessable_entity }
+        end
       end
     end
   end
