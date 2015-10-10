@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!
-  before_filter :find_product, :only => [:create_variants, :edit, :update, :show, :shipping_handling, :calculate_shipping, :preview]
+  before_filter :find_product, :only => [:create_variants, :edit, :update, :show, :shipping_handling, :calculate_shipping, :preview, :set_publishable]
   before_filter :clear_browser_cache, :only => [:new, :create_variants]
 
   def clear_browser_cache
@@ -98,7 +98,6 @@ class ProductsController < ApplicationController
   end
 
   def set_publishable
-    @product = ProductVariant.find(params[:product_variant_id]).product rescue nil
     @product.status = Product::STATUS_PUBLISHABLE
     if @product.save
       respond_to do |format|

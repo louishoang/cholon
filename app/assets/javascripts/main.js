@@ -435,7 +435,23 @@ $(function() {
 
   $(document).on("click", ".btn-preview", function(e){
     $url = $(this).data("url");
+    $.ajax({
+      type: "GET",
+      url: $url,
+      success: function(resp){
+        if (resp.location.length > 0){
+          $(location).attr('href', resp.location);
+          toastr.success(resp.message);
+        }
+      },
+      error: function(resp){
+        toastr.error(resp.responseJSON.message, "Error");
+      }
+    });
+  });
 
+  $(document).on("click", ".btn-publishable", function(e){
+    $url = $(this).data("url");
     $.ajax({
       type: "GET",
       url: $url,

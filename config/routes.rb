@@ -12,10 +12,8 @@ Rails.application.routes.draw do
   resources :home
 
   resources :products do
-    collection do
-      get 'set_publishable'
-    end
     member do
+      get 'set_publishable'
       get 'preview'
       post 'calculate_shipping'
       get 'shipping_handling'
