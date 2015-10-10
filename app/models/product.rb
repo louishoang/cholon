@@ -36,7 +36,7 @@ class Product < ActiveRecord::Base
   validates :price, presence: true
   validates :stock_quantity, presence: true
   validates :seller_id, presence: true
-  validate :has_at_least_one_photo, if: :status_publishable
+  validate :has_at_least_one_photo, if: :status_preview
 
   scope :join_all, lambda{ |*args|
     select("DISTINCT products.*")
@@ -46,6 +46,10 @@ class Product < ActiveRecord::Base
   }
 
   scope :publishable, -> { where(status: STATUS_PUBLISHABLE) } 
+
+  def status_preview
+    self.status == STATUS_PREVIEW
+  end
 
   def status_publishable
     self.status == STATUS_PUBLISHABLE

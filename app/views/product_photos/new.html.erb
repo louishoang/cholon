@@ -23,7 +23,7 @@
         </div>
       <% end %>
       <div class="form-actions">
-        <a href="<%= preview_product_path(ProductVariant.find(params[:product_variant_id]).product) %>" class="btn-upper btn btn-success pull-right"><%= t"Save & Done" %></a>
+        <a href="javascript:;" data-url="<%= preview_product_path(ProductVariant.find(params[:product_variant_id]).product) %>" class="btn-upper btn btn-success pull-right btn-preview"><%= t"Save & Done" %></a>
       </div>
     </div>
   </div>

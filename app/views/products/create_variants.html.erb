@@ -37,6 +37,7 @@
               <div class="text-right table-bott-right">
                 <a href="javascript:;" class="clone_product_variant_form" data-url="<%= clone_form_product_variants_path %>"><i class="fa fa-plus"></i>&nbsp;&nbsp;<%= t("Add More Variant")  %></a>
               </div>
+              <input type="hidden" name="next_url" value="preview"/>
               <div class="form-actions">
                 <%= f.submit t("Save & Continue"),:class => "btn-upper btn btn-success pull-right" %>
               </div>

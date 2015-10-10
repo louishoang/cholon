@@ -440,9 +440,10 @@ $(function() {
         if (resp.location.length > 0){
           $(location).attr('href', resp.location);
           toastr.success(resp.message);
-        }else{
-          toastr.error(resp.message, "Error");
-        } 
+        }
+      },
+      error: function(resp){
+        toastr.error(resp.responseJSON.message, "Error");
       }
     });
   });
