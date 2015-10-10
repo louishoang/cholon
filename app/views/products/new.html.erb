@@ -82,33 +82,34 @@
           </div>
           <div class="row-fluid"><h2><%= t"Shipping Information" %></h2></div>
           <div class="col-xs-12 form-container">
-            <div class="form-group col-xs-4 m-t-10">
-              <%= f.label :shipping_method, class: "info-title" do %>
-                <%= t"Shipping Method" %>: <span>*</span>
-              <% end %>
-              <%= f.select(:shipping_method, options_for_select(Product.shipping_method_option.map{|x| [x.first, x.last]}, Product::SHIPPING_METHOD_ACTUAL_COST), {}, {required: true, class: "form-control unicase-form-control text-input input-styling shipping-selection", "data-validation" => "required"}) %>
+            <div class="row-fluid m-t-10">
+              <div class="form-group col-xs-12 col-md-4">
+                <%= f.label :shipping_method, class: "info-title" do %>
+                  <%= t"Shipping Method" %>: <span>*</span>
+                <% end %>
+                <%= f.select(:shipping_method, options_for_select(Product.shipping_method_option.map{|x| [x.first, x.last]}, Product::SHIPPING_METHOD_ACTUAL_COST), {}, {required: true, class: "form-control unicase-form-control text-input input-styling shipping-selection", "data-validation" => "required"}) %>
+              </div>
+              <div class="form-group col-xs-12 col-md-4">
+                <%= f.label :location, class: "info-title" do %>
+                  <%= t"Zip Code" %>: <span>*</span>
+                <% end %>
+                <input type="text" class="form-control unicase-form-control text-input input-styling" name="product[location]" value="" data-tooltip="Zip Code of the location where item is located. This is required by shipping carrier." data-tooltip-title="Zip Code" data-validation="required" placeholder="Ex: 94530"/> 
+              </div>
             </div>
             <div class="col-xs-12 col-md-12 fixed_price_shipping nopadding hide">
-              <div class="form-group col-xs-4">
+              <div class="form-group col-xs-12 col-md-4">
                 <%= f.label :shipping_price, class: "info-title" do %>
                   <%= t"Shipping Price" %>: <span>*</span>
                 <% end %>
                 <div class="input-group">
                   <div class="input-group-addon">$</div>
-                  <input type="text" class="form-control unicase-form-control text-input input-styling" name="product[shipping_price]" value="" data-tooltip="Shipping price in USD" data-tooltip-title="Shipping Price" data-validation="currency"/> 
+                  <input type="text" class="form-control unicase-form-control text-input input-styling" name="product[shipping_price]" value="" data-tooltip="Shipping price in USD" data-tooltip-title="Shipping Price" data-validation="currency"/>  
                 </div>        
               </div>
             </div>
             <div class="col-xs-12 col-md-12 actual_price_shipping nopadding">
               <div class="col-xs-12 col-md-12 nopadding">
-                <div class="form-group col-xs-4">
-                  <%= f.label :location, class: "info-title" do %>
-                    <%= t"Zip Code" %>: <span>*</span>
-                  <% end %>
-                  <input type="text" class="form-control unicase-form-control text-input input-styling" name="product[location]" value="" data-tooltip="Zip Code of the location where item is located. This is required by shipping carrier." data-tooltip-title="Zip Code" data-validation="required" placeholder="Ex: 94530"/> 
-                </div>
-
-                <div class="form-group col-xs-4">
+                <div class="form-group col-xs-12 col-md-4">
                   <%= f.label :weight, class: "info-title" do %>
                     <%= t"Weight" %>: <span>*</span>
                   <% end %>
@@ -119,7 +120,7 @@
                 </div>
               </div>
           
-              <div class="form-group col-xs-4">
+              <div class="form-group col-xs-12 col-md-4">
                 <%= f.label :length, class: "info-title" do %>
                   <%= t"Length" %>: <span>*</span>
                 <% end %>
@@ -129,7 +130,7 @@
                 </div>
               </div>
 
-              <div class="form-group col-xs-4">
+              <div class="form-group col-xs-12 col-md-4">
                 <%= f.label :width, class: "info-title" do %>
                   <%= t"Width" %>: <span>*</span>
                 <% end %>
@@ -139,7 +140,7 @@
                 </div>
               </div>
 
-              <div class="form-group col-xs-4">
+              <div class="form-group col-xs-12 col-md-4">
                 <%= f.label :height, class: "info-title" do %>
                   <%= t"Height" %>: <span>*</span>
                 <% end %>
