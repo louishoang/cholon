@@ -177,6 +177,9 @@ $(function() {
     //select2
     $(".select2class", cx).select2({});
 
+    //jquery equal height
+    $(".top", cx).matchHeight({});
+
     //image upload dropzone
     var dropZoneExist = $(cx).find(".dropzone").size() > 0;
 
@@ -424,9 +427,6 @@ $(function() {
     }
   });
 
-  //jquery equal height
-  $(".top").matchHeight();
-
   $(".btn").on("loading", function(e){
     $(this).addClass("spinner");
     $(this).attr("onclick", "return false;");
@@ -490,12 +490,12 @@ $(function() {
 
   if($(".ajax-content").length > 0){
     $(".ajax-content").each(function(index, elm){
-      url = $(this).data("url");
+      $elm = $(elm);
+      url = $elm.data('url');
       $.ajax({
         url: url,
-        success: function(resp){
-          $(this).html(resp);
-          renderUI($(this));
+        success: function(){
+          renderUI($elm);
         }
       });
     });

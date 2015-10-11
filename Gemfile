@@ -29,17 +29,23 @@ gem 'spring',        group: :development
 gem 'bootstrap-sass', '~> 3.3.5'
 gem "font-awesome-rails"
 
+#authentication
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 
+#authorization
+gem "pundit"
+
+#upload-storage
 gem "paperclip", "~> 4.3"
 gem 'rmagick', '~> 2.15.3'
 gem "fog"
 gem "fog-aws"
 gem 'aws-sdk', '~> 1.6'
 
+#form validator
 gem 'jquery-form-validator-rails'
 # pretty url
 gem 'friendly_id'

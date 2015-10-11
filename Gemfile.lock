@@ -268,6 +268,8 @@ GEM
       slop (~> 3.4)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
+    pundit (1.0.1)
+      activesupport (>= 3.0.0)
     quantified (1.0.1)
     rack (1.5.5)
     rack-test (0.6.3)
@@ -382,6 +384,7 @@ DEPENDENCIES
   omniauth-google-oauth2
   paperclip (~> 4.3)
   pry-rails
+  pundit
   rails (= 4.1.8)
   rmagick (~> 2.15.3)
   rspec-rails

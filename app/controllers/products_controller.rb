@@ -2,6 +2,7 @@ class ProductsController < ApplicationController
   before_action :authenticate_user!
   before_filter :find_product, :only => [:create_variants, :edit, :update, :show, :shipping_handling, :calculate_shipping, :preview, :set_publishable]
   before_filter :clear_browser_cache, :only => [:new, :create_variants]
+  after_action :verify_authorized, :except => [:index, :show]
 
   def clear_browser_cache
     response.headers["Pragma"] = "no-cache"
@@ -85,6 +86,7 @@ class ProductsController < ApplicationController
   end
 
   def preview
+    authorize @product
     unless params[:checked].present?
       @product.status = Product::STATUS_PREVIEW unless [Product::STATUS_PUBLISHABLE, Product::STATUS_PREVIEW].include?(@product.status)
       if @product.save
