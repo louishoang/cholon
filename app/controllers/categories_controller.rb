@@ -1,13 +1,16 @@
 class CategoriesController < ApplicationController
   before_action :authenticate_user!
+  after_action :verify_authorized, :only => [:new, :create] 
 
   def index
   end
 
   def new
+    authorize @category
   end
 
   def create
+    authorize @category
   end
 
   def sub_category
