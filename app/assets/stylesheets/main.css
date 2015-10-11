@@ -99,6 +99,9 @@ img[src="assets/images/blank.gif"] {
 .m-t-20 {
   margin-top: 20px;
 }
+.m-t-b-20{
+  margin: 20px 0px 20px 0px;
+}
 .m-t-15 {
   margin-top: 15px;
 }
@@ -5362,6 +5365,7 @@ a.dropdown-toggle{
 .product-description .description-body{
   color: #7D7873;
   font-size: 14px;
+  word-break: break-word;
 }
 
 .ads-right{
@@ -5750,4 +5754,21 @@ li.dist-or span{
 .simlar-pro{
   margin-bottom: 20px;
   font-family: 'Fjalla One';
+}
+
+.preview-header{
+  margin-top: -10px;
+  margin-bottom: 10px;
+  padding-left: 15px;
+}
+
+.preview-header h2{
+  font-family: 'Fjalla One';
+  color: #555;
+}
+
+.cust_inline{
+  display: inline-block;
+  vertical-align: bottom;
+  margin-left: 20px;
 }

@@ -3,11 +3,14 @@ class UpsellingsController < ApplicationController
   before_filter :find_product, :only => [:similar_products]
   
   def similar_products
-    @similar_products = Product.join_all
+    @similar_products = Product.join_all.publishable
       .where("products.id != ?", @product.id)
       .with_category(@product.categories.first)
 
-    @similar_products = Product.where("products.id != ?", @product.id).order("RANDOM()").limit(4) if @simlar_products.blank?
+    if @simlar_products.blank?
+      @similar_products = Product.publishable.where("products.id != ?", @product.id)
+        .order("RANDOM()").limit(4)
+    end
 
     respond_to do |format|
       format.js

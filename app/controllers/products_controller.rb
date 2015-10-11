@@ -72,7 +72,7 @@ class ProductsController < ApplicationController
     @product.status = Product::STATUS_PREVIEW unless [Product::STATUS_PUBLISHABLE, Product::STATUS_PREVIEW].include?(@product.status)
     if @product.update_attributes(product_params)
       if params[:next_url].present?
-        render js: "window.location='#{preview_product_path(@product)}'"
+        render js: "window.location='#{preview_product_path(@product, checked: true)}'"
       else
         render js: "window.location='#{products_path}'"
       end

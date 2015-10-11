@@ -3,11 +3,11 @@ class ProductPhoto < ActiveRecord::Base
   belongs_to :product_variant
   #NOTE: do not valid product_variant_id
 
-  has_attached_file :photo, styles: { medium: "220x220#", thumb: "125x71#", detail: "730x411#", s_rectangle: "365x205#" },
+  has_attached_file :photo, styles: { medium: "235x216#", thumb: "125x71#", detail: "730x411#", s_rectangle: "365x205#" },
     convert_options: {
       detail: " -gravity center -crop '730x410+0+0'",
       s_rectangle: " -gravity center -crop '365x205+0+0'",
-      medium: " -gravity center -crop '200x200+0+0'",
+      medium: " -gravity center -crop '235x216+0+0'",
       thumb: " -gravity center -crop '125x71+0+0'"
     },
     default_url: "/images/:style/missing.png",

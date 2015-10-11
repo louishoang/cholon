@@ -13,10 +13,17 @@
 
 <div class="body-content">
   <div class="container">
-    <%= render "detail.html", product: @product %>
-    <div class="row-fluid text-center m-t-20">
-      <a href="<%= edit_product_path(@product) %>" class="btn-upper btn btn-lg btn-default"><%= t"Edit" %></a>
-      <a href="javascript:;" data-url="<%= set_publishable_product_path(@product) %>" class="btn-upper btn btn-lg btn-success btn-publishable"><%= t"Save" %></a> 
+    <div class="row-fluid preview-header">
+      <h2 class="inline nomargin"><%= t"Preview" %></h2>
+      <div class="cust_inline">
+        <a href="<%= edit_product_path(@product) %>"><%= t"Edit" %></a>&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;
+        <a href="javascript:;" data-url="<%= set_publishable_product_path(@product) %>" class="btn-publishable"><%= t"Save" %></a>
+      </div> 
     </div>
+    <%= render "detail.html", product: @product %>
+  </div>
+  <div class="row-fluid text-center m-t-b-20">
+    <a href="<%= edit_product_path(@product) %>" class="btn-upper btn btn-lg btn-default"><%= t"Edit" %></a>
+    <a href="javascript:;" data-url="<%= set_publishable_product_path(@product) %>" class="btn-upper btn btn-lg btn-success btn-publishable"><%= t"Save" %></a> 
   </div>
 </div>
