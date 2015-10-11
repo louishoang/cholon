@@ -500,4 +500,9 @@ $(function() {
       });
     });
   }
+
+  $(document).on("click", ".btn-price-filter", function(e){
+    e.preventDefault();
+    debugger;
+  });
 });

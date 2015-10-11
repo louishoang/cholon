@@ -60,6 +60,20 @@ class Product < ActiveRecord::Base
     end
   } 
 
+  scope :with_condition, lambda{ |args|
+    if args.present?
+      where("products.condition = ?", args)
+    end
+  }
+
+  scope :price_between, lambda { |args|
+    if args.present? && args.is_a?(Array)
+      lowest_price = args[0]
+      highest_price = args[1]
+      where("products.price BETWEEN ? AND ?", lowest_price, highest_price)
+    end
+  }
+
   def status_preview
     self.status == STATUS_PREVIEW
   end

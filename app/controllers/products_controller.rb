@@ -12,6 +12,7 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.join_all.publishable
+      .with_condition(params[:condition])
       .order(:name).page(params[:page]).per(current_per_page)
   end
 
