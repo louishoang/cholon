@@ -1,8 +1,8 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!
-  before_filter :find_product, :only => [:create_variants, :edit, :update, :show, :shipping_handling, :calculate_shipping, :preview, :set_publishable]
+  prepend_before_filter :find_product, :only => [:create_variants, :edit, :update, :show, :shipping_handling, :calculate_shipping, :preview, :set_publishable]
   before_filter :clear_browser_cache, :only => [:new, :create_variants]
-  after_action :verify_authorized, :except => [:index, :show]
+  after_action :verify_authorized, :only => [:edit, :update, :preview, :destroy] 
 
   def clear_browser_cache
     response.headers["Pragma"] = "no-cache"
@@ -69,6 +69,7 @@ class ProductsController < ApplicationController
   end
 
   def update
+    authorize @product
     fix_params_product_photo_ids
     @product.status = Product::STATUS_PREVIEW unless [Product::STATUS_PUBLISHABLE, Product::STATUS_PREVIEW].include?(@product.status)
     if @product.update_attributes(product_params)
@@ -126,6 +127,7 @@ class ProductsController < ApplicationController
   end
 
   private
+
   def fix_params_product_photo_ids
     # photo_ids are sending in as a string => need to convert it to an array
     variant_attrs = params[:product][:product_variants_attributes] rescue nil

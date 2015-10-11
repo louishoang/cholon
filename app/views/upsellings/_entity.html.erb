@@ -4,7 +4,7 @@
     <div class="product-image">
       <div class="image">
         <% if photo.present? %>
-          <a href="<%= product_path(entity)%>"><img src="/assets/blank.gif" data-echo="<%= photo %>" alt="<%= entity.name %>"></a>
+          <a href="<%= product_path(entity)%>"><img src="<%= photo %>" alt="<%= entity.name %>"></a>
         <% else %>
           <a href="<%= product_path(entity)%>"><img  src="http://placehold.it/240x240" data-echo="http://placehold.it/240x240" alt="<%= entity.name %>"></a>
         <% end %>

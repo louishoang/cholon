@@ -7,6 +7,6 @@ class ProductPolicy < ApplicationPolicy
   end
 
   def preview?
-    product.seller == user.id or not product.status_publishable
+    product.seller == user or not product.status_publishable
   end
 end
