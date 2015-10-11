@@ -11,9 +11,12 @@
   </div>
 </div>
 
-<%= render "detail.html", product: @product %>
-
-<div class="row-fluid text-center m-t-20">
-  <a href="<%= edit_product_path(@product) %>" class="btn-upper btn btn-lg btn-default"><%= t"Edit" %></a>
-  <a href="javascript:;" data-url="<%= set_publishable_product_path(@product) %>" class="btn-upper btn btn-lg btn-success btn-publishable"><%= t"Save" %></a> 
+<div class="body-content">
+  <div class="container">
+    <%= render "detail.html", product: @product %>
+    <div class="row-fluid text-center m-t-20">
+      <a href="<%= edit_product_path(@product) %>" class="btn-upper btn btn-lg btn-default"><%= t"Edit" %></a>
+      <a href="javascript:;" data-url="<%= set_publishable_product_path(@product) %>" class="btn-upper btn btn-lg btn-success btn-publishable"><%= t"Save" %></a> 
+    </div>
+  </div>
 </div>

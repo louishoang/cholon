@@ -22,6 +22,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :upsellings do
+    collection do
+      get 'similar_products'
+    end
+  end
+
   resources :product_variants do
     collection do 
       get 'clone_form'

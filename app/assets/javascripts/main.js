@@ -441,7 +441,6 @@ $(function() {
       success: function(resp){
         if (resp.location.length > 0){
           $(location).attr('href', resp.location);
-          toastr.success(resp.message);
         }
       },
       error: function(resp){
@@ -488,4 +487,17 @@ $(function() {
       $actualPrice.addClass("hide");
     }
   });
+
+  if($(".ajax-content").length > 0){
+    $(".ajax-content").each(function(index, elm){
+      url = $(this).data("url");
+      $.ajax({
+        url: url,
+        success: function(resp){
+          $(this).html(resp);
+          renderUI($(this));
+        }
+      });
+    });
+  }
 });

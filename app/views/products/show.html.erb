@@ -10,4 +10,17 @@
   </div>
 </div>
 
-<%= render "detail.html", product: @product %>
+<div class="body-content">
+  <div class="container">
+    <%= render "detail.html", product: @product %>
+  </div>
+  <div class="row m-t-20" id="similar-products">
+    <div class="col-xs-10 col-xs-offset-1 text-center">
+      <h3 class="simlar-pro"><%= t"Similar Products" %></h3>
+    </div>
+    <div class="col-xs-10 col-xs-offset-1 upselling">
+      <div class="ajax-content" data-url="<%= similar_products_upsellings_path(offer_id: @product)%>">
+      </div>
+    </div>
+  </div>
+</div>

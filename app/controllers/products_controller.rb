@@ -88,7 +88,9 @@ class ProductsController < ApplicationController
     unless params[:checked].present?
       @product.status = Product::STATUS_PREVIEW unless [Product::STATUS_PUBLISHABLE, Product::STATUS_PREVIEW].include?(@product.status)
       if @product.save
-        redirect_to preview_product_path(@product, checked: true)
+        respond_to do |format|
+          format.json{ render json: {:location => preview_product_path(@product, checked: true) }}
+        end
       else
         respond_to do |format|
           format.json { render json: {:message => @product.errors.full_messages.to_sentence }, status: :unprocessable_entity }

@@ -1,339 +1,360 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Cholon</title>
-  <%= stylesheet_link_tag    'application', media: 'all' %>
-  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Fjalla+One">
-  <link href="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.43/theme-default.min.css"
-    rel="stylesheet" type="text/css" />
+  <head>
+    <title>Cholon</title>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Fjalla+One">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.43/theme-default.min.css"
+      rel="stylesheet" type="text/css" />
 
-  <link href="/assets/select2.min.css" rel="stylesheet" />
-  <%= javascript_include_tag 'application' %>
-  <%= csrf_meta_tags %>
-</head>
-<body class="cnt-home">
-  <header>
-    <div class="header-style-1">
-      <div class="top-bar animate-dropdown">
-        <div class="container">
-          <div class="header-top-inner">
-            <!-- top bar left side -->
-            <div class="cnt-account">
-              <ul class="list-unstyled">
-                <% if current_user %>
+    <link href="/assets/select2.min.css" rel="stylesheet" />
+    <%= javascript_include_tag 'application' %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body class="cnt-home">
+    <header>
+      <div class="header-style-1">
+        <div class="top-bar animate-dropdown">
+          <div class="container">
+            <div class="header-top-inner">
+              <!-- top bar left side -->
+              <div class="cnt-account">
+                <ul class="list-unstyled">
+                  <% if current_user %>
+                    <li>
+                      <a href="#">
+                        <i class="icon fa fa-user"></i><%= t"My Account" %>
+                      </a>
+                    </li>
+                    <!--  <li><a href="#"><i class="icon fa fa-heart"></i>Wishlist</a></li>
+                    <li><a href="#"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
+                    <li><a href="#"><i class="icon fa fa-key"></i>Checkout</a></li> -->
+                    <li>
+                      <%= link_to destroy_user_session_path, :method => :delete do %>
+                        <i class="icon fa fa-sign-out"></i> <%= t"Logout" %>
+                      <% end %>
+                    </li>
+                  <% else %>
+                    <li>
+                      <a href="<%= new_user_session_path %>">
+                        <i class="icon fa fa-sign-in"></i> <%= t"Login" %>
+                      </a>
+                    </li>
+                  <% end %>
                   <li>
-                    <a href="#">
-                      <i class="icon fa fa-user"></i><%= t"My Account" %>
+                    <a href="<%= new_product_path %>">
+                      <i class="fa fa-paper-plane-o"></i> <%= t"Sell An Item" %>
                     </a>
-                  </li>
-                  <!--  <li><a href="#"><i class="icon fa fa-heart"></i>Wishlist</a></li>
-                  <li><a href="#"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
-                  <li><a href="#"><i class="icon fa fa-key"></i>Checkout</a></li> -->
-                  <li>
-                    <%= link_to destroy_user_session_path, :method => :delete do %>
-                      <i class="icon fa fa-sign-out"></i> <%= t"Logout" %>
-                    <% end %>
-                  </li>
-                <% else %>
-                  <li>
-                    <a href="<%= new_user_session_path %>">
-                      <i class="icon fa fa-sign-in"></i> <%= t"Login" %>
-                    </a>
-                  </li>
-                <% end %>
-                <li>
-                  <a href="<%= new_product_path %>">
-                    <i class="fa fa-paper-plane-o"></i> <%= t"Sell An Item" %>
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <!-- top bar right side: language and currency -->
-            <div class="cnt-block">
-              <ul class="list-unstyled list-inline">
-                <li>
-                  <div class="dropdown dropdown-small">
-                    <a href="/" role="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="kesy">Language:</span><span class="value"> <%= current_language %> </span>&nbsp;&nbsp;<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                      <li class="<%= 'active' if current_locale == :en %>"><a href="/?locale=en">English</a></li>
-                      <li class="<%= 'active' if current_locale == :vi_VN %>"><a href="/?locale=vi_VN">Tiếng Việt</a></li>
-                    </ul>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          <div class="clearfix"></div>
-        </div>
-      </div>
-    </div>
-
-
-    <!-- Logo, search bar and shopping cart start -->
-    <div class="main-header">
-      <div class="container">
-        <div class="row">
-          <div class="col-xs-12 col-sm-12 col-md-3 logo-holder">
-            <div class="logo">
-              <a href="/">
-                <%= image_tag("logo.png", alt: "Cho Lon VietNam") %>
-              </a>
-            </div>
-          </div>
-          <div class="col-xs-12 col-sm-12 col-md-6 top-search-holder">
-            <div class="contact-row">
-              <div class="contact inline">
-                <i class="icon fa fa-envelope"></i> sales@cholonvietnam.com
-              </div>
-            </div>
-            <!-- search box -->
-            <div class="search-area">
-              <form>
-                <div class="control-group">
-                  <a href="/" role="button" class="categories-filter animate-dropdown nomargin dropdown-toggle searchby" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <%= t :categories %>
-                    <span class="caret"></span>
-                  </a>
-                  <ul class="dropdown-menu searchby-menu" role="menu" >
-                    <li class="menu-header"><%= t :computer %></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="category.html">- Laptops</a></li>
-                  </ul>
-                  <input class="search-field" placeholder="" />
-                  <a class="search-button" href="#" ></a>
-                </div>
-              </form>
-            </div>
-            <!-- search box end -->
-          </div>
-          <div class="col-xs-12 col-sm-12 col-md-3 animate-dropdown top-cart-row">
-            <!-- ======= SHOPPING CART DROPDOWN ============== -->
-            <div class="dropdown dropdown-cart">
-              <a href="#" class="dropdown-toggle lnk-cart" data-toggle="dropdown">
-                <div class="items-cart-inner">
-                  <div class="total-price-basket">
-                    <span class="lbl">Cart -</span>
-                    <span class="total-price">
-                      <span class="sign">$</span>
-                      <span class="value">600.00</span>
-                    </span>
-                  </div>
-                  <div class="basket">
-                    <i class="fa fa-shopping-cart"></i>
-                  </div>
-                  <div class="basket-item-count">
-                    <span class="count">2</span>
-                  </div>
-                </div>
-              </a>
-              <ul class="dropdown-menu">
-                <li>
-                  <div class="cart-item product-summary">
-                    <div class="row">
-                      <div class="col-xs-4">
-                        <div class="image">
-                          <a href="detail.html"><%= image_tag("cart.jpg", alt: "Cart") %></a>
-                        </div>
-                      </div>
-                      <div class="col-xs-7">
-
-                        <h3 class="name"><a href="index.php?page-detail">Simple Product</a></h3>
-                        <div class="price">$600.00</div>
-                      </div>
-                      <div class="col-xs-1 action">
-                        <a href="#"><i class="fa fa-trash"></i></a>
-                      </div>
-                    </div>
-                  </div><!-- /.cart-item -->
-                  <div class="clearfix"></div><hr>
-                  <div class="clearfix cart-total">
-                    <div class="pull-right">
-                      <span class="text">Sub Total :</span><span class='price'>$600.00</span>
-                    </div>
-                    <div class="clearfix"></div>
-                    <a href="checkout.html" class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- NAVIGATION BAR START -->
-    <div class="header-nav animate-dropdown">
-      <div class="container">
-        <div class="yamm navbar navbar-default" role="navigation">
-          <div class="navbar-header">
-            <button data-target="#mc-horizontal-menu-collapse" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-          </div>
-          <div class="nav-bg-class">
-            <div class="navbar-collapse collapse" id="mc-horizontal-menu-collapse">
-              <div class="nav-outer">
-                <ul class="nav navbar-nav">
-                  <li class="active dropdown yamm-fw">
-                    <a href="/"><%= t"Home" %></a>
-                  </li>
-                  <li class="dropdown yamm">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= t"Electronics & Computers" %></a>
-                    <ul class="dropdown-menu">
-                      <li>
-                        <div class="yamm-content">
-                          <div class="row">
-                            <div class='col-sm-12'>
-                              <div class="col-xs-12 col-sm-12 col-md-4">
-                                <h2 class="title"><%= t"Laptops & Tablets & Desktops" %></h2>
-                                <ul class="links">
-                                  <li><a href="#"><%= t"Laptops & Tablets" %></a></li>
-                                  <li><a href="#"><%= t"Desktops & Monitors"%></a></li>
-                                  <li><a href="#"><%= t"Office Machines"%></a></li>
-                                  <li><a href="#"><%= t"Computer Parts & Components"%></a></li>
-                                  <li><a href="#"><%= t"Electronics Accessories"%></a></li>
-                                  <li><a href="#"><%= t"Video Games & Softwares & DVDs"%></a></li>
-                                </ul>
-                              </div><!-- /.col -->
-                              <div class="col-xs-12 col-sm-12 col-md-4">
-                                <h2 class="title"><%= t"Digital Electronics" %></h2>
-                                <ul class="links">
-                                  <li><a href="#"><%= t"TVs & Videos" %></a></li>
-                                  <li><a href="#"><%= t"Home Audios & Theaters" %></a></li>
-                                  <li><a href="#"><%= t"Cameras & Camcorders" %></a></li>
-                                  <li><a href="#"><%= t"Car Electronics & GPS" %></a></li>
-                                </ul>
-                              </div><!-- /.col -->
-                              <div class="col-xs-12 col-sm-12 col-md-4">
-                                <h2 class="title"><%= t"Other Electronics" %></h2>
-                                <ul class="links">
-                                  <li><a href="#"><%= t"Home Appliances" %></a></li>
-                                  <li><a href="#"><%= t"Kitchen Appliances" %></a></li>
-                                  <li><a href="#"><%= t"Commercials Appliances" %></a></li>
-                                  <li><a href="#"><%= t"Others Machines" %></a></li>
-                                </ul>
-                              </div><!-- /.col -->
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </li>
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= t"Fashions & Beauty" %>
-                      <span class="menu-label hot-menu hidden-xs">Hot</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li>
-                        <div class="yamm-content">
-                          <div class="row">
-                            <div class='col-sm-12'>
-                              <div class="col-xs-12 col-sm-12 col-md-4">
-                                <h2 class="title"><%= t"Beauty" %></h2>
-                                <ul class="links">
-                                  <li><a href="#"><%= t"Makeup" %></a></li>
-                                  <li><a href="#"><%= t"Skin Care" %></a></li>
-                                  <li><a href="#"><%= t"Bath & Body" %></a></li>
-                                  <li><a href="#"><%= t"Lifestyle & Health" %></a></li>
-                                  <li><a href="#"><%= t"Tools & Accessories" %></a></li>
-                                </ul>
-                              </div><!-- /.col -->
-                              <div class="col-xs-12 col-sm-12 col-md-4">
-                                <h2 class="title"><%= t"Womens Fashions" %></h2>
-                                <ul class="links">
-                                  <li><a href="#"><%= t"Office Attire & Occasional Wear" %></a></li>
-                                  <li><a href="#"><%= t"Outerwear" %></a></li>
-                                  <li><a href="#"><%= t"Shirts & Pants" %></a></li>
-                                  <li><a href="#"><%= t"Women Shoes" %></a></li>
-                                  <li><a href="#"><%= t"Women Accessories" %></a></li>
-                                </ul>
-                              </div><!-- /.col -->
-                              <div class="col-xs-12 col-sm-12 col-md-4">
-                                <h2 class="title"><%= t"Mens Fashions" %></h2>
-                                <ul class="links">
-                                  <li><a href="#"><%= t"Men Shirts & Pants" %></a></li>
-                                  <li><a href="#"><%= t"Men Shoes" %></a></li>
-                                  <li><a href="#"><%= t"Men Accessories" %></a></li>
-                                </ul>
-                              </div><!-- /.col -->
-                              <div class="col-xs-12 col-sm-12 col-md-4">
-                                <h2 class="title"><%= t"Baby & Kids" %></h2>
-                                <ul class="links">
-                                  <li><a href="#"><%= t"Baby & Kids Sub" %></a></li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </li>
-                  <li class="dropdown hidden-sm">
-                    <a href="catgory.html" class="dropdown-toggle" data-toggle="dropdown">
-                      <!-- <span class="menu-label new-menu hidden-xs">new</span> -->
-                      <%= t("Classified Ads") %>
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li>
-                        <div class="yamm-content">
-                          <div class="row">
-                            <div class='col-sm-12'>
-                              <div class="col-xs-12 col-sm-12 col-md-4">
-                                <h2 class="title"><%= t"Trade" %></h2>
-                                <ul class="links">
-                                  <li><a href="#"><%= t"House For Sale" %></a></li>
-                                  <li><a href="#"><%= t"House For Rent" %></a></li>
-                                  <li><a href="#"><%= t"Room For Rent/Share" %></a></li>
-                                  <li><a href="#"><%= t"Business For Sale" %></a></li>
-                                  <li><a href="#"><%= t"Cars & Trucks & Motocycles" %></a></li>
-                                </ul>
-                              </div><!-- /.col -->
-                              <div class="col-xs-12 col-sm-12 col-md-4">
-                                <h2 class="title"><%= t"Jobs" %></h2>
-                                <ul class="links">
-                                  <li><a href="#"><%= t"Looking To Hire" %></a></li>
-                                  <li><a href="#"><%= t"Looking For Job" %></a></li>
-                                </ul>
-                              </div><!-- /.col -->
-                              <div class="col-xs-12 col-sm-12 col-md-4">
-                                <h2 class="title"><%= t"Services" %></h2>
-                                <ul class="links">
-                                  <li><a href="#"><%= t"Services Ads" %></a></li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </li>
-                  <li class="dropdown hidden-sm">
-                    <a href="category.html"><%= t"Coupon & Deals" %></a>
-                  </li>
-                  <li class="dropdown">
-                    <a href="contact.html"><%= t"Blog" %></a>
                   </li>
                 </ul>
-              <div class="clearfix"></div>
-            </div> 
+              </div>
+
+              <!-- top bar right side: language and currency -->
+              <div class="cnt-block">
+                <ul class="list-unstyled list-inline">
+                  <li>
+                    <div class="dropdown dropdown-small">
+                      <a href="/" role="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="kesy">Language:</span><span class="value"> <%= current_language %> </span>&nbsp;&nbsp;<b class="caret"></b></a>
+                      <ul class="dropdown-menu">
+                        <li class="<%= 'active' if current_locale == :en %>"><a href="/?locale=en">English</a></li>
+                        <li class="<%= 'active' if current_locale == :vi_VN %>"><a href="/?locale=vi_VN">Tiếng Việt</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            <div class="clearfix"></div>
           </div>
         </div>
       </div>
-    </div>
 
-  </header>
-  <% if flash.present? %>
-    <div class="container">
-      <% if flash[:notice].present? %>
-        <p class="alert alert-info"><%= notice %></p>
-      <% elsif flash[:alert].present?%>
-        <p class="alert alert-warning"><%= alert %></p>
-      <% end %>
-    </div>
-  <% end %>
-  <%= yield %>
 
-</body>
+      <!-- Logo, search bar and shopping cart start -->
+      <div class="main-header">
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-3 logo-holder">
+              <div class="logo">
+                <a href="/">
+                  <%= image_tag("logo.png", alt: "Cho Lon VietNam") %>
+                </a>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 top-search-holder">
+              <div class="contact-row">
+                <div class="contact inline">
+                  <i class="icon fa fa-envelope"></i> sales@cholonvietnam.com
+                </div>
+              </div>
+              <!-- search box -->
+              <div class="search-area">
+                <form>
+                  <div class="control-group">
+                    <a href="/" role="button" class="categories-filter animate-dropdown nomargin dropdown-toggle searchby" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <%= t :categories %>
+                      <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu searchby-menu" role="menu" >
+                      <li class="menu-header"><%= t :computer %></li>
+                      <li role="presentation"><a role="menuitem" tabindex="-1" href="category.html">- Laptops</a></li>
+                    </ul>
+                    <input class="search-field" placeholder="" />
+                    <a class="search-button" href="#" ></a>
+                  </div>
+                </form>
+              </div>
+              <!-- search box end -->
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-3 animate-dropdown top-cart-row">
+              <!-- ======= SHOPPING CART DROPDOWN ============== -->
+              <div class="dropdown dropdown-cart">
+                <a href="#" class="dropdown-toggle lnk-cart" data-toggle="dropdown">
+                  <div class="items-cart-inner">
+                    <div class="total-price-basket">
+                      <span class="lbl">Cart -</span>
+                      <span class="total-price">
+                        <span class="sign">$</span>
+                        <span class="value">600.00</span>
+                      </span>
+                    </div>
+                    <div class="basket">
+                      <i class="fa fa-shopping-cart"></i>
+                    </div>
+                    <div class="basket-item-count">
+                      <span class="count">2</span>
+                    </div>
+                  </div>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <div class="cart-item product-summary">
+                      <div class="row">
+                        <div class="col-xs-4">
+                          <div class="image">
+                            <a href="detail.html"><%= image_tag("cart.jpg", alt: "Cart") %></a>
+                          </div>
+                        </div>
+                        <div class="col-xs-7">
+
+                          <h3 class="name"><a href="index.php?page-detail">Simple Product</a></h3>
+                          <div class="price">$600.00</div>
+                        </div>
+                        <div class="col-xs-1 action">
+                          <a href="#"><i class="fa fa-trash"></i></a>
+                        </div>
+                      </div>
+                    </div><!-- /.cart-item -->
+                    <div class="clearfix"></div><hr>
+                    <div class="clearfix cart-total">
+                      <div class="pull-right">
+                        <span class="text">Sub Total :</span><span class='price'>$600.00</span>
+                      </div>
+                      <div class="clearfix"></div>
+                      <a href="checkout.html" class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NAVIGATION BAR START -->
+      <div class="header-nav animate-dropdown">
+        <div class="container">
+          <div class="yamm navbar navbar-default" role="navigation">
+            <div class="navbar-header">
+              <button data-target="#mc-horizontal-menu-collapse" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="nav-bg-class">
+              <div class="navbar-collapse collapse" id="mc-horizontal-menu-collapse">
+                <div class="nav-outer">
+                  <ul class="nav navbar-nav">
+                    <li class="active dropdown yamm-fw">
+                      <a href="/"><%= t"Home" %></a>
+                    </li>
+                    <li class="dropdown yamm">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= t"Electronics & Computers" %></a>
+                      <ul class="dropdown-menu">
+                        <li>
+                          <div class="yamm-content">
+                            <div class="row">
+                              <div class='col-sm-12'>
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                  <h2 class="title"><%= t"Laptops & Tablets & Desktops" %></h2>
+                                  <ul class="links">
+                                    <li><a href="#"><%= t"Laptops & Tablets" %></a></li>
+                                    <li><a href="#"><%= t"Desktops & Monitors"%></a></li>
+                                    <li><a href="#"><%= t"Office Machines"%></a></li>
+                                    <li><a href="#"><%= t"Computer Parts & Components"%></a></li>
+                                    <li><a href="#"><%= t"Electronics Accessories"%></a></li>
+                                    <li><a href="#"><%= t"Video Games & Softwares & DVDs"%></a></li>
+                                  </ul>
+                                </div><!-- /.col -->
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                  <h2 class="title"><%= t"Digital Electronics" %></h2>
+                                  <ul class="links">
+                                    <li><a href="#"><%= t"TVs & Videos" %></a></li>
+                                    <li><a href="#"><%= t"Home Audios & Theaters" %></a></li>
+                                    <li><a href="#"><%= t"Cameras & Camcorders" %></a></li>
+                                    <li><a href="#"><%= t"Car Electronics & GPS" %></a></li>
+                                  </ul>
+                                </div><!-- /.col -->
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                  <h2 class="title"><%= t"Other Electronics" %></h2>
+                                  <ul class="links">
+                                    <li><a href="#"><%= t"Home Appliances" %></a></li>
+                                    <li><a href="#"><%= t"Kitchen Appliances" %></a></li>
+                                    <li><a href="#"><%= t"Commercials Appliances" %></a></li>
+                                    <li><a href="#"><%= t"Others Machines" %></a></li>
+                                  </ul>
+                                </div><!-- /.col -->
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= t"Fashions & Beauty" %>
+                        <span class="menu-label hot-menu hidden-xs">Hot</span>
+                      </a>
+                      <ul class="dropdown-menu">
+                        <li>
+                          <div class="yamm-content">
+                            <div class="row">
+                              <div class='col-sm-12'>
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                  <h2 class="title"><%= t"Beauty" %></h2>
+                                  <ul class="links">
+                                    <li><a href="#"><%= t"Makeup" %></a></li>
+                                    <li><a href="#"><%= t"Skin Care" %></a></li>
+                                    <li><a href="#"><%= t"Bath & Body" %></a></li>
+                                    <li><a href="#"><%= t"Lifestyle & Health" %></a></li>
+                                    <li><a href="#"><%= t"Tools & Accessories" %></a></li>
+                                  </ul>
+                                </div><!-- /.col -->
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                  <h2 class="title"><%= t"Womens Fashions" %></h2>
+                                  <ul class="links">
+                                    <li><a href="#"><%= t"Office Attire & Occasional Wear" %></a></li>
+                                    <li><a href="#"><%= t"Outerwear" %></a></li>
+                                    <li><a href="#"><%= t"Shirts & Pants" %></a></li>
+                                    <li><a href="#"><%= t"Women Shoes" %></a></li>
+                                    <li><a href="#"><%= t"Women Accessories" %></a></li>
+                                  </ul>
+                                </div><!-- /.col -->
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                  <h2 class="title"><%= t"Mens Fashions" %></h2>
+                                  <ul class="links">
+                                    <li><a href="#"><%= t"Men Shirts & Pants" %></a></li>
+                                    <li><a href="#"><%= t"Men Shoes" %></a></li>
+                                    <li><a href="#"><%= t"Men Accessories" %></a></li>
+                                  </ul>
+                                </div><!-- /.col -->
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                  <h2 class="title"><%= t"Baby & Kids" %></h2>
+                                  <ul class="links">
+                                    <li><a href="#"><%= t"Baby & Kids Sub" %></a></li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="dropdown hidden-sm">
+                      <a href="catgory.html" class="dropdown-toggle" data-toggle="dropdown">
+                        <!-- <span class="menu-label new-menu hidden-xs">new</span> -->
+                        <%= t("Classified Ads") %>
+                      </a>
+                      <ul class="dropdown-menu">
+                        <li>
+                          <div class="yamm-content">
+                            <div class="row">
+                              <div class='col-sm-12'>
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                  <h2 class="title"><%= t"Trade" %></h2>
+                                  <ul class="links">
+                                    <li><a href="#"><%= t"House For Sale" %></a></li>
+                                    <li><a href="#"><%= t"House For Rent" %></a></li>
+                                    <li><a href="#"><%= t"Room For Rent/Share" %></a></li>
+                                    <li><a href="#"><%= t"Business For Sale" %></a></li>
+                                    <li><a href="#"><%= t"Cars & Trucks & Motocycles" %></a></li>
+                                  </ul>
+                                </div><!-- /.col -->
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                  <h2 class="title"><%= t"Jobs" %></h2>
+                                  <ul class="links">
+                                    <li><a href="#"><%= t"Looking To Hire" %></a></li>
+                                    <li><a href="#"><%= t"Looking For Job" %></a></li>
+                                  </ul>
+                                </div><!-- /.col -->
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                  <h2 class="title"><%= t"Services" %></h2>
+                                  <ul class="links">
+                                    <li><a href="#"><%= t"Services Ads" %></a></li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="dropdown hidden-sm">
+                      <a href="category.html"><%= t"Coupon & Deals" %></a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="contact.html"><%= t"Blog" %></a>
+                    </li>
+                  </ul>
+                <div class="clearfix"></div>
+              </div> 
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </header>
+    <% if flash.present? %>
+      <div class="container">
+        <% if flash[:notice].present? %>
+          <p class="alert alert-info"><%= notice %></p>
+        <% elsif flash[:alert].present?%>
+          <p class="alert alert-warning"><%= alert %></p>
+        <% end %>
+      </div>
+    <% end %>
+    <%= yield %>
+
+    <footer id="footer" class="footer color-bg">
+      <div class="copyright-bar">
+        <div class="container">
+          <div class="col-xs-12 col-sm-6 no-padding">
+              <div class="copyright">
+                 Copyright © 2015
+                  <a href="/">CholonVietNam.com</a>
+                  - All rights reserved
+              </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 no-padding">
+            <div class="clearfix payment-methods">
+              <ul>
+                <li><%= image_tag("ssl.gif", alt: "Cho Lon VietNam") %></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </body>
 </html>

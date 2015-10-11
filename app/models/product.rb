@@ -45,7 +45,20 @@ class Product < ActiveRecord::Base
     .joins("LEFT OUTER JOIN categories ON product_categories.category_id = categories.id")
   }
 
-  scope :publishable, -> { where(status: STATUS_PUBLISHABLE) } 
+  scope :publishable, -> { where(status: STATUS_PUBLISHABLE) }
+
+  scope :with_categories, lambda{ |*args|
+    if args.present? && args[0].present?
+      category_ids = args[0].split(",")
+      where("categories.id IN (?)", category_ids)
+    end
+  } 
+
+  scope :with_category, lambda{ |args|
+    if args.present?
+      where("categories.id = ?", args)
+    end
+  } 
 
   def status_preview
     self.status == STATUS_PREVIEW
