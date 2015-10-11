@@ -69,6 +69,7 @@ class ProductsController < ApplicationController
   end
 
   def update
+    binding.pry
     authorize @product
     fix_params_product_photo_ids
     @product.status = Product::STATUS_PREVIEW unless [Product::STATUS_PUBLISHABLE, Product::STATUS_PREVIEW].include?(@product.status)
