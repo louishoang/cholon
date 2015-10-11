@@ -495,7 +495,7 @@ $(function() {
       $.ajax({
         url: url,
         success: function(){
-          renderUI($elm);
+          setTimeout(function() { renderUI($elm); }, 500); 
         }
       });
     });
