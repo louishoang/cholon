@@ -45,6 +45,12 @@ class Product < ActiveRecord::Base
     .joins("LEFT OUTER JOIN categories ON product_categories.category_id = categories.id")
   }
 
+  # scope :statistic, lambda{
+  #   select("DISTINCT products.*,
+  #     SUM(CASE WHEN condition = 'New' THEN 1 ELSE 0) AS new_count,
+  #     SUM(CASE WHEN condition = 'Used' THEN 1 ELSE 0) AS used_count")
+  # }
+
   scope :publishable, -> { where(status: STATUS_PUBLISHABLE) }
 
   scope :with_categories, lambda{ |*args|
@@ -70,6 +76,9 @@ class Product < ActiveRecord::Base
     if args.present? && args.is_a?(Array) && args[0].present?
       lowest_price = args[0]
       highest_price = args[1]
+      if lowest_price.to_f == highest_price.to_f
+        highest_price = highest_price.to_f + 1
+      end
       where("products.price BETWEEN ? AND ?", lowest_price, highest_price)
     end
   }

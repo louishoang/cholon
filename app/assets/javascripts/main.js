@@ -403,11 +403,14 @@ $(function() {
   if ($(".price-slider").length > 0){
     min = parseFloat($(".price-slider").data("min"));
     max = parseFloat($(".price-slider").data("max"));
+    minSelected = parseFloat(getUrlParameter("min_price")) || min;
+    maxSelected = parseFloat(getUrlParameter("max_price")) || max
+
     $( ".price-slider" ).slider({
       range: true,
       min: min,
       max: max,
-      value: [min, max],
+      value: [minSelected , maxSelected],
       tooltip: 'hide',
     }).on("slide", function( event, ui ) {
       $holder = $(this).closest(".price-range-holder");

@@ -14,9 +14,10 @@ class ProductsController < ApplicationController
     @products = Product.join_all.publishable
       .with_condition(params[:condition])
       .price_between([params[:min_price], params[:max_price]])
-      
-    @min_price = @products.order("price").first.price.to_f
-    @max_price = @products.order("price").last.price.to_f
+
+    @min_price = @products.minimum("price").to_f rescue Product.minimum("price").to_f
+
+    @max_price = @products.maximum("price").to_f rescue Product.maximum("price").to_f
 
     @products = @products.page(params[:page]).per(current_per_page)
   end

@@ -44,11 +44,11 @@
           <div class="sidebar-widget-body m-t-20">
             <div class="price-range-holder">
               <span class="min-max">
-                <span class="min pull-left"><%= params[:min_price]%></span>
-                <span class="max pull-right"><%= params[:max_price]%></span>
+                <span class="min pull-left"><%= number_to_currency(current_min_price, locale: :en) %></span>
+                <span class="max pull-right"><%= number_to_currency(current_max_price, locale: :en) %></span>
               </span>
               <input type="hidden" class="amount">
-              <input type="text" class="price-slider" data-min="200.00" data-max="800.00" data-value="200.00, 800.00">
+              <input type="text" class="price-slider" data-min="<%= @min_price %>" data-max="<%= @max_price %>" data-value="">
             </div>
             <div class="text-right">
               <a href="javascript:;" data-url="<%= url_for(params) %>" class="lnk btn btn-lime btn-price-filter"><%= t"Show Now" %></a>
