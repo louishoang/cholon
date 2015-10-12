@@ -12,6 +12,21 @@ function getUrlParameter(sParam){
   }
 };
 
+function getUrlParameterHash(){
+  var sPageURL = window.location.search.substring(1);
+  var sURLVariables = sPageURL.split('&');
+
+  var myHash = {};
+
+  for (var i = 0; i < sURLVariables.length; i++){
+    var sParameterName = sURLVariables[i].split('=');
+    myHash[sParameterName[0]] = sParameterName[1];
+  }
+  return myHash;
+};
+
+
+
 $(function() {
   // if user click back button , put a mark in the form to update instead of create
   if(Cookies.get("product_name") !== undefined){
@@ -503,6 +518,20 @@ $(function() {
 
   $(document).on("click", ".btn-price-filter", function(e){
     e.preventDefault();
-    debugger;
+    url = $(this).data("url");
+    $rangeDiv = $(this).closest(".sidebar-widget-body").find(".price-range-holder");
+    priceRange = $rangeDiv.find(".price-slider").data("value").split(",");
+    minPrice = priceRange[0];
+    maxPrice = priceRange[1];
+
+    current_query = getUrlParameterHash();
+
+    if(current_query[Object.keys(current_query)[0]] !== undefined){
+      query = $.extend(current_query, {min_price: minPrice, max_price: maxPrice});
+    }else{
+      query = {min_price: minPrice, max_price: maxPrice}
+    }
+    
+    window.location.href = window.location.pathname + "?" + $.param(query);
   });
 });
