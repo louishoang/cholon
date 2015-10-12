@@ -67,7 +67,7 @@ class Product < ActiveRecord::Base
   }
 
   scope :price_between, lambda { |args|
-    if args.present? && args.is_a?(Array)
+    if args.present? && args.is_a?(Array) && args[0].present?
       lowest_price = args[0]
       highest_price = args[1]
       where("products.price BETWEEN ? AND ?", lowest_price, highest_price)

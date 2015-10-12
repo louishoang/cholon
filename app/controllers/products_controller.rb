@@ -13,7 +13,12 @@ class ProductsController < ApplicationController
   def index
     @products = Product.join_all.publishable
       .with_condition(params[:condition])
-      .order(:name).page(params[:page]).per(current_per_page)
+      .price_between([params[:min_price], params[:max_price]])
+      
+    @min_price = @products.order("price").first.price.to_f
+    @max_price = @products.order("price").last.price.to_f
+
+    @products = @products.page(params[:page]).per(current_per_page)
   end
 
   def show

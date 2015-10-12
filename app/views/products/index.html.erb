@@ -44,8 +44,8 @@
           <div class="sidebar-widget-body m-t-20">
             <div class="price-range-holder">
               <span class="min-max">
-                <span class="min pull-left">$200.00</span>
-                <span class="max pull-right">$800.00</span>
+                <span class="min pull-left"><%= params[:min_price]%></span>
+                <span class="max pull-right"><%= params[:max_price]%></span>
               </span>
               <input type="hidden" class="amount">
               <input type="text" class="price-slider" data-min="200.00" data-max="800.00" data-value="200.00, 800.00">
