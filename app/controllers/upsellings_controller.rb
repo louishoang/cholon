@@ -9,7 +9,7 @@ class UpsellingsController < ApplicationController
 
     if @simlar_products.blank?
       @similar_products = Product.publishable.where("products.id != ?", @product.id)
-        .order("RANDOM()").limit(4)
+        .order("RAND()").limit(4)
     end
 
     respond_to do |format|

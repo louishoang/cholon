@@ -2,9 +2,9 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.8'
+gem 'rails', '4.2.4'
 # Use mysql2 as the database for Active Record
-gem 'mysql2'
+gem 'mysql2', '~> 0.3.18'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
@@ -46,7 +46,7 @@ gem "fog-aws"
 gem 'aws-sdk', '~> 1.6'
 
 #form validator
-gem 'jquery-form-validator-rails'
+gem 'jquery-form-validator-rails', :git => "https://github.com/louishoang/jquery-form-validator-rails.git"
 # pretty url
 gem 'friendly_id'
 # pagination
@@ -60,6 +60,7 @@ gem 'tinymce-rails-langs'
 gem 'active_shipping'
 # location to coordinate
 gem 'geocoder'
+
 
 group :development do
   gem 'rack-mini-profiler'
