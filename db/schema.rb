@@ -11,22 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151009183157) do
+ActiveRecord::Schema.define(version: 20151128225132) do
 
-  create_table "categories", force: true do |t|
-    t.string   "name"
-    t.integer  "parent_id"
+  create_table "categories", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.integer  "parent_id",  limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "categories", ["parent_id"], name: "index_categories_on_parent_id", using: :btree
 
-  create_table "friendly_id_slugs", force: true do |t|
-    t.string   "slug",                      null: false
-    t.integer  "sluggable_id",              null: false
+  create_table "friendly_id_slugs", force: :cascade do |t|
+    t.string   "slug",           limit: 255, null: false
+    t.integer  "sluggable_id",   limit: 4,   null: false
     t.string   "sluggable_type", limit: 50
-    t.string   "scope"
+    t.string   "scope",          limit: 255
     t.datetime "created_at"
   end
 
@@ -35,66 +35,87 @@ ActiveRecord::Schema.define(version: 20151009183157) do
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
-  create_table "product_categories", force: true do |t|
-    t.integer  "product_id"
-    t.integer  "category_id"
+  create_table "order_items", force: :cascade do |t|
+    t.integer  "product_id",  limit: 4,                          null: false
+    t.integer  "order_id",    limit: 4,                          null: false
+    t.decimal  "unit_price",            precision: 10, scale: 2, null: false
+    t.integer  "quantity",    limit: 4
+    t.decimal  "total_price",           precision: 10, scale: 2
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+  end
+
+  add_index "order_items", ["product_id", "order_id"], name: "index_order_items_on_product_id_and_order_id", unique: true, using: :btree
+
+  create_table "orders", force: :cascade do |t|
+    t.decimal  "subtotal",             precision: 10, scale: 2
+    t.decimal  "tax",                  precision: 10, scale: 2
+    t.decimal  "total",                precision: 10, scale: 2
+    t.integer  "status",     limit: 4,                          default: 0
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
+  end
+
+  create_table "product_categories", force: :cascade do |t|
+    t.integer  "product_id",  limit: 4
+    t.integer  "category_id", limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "product_categories", ["product_id", "category_id"], name: "index_product_categories_on_product_id_and_category_id", unique: true, using: :btree
 
-  create_table "product_photos", force: true do |t|
-    t.integer  "product_variant_id"
+  create_table "product_photos", force: :cascade do |t|
+    t.integer  "product_variant_id", limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "photo_file_name"
-    t.string   "photo_content_type"
-    t.integer  "photo_file_size"
+    t.string   "photo_file_name",    limit: 255
+    t.string   "photo_content_type", limit: 255
+    t.integer  "photo_file_size",    limit: 4
     t.datetime "photo_updated_at"
   end
 
   add_index "product_photos", ["product_variant_id"], name: "index_product_photos_on_product_variant_id", using: :btree
 
-  create_table "product_variants", force: true do |t|
-    t.integer  "product_id",                                              null: false
-    t.string   "name",                                                    null: false
-    t.decimal  "price",          precision: 10, scale: 2
-    t.string   "sku"
-    t.integer  "stock_quantity"
+  create_table "product_variants", force: :cascade do |t|
+    t.integer  "product_id",     limit: 4,                                            null: false
+    t.string   "name",           limit: 255,                                          null: false
+    t.decimal  "price",                      precision: 10, scale: 2
+    t.string   "sku",            limit: 255
+    t.integer  "stock_quantity", limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_default",                              default: false
+    t.boolean  "is_default",                                          default: false
   end
 
   add_index "product_variants", ["is_default"], name: "index_product_variants_on_is_default", using: :btree
   add_index "product_variants", ["product_id"], name: "index_product_variants_on_product_id", using: :btree
   add_index "product_variants", ["sku"], name: "index_product_variants_on_sku", using: :btree
 
-  create_table "products", force: true do |t|
-    t.string   "name",                                                 null: false
-    t.text     "description"
-    t.decimal  "price",                       precision: 10, scale: 2
-    t.string   "sku"
-    t.integer  "stock_quantity"
-    t.integer  "seller_id"
-    t.string   "condition"
-    t.string   "location"
-    t.string   "slug"
+  create_table "products", force: :cascade do |t|
+    t.string   "name",             limit: 255,                            null: false
+    t.text     "description",      limit: 65535
+    t.decimal  "price",                          precision: 10, scale: 2
+    t.string   "sku",              limit: 255
+    t.integer  "stock_quantity",   limit: 4
+    t.integer  "seller_id",        limit: 4
+    t.string   "condition",        limit: 255
+    t.string   "location",         limit: 255
+    t.string   "slug",             limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "status"
-    t.string   "shipping_method"
-    t.decimal  "shipping_price",              precision: 10, scale: 2
+    t.string   "status",           limit: 255
+    t.string   "shipping_method",  limit: 255
+    t.decimal  "shipping_price",                 precision: 10, scale: 2
     t.float    "latitude",         limit: 24
     t.float    "longitude",        limit: 24
-    t.string   "shipping_carrier"
-    t.decimal  "weight",                      precision: 10, scale: 2
-    t.string   "length"
-    t.string   "width"
-    t.string   "height"
-    t.string   "city"
-    t.string   "state"
+    t.string   "shipping_carrier", limit: 255
+    t.decimal  "weight",                         precision: 10, scale: 2
+    t.string   "length",           limit: 255
+    t.string   "width",            limit: 255
+    t.string   "height",           limit: 255
+    t.string   "city",             limit: 255
+    t.string   "state",            limit: 255
   end
 
   add_index "products", ["city"], name: "index_products_on_city", using: :btree
@@ -106,30 +127,30 @@ ActiveRecord::Schema.define(version: 20151009183157) do
   add_index "products", ["state"], name: "index_products_on_state", using: :btree
   add_index "products", ["status"], name: "index_products_on_status", using: :btree
 
-  create_table "users", force: true do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
+  create_table "users", force: :cascade do |t|
+    t.string   "email",                  limit: 255,   default: "", null: false
+    t.string   "encrypted_password",     limit: 255,   default: "", null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          limit: 4,     default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.string   "confirmation_token"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
+    t.string   "confirmation_token",     limit: 255
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.integer  "failed_attempts",        default: 0,  null: false
-    t.string   "unlock_token"
+    t.integer  "failed_attempts",        limit: 4,     default: 0,  null: false
+    t.string   "unlock_token",           limit: 255
     t.datetime "locked_at"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.string   "provider"
-    t.string   "uid"
-    t.text     "avatar_url"
-    t.string   "first_name"
-    t.string   "last_name"
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+    t.string   "provider",               limit: 255
+    t.string   "uid",                    limit: 255
+    t.text     "avatar_url",             limit: 65535
+    t.string   "first_name",             limit: 255
+    t.string   "last_name",              limit: 255
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
