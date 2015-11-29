@@ -47,6 +47,12 @@ class User < ActiveRecord::Base
   end
 
   def full_name
-    "#{self.first_name} #{self.last_name}"
+    str = "Unknown"
+    if self.first_name || self.last_name
+      str = "#{self.first_name} #{self.last_name}" 
+    else
+      str = self.email.match(/\w+/)
+    end
+    str
   end
 end

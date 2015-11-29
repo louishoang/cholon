@@ -10,22 +10,28 @@
   }
   
   $.fn.clCart = function(options){
-    userID = options["user_id"];
-    orderID = options["oder_id"];
-    cartInit = sessionStorage.getItem("cartInit"); // check if cart if load when first login
+    userID = Cookies.get("user_id");
+    orderID = Cookies.get("order_id");
 
     $(this).find(".atc-btn").each(function(index, elm){
       var $addBtn = $(elm);
       
       $addBtn.on("click", function(){
-        //Find the quantity of item
         quantity = getQuantity($addBtn);
-        addItem(quantity);
+        productID = $addBtn.data("product-id");
+        addItem(quantity, productID);
       });
     });
 
-    function addItem(quantity){
-      alert("added" + quantity)
+    function addItem(quantity, productID){
+      $.ajax({
+        url: "/order_items",
+        method: "POST",
+        data: {"order_item": {"quantity": quantity, "product_id": productID}},
+        success: function(resp){
+          debugger;
+        }
+      });
     } 
 
     function getQuantity($elm){

@@ -9,8 +9,14 @@ class ApplicationController < ActionController::Base
 
   #Set up multi-locale filter
   before_action :set_locale
+  before_action :set_current_user_to_cookie
+
   def set_locale
   	I18n.locale = params[:locale] || I18n.default_locale
+  end
+
+  def set_current_user_to_cookie
+    cookies[:user_id] ||= current_user.id if current_user.present?
   end
 
   # Get locale code from request subdomain (like http://vi.application.local:3000)
