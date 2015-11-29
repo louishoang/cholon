@@ -1,6 +1,7 @@
 class ProductVariant < ActiveRecord::Base
   belongs_to :product
   has_many :product_photos, dependent: :destroy
+  has_many :order_items
 
   validates :name, presence: true
   validates :price, presence: true

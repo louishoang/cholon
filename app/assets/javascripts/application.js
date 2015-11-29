@@ -17,6 +17,7 @@
 //= require dropzone
 //= require jquery.form-validator
 //= require tinymce-jquery
+//= require cl_cart
 //= require_tree .
 
 $(function() {

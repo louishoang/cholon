@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151128225132) do
+ActiveRecord::Schema.define(version: 20151129001915) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -43,9 +43,11 @@ ActiveRecord::Schema.define(version: 20151128225132) do
     t.decimal  "total_price",           precision: 10, scale: 2
     t.datetime "created_at",                                     null: false
     t.datetime "updated_at",                                     null: false
+    t.integer  "seller_id",   limit: 4,                          null: false
   end
 
   add_index "order_items", ["product_id", "order_id"], name: "index_order_items_on_product_id_and_order_id", unique: true, using: :btree
+  add_index "order_items", ["seller_id"], name: "index_order_items_on_seller_id", using: :btree
 
   create_table "orders", force: :cascade do |t|
     t.decimal  "subtotal",             precision: 10, scale: 2
@@ -54,7 +56,11 @@ ActiveRecord::Schema.define(version: 20151128225132) do
     t.integer  "status",     limit: 4,                          default: 0
     t.datetime "created_at",                                                null: false
     t.datetime "updated_at",                                                null: false
+    t.integer  "user_id",    limit: 4,                                      null: false
   end
+
+  add_index "orders", ["status"], name: "index_orders_on_status", using: :btree
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
   create_table "product_categories", force: :cascade do |t|
     t.integer  "product_id",  limit: 4

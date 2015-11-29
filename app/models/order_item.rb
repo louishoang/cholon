@@ -1,12 +1,12 @@
 class OrderItem < ActiveRecord::Base
-  belongs_to :product
+  belongs_to :product_variant
   belongs_to :order
 
   validates :quantity, presence: true, numericality: {only_integer: true, greater_than: 0}
   validates_presence_of :product_id
   validates_presence_of :order_id
 
-  before_save: update_total_price
+  before_save :update_total_price
 
   def unit_price
     if persisted?

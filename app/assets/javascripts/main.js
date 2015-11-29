@@ -117,6 +117,18 @@ $(function() {
     hoverDelay: 300
   });
 
+  $basket = $(document).find(".items-cart-inner");
+  if($basket.length > 0){
+    $basketCount = $basket.find(".basket-item-count .count")
+  }
+
+  if($(".top-cart-row").length > 0){
+    $(document).clCart({
+      user_id: 1,
+      order_id: 1
+    });
+  }
+
   // Find language for text editor
   if (getUrlParameter("locale") == "vi_VN"){
     var wbbOptLang = "vi_VN";
@@ -261,6 +273,7 @@ $(function() {
       "thumbHeight": 30,
       "thumbWidth": 30,
       "slideshow": false,
+      "browserHistory": false
     });
 
     $( ".product_gallery", cx ).jGallery( {
@@ -273,8 +286,8 @@ $(function() {
       "textColor":"000000",
       "mode":"standard",
       "height": "527px",
-      "browserHistory": true,
       "slideshow": false,
+      "browserHistory": false
     });
   };
 

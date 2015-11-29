@@ -41,7 +41,7 @@
           </div>
         </div>
       </div>
-      <div class="quantity-container info-container">
+      <div class="quantity-container info-container add-to-cart">
         <div class="row">  
           <div class="col-sm-12">
             <div class="col-sm-2">
@@ -54,12 +54,12 @@
                     <div class="arrow plus gradient"><span class="ir"><i class="icon fa fa-sort-asc"></i></span></div>
                     <div class="arrow minus gradient"><span class="ir"><i class="icon fa fa-sort-desc"></i></span></div>
                   </div>
-                  <input type="text" value="1">
+                  <input type="text" value="1" class="atc-quantity">
                 </div>
               </div>
             </div>
             <div class="col-sm-7">
-              <a href="#" class="btn btn-lime">
+              <a href="javascript:;" class="btn btn-lime atc-btn" data-product-id="<%= product.id %>">
                 <i class="fa fa-shopping-cart inner-right-vs"></i> ADD TO CART</a>
             </div>
           </div>     

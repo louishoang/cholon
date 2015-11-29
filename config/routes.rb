@@ -22,6 +22,14 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :orders do
+    member do
+      get 'basket_info'
+    end
+  end
+
+  resources :order_items
+
   resources :upsellings do
     collection do
       get 'similar_products'
