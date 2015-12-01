@@ -5599,8 +5599,8 @@ li.dist-or span{
 }
 
 .btn.btn-variants.active{
-  border-color: #84B943;
-  background-color: #ABD07E;
+  border: 1.5px solid #84B943;
+  box-shadow: 1px 1px 1px #84B943;
 }
 
 .product.product-list .cart{

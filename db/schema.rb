@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151129001915) do
+ActiveRecord::Schema.define(version: 20151129193808) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -36,17 +36,19 @@ ActiveRecord::Schema.define(version: 20151129001915) do
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
   create_table "order_items", force: :cascade do |t|
-    t.integer  "product_id",  limit: 4,                          null: false
-    t.integer  "order_id",    limit: 4,                          null: false
-    t.decimal  "unit_price",            precision: 10, scale: 2, null: false
-    t.integer  "quantity",    limit: 4
-    t.decimal  "total_price",           precision: 10, scale: 2
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
-    t.integer  "seller_id",   limit: 4,                          null: false
+    t.integer  "product_id",         limit: 4,                          null: false
+    t.integer  "order_id",           limit: 4,                          null: false
+    t.decimal  "unit_price",                   precision: 10, scale: 2, null: false
+    t.integer  "quantity",           limit: 4
+    t.decimal  "total_price",                  precision: 10, scale: 2
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
+    t.integer  "seller_id",          limit: 4,                          null: false
+    t.integer  "product_variant_id", limit: 4,                          null: false
   end
 
-  add_index "order_items", ["product_id", "order_id"], name: "index_order_items_on_product_id_and_order_id", unique: true, using: :btree
+  add_index "order_items", ["product_id"], name: "index_order_items_on_product_id", using: :btree
+  add_index "order_items", ["product_variant_id", "order_id"], name: "index_order_items_on_product_variant_id_and_order_id", unique: true, using: :btree
   add_index "order_items", ["seller_id"], name: "index_order_items_on_seller_id", using: :btree
 
   create_table "orders", force: :cascade do |t|

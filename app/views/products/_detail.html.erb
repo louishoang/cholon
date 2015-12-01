@@ -26,7 +26,7 @@
         <div class="row">
           <div class="col-sm-6">
             <div class="price-box">
-              <span class="price"><%= number_to_currency(product.price) %></span>
+              <span class="price"><%= number_to_currency(@default_variant.price) %></span>
             </div>
           </div>
           <div class="col-sm-6">
@@ -59,7 +59,7 @@
               </div>
             </div>
             <div class="col-sm-7">
-              <a href="javascript:;" class="btn btn-lime atc-btn" data-product-id="<%= product.id %>" data-seller-id="<%= product.seller.id %>">
+              <a href="javascript:;" class="btn btn-lime atc-btn" data-product-variant-id="<%= @default_variant.id %>" data-seller-id="<%= product.seller.id %>">
                 <i class="fa fa-shopping-cart inner-right-vs"></i> ADD TO CART</a>
             </div>
           </div>     
@@ -83,7 +83,7 @@
       </div>
     </div>
     <div class="row-fluid m-t-10">
-      <% product.product_variants.non_default_variants.each do |variant| %>
+      <% product.product_variants.non_system_created_variants.each do |variant| %>
         <%= render "/product_variants/entity", view_mode: :product_detail_page_button, entity: variant %>
       <% end %>
     </div>

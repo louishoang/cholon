@@ -8,7 +8,7 @@ class ProductVariant < ActiveRecord::Base
   validates :product_id, presence: true
 
   scope :default_variants, -> { where(is_default: true) }
-  scope :non_default_variants, -> { where("is_default != ?", true) }
+  scope :non_system_created_variants, -> { where("is_default != ?", true) }
 
   def default_image
     self.product_photos.first

@@ -18,18 +18,19 @@
       
       $addBtn.on("click", function(){
         quantity = getQuantity($addBtn);
-        productID = $addBtn.data("product-id");
-        addItem(quantity, productID);
+        variantID = $addBtn.data("product-variant-id");
+        sellerID = $addBtn.data("seller-id");
+        addItem(quantity, variantID);
       });
     });
 
-    function addItem(quantity, productID){
+    function addItem(quantity, variantID){
       $.ajax({
         url: "/order_items",
         method: "POST",
-        data: {"order_item": {"quantity": quantity, "product_id": productID}},
-        success: function(resp){
-          debugger;
+        data: {"order_item": {"quantity": quantity, "product_variant_id": variantID}},
+        success: function(){
+          $basket.updateBasket();
         }
       });
     } 

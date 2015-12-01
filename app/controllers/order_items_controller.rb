@@ -2,10 +2,13 @@ class OrderItemsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    binding.pry
-    @order = current_order
-    @order_item = @order.order_items.new(order_item_params)
-    @order.save
+    @order_item = OrderItem.new(order_item_params)
+    @order_item.order_id = current_order.id
+    @order_item.save
+
+    respond_to do |format|
+      format.json {render json: {count: current_order.order_items.count, subtotal: current_order.subtotal}}
+    end
   end
 
   def update
@@ -24,6 +27,6 @@ class OrderItemsController < ApplicationController
 
   private
   def order_item_params
-    params.require(:order_item).permit(:quantity, :product_id)
+    params.require(:order_item).permit(:quantity, :product_id, :product_variant_id)
   end
 end

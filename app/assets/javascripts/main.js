@@ -532,6 +532,18 @@ $(function() {
     });
   }
 
+  $(document).on("click", ".btn-variants", function(e){
+    e.preventDefault();
+    variantID = $(this).data("variant-id");
+    price = $(this).data("variant-price");
+
+    $(this).addClass("active");
+    $(".btn-variants").not(this).removeClass("active");
+
+    $(".price-box .price").text(price);
+    $(".atc-btn").attr("data-product-variant-id", variantID);
+  });
+
   $(document).on("click", ".btn-price-filter", function(e){
     e.preventDefault();
     url = $(this).data("url");

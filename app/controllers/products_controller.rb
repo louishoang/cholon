@@ -23,6 +23,7 @@ class ProductsController < ApplicationController
   end
 
   def show
+    @default_variant = @product.default_variant
   end
 
   def new
