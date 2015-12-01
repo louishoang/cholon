@@ -119,7 +119,8 @@ $(function() {
 
   $basket = $(document).find(".items-cart-inner");
   if($basket.length > 0){
-    $basketCount = $basket.find(".basket-item-count .count")
+    $basketCount = $basket.find(".basket-item-count .count");
+    $basketSubTotal = $basket.find(".total-price .value");
   }
 
   if($(".top-cart-row").length > 0){

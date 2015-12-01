@@ -121,7 +121,7 @@
                         <i class="fa fa-shopping-cart"></i>
                       </div>
                       <div class="basket-item-count">
-                        <span class="count"><%= current_items.count %></span>
+                        <span class="count"><%= current_items.sum(:quantity) rescue 0 %></span>
                       </div>
                     </div>
                   </a>
