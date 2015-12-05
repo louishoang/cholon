@@ -11,6 +11,7 @@
       dataType: "json",
       success: function(resp){
         $basketCount.text(resp.count);
+        $basketSubTotal.text(resp.subtotal);
         scrollToBasket();
       }
     })
@@ -40,9 +41,8 @@
           $basket.updateBasket();
         },
         error: function(e, xhr, status, error){
-          debugger;
-          if(resp && resp.message){
-            toastr.error(resp.responseJSON.message, "Error");
+          if(e){
+            toastr.error("Please try again later, we apologize for the inconvenience", "Error");
           }
         }
       });

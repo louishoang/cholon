@@ -1,7 +1,7 @@
 class Order < ActiveRecord::Base
   enum status: { pending: 0, placed: 1, shipped: 2, cancelled: 3}
 
-  has_many :order_items
+  has_many :order_items, dependent: :destroy
   before_create :set_order_status
   before_save :update_subtotal
 

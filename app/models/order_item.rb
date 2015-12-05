@@ -7,6 +7,7 @@ class OrderItem < ActiveRecord::Base
   validates_presence_of :order_id
 
   before_validation :update_product_id_unit_price_total_price
+  after_save :touch_order
 
   def update_product_id_unit_price_total_price
     if self.product_variant_id.present?
@@ -15,5 +16,9 @@ class OrderItem < ActiveRecord::Base
       self.total_price = self.unit_price * self.quantity
       self.seller_id = self.product_variant.product.seller_id
     end
+  end
+
+  def touch_order
+    self.order.save
   end
 end

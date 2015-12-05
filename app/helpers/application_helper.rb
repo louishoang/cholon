@@ -17,9 +17,9 @@ module ApplicationHelper
     @current_order = nil
     return @current_order if current_user.blank?
 
-    if cookies[:order_id].present?
+    begin
       @current_order = Order.find(cookies[:order_id])
-    else
+    rescue
       # find last pending order or create new one
       @current_order = Order.find_or_create_by(:user_id => current_user.id, status: 0)
       cookies[:order_id] = @current_order.id

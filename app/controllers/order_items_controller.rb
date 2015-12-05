@@ -3,13 +3,12 @@ class OrderItemsController < ApplicationController
 
   def create
     begin
-    existed = check_if_item_exist_in_order(params)
-      if existed != true
+      unless item_exist_in_order(params)
         save_new_item_to_order(params)
       end
     rescue => e
       respond_to do |format|
-        format.json {render json: e.messages, status: :unprocessable_entity}
+        format.json {render json: e.message, status: :unprocessable_entity}
       end
     end
   end
@@ -42,9 +41,9 @@ class OrderItemsController < ApplicationController
     json_success_respond
   end
 
-  def check_if_item_exist_in_order(params)
+  def item_exist_in_order(params)
     existed = false
-    item = current_order.order_items.find_by_product_variant_id("5") rescue nil
+    item = current_order.order_items.find_by_product_variant_id(params[:order_item][:product_variant_id]) rescue nil
     if item.present?
       item.quantity += params[:order_item][:quantity].to_i
       item.save
