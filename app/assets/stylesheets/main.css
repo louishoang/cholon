@@ -5391,8 +5391,16 @@ a.dropdown-toggle{
 }
  
 .spinner {
-    min-width: 30px;
-    min-height: 30px;
+  min-width: 30px;
+  min-height: 30px;
+}
+
+.spinner.inline{
+  content: 'Loading…';
+  vertical-align: middle;
+  min-width: 5px;
+  min-height: 5px;
+  position: relative;
 }
  
 .spinner:before {
@@ -5776,4 +5784,23 @@ li.dist-or span{
   display: inline-block;
   vertical-align: bottom;
   margin-left: 20px;
+}
+
+input[type="number"]::-webkit-outer-spin-button, 
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    background: #FFF url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAKUlEQVQYlWNgwAT/sYhhKPiPT+F/LJgEsHv37v+EMGkmkuImoh2NoQAANlcun/q4OoYAAAAASUVORK5CYII=) no-repeat center center;
+    width: 1em;
+    border-left: 1px solid #BBB;
+    opacity: .5; /* shows Spin Buttons per default (Chrome >= 39) */
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+input[type="number"]::-webkit-inner-spin-button:hover,
+input[type="number"]::-webkit-inner-spin-button:active{
+    box-shadow: 0 0 2px #0CF;
+    opacity: .8;
 }

@@ -6,13 +6,18 @@
   }
   
   $.fn.updateBasket = function(){
+    scrollToBasket();
+    $cartIcon = $basket.find(".basket");
+    $cartIcon.append("<span class='spinner inline'></span>");
+    $cartIcon.find("i").hide();
     $.ajax({
       url: $(this).data("refresh-url"),
       dataType: "json",
       success: function(resp){
         $basketCount.text(resp.count);
         $basketSubTotal.text(resp.subtotal);
-        scrollToBasket();
+        $cartIcon.find("i").show();
+        $cartIcon.find("span").remove();
       }
     })
   }
