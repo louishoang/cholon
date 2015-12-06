@@ -1,0 +1,126 @@
+<div class="breadcrumb breadcrumb-unstyled">
+  <div class="container-fluid">
+    <div class="breadcrumb-inner">
+      <ul class="list-inline list-unstyled nopadding">
+        <li><a href="/"><%= t"Home" %></a></li>
+        <li class='active'><%= t"Shopping Cart" %></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="body-content">
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="col-xs-12 columns">
+        <h2><%= t"Your Shopping Cart" %></h2>
+      </div>
+    </div>
+    <%= form_for @order, url: products_path, html: {class: "form-vertical register-form product-form form_ajax jvalidate", method: "POST", :remote => true, :novalidate => true} do |f| %>
+      <div class="col-xs-12 col-md-9">
+        <% @order_items.each do |group| %>
+          <div class="checkout-box inner-bottom-sm">
+            <div class="row-fluid">
+              <div class="panel-group checkout-steps">
+                <div class="panel panel-default">
+                  <div class="panel-heading seller-info">
+                    <h5 class="unicase-checkout-title">       
+                      <span class="sold-by"><%= t"Sold By" %>: </span><%= User.find(group.first).full_name rescue "--" %>
+                      <div class="rateit" data-rateit-value="5" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                      <div class="reviews"><a href="#" class="lnk">(06 Reviews)</a></div>
+                    </h5>
+                  </div>
+                  <div class="custom-panel-body">
+                    <% group.last.each do |item| %>
+                      <% variant = item.product_variant %>
+                      <% photo = variant.default_image.photo(:medium) rescue nil %>
+                      <% product = variant.product %>
+                      <div class="row m-t-10 product">
+                        <div class="col-xs-12 col-md-12 columns nopadding">
+                          <div class="col-xs-12 col-md-2 columns">
+                            <div class="drop-shadow lifted">
+                              <% if photo.present? %>
+                                <a class="entry-thumbnail" href="<%= product_path(product)%>">
+                                  <img src="/assets/blank.gif" data-echo="<%= photo %>" alt="<%= variant.name %>"/>
+                                </a>
+                              <% else %>
+                                <a class="entry-thumbnail" href="<%= product_path(product)%>">
+                                  <img  src="http://placehold.it/240x240" data-echo="http://placehold.it/240x240" alt="<%= variant.name %>"/>
+                                </a>
+                              <% end %>
+                            </div>
+                          </div>
+                          <div class="col-xs-12 col-md-6 columns product-info inner-left-xs">
+                            <h4 class='name'><a href="<%= product_path(variant.product)%>"><%= product.name %></a></h4>
+                            <div class="row-fluid">
+                              <table class="ck-item-info-table">
+                                <tbody>
+                                  <% unless variant.is_default_variant? %>
+                                    <tr>
+                                      <td><%= t"Type" %>:</td>
+                                      <td><%= variant.name %></td>
+                                    </tr>
+                                  <% end %> 
+                                  <tr>
+                                    <td><%= t"Condition" %>:</td>
+                                    <td><%= product.condition %></td>
+                                  </tr>
+                                    <tr>
+                                      <td><%= t"Unit price" %>:</td>
+                                      <td><%= number_to_currency(item.unit_price) %></td>
+                                    </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                          <div class="col-xs-12 col-md-4 columns">
+                            <div class="col-xs-6 col-md-6 columns checkout-item-quantity nopadding">
+                              <span class="label"><%= t'Qty' %> :</span> 
+                              <input type="number" min="0" step="1" value="<%= item.quantity %>" class="atc-quantity">
+                            </div>
+                            <div class="col-xs-6 col-md-6 columns">
+                              <span class="cust-cart-item-grand-total"><%= number_to_currency(item.total_price) %></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="col-md-3 col-xs-12 cart-shopping-total">
+        <table class="table table-checkout-border">
+          <thead>
+            <tr>
+              <th>
+                <div class="cart-sub-total">
+                  Subtotal<span class="inner-left-80">$600.00</span>
+                </div>
+                <div class="cart-sub-total">
+                  Shipping<span class="inner-left-80">FREE</span>
+                </div>
+                <div class="cart-grand-total">
+                  Grand Total<span class="inner-left-md">$600.00</span>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr>
+                <td>
+                  <div class="cart-checkout-btn text-center">
+                    <button type="submit" class="btn btn-lime">PROCCED TO CHEKOUT</button>
+                    <span class="text-center">Checkout with <%= current_order.order_items.sum(:quantity) %> item(s) in cart!</span>
+                  </div>
+                </td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+  </div>
+</div>

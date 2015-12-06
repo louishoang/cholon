@@ -2,6 +2,8 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!
 
   def show
+    @order = current_order
+    @order_items = @order.order_items.includes(:product_variant).group_by(&:seller_id)
   end
 
   def basket_info

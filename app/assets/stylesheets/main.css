@@ -224,7 +224,7 @@ img[src="assets/images/blank.gif"] {
   padding-left: 45px;
 }
 .inner-left-xs {
-  padding-left: 30px;
+  padding-left: 30px !important;
 }
 .inner-right {
   padding-right: 75px;
@@ -931,8 +931,8 @@ a {
 .shopping-cart .shopping-cart-table table tbody tr .cart-product-edit a:focus {
   color: #12cca7;
 }
-.shopping-cart .cart-shopping-total table thead tr th .cart-grand-total {
-  color: #0b816a;
+.cart-shopping-total table thead tr th .cart-grand-total {
+  color: #78B330;
 }
 .shopping-cart-table table tbody tr td .quant-input .arrows .arrow:hover,
 .shopping-cart-table table tbody tr td .quant-input .arrows .arrow:focus {
@@ -2548,6 +2548,12 @@ a {
 }
 .product .product-info .name a {
   color: #555;
+}
+.product .entry-thumbnail img{
+  cursor: pointer;
+  border-radius: 3px;
+  width: 140px;
+  height: 140px;
 }
 .product .product-info .star-rating .color {
   color: #ffb400;
@@ -4375,8 +4381,8 @@ a {
   .shopping-cart .estimate-ship-tax table thead tr th .estimate-title {
     font-size: 16px !important;
   }
-  .shopping-cart .cart-shopping-total table thead tr th .cart-sub-total,
-  .shopping-cart .cart-shopping-total table thead tr th .cart-grand-total {
+  .cart-shopping-total table thead tr th .cart-sub-total,
+  .cart-shopping-total table thead tr th .cart-grand-total {
     font-size: 16px !important;
   }
   .wrapper .box .wrapper-inner .container {
@@ -4814,33 +4820,17 @@ a {
 .shopping-cart .shopping-cart-table table tbody tr td {
   vertical-align: middle;
 }
-.shopping-cart .shopping-cart-table table tbody tr .romove-item a {
-  font-size: 18px;
-  color: #666666;
-}
-.shopping-cart .shopping-cart-table table tbody tr .romove-item a:hover,
-.shopping-cart .shopping-cart-table table tbody tr .romove-item a:focus {
-  color: #ff000 !important;
-}
-.shopping-cart .shopping-cart-table table tbody tr .cart-image .entry-thumbnail {
-  display: block;
-  text-align: center;
-}
-.shopping-cart .shopping-cart-table table tbody tr .cart-product-name-info {
+.shopping-cart .cart-product-name-info {
   vertical-align: middle !important;
 }
-.shopping-cart .shopping-cart-table table tbody tr .cart-product-name-info h4 {
+.shopping-cart .cart-product-name-info h4 {
   margin-top: 0px;
   font-family: 'Fjalla One';
   font-size: 16px;
   text-transform: uppercase;
 }
-.shopping-cart .shopping-cart-table table tbody tr .cart-product-name-info h4 a {
+.shopping-cart .cart-product-name-info h4 a {
   color: #555;
-}
-.shopping-cart .shopping-cart-table table tbody tr .cart-product-name-info .reviews {
-  font-size: 11px;
-  color: #aaa;
 }
 .shopping-cart .shopping-cart-table table tbody tr .cart-product-name-info .cart-product-info {
   margin-top: 10px;
@@ -4905,24 +4895,25 @@ a {
 .shopping-cart .estimate-ship-tax table tbody .unicase-form-control .dropdown-menu.open ul li a:focus {
   background: rgba(0, 0, 0, 0);
 }
-.shopping-cart .cart-shopping-total table thead tr th {
-  background-color: #fafafa;
-  text-align: right;
-  padding: 24px 50px;
+.cart-shopping-total table thead tr th {
+  padding: 15px 15px 15px 50px;
+  background-color: white;
+  text-align: left;
   text-transform: uppercase;
 }
-.shopping-cart .cart-shopping-total table thead tr th .cart-sub-total {
-  color: #555;
+.cart-shopping-total table thead tr th .cart-sub-total {
+  color: #333;
   margin-bottom: 7px;
 }
-.shopping-cart .cart-shopping-total table tbody tr td {
+.cart-shopping-total table tbody tr td {
   padding: 24px 50px;
 }
-.shopping-cart .cart-shopping-total table tbody tr td .cart-checkout-btn button {
-  float: right !important;
+.cart-shopping-total table tbody tr td .cart-checkout-btn button {
   margin-bottom: 8px;
+  background-color: #73AD21;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
-.shopping-cart .cart-shopping-total table tbody tr td .cart-checkout-btn span {
+.cart-shopping-total table tbody tr td .cart-checkout-btn span {
   display: block;
   font-weight: normal;
   color: #666666;
@@ -4958,16 +4949,20 @@ a {
 .checkout-box .checkout-steps .checkout-step-01 .already-registered-login form .form-group label span {
   color: red;
 }
-.shopping-cart .cart-shopping-total table thead tr th .cart-sub-total,
-.shopping-cart .cart-shopping-total table thead tr th .cart-grand-total {
+
+.cart-shopping-total table thead tr th .cart-sub-total,
+.cart-shopping-total table thead tr th .cart-grand-total {
   font-family: 'Fjalla One';
-  font-size: 22px;
+  font-size: 16px;
 }
 .shopping-cart-table table tbody tr td .quant-input {
   display: inline-block;
   height: 35px;
   position: relative;
   width: 70px;
+}
+.inner-left-80{
+  padding-left: 80px;
 }
 .shopping-cart-table table tbody tr td .quant-input .arrows {
   height: 100%;
@@ -5803,4 +5798,123 @@ input[type="number"]::-webkit-inner-spin-button:hover,
 input[type="number"]::-webkit-inner-spin-button:active{
     box-shadow: 0 0 2px #0CF;
     opacity: .8;
+}
+
+.checkout-box .checkout-steps .panel .panel-heading .unicase-checkout-title{
+  padding: 4px;
+  text-transform: none;
+}
+
+.checkout-box .checkout-steps .panel .panel-heading .unicase-checkout-title > span.sold-by{
+  margin-right: 5px;
+  color: #FF8200;
+/*  background-color: #abd07e;
+  padding: 10px 10px 10px 10px;
+  color: white;
+  margin-right: 15px; */
+}
+
+.custom-panel-body{
+  padding: 10px 30px 10px 30px;
+  border-top: 1px solid #ddd;
+}
+
+.table-checkout-border{
+  background-color: white;
+  padding: 30px 30px 20px 30px;
+  border-radius: 3px;
+  border: 1px #dddddd solid;
+  box-shadow: 4px 4px 1px #EEE;
+  height: 100%;
+}
+
+div.lifted{
+  border-radius: 4px;
+}
+
+div.drop-shadow {
+    position: relative;
+    float: left;
+    padding: 1px;
+    background: #fff;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+div.drop-shadow:before,
+div.drop-shadow:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  bottom: 15px;
+  left: 10px;
+  width: 50%;
+  height: 20%;
+  max-width: 300px;
+  box-shadow :0 15px 10px rgba(0, 0, 0, 0.7);
+  transform: rotate(-3deg);
+}
+
+div.drop-shadow:after{
+  right: 10px;
+  left: auto;
+  transform: rotate(3deg);
+}
+
+.checkout-box .checkout-steps .panel .panel-heading, .checkout-box .checkout-progress-sidebar .panel .panel-heading.seller-info{
+  font-family: 'Fjalla One';
+  font-size: 13px;
+  padding: 5px 10px;
+}
+
+.checkout-item-quantity{
+  top: 2px;
+}
+
+.checkout-item-quantity input{
+  background: none repeat scroll 0 0 #fff;
+  border: 1px solid #f2f2f2;
+  box-sizing: border-box;
+  font-size: 13px;
+  height: 30px;
+  left: 0;
+  padding: 0 15px 0 15px;
+  position: relative;
+  top: 0;
+  width: 55px;
+  z-index: 1;
+}
+
+.ck-item-info-table{
+  color: #888;
+  font-weight: 400;
+  font-size: 13px;
+}
+
+.ck-item-info-table td{
+  padding-right : 7px; 
+}
+.ck-item-info-table tr.variant-type{
+  color: #FF8200;
+}
+.checkout-item-quantity .label{
+  display: inline;
+  font-size: 13px;
+  text-align: center;
+  vertical-align: baseline;
+  color: black;
+  font-weight: 400;
+  font-family: 'Fjalla One';
+}
+
+.cust-cart-item-grand-total{
+  display: block;
+  font-family: 'Fjalla One';
+  font-size: 16px;
+  color: #555;
+  text-transform: uppercase;
+  position: relative;
+  top: 6px;
+  text-align: right;
 }

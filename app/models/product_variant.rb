@@ -13,4 +13,8 @@ class ProductVariant < ActiveRecord::Base
   def default_image
     self.product_photos.first
   end
+
+  def is_default_variant?
+    self.is_default == true
+  end
 end
