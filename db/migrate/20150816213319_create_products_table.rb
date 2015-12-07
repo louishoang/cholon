@@ -7,7 +7,7 @@ class CreateProductsTable < ActiveRecord::Migration
       t.string :sku
       t.integer :stock_quantity
       t.integer :seller_id
-      t.string :condition
+      t.integer :condition
       t.string :location
       t.string :slug
 

@@ -21,7 +21,7 @@
           </div>
           <div class="sidebar-widget-body m-t-20">
             <ul>
-              <% Product.condition_array.each do |condition| %>
+              <% Product.conditions.keys.each do |condition| %>
                 <% url_on_checked = url_for(params.merge({:condition => condition})) %>
                 <% url_on_unchecked = url_for(params.except(:condition)) %>
                 <li>

@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20151129193808) do
     t.integer  "product_variant_id", limit: 4,                          null: false
   end
 
+  add_index "order_items", ["product_id", "order_id"], name: "index_order_items_on_product_id_and_order_id", unique: true, using: :btree
   add_index "order_items", ["product_id"], name: "index_order_items_on_product_id", using: :btree
   add_index "order_items", ["product_variant_id", "order_id"], name: "index_order_items_on_product_variant_id_and_order_id", unique: true, using: :btree
   add_index "order_items", ["seller_id"], name: "index_order_items_on_seller_id", using: :btree
@@ -107,17 +108,17 @@ ActiveRecord::Schema.define(version: 20151129193808) do
     t.string   "sku",              limit: 255
     t.integer  "stock_quantity",   limit: 4
     t.integer  "seller_id",        limit: 4
-    t.string   "condition",        limit: 255
+    t.integer  "condition",        limit: 4
     t.string   "location",         limit: 255
     t.string   "slug",             limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "status",           limit: 255
-    t.string   "shipping_method",  limit: 255
+    t.integer  "status",           limit: 4
+    t.integer  "shipping_method",  limit: 4
     t.decimal  "shipping_price",                 precision: 10, scale: 2
     t.float    "latitude",         limit: 24
     t.float    "longitude",        limit: 24
-    t.string   "shipping_carrier", limit: 255
+    t.integer  "shipping_carrier", limit: 4
     t.decimal  "weight",                         precision: 10, scale: 2
     t.string   "length",           limit: 255
     t.string   "width",            limit: 255

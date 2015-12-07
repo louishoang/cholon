@@ -14,7 +14,7 @@ RSpec.describe ProductsController, :type => :controller do
         post :set_publishable, product_variant_id: product_variant.id, format: :json
         expect(response.body).to include("/products?")
         expect(response.body).to include("location")
-        expect(assigns(:product).status).to eq(Product::STATUS_PUBLISHABLE)
+        expect(assigns(:product).status).to eq(Product.statuses[:publishable])
       end
     end
 
@@ -28,7 +28,7 @@ RSpec.describe ProductsController, :type => :controller do
         
         expect(response.code).to eq("422")
         expect(response.body).to include("message")
-        expect(assigns(:product).status).to eq(Product::STATUS_PUBLISHABLE)
+        expect(assigns(:product).status).to eq(Product.statuses[:publishable])
       end
     end
   end
@@ -50,7 +50,7 @@ RSpec.describe ProductsController, :type => :controller do
           "1"=>{"product_photo_ids"=> product_photo2.id.to_s.split(""), "name"=>"blue", "price"=>"1", "stock_quantity"=>"1"}
           }}, "commit"=>"Lưu Lại & Tiếp Tục", "locale"=>"vi_VN", "id"=> product.slug, format: :json
 
-        expect(assigns(:product).status) == Product::STATUS_PUBLISHABLE
+        expect(assigns(:product).status) == Product.statuses[:publishable]
         expect(assigns(:product).product_variants.size).to eq(4)
         expect(assigns(:product).product_variants.last.product_photos.size).to eq(1)
       end

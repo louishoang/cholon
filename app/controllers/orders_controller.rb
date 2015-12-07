@@ -15,4 +15,11 @@ class OrdersController < ApplicationController
       format.json {render json: {count: @order_items.sum(:quantity), subtotal: @subtotal}}
     end
   end
+
+  def update
+  end
+
+  def destroy
+  end
+
 end

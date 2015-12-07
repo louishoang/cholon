@@ -83,6 +83,16 @@ vi_VN:
   sentence:
     new_product_setup_variation: "Sản phẩm này có nhiều loại, kích cỡ & màu sắc khác nhau"
 
+  product_status:
+    used: "Đã Qua Sử Dụng"
+    brand_new: "Hàng Mới"
+    refurbished: "Hàng Tái Chế(Refurbished)"
+    for_part_or_not_working: "Bán Linh Kiện, Không Hoạt Động"
+  product_shipping_method:
+    free_shipping: "Miễn Phí"
+    fixed_cost_shipping: "Đồng Giá"
+    actual_cost_shipping: "Theo Giá Dịch Vụ(Fedex, USPS)"
+
   activerecord:
     errors:
       models:

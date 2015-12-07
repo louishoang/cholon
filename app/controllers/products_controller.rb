@@ -79,7 +79,7 @@ class ProductsController < ApplicationController
   def update
     authorize @product
     fix_params_product_photo_ids
-    @product.status = Product::STATUS_PREVIEW unless [Product::STATUS_PUBLISHABLE, Product::STATUS_PREVIEW].include?(@product.status)
+    @product.status = Product.statuses[:preview] unless [Product.statuses[:publishable], Product.statuses[:preview]].include?(@product.status)
     if @product.update_attributes(product_params)
       if params[:next_url].present?
         render js: "window.location='#{preview_product_path(@product, checked: true)}'"
@@ -97,7 +97,7 @@ class ProductsController < ApplicationController
   def preview
     authorize @product
     unless params[:checked].present?
-      @product.status = Product::STATUS_PREVIEW unless [Product::STATUS_PUBLISHABLE, Product::STATUS_PREVIEW].include?(@product.status)
+      @product.status = Product.statuses[:preview] unless [PProduct.statuses[:publishable], Product.statuses[:preview]].include?(@product.status)
       if @product.save
         respond_to do |format|
           format.json{ render json: {:location => preview_product_path(@product, checked: true) }}
@@ -111,7 +111,7 @@ class ProductsController < ApplicationController
   end
 
   def set_publishable
-    @product.status = Product::STATUS_PUBLISHABLE
+    @product.status = Product.statuses[:publishable]
     if @product.save
       respond_to do |format|
         format.json {render json: {:location => products_path, :message => "Product is created successfully" }}

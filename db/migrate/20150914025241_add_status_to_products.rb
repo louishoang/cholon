@@ -1,6 +1,6 @@
 class AddStatusToProducts < ActiveRecord::Migration
   def up
-    add_column :products, :status, :string
+    add_column :products, :status, :integer
   end
 
   def down

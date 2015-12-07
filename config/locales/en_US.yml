@@ -104,3 +104,12 @@ en:
   sentence:
     new_product_setup_variation: "I want to setup product variations (ex: color, size etc.)"
 
+  product_status:
+    used: "Used"
+    brand_new: "Brand New"
+    refurbished: "Refurbished"
+    for_part_or_not_working: "For Part Or Not Working"
+  shipping_method:
+    free_shipping: "Free Shipping"
+    fixed_cost_shipping: "Charge Fixed Cost"
+    actual_cost_shipping: "Charge Actual Cost"

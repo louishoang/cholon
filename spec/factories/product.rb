@@ -13,11 +13,11 @@ FactoryGirl.define do
     end
 
     trait :draft do
-      status Product::STATUS_DRAFT
+      status Product.statuses[:draft]
     end
 
     trait :publishable do
-      status Product::STATUS_PUBLISHABLE
+      status Product.statuses[:publishable]
     end
 
   end

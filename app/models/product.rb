@@ -6,22 +6,10 @@ class Product < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name_utf8, use: [:slugged, :history]
 
-  CONDITION_USED = "Used"
-  CONDITION_NEW = "New"
-  CONDITION_REFURBISHED = "Refurbished"
-  CONDITION_FOR_PART_OR_NOT_WORKING = "For Part or Not Working"
-
-  STATUS_DRAFT = "Draft"
-  STATUS_PUBLISHABLE = "Publishable"
-  STATUS_PREVIEW = "Preview"
-
-  SHIPPING_METHOD_FREE = "Free Shipping"
-  SHIPPING_METHOD_FIXED_COST = "Fixed Cost Shipping"
-  SHIPPING_METHOD_ACTUAL_COST = "Actual Cost Shipping"
-
-  SHIPPING_CARRIER_FEDEX = "FedEx"
-  SHIPPING_CARRIER_USPS = "USPS"
-  # SHIPPING_CARRIER_UPS = "UPS" 
+  enum condition: {:used => 1, :brand_new => 2, :refurbished => 3, :for_part_or_not_working => 4}
+  enum status: {:draft => 1, :publishable => 2, :preview => 3}
+  enum shipping_method: {:free_shipping => 1, :fixed_cost_shipping => 2, :actual_cost_shipping => 3}
+  enum shipping_carrier: {:fedex => 1, :usps => 2, :ups => 3}
   # NOTE: need to work with ups after website's done to get key
 
   has_many :product_categories
@@ -36,7 +24,7 @@ class Product < ActiveRecord::Base
   validates :price, presence: true
   validates :stock_quantity, presence: true
   validates :seller_id, presence: true
-  validate :has_at_least_one_photo, if: :status_preview
+  validate :has_at_least_one_photo, if: Product.statuses[:preview]
 
   scope :join_all, lambda{ |*args|
     select("DISTINCT products.*")
@@ -45,13 +33,8 @@ class Product < ActiveRecord::Base
     .joins("LEFT OUTER JOIN categories ON product_categories.category_id = categories.id")
   }
 
-  # scope :statistic, lambda{
-  #   select("DISTINCT products.*,
-  #     SUM(CASE WHEN condition = 'New' THEN 1 ELSE 0) AS new_count,
-  #     SUM(CASE WHEN condition = 'Used' THEN 1 ELSE 0) AS used_count")
-  # }
 
-  scope :publishable, -> { where(status: STATUS_PUBLISHABLE) }
+  scope :publishable, -> { where(status: Product.statuses[:publishable]) }
 
   scope :with_categories, lambda{ |*args|
     if args.present? && args[0].present?
@@ -83,14 +66,6 @@ class Product < ActiveRecord::Base
     end
   }
 
-  def status_preview
-    self.status == STATUS_PREVIEW
-  end
-
-  def status_publishable
-    self.status == STATUS_PUBLISHABLE
-  end
-
   def all_photos
     to_return = []
     self.product_variants.each do |variant|
@@ -112,30 +87,6 @@ class Product < ActiveRecord::Base
     if return_str == false
       errors[:base] << "Product needs at least one photo"
     end
-  end
-
-  def self.shipping_method_option
-    [ 
-      [SHIPPING_METHOD_ACTUAL_COST, SHIPPING_METHOD_ACTUAL_COST],
-      [SHIPPING_METHOD_FIXED_COST, SHIPPING_METHOD_FIXED_COST],
-      [SHIPPING_METHOD_FREE, SHIPPING_METHOD_FREE]
-    ]
-  end
-
-  def self.shipping_carrier_array
-    #NOTE: need to add ups when it's available
-    [SHIPPING_CARRIER_FEDEX, SHIPPING_CARRIER_USPS]
-  end
-
-  def self.condition_select_option
-    [[CONDITION_NEW, CONDITION_NEW],
-    [CONDITION_USED, CONDITION_USED],
-    [CONDITION_REFURBISHED, CONDITION_REFURBISHED],
-    [CONDITION_FOR_PART_OR_NOT_WORKING, CONDITION_FOR_PART_OR_NOT_WORKING]]
-  end
-
-  def self.condition_array
-    [CONDITION_NEW, CONDITION_USED, CONDITION_REFURBISHED, CONDITION_FOR_PART_OR_NOT_WORKING]
   end
 
   def create_default_variant
@@ -169,7 +120,7 @@ class Product < ActiveRecord::Base
     end
   end
 
-  def get_shipping_cost(destination_zip, sh_quantity)
+  def get_shipping_cost(destination_zip, sh_quantity) #total quantity of an item
     begin
       sh_quantity = sh_quantity.to_i
       all_rate_options = []
