@@ -16,7 +16,7 @@
         <h2><%= t"Your Shopping Cart" %></h2>
       </div>
     </div>
-    <%= form_for @order, url: products_path, html: {class: "form-vertical register-form product-form form_ajax jvalidate", method: "POST", :remote => true, :novalidate => true} do |f| %>
+    <%= form_for @order, url: order_path(@order), html: {class: "form-vertical register-form product-form form_ajax", method: "PUT", :remote => true, :novalidate => true} do |f| %>
       <div class="col-xs-12 col-md-9">
         <% @order_items.each do |group| %>
           <div class="checkout-box inner-bottom-sm">
@@ -74,12 +74,26 @@
                             </div>
                           </div>
                           <div class="col-xs-12 col-md-4 columns">
-                            <div class="col-xs-6 col-md-6 columns checkout-item-quantity nopadding">
-                              <span class="label"><%= t'Qty' %> :</span> 
-                              <input type="number" min="0" step="1" value="<%= item.quantity %>" class="atc-quantity">
+                            <div class="row">
+                              <div class="col-xs-12 columns">
+                                <div class="col-xs-6 col-md-6 columns checkout-item-quantity nopadding">
+                                  <span class="label"><%= t'Qty' %> :</span> 
+                                  <input type="number" min="0" step="1" value="<%= item.quantity %>" class="atc-quantity cust-spinner">
+                                </div>
+                                <div class="col-xs-6 col-md-6 columns">
+                                  <span class="cust-cart-item-grand-total"><%= number_to_currency(item.total_price) %></span>
+                                </div>
+                              </div>
                             </div>
-                            <div class="col-xs-6 col-md-6 columns">
-                              <span class="cust-cart-item-grand-total"><%= number_to_currency(item.total_price) %></span>
+                            <div class="row m-t-10">
+                              <div class="col-xs-12 columns">
+                                <div class="col-xs-8 col-md-8 columns nopadding">
+                                  <%= product.shipping_method %>
+                                </div>
+                                <div class="col-xs-4 col-md-4 columns">
+                                  <%= item.quantity %>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>

@@ -80,6 +80,9 @@ vi_VN:
   "Women Accessories": "Phụ Kiện Nữ"
   "& Up": "Trở Lên"
 
+  sentence:
+    new_product_setup_variation: "Sản phẩm này có nhiều loại, kích cỡ & màu sắc khác nhau"
+
   activerecord:
     errors:
       models:
