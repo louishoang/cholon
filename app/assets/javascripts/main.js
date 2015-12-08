@@ -58,10 +58,11 @@ $(function() {
       $('#product_name').restrictLength($('#maxlength'));
     }
     $.validate({
-      ignore: "[]",
+      ignore: [],
       form: ".jvalidate",
       modules : 'html5',
       validateOnBlur : false,
+      validateHiddenInputs: true,
       onError : function($form) {
         $form.find(".has-error").each(function(index, elm){
 
@@ -508,17 +509,37 @@ $(function() {
     $fixedprice = $container.find(".fixed_price_shipping");
     selected = $(this).val();
 
-    if(selected == "Actual Cost Shipping"){
-      $fixedprice.addClass("hide");
-      $actualPrice.removeClass("hide");
-    }else if(selected == "Fixed Cost Shipping"){
-      $fixedprice.removeClass("hide");
-      $actualPrice.addClass("hide");
-    }else if(selected == "Free Shipping"){
-      $fixedprice.addClass("hide");
-      $actualPrice.addClass("hide");
+    if(selected == "actual_cost_shipping"){
+      $fixedprice.disableAndHide();
+      $actualPrice.enableAndShow();
+    }else if(selected == "fixed_cost_shipping"){
+      $fixedprice.enableAndShow();
+      $actualPrice.disableAndHide();
+    }else if(selected == "free_shipping"){
+      $fixedprice.disableAndHide();
+      $actualPrice.disableAndHide();
     }
   });
+
+  // prevent hidden element to be submitted with form
+  $.fn.disableAndHide = function(){
+    return this.each(function(){
+      $(this).addClass("hide");
+      $(this).find("input, select, textarea").each(function(i, elm){
+        $(elm).attr("disabled", "disabled");
+      });
+    }); 
+  }
+
+  $.fn.enableAndShow = function(){
+    return this.each(function(){
+      $(this).removeClass("hide");
+      $(this).find("input, select, textarea").each(function(i, elm){
+        $(elm).removeAttr("disabled");
+      });
+    });
+  }
+
 
   if($(".ajax-content").length > 0){
     $(".ajax-content").each(function(index, elm){
