@@ -118,8 +118,8 @@
           <li class="snapshot-title m-t-10">
             <span><i class="fa fa-truck m-r-10"></i> <%= t"Shipping" %></span>
             <div class="snapshot-info m-t-10">
-              <%= product.shipping_method %>
-              <% if product.shipping_method == Product.shipping_methods[:actual_cost] %>
+              <%= t("product_shipping_method.#{product.shipping_method}") %>
+              <% if product.actual_cost_shipping? %>
                 <a href="<%= shipping_handling_product_path(product) %>" class="ajax-popup-link"><i class="fa fa-calculator m-l-10 fa-lg icon-s-link"></i></a>
               <% end %>
             </div>

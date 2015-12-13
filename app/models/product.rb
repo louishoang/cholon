@@ -24,7 +24,7 @@ class Product < ActiveRecord::Base
   validates :price, presence: true
   validates :stock_quantity, presence: true
   validates :seller_id, presence: true
-  validate :has_at_least_one_photo, if: Product.statuses[:preview]
+  validate :has_at_least_one_photo, if: lambda{self.status == Product.statuses.key(3)}
 
   scope :join_all, lambda{ |*args|
     select("DISTINCT products.*")

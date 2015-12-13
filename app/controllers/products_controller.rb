@@ -1,14 +1,10 @@
 class ProductsController < ApplicationController
+  include CacheManager
+
   before_action :authenticate_user!
-  prepend_before_filter :find_product, :only => [:create_variants, :edit, :update, :show, :shipping_handling, :calculate_shipping, :preview, :set_publishable]
+  prepend_before_filter :find_product, :only => [:create_variants, :edit, :update, :show, :shipping_handling, :calculate_shipping, :preview, :set_publishable, :create_product_attributes]
   before_filter :clear_browser_cache, :only => [:new, :create_variants]
   after_action :verify_authorized, :only => [:edit, :update, :preview, :destroy] 
-
-  def clear_browser_cache
-    response.headers["Pragma"] = "no-cache"
-    response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"    
-    response.headers["Expires"] = "Fri, 01 Jan 1970 00:00:00 GMT"
-  end
 
   def index
     @products = Product.join_all.publishable
@@ -33,43 +29,14 @@ class ProductsController < ApplicationController
   def create
     handle_create_or_update
     if @product.persisted?
-      # set cookie to prevent browser back button allow user to submit form again
-      cookies[:product_name] = @product.name.gsub(" ", "")
-      cookies[:product_slug] = @product.slug
-
-      if params[:has_variants].present? && params[:has_variants] == 'true'
-        #redirect to create variants page
-        @redirect_url = create_variants_product_path(id: @product)
-        respond_to do |format|
-          format.json {render json: {:location => @redirect_url }}
-        end
-      else
-        #create a default variant and redirect to upload photo page
-        @default_variant = @product.create_default_variant
-        @redirect_url = "#{new_product_photo_path(product_variant_id: @default_variant.id) }"
-        respond_to do |format|
-          format.json{ render json: {:location => @redirect_url }}
-        end
-      end
+      set_product_to_cookie(@product)
+      create_variant_and_redirect(params, @product)
     else
       respond_to do |format|
         format.json { render json: {:message => @product.errors.full_messages.to_sentence}, status: :unprocessable_entity  }
         format.html { render action: "new" }
       end
     end
-  end
-
-  def handle_create_or_update
-    # prevent user creates duplicated product by pressing back button, when he/she presses back button , params page_is_dirty is '1'
-    if params[:page_is_dirty].present? && params[:page_is_dirty] == '1'
-      @product = Product.find_by(slug: cookies[:product_slug], seller_id: current_user.id)
-      if @product.present?
-        @product.update_attributes(product_params)
-      end
-    else
-      @product = Product.create(product_params)
-    end
-    @product
   end
 
   def create_variants
@@ -96,8 +63,9 @@ class ProductsController < ApplicationController
 
   def preview
     authorize @product
+    @default_variant = @product.default_variant
     unless params[:checked].present?
-      @product.status = Product.statuses[:preview] unless [PProduct.statuses[:publishable], Product.statuses[:preview]].include?(@product.status)
+      @product.status = Product.statuses[:preview] unless [Product.statuses[:publishable], Product.statuses[:preview]].include?(@product.status)
       if @product.save
         respond_to do |format|
           format.json{ render json: {:location => preview_product_path(@product, checked: true) }}
@@ -134,6 +102,13 @@ class ProductsController < ApplicationController
     end
   end
 
+  def create_product_attributes
+  end
+
+  def find_or_create_attribute
+    render :partial => "find_or_create_attribute"
+  end
+
   private
 
   def fix_params_product_photo_ids
@@ -158,5 +133,35 @@ class ProductsController < ApplicationController
 
   def find_product
     @product = Product.find_by_slug(params[:id])
+  end
+
+  def create_variant_and_redirect(params, product)
+    if params[:has_variants].present? && params[:has_variants] == 'true'
+      #redirect to create variants page
+      redirect_url = create_product_attributes_product_path(id: product)
+      respond_to do |format|
+        format.json {render json: {:location => redirect_url }}
+      end
+    else
+      #create a default variant and redirect to upload photo page
+      default_variant = product.create_default_variant
+      redirect_url = "#{new_product_photo_path(product_variant_id: default_variant.id) }"
+      respond_to do |format|
+        format.json{ render json: {:location => redirect_url }}
+      end
+    end
+  end
+
+  def handle_create_or_update
+    # prevent user creates duplicated product by pressing back button, when he/she presses back button , params page_is_dirty is '1'
+    if params[:page_is_dirty].present? && params[:page_is_dirty] == '1'
+      @product = Product.find_by(slug: cookies[:product_slug], seller_id: current_user.id)
+      if @product.present?
+        @product.update_attributes(product_params)
+      end
+    else
+      @product = Product.create(product_params)
+    end
+    @product
   end
 end

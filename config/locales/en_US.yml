@@ -109,7 +109,7 @@ en:
     brand_new: "Brand New"
     refurbished: "Refurbished"
     for_part_or_not_working: "For Part Or Not Working"
-  shipping_method:
+  product_shipping_method:
     free_shipping: "Free Shipping"
     fixed_cost_shipping: "Charge Fixed Cost"
     actual_cost_shipping: "Charge Actual Cost"

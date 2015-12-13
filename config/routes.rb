@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   resources :home
 
   resources :products do
+    collection do
+      get 'find_or_create_attribute'
+    end
     member do
       get 'set_publishable'
       get 'preview'
@@ -19,6 +22,7 @@ Rails.application.routes.draw do
       get 'shipping_handling'
       get 'create_variants'
       post 'create_variants'
+      get 'create_product_attributes'
     end
   end
 
