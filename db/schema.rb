@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20151213210543) do
 
   create_table "product_options", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
+    t.integer  "popularity", limit: 4
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end

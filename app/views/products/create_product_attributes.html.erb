@@ -16,7 +16,7 @@
         <div class="col-md-9 col-sm-9 nopadding">
           <div class="row-fluid"><h2><%= t"Create Product Attributes" %></h2></div>
           <div class="row-fluid form-container">
-            <a href="<%= find_or_create_attribute_products_path %>" class="ajax-popup-link"><i class="fa fa-plus-square-o m-l-10 fa-lg icon-s-link"></i>  <%= t"Add more attribute" %></a>
+            <a href="<%= new_product_option_path %>" class="ajax-popup-link"><i class="fa fa-plus-square-o m-l-10 fa-lg icon-s-link"></i>  <%= t"Add more attribute" %></a>
             <%= f.hidden_field :product_id, :value => @product.id %>
             <input type="hidden" id="page_is_dirty" name="page_is_dirty" value="0" />
           

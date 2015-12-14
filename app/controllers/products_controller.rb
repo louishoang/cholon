@@ -105,10 +105,6 @@ class ProductsController < ApplicationController
   def create_product_attributes
   end
 
-  def find_or_create_attribute
-    render :partial => "find_or_create_attribute"
-  end
-
   private
 
   def fix_params_product_photo_ids

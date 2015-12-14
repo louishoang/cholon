@@ -203,6 +203,12 @@ $(function() {
 
     echo.render();
 
+    $(".option-autocomplete", cx).autocomplete({
+      delay: 500,
+      minLength: 2,
+      source: "/product_options"
+    })
+
     //select2
     $(".select2class", cx).select2({});
 
@@ -585,7 +591,48 @@ $(function() {
     window.location.href = window.location.pathname + "?" + $.param(query);
   });
 
+  //add new row to form dynamicaly, ONLY HANDLE INPUT NOW
+  $(document).on("click", ".add-row-form", function(e){
+    e.preventDefault();
+    $wrapper = $(this).parents(".clone-wrapper");
+    nextIndex = $wrapper.find(".clone-elm").not(".toclone").length;
+    $toClone = $wrapper.find(".toclone");
+    data = $toClone.clone();
+    data.find("input").each(function(index, elm){
+      newNameWithIndex = $(elm).attr("name").replace(/\d/, nextIndex);
+      $(elm).attr("name", newNameWithIndex);
+      renderUI(data);
+    });
+    $wrapper.find(".clone-elm").last().after(data.removeClass("hide toclone"));
+  });
 
+  $(document).on("click", "a[data-remove]", function(e){
+    e.preventDefault();
+    $wrapper = $(this).parents(".clone-wrapper");
+    $allToClone = $wrapper.find(".clone-elm").not(".toclone");
+    $this = $(this);
+    
+    if($allToClone.length > 1){
+      $this.queue(function(next){
+        $this.parents($this.data("remove")).remove();
+        next();    
+      }).queue(function(next){
+        $allToClone = $wrapper.find(".clone-elm").not(".toclone");
+
+        $allToClone.each(function(index, fg){
+          currentIndex = index;
+          $(fg).find("input, textarea, select").each(function(index, elm){
+            newNameWithIndex = $(elm).attr("name").replace(/\d/, currentIndex);
+            $(elm).attr("name", newNameWithIndex);
+          });
+        });
+        next();
+      });    
+    }else{
+      toastr.error("This element is required", "Error");
+    } 
+  });
+    
 });
 
 $(document).ready(function() {

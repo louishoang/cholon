@@ -96,6 +96,9 @@ img[src="assets/images/blank.gif"] {
 .btn-upper {
   text-transform: uppercase;
 }
+.m-t-40{
+  margin-top: 40px;
+}
 .m-t-20 {
   margin-top: 20px;
 }
@@ -5332,6 +5335,14 @@ a.dropdown-toggle{
   margin-bottom: 35px;
 }
 
+.product-form.no-margin-b .form-group{
+  margin-bottom: 0px;
+}
+
+.form-control.w-300{
+  width: 300px;
+}
+
 .container .form-container{
   background-color: white;
   padding: 10px 30px 20px 30px;
@@ -5440,10 +5451,15 @@ a.dropdown-toggle{
   text-align: center;
 }
 
+.mfp-container{
+  padding: 30px;
+}
+
 .mfp-content{
   background-color: #F8F8F8 !important;
-  padding: 10px 10px 30px 10px !important;
+  padding: 10px 10px 30px 30px !important;
 }
+
 .dropzone .dz-message span{
   font-weight: 400;
   font-size: 20px;
@@ -5918,3 +5934,21 @@ div.drop-shadow:after{
   top: 6px;
   text-align: right;
 }
+.control-label.text-left{
+  text-align: left !important;
+}
+
+.option-values{
+  margin-left: 50px
+}
+
+.option-value input.form-control{
+  display: inline-block;
+}
+
+.option-value a{
+  display: inline-block;
+  text-decoration: none;
+  color: black;
+}
+
