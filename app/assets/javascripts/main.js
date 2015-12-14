@@ -640,6 +640,6 @@ $(document).ready(function() {
   var footerHeight = $('#footer').height();
   var footerTop = $('#footer').position().top + footerHeight;
   if (footerTop < docHeight) {
-   $('#footer').css('margin-top', 50+ (docHeight - footerTop) + 'px');
+   $('#footer').css('margin-top', 50 + (docHeight - footerTop) + 'px');
   }
 });

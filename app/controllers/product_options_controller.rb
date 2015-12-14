@@ -2,7 +2,7 @@ class ProductOptionsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    render json: %w[foo bar]
+    render json: ProductOption.search_for(params[:term])
   end
 
   def new
