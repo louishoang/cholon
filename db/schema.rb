@@ -75,10 +75,10 @@ ActiveRecord::Schema.define(version: 20151213210543) do
   add_index "product_categories", ["product_id", "category_id"], name: "index_product_categories_on_product_id_and_category_id", unique: true, using: :btree
 
   create_table "product_option_values", force: :cascade do |t|
-    t.string   "name",       limit: 255, null: false
-    t.integer  "option_id",  limit: 4,   null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "name",              limit: 255, null: false
+    t.integer  "product_option_id", limit: 4,   null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
   create_table "product_options", force: :cascade do |t|

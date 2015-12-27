@@ -1,0 +1,18 @@
+<% _option = local_assigns.fetch(:_option, nil) %>
+<% _option_values = local_assigns.fetch(:_option_values, nil) %>
+
+<div class="col-xs-4 columns nopadding" id="option-<%= _option.id %>">
+  <ul class="option-tree">
+    <li class="root">
+      - <%= _option.name.capitalize %>
+      <span class="edit">
+        <a href="<%= edit_product_attributes_product_options_path(:option => _option, :option_values => _option_values.map(&:id), "data-remove" => "#option-#{_option.id}") %>" class="ajax-popup-link"> <%= t"Edit" %></a>
+      </span>
+    </li>
+    <% _option_values.each do |_value| %>
+      <li>
+        <%= _value.name.capitalize %>
+      </li>
+    <% end %>
+  </ul>
+</div>

@@ -52,6 +52,7 @@ Rails.application.routes.draw do
   resources :product_options do
     collection do
       get 'find_or_create_option'
+      get 'edit_product_attributes'
     end
   end
 

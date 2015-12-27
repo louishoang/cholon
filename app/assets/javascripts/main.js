@@ -25,6 +25,187 @@ function getUrlParameterHash(){
   return myHash;
 };
 
+function union_arrays (x, y) {
+  var obj = {};
+  for (var i = x.length-1; i >= 0; -- i)
+     obj[x[i]] = x[i];
+  for (var i = y.length-1; i >= 0; -- i)
+     obj[y[i]] = y[i];
+  var res = []
+  for (var k in obj) {
+    if (obj.hasOwnProperty(k) && obj[k] != "")  // <-- optional
+      res.push(obj[k]);
+  }
+  return res;
+}
+
+// Find language for text editor
+if (getUrlParameter("locale") == "vi_VN"){
+  var wbbOptLang = "vi_VN";
+}else{
+  var wbbOptLang = "en_CA";
+}
+
+var renderUI = function(cx){
+  //HTML text editor
+  tinymce.init({
+    selector: ".text-editor",
+    menubar: false,
+    language: wbbOptLang,
+    setup: function(editor) {
+      // handle instruction tooltip on the side
+      editor.on('focus', function(e) {
+        $this = $("#product_description");
+
+        title = $this.data("tooltip-title");
+        content = $this.data("tooltip");
+        $container = $this.closest(".container");
+        $tooltipPanel = $container.find(".tooltip-panel");
+
+        pos = $(".mce-panel").offset();
+        $tooltipPanel.find(".panel-title").html(title);
+        $tooltipPanel.find(".panel-body").html(content);
+        $tooltipPanel.trigger("showAndPosition", pos);
+
+        $("#product_description").trigger("focus");
+      });
+
+      editor.on("keyup change", function(e){
+        e.preventDefault();
+        // copy content to the selector for validation;
+        _content = tinyMCE.activeEditor.getContent();
+        $(".text-editor").text(tinyMCE.activeEditor.getContent()); 
+        tinyMCE.triggerSave(); 
+      });
+
+      editor.on('blur', function(e){
+          
+      });
+    },
+    plugins: [
+      "advlist autolink link image lists charmap hr anchor pagebreak spellchecker",
+      "searchreplace visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+      "table contextmenu directionality emoticons template paste textcolor"
+    ],
+    toolbar: "code styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | media fullpage | forecolor backcolor emoticons | insertfile undo redo" , 
+    style_formats: [
+      {title: 'Bold text', inline: 'b'},
+      {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+      {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+      {title: 'Example 1', inline: 'span', classes: 'example1'},
+      {title: 'Example 2', inline: 'span', classes: 'example2'},
+      {title: 'Table styles'},
+      {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+      ]
+   });
+
+  //lazy load
+  echo.init({
+    offset: 100,
+    throttle: 250,
+    unload: false,
+    callback: function (element, op) {
+    }
+  });
+
+  echo.render();
+
+  $(".option-autocomplete", cx).autocomplete({
+    delay: 500,
+    minLength: 2,
+    source: "/product_options"
+  })
+
+  //select2
+  $(".select2class", cx).select2({});
+
+  //jquery equal height
+  $(".top", cx).matchHeight({});
+
+  //image upload dropzone
+  var dropZoneExist = $(cx).find(".dropzone").size() > 0;
+
+  if (dropZoneExist){
+    $myDropZone = $(cx).find(".dropzone");
+    $replaceValue = $($myDropZone.data("replace-value"));;
+
+    Dropzone.autoDiscover = false;
+    var dropzone = new Dropzone (".dropzone", {
+      maxFilesize: 5, // Set the maximum file size to 10 MB
+      maxFiles: 5, //maximum number of file can be uploaded
+      paramName: "product_photo[photo]", // Rails expects the file upload to be something like model[field_name]
+      addRemoveLinks: true, // show remove links on dropzone itself. 
+      headers: {
+        'X-CSRF-Token': $('meta[name="token"]').attr('content')
+      }
+    }); 
+    dropzone.on("success", function(file) {
+      resp = jQuery.parseJSON(file.xhr.response);
+      if ($replaceValue.size() > 0){
+        $replaceValue.val($replaceValue.val() + ',' + resp.id);
+      }
+    });
+    dropzone.on("queuecomplete", function(elm){
+      $spinner = $(".dropzone").parent().find(".spinner");
+      if($spinner.length > 0){
+        $spinner.removeAttr("onclick");
+        $spinner.removeAttr("disabled").removeClass("spinner");
+      } 
+    });
+    dropzone.on("addedfile", function(file) {
+      $(".dropzone").parent().find(".btn").trigger("loading");
+    });
+  }
+
+  // popup modal ajax
+  $('.ajax-popup-link', cx).magnificPopup({
+    type: 'ajax',
+    cursor: 'mfp-ajax-cur',
+    closeOnBgClick: false,
+    showCloseBtn: true,
+    closeBtnInside: true,
+    callbacks: {
+      elementParse: function(item) {
+        // Function will fire for each target element
+        // "item.el" is a target DOM element (if present)
+        // "item.src" is a source that you may modify
+      },
+      ajaxContentAdded: function(e) {
+        renderUI(".mfp-container");
+      }
+    }
+  });
+
+  $('.gallery', cx ).jGallery({
+    "transition":"moveToLeft_moveFromRight",
+    "transitionCols":"1",
+    "transitionRows":"1",
+    "thumbnailsPosition":"bottom",
+    "thumbType":"image",
+    "width": '365px',
+    "height": "205px",
+    "mode": 'slider',
+    "thumbHeight": 30,
+    "thumbWidth": 30,
+    "slideshow": false,
+    "browserHistory": false
+  });
+
+  $( ".product_gallery", cx ).jGallery( {
+    "transition":"moveToLeft_moveFromRight",
+    "transitionCols":"1",
+    "transitionRows":"1",
+    "thumbnailsPosition":"bottom",
+    "thumbType":"image",
+    "backgroundColor":"F8F8F8",
+    "textColor":"000000",
+    "mode":"standard",
+    "height": "527px",
+    "slideshow": false,
+    "browserHistory": false
+  });
+};
+
 
 
 $(function() {
@@ -130,174 +311,6 @@ $(function() {
       order_id: 1
     });
   }
-
-  // Find language for text editor
-  if (getUrlParameter("locale") == "vi_VN"){
-    var wbbOptLang = "vi_VN";
-  }else{
-    var wbbOptLang = "en_CA";
-  }
-
-
-  var renderUI = function(cx){
-    //HTML text editor
-    tinymce.init({
-      selector: ".text-editor",
-      menubar: false,
-      language: wbbOptLang,
-      setup: function(editor) {
-        // handle instruction tooltip on the side
-        editor.on('focus', function(e) {
-          $this = $("#product_description");
-
-          title = $this.data("tooltip-title");
-          content = $this.data("tooltip");
-          $container = $this.closest(".container");
-          $tooltipPanel = $container.find(".tooltip-panel");
-
-          pos = $(".mce-panel").offset();
-          $tooltipPanel.find(".panel-title").html(title);
-          $tooltipPanel.find(".panel-body").html(content);
-          $tooltipPanel.trigger("showAndPosition", pos);
-
-          $("#product_description").trigger("focus");
-        });
-
-        editor.on("keyup change", function(e){
-          e.preventDefault();
-          // copy content to the selector for validation;
-          _content = tinyMCE.activeEditor.getContent();
-          $(".text-editor").text(tinyMCE.activeEditor.getContent()); 
-          tinyMCE.triggerSave(); 
-        });
-
-        editor.on('blur', function(e){
-            
-        });
-      },
-      plugins: [
-        "advlist autolink link image lists charmap hr anchor pagebreak spellchecker",
-        "searchreplace visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-        "table contextmenu directionality emoticons template paste textcolor"
-      ],
-      toolbar: "code styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | media fullpage | forecolor backcolor emoticons | insertfile undo redo" , 
-      style_formats: [
-        {title: 'Bold text', inline: 'b'},
-        {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
-        {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
-        {title: 'Example 1', inline: 'span', classes: 'example1'},
-        {title: 'Example 2', inline: 'span', classes: 'example2'},
-        {title: 'Table styles'},
-        {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
-        ]
-     });
-
-    //lazy load
-    echo.init({
-      offset: 100,
-      throttle: 250,
-      unload: false,
-      callback: function (element, op) {
-      }
-    });
-
-    echo.render();
-
-    $(".option-autocomplete", cx).autocomplete({
-      delay: 500,
-      minLength: 2,
-      source: "/product_options"
-    })
-
-    //select2
-    $(".select2class", cx).select2({});
-
-    //jquery equal height
-    $(".top", cx).matchHeight({});
-
-    //image upload dropzone
-    var dropZoneExist = $(cx).find(".dropzone").size() > 0;
-
-    if (dropZoneExist){
-      $myDropZone = $(cx).find(".dropzone");
-      $replaceValue = $($myDropZone.data("replace-value"));;
-
-      Dropzone.autoDiscover = false;
-      var dropzone = new Dropzone (".dropzone", {
-        maxFilesize: 5, // Set the maximum file size to 10 MB
-        maxFiles: 5, //maximum number of file can be uploaded
-        paramName: "product_photo[photo]", // Rails expects the file upload to be something like model[field_name]
-        addRemoveLinks: true, // show remove links on dropzone itself. 
-        headers: {
-          'X-CSRF-Token': $('meta[name="token"]').attr('content')
-        }
-      }); 
-      dropzone.on("success", function(file) {
-        resp = jQuery.parseJSON(file.xhr.response);
-        if ($replaceValue.size() > 0){
-          $replaceValue.val($replaceValue.val() + ',' + resp.id);
-        }
-      });
-      dropzone.on("queuecomplete", function(elm){
-        $spinner = $(".dropzone").parent().find(".spinner");
-        if($spinner.length > 0){
-          $spinner.removeAttr("onclick");
-          $spinner.removeAttr("disabled").removeClass("spinner");
-        } 
-      });
-      dropzone.on("addedfile", function(file) {
-        $(".dropzone").parent().find(".btn").trigger("loading");
-      });
-    }
-
-    // popup modal ajax
-    $('.ajax-popup-link', cx).magnificPopup({
-      type: 'ajax',
-      cursor: 'mfp-ajax-cur',
-      closeOnBgClick: false,
-      showCloseBtn: true,
-      closeBtnInside: true,
-      callbacks: {
-        elementParse: function(item) {
-          // Function will fire for each target element
-          // "item.el" is a target DOM element (if present)
-          // "item.src" is a source that you may modify
-        },
-        ajaxContentAdded: function(e) {
-          renderUI(".mfp-container");
-        }
-      }
-    });
-
-    $('.gallery', cx ).jGallery({
-      "transition":"moveToLeft_moveFromRight",
-      "transitionCols":"1",
-      "transitionRows":"1",
-      "thumbnailsPosition":"bottom",
-      "thumbType":"image",
-      "width": '365px',
-      "height": "205px",
-      "mode": 'slider',
-      "thumbHeight": 30,
-      "thumbWidth": 30,
-      "slideshow": false,
-      "browserHistory": false
-    });
-
-    $( ".product_gallery", cx ).jGallery( {
-      "transition":"moveToLeft_moveFromRight",
-      "transitionCols":"1",
-      "transitionRows":"1",
-      "thumbnailsPosition":"bottom",
-      "thumbType":"image",
-      "backgroundColor":"F8F8F8",
-      "textColor":"000000",
-      "mode":"standard",
-      "height": "527px",
-      "slideshow": false,
-      "browserHistory": false
-    });
-  };
 
   $(document).on("renderUI", function(e, context){
     renderUI(context);

@@ -5951,4 +5951,60 @@ div.drop-shadow:after{
   text-decoration: none;
   color: black;
 }
+.option-tree{
+  margin: 0px 0px 0px 20px; 
+  list-style: none;
+  line-height: 1.8em;
+}
 
+.option-tree li{
+  position: relative;
+}
+
+.option-tree li:before{
+  position: absolute;
+  left: -15px;
+  top: 0px;
+  content: '';
+  display: block;
+  border-left: 1px solid #ddd;
+  height: 1em;
+  border-bottom: 1px solid #ddd;
+  width: 10px;
+}
+
+.option-tree li:after{
+  position: absolute;
+  left: -15px;
+  bottom: -7px;
+  content: '';
+  display: block;
+  border-left: 1px solid #ddd;
+  height: 100%;
+}
+
+.option-tree li:last-child:after{
+  display: none;
+}
+
+.option-tree .root{
+  margin: 0px 0px 0px -20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.option-tree .root:before,
+.option-tree .root:after,
+.option-tree .root:last-child{
+  display: none;
+}
+
+.option-tree .root span.edit {
+  font-size: 10px;
+  margin-left: 10px;
+  display: none;
+}
+
+.option-tree .root:hover span.edit{
+  display: inline-block;
+}

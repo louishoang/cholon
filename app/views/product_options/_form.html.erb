@@ -1,0 +1,45 @@
+<% _option = local_assigns.fetch(:_option, nil) %>
+<% _option_values = local_assigns.fetch(:_option_values, nil) %>
+<% _option_values = _option.product_option_values if _option_values.blank? %>
+<% remove = local_assigns.fetch(:remove, nil) %>
+<% form_action = product_options_path %>
+
+<%= form_for _option, url: form_action, html: {class: "form-horizontal register-form product-form form_ajax jvalidate", method: "POST", :remote => true, :novalidate => true} do |f| %>
+  <div class="form-group m-r-10">
+    <%= label_tag :name, class: "info-title col-sm-2 control-label text-left" do %>
+      <%= t"Option Name" %>: <span>*</span>
+    <% end %>
+    <div class="col-xs-10">
+      <%= f.text_field :name, :class => "form-control unicase-form-control text-input input-styling option-autocomplete w-300" %>
+    </div>
+  </div>
+  <div class="clone-wrapper">
+    <div class="form-group clone-elm m-r-10 toclone hide">
+      <div class="col-xs-10 col-xs-offset-2 option-value">
+        <input type="text" name="product_option[product_option_values_attributes][0][name]" class="form-control unicase-form-control text-input input-styling option-autocomplete w-300"/>
+        <a href="javascript:;" data-remove=".form-group"><i class="fa fa-trash-o icon-s-link"></i> <%= t"Remove" %></a>
+      </div>
+    </div>
+    <% _option_values.each_with_index do |_val, index| %>
+      <%= f.fields_for :product_option_values, _val do |value_form| %>
+        <div class="form-group clone-elm m-r-10">
+          <%= label_tag :name, class: "info-title col-sm-2 control-label text-left" do %>
+            <%= t"Option Value" %>: <span>*</span>
+          <% end %>
+          <div class="col-xs-10 option-value">
+            <input type="text" name="product_option[product_option_values_attributes][<%= index %>][name]" class="form-control unicase-form-control text-input input-styling option-autocomplete w-300" value="<%= _val.name %>"/>
+            <a href="javascript:;" data-remove=".form-group"><i class="fa fa-trash-o icon-s-link"></i> <%= t"Remove" %></a>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+    <div class="col-xs-10 col-xs-offset-2 columns">
+      <a href="javascript:;" class="add-row-form"><i class="fa fa-plus-square-o m-l-10 fa-lg icon-s-link"></i>  <%= t"Add New Value" %></a>
+    </div>
+    <input type="hidden" name="remove" value="<%= remove %>" %>
+    <input type="hidden" name="old_option_value" value="<%= _option_values.map(&:id) %>"
+  </div>
+  <div class="row-fluid m-t-40">
+    <button type="submit" class="btn-upper btn btn-lg btn-success"><%= t"Save" %></button>
+  </div>
+<% end %>
