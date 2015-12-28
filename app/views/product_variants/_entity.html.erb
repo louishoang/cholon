@@ -1,7 +1,7 @@
 <% view_mode = local_assigns.fetch(:view_mode, nil) %>
 
 <% if view_mode == :product_detail_page_button %>
-  <button class="btn btn-variants <%= 'active' if entity == @default_variant %>" data-variant-id="<%= entity.id %>" data-variant-price="<%= number_to_currency(entity.price) %>">
+  <button class="btn btn-variants <%= 'active' if entity == @default_variant %> no-focus" data-variant-id="<%= entity.id %>" data-variant-price="<%= number_to_currency(entity.price) %>" data-option-value="<%= entity.product_option_values.map(&:id).join(",") rescue nil %>">
     <div><%= entity.name %></div>
     <div class="price-red"><%= number_to_currency(entity.price) %></div>
   </button>

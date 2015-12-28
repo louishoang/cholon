@@ -64,7 +64,7 @@ class ProductsController < ApplicationController
           @product.product_variants << product_variant
         end
       end
-      
+
       if @product.save
         respond_to do |format|
           format.json{ render json: {:location => create_variants_product_path(@product) }}
@@ -98,6 +98,12 @@ class ProductsController < ApplicationController
 
   def preview
     authorize @product
+
+    @product_option_hash = ProductOptionValue.joins(:product_variants)
+      .where("product_variants.product_id = ?", @product.id)
+      .uniq
+      .group_by(&:product_option_id)
+
     @default_variant = @product.default_variant
     unless params[:checked].present?
       @product.status = Product.statuses[:preview] unless [Product.statuses[:publishable], Product.statuses[:preview]].include?(@product.status)

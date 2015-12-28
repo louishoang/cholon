@@ -648,6 +648,7 @@ $(function() {
     
 });
 
+//Adjust footer to bottom of page
 $(document).ready(function() {
   var docHeight = $(window).height();
   var footerHeight = $('#footer').height();
@@ -656,3 +657,23 @@ $(document).ready(function() {
    $('#footer').css('margin-top', 50 + (docHeight - footerTop) + 'px');
   }
 });
+
+$(document).on("change", ".product-option-value-select", function(e){
+  optionValueIds = $.map($(".product-option-value-select"), function(a){
+    if($(a).val() != ""){
+      return $(a).val();
+    }
+  });
+  btnName = ".btn-variants[data-option-value='" + optionValueIds.join(",") + "']";
+
+  $selectedOption = $(btnName);
+  if($selectedOption.length > 0){
+    $selectedOption.trigger("click");
+  }
+});
+
+
+
+
+
+

@@ -5611,6 +5611,7 @@ li.dist-or span{
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 2px !important;
+  margin-bottom: 3px;
 }
 
 .btn.btn-variants:hover{
@@ -6007,4 +6008,15 @@ div.drop-shadow:after{
 
 .option-tree .root:hover span.edit{
   display: inline-block;
+}
+
+.form-control.product-option-value-select{
+  height: 30px;
+  vertical-align: middle;
+  width: auto;
+  margin-top: 3px;
+}
+
+button.no-focus:focus{
+  outline: 0 !important;
 }
