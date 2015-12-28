@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151213210543) do
+ActiveRecord::Schema.define(version: 20151228020131) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -180,5 +180,14 @@ ActiveRecord::Schema.define(version: 20151213210543) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
+
+  create_table "variant_option_values", force: :cascade do |t|
+    t.integer  "product_option_value_id", limit: 4, null: false
+    t.integer  "product_variant_id",      limit: 4, null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
+
+  add_index "variant_option_values", ["product_variant_id", "product_option_value_id"], name: "variant_option_values_index", using: :btree
 
 end

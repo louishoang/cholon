@@ -11,7 +11,7 @@
 
 <div class="body-content outer-top-bd">
   <div class="container">
-    <%= form_for @product, url: products_path, html: {class: "form-vertical register-form product-form form_ajax jvalidate", method: "POST", :remote => true, :novalidate => true} do |f| %>
+    <%= form_for @product, url: create_variants_product_path(@product), html: {class: "form-vertical register-form product-form form_ajax jvalidate", method: "POST", :remote => true, :novalidate => true} do |f| %>
       <div class="col-sm-12 col-md-12 nopadding">
         <div class="col-md-9 col-sm-9 nopadding">
           <div class="row-fluid"><h2><%= t"Create Product Attributes" %></h2></div>

@@ -28,9 +28,11 @@
                   <th><%= t"Actions" %></th>
                 </thead>
                 <tbody>
-                  <%= f.fields_for :product_variants do |variants_form| %>
-                   <% row_index = variants_form.options[:child_index] %>
-                    <%= render :partial => "/product_variants/entity.html", row_index: row_index, :variants_form => variants_form %>
+                  <% @product.product_variants.each do |variant| %>
+                    <%= f.fields_for :product_variants, variant do |variants_form| %>
+                     <% row_index = variants_form.options[:child_index] %>
+                      <%= render :partial => "/product_variants/entity.html", locals: {row_index: row_index, :variants_form => variants_form, entity: variant} %>
+                    <% end %>
                   <% end %>
                 </tbody>
               </table>

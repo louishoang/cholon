@@ -40,7 +40,42 @@ class ProductsController < ApplicationController
   end
 
   def create_variants
-    @product.product_variants.build if @product.product_variants.blank?
+    if request.post?
+      @option_value_ids = params[:product_option_value_ids].split(",")
+
+      @product_option_hash = ProductOptionValue.where(:id => @option_value_ids)
+        .group_by(&:product_option_id)
+
+      first_array, *remaining_arrays = @product_option_hash.values
+
+      if remaining_arrays.blank?
+        first_array.each do |option_value|
+          product_variant = ProductVariant.find_or_initialize_by(:name => option_value.name)
+          product_variant.product_option_values << option_value
+          @product.product_variants << product_variant
+        end
+      else
+        option_values_combination = first_array.product(*remaining_arrays)
+
+        option_values_combination.each do |combo|
+          name = combo.map(&:name).join("-")
+          product_variant = ProductVariant.find_or_initialize_by(name: name)
+          product_variant.product_option_values << combo
+          @product.product_variants << product_variant
+        end
+      end
+      
+      if @product.save
+        respond_to do |format|
+          format.json{ render json: {:location => create_variants_product_path(@product) }}
+        end
+      else
+        respond_to do |format|
+          format.json { render json: {:message => @product.errors.full_messages.to_sentence }, status: :unprocessable_entity }
+          format.html { render action: "create_product_attributes" }
+        end
+      end
+    end
   end
 
   def update

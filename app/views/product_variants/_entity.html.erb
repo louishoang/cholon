@@ -6,7 +6,6 @@
     <div class="price-red"><%= number_to_currency(entity.price) %></div>
   </button>
 <% else %>
-
   <% row_index = row_index || params[:index].to_i %>
   <tr>
     <td widht="10%"><%= row_index + 1 %></td>
@@ -19,7 +18,7 @@
     <td width="40%">
       <div class="form-group">
         <label for="exampleInputEmail1"><%= t"Name" %></label>
-        <input class="form-control unicase-form-control text-input input-styling" id="product_product_variants_attributes_<%= row_index %>_name" name="product[product_variants_attributes][<%= row_index %>][name]" type="text" data-validation="required">
+        <input class="form-control unicase-form-control text-input input-styling" id="product_product_variants_attributes_<%= row_index %>_name" name="product[product_variants_attributes][<%= row_index %>][name]" type="text" data-validation="required" value="<%= entity.name %>">
       </div>
     
       <div class="col-xs-12 nopadding">
@@ -27,13 +26,13 @@
           <label for="exampleInputEmail1"><%= t"Price" %></label>
           <div class="input-group">
             <div class="input-group-addon">$</div>
-            <input class="form-control unicase-form-control text-input input-styling" id="product_product_variants_attributes_<%= row_index %>_price" name="product[product_variants_attributes][<%= row_index %>][price]" type="text" data-validation="currency">
+            <input class="form-control unicase-form-control text-input input-styling" id="product_product_variants_attributes_<%= row_index %>_price" name="product[product_variants_attributes][<%= row_index %>][price]" type="text" data-validation="currency" value="<%= entity.price.to_f %>">
           </div>
         </div>
 
         <div class="form-group col-xs-12 col-md-6 padding-lg-only">
           <label for="exampleInputEmail1"><%= t"Quantity" %></label>
-          <input class="form-control unicase-form-control text-input input-styling" id="product_product_variants_attributes_<%= row_index %>_stock_quantity" name="product[product_variants_attributes][<%= row_index %>][stock_quantity]" type="number" data-validation="required">
+          <input class="form-control unicase-form-control text-input input-styling" id="product_product_variants_attributes_<%= row_index %>_stock_quantity" name="product[product_variants_attributes][<%= row_index %>][stock_quantity]" type="number" data-validation="required" value="" min="0" step="1">
         </div>
       </div>
     </td>
