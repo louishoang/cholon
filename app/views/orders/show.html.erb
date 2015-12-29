@@ -87,11 +87,10 @@
                             </div>
                             <div class="row m-t-10">
                               <div class="col-xs-12 columns">
-                                <div class="col-xs-8 col-md-8 columns nopadding">
-                                  <%= product.shipping_method %>
-                                </div>
-                                <div class="col-xs-4 col-md-4 columns">
-                                  <%= item.quantity %>
+                                <div class="col-xs-12 col-md-12 columns nopadding">
+                                  <% if product.free_shipping? || product.fixed_cost_shipping? %>
+                                    <strong><%= product.shipping_method.humanize %></strong>: <%= number_to_currency(product.shipping_price || 0) %>
+                                  <% end %>
                                 </div>
                               </div>
                             </div>
@@ -112,10 +111,10 @@
             <tr>
               <th>
                 <div class="cart-sub-total">
-                  Subtotal<span class="inner-left-80">$600.00</span>
+                  Subtotal<span class="inner-left-80"><%= number_to_currency @order.subtotal %></span>
                 </div>
                 <div class="cart-sub-total">
-                  Shipping<span class="inner-left-80">FREE</span>
+                  Shipping<span class="inner-left-80"><a href="#" class="link">Estimate now</a></span>
                 </div>
                 <div class="cart-grand-total">
                   Grand Total<span class="inner-left-md">$600.00</span>

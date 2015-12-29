@@ -4953,6 +4953,16 @@ a {
   color: red;
 }
 
+.cart-shopping-total table thead tr th .cart-sub-total a.link{
+  font-size: 13px;
+  font-style: normal;
+  text-transform: capitalize;
+  font-weight: 400;
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
+  text-decoration: underline;
+}
+
+
 .cart-shopping-total table thead tr th .cart-sub-total,
 .cart-shopping-total table thead tr th .cart-grand-total {
   font-family: 'Fjalla One';
