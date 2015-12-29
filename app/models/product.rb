@@ -104,6 +104,10 @@ class Product < ActiveRecord::Base
     end
   end
 
+  def variant_with_photo
+    variant = self.product_variants.with_photos
+  end
+
   def default_variant
     variant = self.product_variants.first
   end

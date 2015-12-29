@@ -3,7 +3,7 @@
 <% gl = local_assigns.fetch(:gl, nil) %>
 
 <% if view_mode == :showroom %>
-  <% photo = entity.default_variant.default_image.photo(:medium) rescue nil %>
+  <% photo = entity.variant_with_photo.first.default_image.photo(:medium) rescue nil %>
   <!-- LIST VIEW START -->
   <% if gl == "list" %> 
     <div class="product-list product">

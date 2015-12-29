@@ -20,6 +20,10 @@ class ProductsController < ApplicationController
 
   def show
     @default_variant = @product.default_variant
+
+    @product_option_hash = ProductOptionValue.joins(:product_variants)
+      .where("product_variants.id IN (?)", @product.product_variants.map(&:id))
+      .group_by(&:product_option_id)
   end
 
   def new
@@ -165,7 +169,7 @@ class ProductsController < ApplicationController
       :location, :shipping_method, :shipping_price, :shipping_carrier,
       :weight, :length, :width, :height,
       :description, :seller_id, :status, category_ids: [],
-      product_variants_attributes: [:name, :price, :stock_quantity, :condition, product_photo_ids: []])
+      product_variants_attributes: [:id, :name, :price, :stock_quantity, :condition, product_photo_ids: []])
   end
 
   def find_product

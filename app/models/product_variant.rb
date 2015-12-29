@@ -16,6 +16,11 @@ class ProductVariant < ActiveRecord::Base
 
   scope :default_variants, -> { where(is_default: true) }
   scope :non_system_created_variants, -> { where("is_default != ?", true) }
+  scope :with_photos, lambda{ |*args|
+    select("DISTINCT product_variants.*")
+    .joins("LEFT OUTER JOIN product_photos on product_photos.product_variant_id = product_variants.id")
+    .where("product_photos.id IS NOT NULL")
+  }
 
   def default_image
     self.product_photos.first
