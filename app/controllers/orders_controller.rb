@@ -4,6 +4,7 @@ class OrdersController < ApplicationController
   def show
     @order = current_order
     @order_items = @order.order_items.includes(product_variant: :product).group_by(&:seller_id)
+    @order.calculate_shipping_price(session[:current_user_zip_code]) if @order_items.present?
   end
 
   def basket_info

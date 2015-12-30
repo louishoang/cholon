@@ -60,8 +60,9 @@ gem 'tinymce-rails-langs'
 gem 'active_shipping'
 # location to coordinate
 gem 'geocoder'
-# async http client(eventmachine)
-gem 'em-http-request'
+
+#app server
+gem 'puma'
 
 
 group :development do

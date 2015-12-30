@@ -10,6 +10,15 @@ class ApplicationController < ActionController::Base
   #Set up multi-locale filter
   before_action :set_locale
   before_action :set_current_user_to_cookie
+  before_action :set_zip_code
+
+  def set_zip_code
+    session[:current_user_zip_code] = "94541"
+    if session[:current_user_zip_code].blank?
+      #TODO :uncomment on live and remove the hard coded line above
+      # session[:current_user_zip_code] = request.location.data["zipcode"]
+    end
+  end
 
   def set_locale
   	I18n.locale = params[:locale] || I18n.default_locale

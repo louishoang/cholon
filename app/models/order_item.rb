@@ -1,6 +1,7 @@
 class OrderItem < ActiveRecord::Base
   belongs_to :product_variant
   belongs_to :order
+  has_one :shipping_speed
 
   validates :quantity, presence: true, numericality: {only_integer: true, greater_than: 0}
   validates_presence_of :product_variant_id

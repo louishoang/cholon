@@ -1,10 +1,11 @@
 class Product < ActiveRecord::Base
-  geocoded_by :location
-  after_validation :geocode
-  before_save :get_city_and_state
-
+  include ShippingCalculator
   extend FriendlyId
   friendly_id :name_utf8, use: [:slugged, :history]
+
+  geocoded_by :location
+  after_validation :geocode
+  before_save :find_city_and_state
 
   enum condition: {:used => 1, :brand_new => 2, :refurbished => 3, :for_part_or_not_working => 4}
   enum status: {:draft => 1, :publishable => 2, :preview => 3}
@@ -116,7 +117,7 @@ class Product < ActiveRecord::Base
     self.name.mb_chars.normalize(:kd).gsub(/\p{Mn}/, '').to_s.downcase.parameterize
   end
 
-  def get_city_and_state
+  def find_city_and_state
     if self.latitude.present? && self.longitude.present?
       address = Geocoder.search("#{self.latitude},#{self.longitude}").first
       self.city = address.city rescue nil
@@ -124,31 +125,10 @@ class Product < ActiveRecord::Base
     end
   end
 
-  def get_shipping_cost(destination_zip, sh_quantity) #total quantity of an item
+  def get_shipping_cost(destination_zip, quantity) #total quantity of an item
     begin
-      sh_quantity = sh_quantity.to_i
-      all_rate_options = []
-
-      destination_coord = Geocoder.coordinates(destination_zip)
-      destination = Geocoder.search(destination_coord.join(",")).first
-
-      origin = ActiveShipping::Location.new( :country => 'US', :state => self.state, :city => self.city, :zip => self.location)
-
-      destination = ActiveShipping::Location.new( :country => 'US', :state => destination.state, :city => destination.city, :zip => destination_zip)
-
-      package = ActiveShipping::Package.new( self.weight.to_f * 16 * sh_quantity, [self.length.to_f * sh_quantity, self.width.to_f * sh_quantity, self.height.to_f * sh_quantity], :units => :imperial)
-      
-      fedex = ActiveShipping::FedEx.new(:key => ENV['FEDEX_API_KEY'], #developer API key
-        :password => ENV['FEDEX_API_PASSWORD'], #API password
-        :account => ENV['FEDEX_ACCOUNT'],
-        :login => ENV['FEDEX_METER_NUMBER'], #meter number
-        :test => true) #NOTE: false in production and change key
-
-      response = fedex.find_rates(origin, destination, package)
-
-      # find rate USPS
-      all_rate_options += response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price]}
-      all_rate_options
+      fedex = ShippingCalculator::Fedex.new(product: self, destination_zip: destination_zip, quantity: quantity.to_i)
+      all_rate_options = fedex.get_rates
     rescue
       false
     end
