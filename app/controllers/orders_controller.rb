@@ -18,9 +18,23 @@ class OrdersController < ApplicationController
   end
 
   def update
+    if current_order.update_attributes(order_params)
+      render js: "window.location='#{order_path(current_order)}'"
+    else
+      respond_to do |f|
+        f.json {render json: current_order.message, status: :unprocessable_entity}
+      end
+    end
   end
 
   def destroy
+  end
+
+  private
+  def order_params
+    params.require(:order).permit(:id, :subtotal, :tax, :total, :status, :shipping_price, :user_id,
+    order_items_attributes: [:id, :quantity, :product_id, :order_id, :unit_price, :total_price,
+      :seller_id, :product_variant_id])
   end
 
 end

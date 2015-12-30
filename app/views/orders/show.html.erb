@@ -19,6 +19,7 @@
     <div class="row">
       <%= form_for @order, url: order_path(@order), html: {class: "form-vertical register-form product-form form_ajax", method: "PUT", :remote => true, :novalidate => true} do |f| %>
         <div class="col-xs-12 col-md-9 columns">
+          <% indices = @order.order_items.map(&:id) %>
           <% @order_items.each do |group| %>
             <div class="checkout-box">
               <div class="row-fluid">
@@ -33,81 +34,88 @@
                     </div>
                     <div class="custom-panel-body">
                       <% group.last.each do |item| %>
-                        <% variant = item.product_variant %>
-                        <% photo = variant.default_image.photo(:medium) rescue nil %>
-                        <% product = variant.product %>
-                        <div class="row m-t-10 product">
-                          <div class="col-xs-12 col-md-12 columns nopadding">
-                            <div class="col-xs-12 col-md-2 columns">
-                              <div class="drop-shadow lifted">
-                                <% if photo.present? %>
-                                  <a class="entry-thumbnail" href="<%= product_path(product)%>">
-                                    <img src="/assets/blank.gif" data-echo="<%= photo %>" alt="<%= variant.name %>"/>
-                                  </a>
-                                <% else %>
-                                  <a class="entry-thumbnail" href="<%= product_path(product)%>">
-                                    <img  src="http://placehold.it/240x240" data-echo="http://placehold.it/240x240" alt="<%= variant.name %>"/>
-                                  </a>
-                                <% end %>
-                              </div>
-                            </div>
-                            <div class="col-xs-12 col-md-6 columns product-info inner-left-xs">
-                              <h4 class='name'><a href="<%= product_path(variant.product)%>"><%= product.name %></a></h4>
-                              <div class="row-fluid">
-                                <table class="ck-item-info-table">
-                                  <tbody>
-                                    <% unless variant.is_default_variant? %>
-                                      <tr>
-                                        <td><%= t"Type" %>:</td>
-                                        <td><%= variant.name %></td>
-                                      </tr>
-                                    <% end %> 
-                                    <tr>
-                                      <td><%= t"Condition" %>:</td>
-                                      <td><%= product.condition.humanize %></td>
-                                    </tr>
-                                      <tr>
-                                        <td><%= t"Unit price" %>:</td>
-                                        <td><%= number_to_currency(item.unit_price) %></td>
-                                      </tr>
-                                  </tbody>
-                                </table>
-                              </div>
-                            </div>
-                            <div class="col-xs-12 col-md-4 columns">
-                              <div class="row">
-                                <div class="col-xs-12 columns">
-                                  <div class="col-xs-6 col-md-6 columns checkout-item-quantity nopadding">
-                                    <span class="label"><%= t'Qty' %> :</span> 
-                                    <input type="number" min="0" step="1" value="<%= item.quantity %>" class="atc-quantity cust-spinner">
-                                  </div>
-                                  <div class="col-xs-6 col-md-6 columns">
-                                    <span class="cust-cart-item-grand-total"><%= number_to_currency(item.total_price) %></span>
-                                  </div>
+                        <% index = indices.index(item.id) %>
+                        <%= f.fields_for :order_items, item do |item_form| %>
+                          <% variant = item.product_variant %>
+                          <% photo = variant.default_image.photo(:medium) rescue nil %>
+                          <% product = variant.product %>
+                          <div class="row m-t-10 product">
+                            <div class="col-xs-12 col-md-12 columns nopadding">
+                              <div class="col-xs-12 col-md-2 columns">
+                                <div class="drop-shadow lifted">
+                                  <% if photo.present? %>
+                                    <a class="entry-thumbnail" href="<%= product_path(product)%>">
+                                      <img src="/assets/blank.gif" data-echo="<%= photo %>" alt="<%= variant.name %>"/>
+                                    </a>
+                                  <% else %>
+                                    <a class="entry-thumbnail" href="<%= product_path(product)%>">
+                                      <img  src="http://placehold.it/240x240" data-echo="http://placehold.it/240x240" alt="<%= variant.name %>"/>
+                                    </a>
+                                  <% end %>
                                 </div>
                               </div>
-                              <div class="row m-t-10">
-                                <div class="col-xs-12 columns">
-                                  <div class="row nopadding">
-                                    <strong><%= t"Shipping Cost" %></strong>:
-                                    <% if product.free_shipping? %>
-                                      <%= t"Free" %>
-                                    <% elsif product.fixed_cost_shipping? %>
-                                      <%= number_to_currency(product.shipping_price) %>
-                                    <% elsif product.actual_cost_shipping? %>
-                                      <%= number_to_currency(item.shipping_speed.price.to_f / 100, locale: :en) %>
+                              <div class="col-xs-12 col-md-6 columns product-info inner-left-xs">
+                                <h4 class='name'><a href="<%= product_path(variant.product)%>"><%= product.name %></a></h4>
+                                <div class="row-fluid">
+                                  <table class="ck-item-info-table">
+                                    <tbody>
+                                      <% unless variant.is_default_variant? %>
+                                        <tr>
+                                          <td><%= t"Type" %>:</td>
+                                          <td><%= variant.name %></td>
+                                        </tr>
+                                      <% end %> 
+                                      <tr>
+                                        <td><%= t"Condition" %>:</td>
+                                        <td><%= product.condition.humanize %></td>
+                                      </tr>
+                                        <tr>
+                                          <td><%= t"Unit price" %>:</td>
+                                          <td><%= number_to_currency(item.unit_price) %></td>
+                                        </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                              <div class="col-xs-12 col-md-4 columns checkout-item">
+                                <div class="row">
+                                  <div class="col-xs-12 columns">
+                                    <div class="col-xs-6 col-md-6 columns checkout-item-quantity nopadding">
+                                      <span class="label"><%= t'Qty' %> :</span>
+                                      <input type="hidden" name="order[order_items_attributes][<%= index %>][id]" value="<%= item.id %>">
+                                      <input type="number" min="0" step="1" name="order[order_items_attributes][<%= index %>][quantity]" value="<%= item.quantity %>" class="atc-quantity cust-spinner checkout-quantity"/>
+                                    </div>
+                                    <div class="col-xs-6 col-md-6 columns">
+                                      <span class="cust-cart-item-grand-total"><%= number_to_currency(item.total_price) %></span>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row m-t-10">
+                                  <div class="col-xs-12 columns">
+                                    <div class="row nopadding">
+                                      <strong><%= t"Shipping Cost" %></strong>:
+                                      <% if product.free_shipping? %>
+                                        <%= t"Free" %>
+                                      <% elsif product.fixed_cost_shipping? %>
+                                        <%= number_to_currency(product.shipping_price) %>
+                                      <% elsif product.actual_cost_shipping? %>
+                                        <%= number_to_currency(item.shipping_speed.price.to_f / 100, locale: :en) %>
+                                      <% end %>
+                                    </div>
+                                    <% if product.actual_cost_shipping? %>
+                                      <div class="row">
+                                        Arrives by: (<%= item.shipping_speed.timeframe.uniq.map{|x| x.to_s(:month_date_shipping)}.join("-") %>)
+                                      </div>
                                     <% end %>
                                   </div>
-                                  <% if product.actual_cost_shipping? %>
-                                    <div class="row">
-                                      Arrives by: (<%= item.shipping_speed.timeframe.uniq.map{|x| x.to_s(:month_date_shipping)}.join("-") %>)
-                                    </div>
-                                  <% end %>
+                                </div>
+                                <div class="row">
+                                  <button type="submit" class="checkout-update hide"><%= t"Update" %></button>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </div>
+                        <% end %>
                       <% end %>
                     </div>
                   </div>

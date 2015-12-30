@@ -6039,3 +6039,10 @@ button.no-focus:focus{
 .total-right{
   float: right;
 }
+
+.checkout-update{
+  position: relative;
+  top: 5px;
+  font-size: smaller;
+  margin-left: 40px;
+}

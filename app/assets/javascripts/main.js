@@ -672,8 +672,9 @@ $(document).on("change", ".product-option-value-select", function(e){
   }
 });
 
+$(document).on("change", ".checkout-quantity", function(e){
+  // orderId = ($this).data("order-item-id");
+  $(this).parents(".checkout-item").find(".checkout-update").removeClass("hide");
 
-
-
-
+});
 
