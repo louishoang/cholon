@@ -13,7 +13,7 @@ class Order < ActiveRecord::Base
 
   private
   def set_order_status
-    self.status = 0
+    self.status = Order.statuses[:pending]
   end
 
   def update_subtotal

@@ -5,6 +5,7 @@ class OrdersController < ApplicationController
     @order = current_order
     @order_items = @order.order_items.includes(product_variant: :product).group_by(&:seller_id)
     @order.calculate_shipping_price(session[:current_user_zip_code]) if @order_items.present?
+    @order.save #calling save to update total, shiping price
   end
 
   def basket_info
@@ -36,5 +37,4 @@ class OrdersController < ApplicationController
     order_items_attributes: [:id, :quantity, :product_id, :order_id, :unit_price, :total_price,
       :seller_id, :product_variant_id])
   end
-
 end

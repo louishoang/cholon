@@ -8,7 +8,6 @@ class OrderItem < ActiveRecord::Base
   validates_presence_of :order_id
 
   before_validation :update_product_id_unit_price_total_price
-  after_save :touch_order
 
   def update_product_id_unit_price_total_price
     if self.product_variant_id.present?
@@ -19,7 +18,11 @@ class OrderItem < ActiveRecord::Base
     end
   end
 
-  def touch_order
-    self.order.save
+  def first_availble_photo
+    photo = self.product_variant.default_image.photo(:medium) rescue nil
+    if photo.blank?
+      photo = self.product_variant.product.variant_with_photo.first.default_image.photo(:medium) rescue nil
+    end
+    photo
   end
 end

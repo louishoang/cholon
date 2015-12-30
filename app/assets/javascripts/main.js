@@ -678,3 +678,13 @@ $(document).on("change", ".checkout-quantity", function(e){
 
 });
 
+$(document).on("click", ".checkout-remove", function(e){
+  $(e.target).preventDefault;
+  url = $(this).data("url");
+  $.ajax({
+    url: url,
+    method: "POST",
+    data: {"_method":"delete"},
+  });
+})
+

@@ -25,10 +25,14 @@ class OrderItemsController < ApplicationController
   end
 
   def destroy
-    @order = current_order
-    @order_item = @order.order_items.find(params[:id])
-    @order_item.destroy
-    @order_items = @order.order_items
+    @order_item = OrderItem.find(params[:id])
+    if @order_item.destroy
+      render js: "window.location='#{order_path(@order_item.order)}'"
+    else
+      respond_to do |f|
+        f.json {render json: @order_item.message, status: :unprocessable_entity}
+      end
+    end
   end
 
   private

@@ -37,7 +37,7 @@
                         <% index = indices.index(item.id) %>
                         <%= f.fields_for :order_items, item do |item_form| %>
                           <% variant = item.product_variant %>
-                          <% photo = variant.default_image.photo(:medium) rescue nil %>
+                          <% photo = item.first_availble_photo %>
                           <% product = variant.product %>
                           <div class="row m-t-10 product">
                             <div class="col-xs-12 col-md-12 columns nopadding">
@@ -86,7 +86,12 @@
                                       <input type="number" min="0" step="1" name="order[order_items_attributes][<%= index %>][quantity]" value="<%= item.quantity %>" class="atc-quantity cust-spinner checkout-quantity"/>
                                     </div>
                                     <div class="col-xs-6 col-md-6 columns">
-                                      <span class="cust-cart-item-grand-total"><%= number_to_currency(item.total_price) %></span>
+                                      <div class="row">
+                                        <span class="cust-cart-item-grand-total"><%= number_to_currency(item.total_price) %></span>
+                                      </div>
+                                      <div class="row">
+                                        <a href="javascript:;" data-url="<%= order_item_path(item) %>" class="checkout-remove"><%= t"Remove Item" %></a>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
