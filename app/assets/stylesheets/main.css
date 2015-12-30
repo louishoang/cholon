@@ -5788,6 +5788,7 @@ li.dist-or span{
 #similar-products{
   padding: 20px 0px 50px 0px;
   background: url("bg-brushstroke.jpg") top left repeat-x #E7E6E5;
+  border-top: 3px solid #E7E6E5;
 }
 
 .simlar-pro{

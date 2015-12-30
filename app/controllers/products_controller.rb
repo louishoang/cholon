@@ -23,7 +23,7 @@ class ProductsController < ApplicationController
 
     @product_option_hash = ProductOptionValue.joins(:product_variants)
       .where("product_variants.id IN (?)", @product.product_variants.map(&:id))
-      .group_by(&:product_option_id)
+      .uniq.group_by(&:product_option_id)
   end
 
   def new
