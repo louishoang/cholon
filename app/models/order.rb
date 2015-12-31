@@ -11,6 +11,12 @@ class Order < ActiveRecord::Base
     response = fedex.get_rates
   end
 
+  def apply_shipping_speed(shipping_speed)
+    @shipping_speeds = ShippingSpeed.joins(order_item: :order)
+      .where("orders.id = #{self.id}")
+      .update_all(:selected => true)
+  end
+
   private
   def set_order_status
     self.status = Order.statuses[:pending]

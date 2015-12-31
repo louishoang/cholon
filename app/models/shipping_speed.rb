@@ -1,5 +1,5 @@
 class ShippingSpeed < ActiveRecord::Base
-  after_save :ensure_only_one_is_selected
+  before_save :ensure_only_one_is_selected
 
   validates :name, :presence => true
   validates :price, :presence => true
@@ -14,6 +14,8 @@ class ShippingSpeed < ActiveRecord::Base
 
   private
   def ensure_only_one_is_selected
-    self.order_item.shipping_speeds.where("id != #{self.id}").update_all(:selected => false)
+    if self.selected == true
+      self.order_item.shipping_speeds.where("id != #{self.id}").update_all(:selected => false) rescue nil
+    end
   end
 end

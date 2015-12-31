@@ -8,9 +8,13 @@ class ShippingSpeedsController < ApplicationController
   end
 
   def update
-    @shipping_speed = ShippingSpeed.find(params[:shipping_speed])
-    @shipping_speed.selected = true
-    @shipping_speed.save
+    if params[:apply_to_order].present?
+      current_order.apply_shipping_speed(@shipping_speed)
+    else
+      @shipping_speed = ShippingSpeed.find(params[:shipping_speed])
+      @shipping_speed.selected = true
+      @shipping_speed.save
+    end
 
     render js: "window.location='#{order_path(current_order)}'"
   end
