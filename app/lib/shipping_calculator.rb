@@ -45,7 +45,13 @@ module ShippingCalculator
       package = get_package_dimensions(@product)
       response = @client.find_rates(origin, @destination, package)
       all_rate_options = []
-      all_rate_options += response.rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price.to_f * @quantity]}
+      response.rates.sort_by(&:price).each do |rate|
+        all_rate_options << {:carrier => rate.carrier,
+          :name => rate.service_name,
+          :price => rate.price.to_f * @quantity,
+          :timeframe => rate.delivery_range}
+      end
+      all_rate_options
     end
 
     def get_rate_using_thread(item)
@@ -55,11 +61,17 @@ module ShippingCalculator
         package = get_package_dimensions(product)
         response = @client.find_rates(origin, @destination, package)
 
-        lowest_price_option = response.rates.sort_by(&:price).first
-        item.shipping_speed.destroy if item.shipping_speed.present?
-        item.shipping_speed = ShippingSpeed.new(carrier: lowest_price_option.carrier,
-          name: lowest_price_option.service_name, price: lowest_price_option.total_price * item.quantity,
-          timeframe: lowest_price_option.delivery_range)
+        price_options = response.rates.sort_by(&:price)
+        if item.shipping_speeds.present?
+          item.shipping_speeds.destroy_all
+        end
+
+        price_options.each_with_index do |_option, index|
+          selected = index == 0 ? true : false
+          item.shipping_speeds << ShippingSpeed.new(carrier: _option.carrier,
+          name: _option.service_name, price: _option.total_price * item.quantity,
+          timeframe: _option.delivery_range, selected: selected)
+        end
         item.save
       end
     end

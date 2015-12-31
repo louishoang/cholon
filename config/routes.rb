@@ -31,6 +31,8 @@ Rails.application.routes.draw do
 
   resources :order_items
 
+  resources :shipping_speeds
+
   resources :upsellings do
     collection do
       get 'similar_products'

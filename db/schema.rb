@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151230030208) do
+ActiveRecord::Schema.define(version: 20151231023800) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -152,13 +152,14 @@ ActiveRecord::Schema.define(version: 20151230030208) do
   add_index "products", ["status"], name: "index_products_on_status", using: :btree
 
   create_table "shipping_speeds", force: :cascade do |t|
-    t.string   "name",          limit: 255,                           null: false
-    t.string   "carrier",       limit: 255,                           null: false
-    t.decimal  "price",                       precision: 8, scale: 2, null: false
+    t.string   "name",          limit: 255,                                           null: false
+    t.string   "carrier",       limit: 255,                                           null: false
+    t.decimal  "price",                       precision: 8, scale: 2,                 null: false
     t.text     "timeframe",     limit: 65535
-    t.integer  "order_item_id", limit: 4,                             null: false
-    t.datetime "created_at",                                          null: false
-    t.datetime "updated_at",                                          null: false
+    t.integer  "order_item_id", limit: 4,                                             null: false
+    t.datetime "created_at",                                                          null: false
+    t.datetime "updated_at",                                                          null: false
+    t.boolean  "selected",                                            default: false
   end
 
   create_table "users", force: :cascade do |t|

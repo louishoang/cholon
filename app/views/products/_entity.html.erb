@@ -95,16 +95,20 @@
     <table class="table table-bordered table-hover table-striped m-t-20">
       <thead>
         <tr>
-          <th width="50%"><%= t'Type' %></th>
+          <th width="10%"><%= t'Carrier' %></th>
+          <th width="30%"><%= t'Type' %></th>
           <th><%= t'Price' %></th>
+          <th><%= t'Est Delivery' %></th>
         </tr>
       </thead>
       <tbody>
         <% if @shipping_options && @shipping_options != false %>
-          <% @shipping_options.each do |sh_type| %>
+          <% @shipping_options.each do |shipping_type| %>
             <tr>
-              <td><%= sh_type.first %></td>
-              <td><%= number_to_currency(sh_type.last.to_f / 100, locale: :en) %></td>
+              <td><%= shipping_type[:carrier] %></td>
+              <td><%= shipping_type[:name] %></td>
+              <td><%= number_to_currency(shipping_type[:price].to_f / 100, locale: :en) rescue "--" %></td>
+              <td><%= timeframe_to_string(shipping_type[:timeframe]) %></td>
             </tr>
           <% end %>
         <% else %>

@@ -34,7 +34,6 @@ class Product < ActiveRecord::Base
     .joins("LEFT OUTER JOIN categories ON product_categories.category_id = categories.id")
   }
 
-
   scope :publishable, -> { where(status: Product.statuses[:publishable]) }
 
   scope :with_categories, lambda{ |*args|

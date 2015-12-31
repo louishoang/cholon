@@ -1,13 +1,17 @@
 class OrderItem < ActiveRecord::Base
   belongs_to :product_variant
   belongs_to :order
-  has_one :shipping_speed
+  has_many :shipping_speeds
 
   validates :quantity, presence: true, numericality: {only_integer: true, greater_than: 0}
   validates_presence_of :product_variant_id
   validates_presence_of :order_id
 
   before_validation :update_product_id_unit_price_total_price
+
+  def selected_shipping_speed
+    self.shipping_speeds.is_selected.first rescue nil
+  end
 
   def update_product_id_unit_price_total_price
     if self.product_variant_id.present?

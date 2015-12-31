@@ -1,0 +1,19 @@
+<div class="product-info">
+  <h2 class="name ship-option-border"><%= t"Choose a shipping method" %></h2>
+  <div class="row-fluid m-t-10">
+    <%= form_for @shipping_speed, url: shipping_speed_path(@shipping_speed), html: {class: "form-vertical register-form product-form form_ajax jvalidate", method: "PUT", :remote => true, :novalidate => true} do |f| %>
+        <% @order_item.shipping_speeds.each do |rate| %>
+          <div class="form-group ship-option-border">
+            <input type="radio" name="shipping_speed" value="<%= rate.id %>" <%= 'checked=checked' if rate[:name] == @shipping_speed.name %>>&nbsp;&nbsp;<%= rate_to_string(rate) %><br>
+          </div>
+        <% end %>
+        <div class="form-group">
+          <input type="checkbox" name="apply_to_order" value="true"> <%= t("sentence.apply_shipping_speed_to_order") %>
+        </div>
+        <div class="form-group m-t-20 m-r-10">
+          <button type="submit" class="btn btn-lime"><%= t'Save' %></button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

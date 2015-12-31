@@ -14,6 +14,8 @@ vi_VN:
   "Commercials Appliances": "Máy Móc Nhà Hàng, Tiệm Nail"
   "Coupon & Deals": "Phiếu Giảm Giá"
   "Contact Seller": "Liện Hệ Người Bán"
+  "Condition": "Tình Trạng"
+  "Choose a shipping method": "Chọn Phuơng Thức Giao Hàng"
   "create a new account": "Tạo Tài Khoản Mới"
   "Desktops & Monitors": "Máy Để Bàn & Màn hình"
   "Digital Electronics": "Điện tử, Kỹ thuật số"
@@ -21,6 +23,7 @@ vi_VN:
   "Electronics & Computers": "Điện Máy & Máy Tính"
   "Electronics Accessories": "Phụ kiện, Balô, Túi"
   "Email Address": "Tài Khoản Email"
+  "Est Delivery": "Ngày Giao Hàng"
   "Fashions & Beauty": "Thời Trang & Sức Khỏe"
   "Free": "Miễn Phí"
   "Forgot your Password": "Quên Mật Khẩu"
@@ -54,6 +57,7 @@ vi_VN:
   "Outerwear": "Áo Khoác, Áo Len"
   "Others Machines": "Máy Móc Khác"
   "OR": "Hoặc"
+  "Option(s)": "Loại"
   "Items Per Page": "Số Sản Phẩm Mỗi Trang"
   "Password": "Mật Khẩu"
   "Password Confirmation": "Nhập Lại Mật Khẩu"
@@ -67,6 +71,7 @@ vi_VN:
   "Save & Continue": "Lưu Lại & Tiếp Tục"
   "Skin Care": "Dưỡng Da, Tắm Trắng"
   "Shirts & Pants": "Áo Quần"
+  "Shipping Cost": "Phí Giao Hàng"
   "Sell An Item": "Rao Bán Sản Phẩm"
   "Seller Rating": "Độ Tin Cậy"
   "Services": "Dịch Vụ"
@@ -74,6 +79,7 @@ vi_VN:
   "Sign In with Facebook": "Đăng Nhập Bằng Facebook"
   "Sign In with Google": "Đăng Nhập Bằng Google"
   "SnapShot": "Tiêu Điểm"
+  "Type": "Mẫu Mã"
   "Tools & Accessories": "Dụng cụ trang điểm"
   "Trade": "Mua Bán"
   "TVs & Videos": "Tivi"
@@ -83,9 +89,11 @@ vi_VN:
   "Women Accessories": "Phụ Kiện Nữ"
   "& Up": "Trở Lên"
   "Update": "Cập Nhật"
+  "Unit price": "Đơn Giá"
 
   sentence:
     new_product_setup_variation: "Sản phẩm này có nhiều loại, kích cỡ & màu sắc khác nhau"
+    apply_shipping_speed_to_order: "Sử dụng phương thức giao hàng này cho tất cả các sản phẩm trong giỏ hàng(nếu có thể)"
 
   product_status:
     used: "Đã Qua Sử Dụng"

@@ -24,4 +24,8 @@ module ApplicationHelper
   def current_subtotal
     @current_subtotal ||= current_items.sum(:total_price)
   end
+
+  def timeframe_to_string(timeframe)
+    timeframe.uniq.map{|x| x.to_s(:month_date_shipping)}.join("-") rescue "Unknown"
+  end
 end

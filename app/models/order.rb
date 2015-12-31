@@ -23,8 +23,8 @@ class Order < ActiveRecord::Base
   def update_shipping_price
     self.shipping_price = 0
     order_items.each do |item|
-      if item.shipping_speed.present?
-        self.shipping_price += item.shipping_speed.price.to_f / 100
+      if item.shipping_speeds.present?
+        self.shipping_price += item.selected_shipping_speed.price.to_f / 100
       else
         product = Product.find(item.product_id) rescue nil
         self.shipping_price += product.shipping_price if product.shipping_price

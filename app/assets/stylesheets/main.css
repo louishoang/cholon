@@ -5924,6 +5924,10 @@ div.drop-shadow:after{
   font-size: 13px;
 }
 
+.ck-item-info-table tbody{
+  word-break: break-word;
+}
+
 .ck-item-info-table td{
   padding-right : 7px; 
 }
@@ -6052,4 +6056,15 @@ button.no-focus:focus{
   top: 5px;
   font-size: small;
   margin-left: 30px;
+}
+
+.ship-speed{
+  text-decoration: underline;
+  color: black;
+}
+
+.ship-option-border{
+  border-bottom: 1px dotted #9EA9B2;
+  margin: 12px 0px 15px 0px;
+  padding-bottom: 10px;
 }
