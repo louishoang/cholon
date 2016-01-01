@@ -6,6 +6,9 @@ class Order < ActiveRecord::Base
   before_create :set_order_status
   before_save :update_total
 
+  has_one :shipping_address, -> { where address_type: Address.address_types[:shipping_address] }, class_name: "Address", foreign_key: :order_id
+  has_one :billing_address, -> { where address_type: Address.address_types[:billing_address] }, class_name: "Address", foreign_key: :order_id
+
   def calculate_shipping_price(destination_zip)
     fedex = ShippingCalculator::Fedex.new(order: self, destination_zip: destination_zip)
     response = fedex.get_rates

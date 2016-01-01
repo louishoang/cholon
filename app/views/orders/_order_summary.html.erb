@@ -1,0 +1,30 @@
+<% entity = local_assigns.fetch(:entity, nil) %>
+<div class="col-md-3 col-xs-12 columns cart-shopping-total">
+  <table class="table table-checkout-border">
+    <thead>
+      <tr>
+        <th>
+          <div class="cart-sub-total">
+            Subtotal<span class="total-right"><%= number_to_currency entity.subtotal %></span>
+          </div>
+          <div class="cart-sub-total">
+            Shipping Cost<span class="total-right"><%= number_to_currency entity.shipping_price %></span>
+          </div>
+          <div class="cart-grand-total">
+            Grand Total<span class="total-right"><%= number_to_currency entity.total %></span>
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div class="cart-checkout-btn text-center">
+            <button type="submit" class="btn btn-lime">PROCCED TO CHEKOUT</button>
+            <span class="text-center">Checkout with <%= entity.order_items.sum(:quantity) %> item(s) in cart!</span>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

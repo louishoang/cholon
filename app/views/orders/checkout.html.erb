@@ -1,0 +1,82 @@
+<div class="breadcrumb breadcrumb-unstyled">
+  <div class="container-fluid">
+    <div class="breadcrumb-inner">
+      <ul class="list-inline list-unstyled nopadding">
+        <li><a href="/"><%= t"Home" %></a></li>
+        <li class=''><a href="<%= order_path(current_order) %>"><%= t"Shopping Cart" %></a></li>
+        <li class="active"><%= t"Checkout" %></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="body-content">
+  <div class="container-fluid">
+    <%= form_for @order, url: order_path(@order, checkout: true), html: {class: "form-horizontal register-form product-form form_ajax checkout-form", method: "PUT", :remote => true, :novalidate => true} do |f| %>
+      <div class="row">
+        <div class="col-xs-12 columns">
+          <h2><%= t"Checkout" %></h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-md-9 columns">
+          <div class="checkout-box">
+            <div class="panel-group checkout-steps" id="accordion">
+              <!-- checkout-step-01  -->
+              <div class="panel panel-default checkout-step-01">
+                <!-- panel-heading -->
+                <div class="panel-heading">
+                  <h4 class="unicase-checkout-title">
+                    <a data-toggle="collapse" class="" data-parent="#accordion" href="#collapseOne">
+                      <span>1</span><%= t"Address" %>
+                    </a>
+                   </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in">
+                  <div class="panel-body custom-padding">
+                    <div class="row">
+                      <h4 class="unicase-checkout-title"><%= t"Billing Information" %></h4>
+                    </div>
+                    <div class="row m-t-20">
+                      <%= f.fields_for :billing_address do |b_form| %>
+                        <%= render :partial => "form", locals: {form: b_form} %>
+                      <% end %>
+                    </div>
+                    <div class="row m-t-20">
+                      <h4 class="unicase-checkout-title"><%= t"Shipping Information" %></h4>
+                      <div class="form-group">
+                        <div class="col-sm-10 col-sm-offset-2 columns">
+                          <input type="checkbox" name="billing_shipping_same" data-toggle="#shipping_address_form" value="true"> <%= t("sentence.shipping_to_different_address") %>
+                        </div>
+                      </div>
+                    </div>                    
+                    <div class="row" id="shipping_address_form">
+                      <%= f.fields_for :shipping_address do |sh_form| %>
+                        <%= render :partial => "form", locals: {form: sh_form, view_mode: "shipping"} %>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="panel panel-default checkout-step-02">
+                <!-- panel-heading -->
+                <div class="panel-heading">
+                  <h4 class="unicase-checkout-title">
+                    <a data-toggle="collapse" class="" data-parent="#accordion" href="#collapseOne">
+                      <span>2</span><%= t"Payment Information" %>
+                    </a>
+                   </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in">
+                  <div class="panel-body custom-padding">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <%= render :partial => "order_summary", locals: {entity: @order} %>
+      </div>
+    <% end %>
+  </div>
+</div>

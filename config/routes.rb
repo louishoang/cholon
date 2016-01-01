@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   resources :orders do
     member do
       get 'basket_info'
+      get 'checkout'
     end
   end
 

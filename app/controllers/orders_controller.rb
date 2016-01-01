@@ -4,7 +4,10 @@ class OrdersController < ApplicationController
   def show
     @order = current_order
     @order_items = @order.order_items.includes(product_variant: :product).group_by(&:seller_id)
-    @order.calculate_shipping_price(session[:current_user_zip_code]) if @order_items.present?
+    begin
+      @order.calculate_shipping_price(session[:current_user_zip_code]) if @order_items.present?
+    rescue
+    end
     @order.save #calling save to update total, shiping price
   end
 
@@ -20,12 +23,20 @@ class OrdersController < ApplicationController
 
   def update
     if current_order.update_attributes(order_params)
-      render js: "window.location='#{order_path(current_order)}'"
+      if params[:checkout].present?
+        render js: "window.location='#{checkout_order_path(current_order)}'"
+      else
+        render js: "window.location='#{order_path(current_order)}'"
+      end
     else
       respond_to do |f|
         f.json {render json: current_order.message, status: :unprocessable_entity}
       end
     end
+  end
+
+  def checkout
+    @order = current_order
   end
 
   def destroy

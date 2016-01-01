@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="row">
-      <%= form_for @order, url: order_path(@order), html: {class: "form-vertical register-form product-form form_ajax", method: "PUT", :remote => true, :novalidate => true} do |f| %>
+      <%= form_for @order, url: order_path(@order, checkout: true), html: {class: "form-vertical register-form product-form form_ajax", method: "PUT", :remote => true, :novalidate => true} do |f| %>
         <div class="col-xs-12 col-md-9 columns">
           <% indices = @order.order_items.map(&:id) %>
           <% @order_items.each do |group| %>
@@ -138,35 +138,7 @@
             </div>
           <% end %>
         </div>
-        <div class="col-md-3 col-xs-12 columns cart-shopping-total">
-          <table class="table table-checkout-border">
-            <thead>
-              <tr>
-                <th>
-                  <div class="cart-sub-total">
-                    Subtotal<span class="total-right"><%= number_to_currency @order.subtotal %></span>
-                  </div>
-                  <div class="cart-sub-total">
-                    Shipping Cost<span class="total-right"><%= number_to_currency @order.shipping_price %></span>
-                  </div>
-                  <div class="cart-grand-total">
-                    Grand Total<span class="total-right"><%= number_to_currency @order.total %></span>
-                  </div>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-                <tr>
-                  <td>
-                    <div class="cart-checkout-btn text-center">
-                      <button type="submit" class="btn btn-lime">PROCCED TO CHEKOUT</button>
-                      <span class="text-center">Checkout with <%= current_order.order_items.sum(:quantity) %> item(s) in cart!</span>
-                    </div>
-                  </td>
-                </tr>
-            </tbody>
-          </table>
-        </div>
+        <%= render :partial => "order_summary", locals: {entity: @order} %>
       <% end %>
     </div>
   </div>

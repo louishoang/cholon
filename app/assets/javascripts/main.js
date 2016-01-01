@@ -688,3 +688,12 @@ $(document).on("click", ".checkout-remove", function(e){
   });
 })
 
+$(document).on("click", "input[data-toggle]", function(e){
+  $target = $($(this).data("toggle"));
+  if($(this).is(":checked")){
+    $target.slideDown("slow");
+    renderUI($target);
+  }else{
+    $target.hide();
+  }
+});
