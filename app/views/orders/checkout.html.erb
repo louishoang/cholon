@@ -69,14 +69,97 @@
                 </div>
                 <div id="collapseTwo" class="panel-collapse collapse in">
                   <div class="panel-body custom-padding">
-
+                    <div class="row m-t-20">
+                      <div class="col-sm-3">
+                        <%= label_tag t("Accepted Credit Cards"), nil, class: "accepted-cc"%>
+                      </div>
+                      <div class="col-sm-9">
+                        <%= image_tag "cc.png", height: "31px", alt: "Accepted Credit Card Types" %>
+                      </div>
+                    </div>
+                    <%= f.fields_for :credit_cards do |cc_form| %>
+                      <div class="form-group m-t-20">
+                        <%= cc_form.label :number, class: "col-sm-3 control-label info-title" do %>
+                          <%= t"Credit Card Number" %>
+                        <% end %>
+                        <div class="col-sm-9">
+                          <%= cc_form.text_field :number, class: "form-control unicase-form-control text-input" %>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="row nopadding">
+                          <div class="col-sm-9">
+                            <%= cc_form.label :expiration_date, class: "col-sm-4 control-label info-title" %>
+                            <div class="col-sm-6">
+                              <div class="col-sm-5 p-l-5">
+                                <%= select_month "order[credit_cards][month]", nil, {class: "form-control unicase-form-control text-input input-styling height-40 col-sm-11", prompt: t("Month")} %>
+                              </div>
+                              <div class="col-sm-1 b-slash"> /</div>
+                              <div class="col-sm-5">
+                                <%= select_year "order[credit_cards][year]", nil, {class: "form-control unicase-form-control text-input input-styling height-40", prompt: t("Year")} %>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-sm-3 m-l-m-145">
+                            <%= cc_form.label :cvv, class: "col-sm-3 control-label info-title" do %>
+                              <%= t"CVV" %>
+                            <% end %>
+                            <div class="col-sm-9">
+                              <%= cc_form.number_field :cvv, class: "form-control unicase-form-control text-input" %>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+              <div class="panel panel-default checkout-step-03">
+                <!-- panel-heading -->
+                <div class="panel-heading">
+                  <h4 class="unicase-checkout-title">
+                    <a data-toggle="collapse" class="" data-parent="#accordion" href="#collapseThree">
+                      <span>3</span><%= t"Review" %>
+                    </a>
+                   </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse in">
+                  <div class="panel-body custom-padding">
+                    <table class="table table-bordered table-hover table-striped">
+                      <%= render :partial => "order_items/entity", collection: @order.order_items,locals: {view_mode: "checkout-review"} %>
+                    </table>
+                    <div class="row" id="ck-review-summary">
+                      <div class="row">
+                        <div class="col-sm-6 col-sm-offset-6">
+                          <div class="col-sm-6"><%= t("Subtotal") %></div>
+                          <div class="col-sm-6 text-left nopadding"><%= number_to_currency @order.subtotal %></div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-6 col-sm-offset-6">
+                          <div class="col-sm-6"><%= t("Shipping Cost") %></div>
+                          <div class="col-sm-6 text-left nopadding"><%= number_to_currency @order.shipping_price %></div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-6 col-sm-offset-6">
+                          <div class="col-sm-6"><%= t("Total") %></div>
+                          <div class="col-sm-6 text-left nopadding"><%= number_to_currency @order.total %></div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <%= render :partial => "order_summary", locals: {entity: @order} %>
+        <%= render :partial => "order_summary", locals: {entity: @order, view_mode: :checkout} %>
+      </div>
+      <div class="row inner-bottom-xs">
+        <div class="col-sm-9 text-right">
+          <button type="submit" class="btn btn-lime btn-checkout-bottom">PROCCED TO CHEKOUT</button>
+        </div>
       </div>
     <% end %>
   </div>

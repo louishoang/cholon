@@ -20,6 +20,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  "Accepted Credit Cards": "Accepted Credit Cards"
   "Address": "Address"
   "Baby & Kids": "Baby & Kids"
   "Baby & Kids Sub": "Baby & Kids"
@@ -40,6 +41,8 @@ en:
   "Condition": "Condition"
   "Choose a shipping method": "Choose a shipping method"
   "create a new account": "create a new account"
+  "Credit Card Number": "Credit Card Number"
+  "CVV": "CVV"
   "Desktops & Monitors": "Desktops & Monitors"
   "Digital Electronics": "Digital Electronics"
   "Edit": "Edit"
@@ -74,6 +77,7 @@ en:
   "Men Shoes": "Men Shoes"
   "Men Accessories": "Men Accessories"
   "My Account": "My Account"
+  "Month": "Month"
   "New Customer? Create an account here": "New Customer? Create an account here"
   "Other Electronics": "Appliances & Others"
   "Office Machines": "Office Machines"
@@ -86,12 +90,15 @@ en:
   "Password Confirmation": "Password Confirmation"
   "Payment Information": "Payment Information"
   "Preview": "Preview"
+  "PROCEED TO CHECKOUT": "PROCEED TO CHECKOUT"
+  "PLACE ORDER": "PLACE ORDER"
   "Quantity": "Quantity"
   "Items Per Page": "Per Page"
   "Remember me": "Remember me"
   "Remove Item": "Remove Item"
   "Register Account": "Register An Account"
   "Room For Rent/Share": "Room For Rent/Share"
+  "Review": "Review"
   "Save": "Save"
   "Save & Continue": "Save & Continue"
   "Sell An Item": "Sell An Item"
@@ -105,6 +112,9 @@ en:
   "Services Ads": "Services Ads"
   "Sign In with Facebook": "Sign In with Facebook"
   "Sign In with Google": "Sign In with Google"
+  "Subtotal": "Subtotal"
+  "Shipping Cost": "Shipping Cost"
+  "Total": "Grand Total"
   "TVs & Videos": "TVs & Videos"
   "Type": "Type"
   "Trade": "Trade"
@@ -116,6 +126,7 @@ en:
   "& Up": "& Up"
   "Unit price": "Unit price"
   "Update": "Update"
+  "Year": "Year"
 
   sentence:
     new_product_setup_variation: "I want to setup product variations (ex: color, size etc.)"

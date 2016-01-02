@@ -1,0 +1,18 @@
+<% view_mode = local_assigns.fetch(:view_mode, nil) %>
+
+
+<% if view_mode == "checkout-review" %>
+  <% variant = entity.product_variant %>
+  <% product = variant.product %>
+  <tr>
+    <td>
+      <dl>
+        <dt><%= product.name %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>x <%= entity.quantity %> </em></dt>
+        <dd><%= variant.name %></dd>
+      </dl>
+    </td>
+    <td>
+      <%= number_to_currency(entity.total_price) %>
+    </td>
+  </tr>
+<% end %>

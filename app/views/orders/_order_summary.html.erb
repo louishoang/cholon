@@ -1,4 +1,6 @@
 <% entity = local_assigns.fetch(:entity, nil) %>
+<% view_mode = local_assigns.fetch(:view_mode, nil) %>
+
 <div class="col-md-3 col-xs-12 columns cart-shopping-total">
   <table class="table table-checkout-border">
     <thead>
@@ -20,7 +22,9 @@
       <tr>
         <td>
           <div class="cart-checkout-btn text-center">
-            <button type="submit" class="btn btn-lime">PROCCED TO CHEKOUT</button>
+            <button type="submit" class="btn btn-lime">
+              <%= view_mode == :checkout ? t("PROCEED TO CHECKOUT") : t("PLACE ORDER") %>
+            </button>
             <span class="text-center">Checkout with <%= entity.order_items.sum(:quantity) %> item(s) in cart!</span>
           </div>
         </td>

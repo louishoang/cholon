@@ -64,6 +64,9 @@ gem 'geocoder'
 #app server
 gem 'puma'
 
+#payment
+gem "braintree"
+
 
 group :development do
   gem 'rack-mini-profiler'
