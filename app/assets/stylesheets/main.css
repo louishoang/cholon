@@ -6178,3 +6178,15 @@ select.height-40{
   font-size: 14px;
 }
 
+.cart-empty i{
+  font-size: 100px;
+  color: #ABD07E;
+}
+
+.cart-empty .empty-msg{
+  text-align: center;
+  color: gray;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 25px auto;
+}

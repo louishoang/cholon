@@ -106,6 +106,7 @@ vi_VN:
   "Update": "Cập Nhật"
   "Unit price": "Đơn Giá"
   "Year": "Năm"
+  "Your cart is empty": "Không có sản phẩm nào trong giỏ hàng"
 
   sentence:
     new_product_setup_variation: "Sản phẩm này có nhiều loại, kích cỡ & màu sắc khác nhau"

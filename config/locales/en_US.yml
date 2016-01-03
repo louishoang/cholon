@@ -127,6 +127,7 @@ en:
   "Unit price": "Unit price"
   "Update": "Update"
   "Year": "Year"
+  "Your cart is empty": "Your cart is empty"
 
   sentence:
     new_product_setup_variation: "I want to setup product variations (ex: color, size etc.)"
