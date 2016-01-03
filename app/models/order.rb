@@ -4,9 +4,10 @@ class Order < ActiveRecord::Base
   has_many :order_items, dependent: :destroy
   accepts_nested_attributes_for :order_items, allow_destroy: true
 
-  has_one :shipping_address, class_name: "Address", foreign_type: "ShippingAddress"
-  has_one :billing_address, class_name: "Address", foreign_type: "BillingAddress"
-  accepts_nested_attributes_for :shipping_address, :billing_address
+  has_one :shipping_address, class_name: "Address", foreign_type: "ShippingAddress", :dependent => :destroy
+  has_one :billing_address, class_name: "Address", foreign_type: "BillingAddress", :dependent => :destroy
+  accepts_nested_attributes_for :shipping_address, allow_destroy: true
+  accepts_nested_attributes_for :billing_address, allow_destroy: true
 
   before_create :set_order_status
   before_save :update_total

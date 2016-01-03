@@ -47,7 +47,7 @@
                       <h4 class="unicase-checkout-title"><%= t"Shipping Information" %></h4>
                       <div class="form-group">
                         <div class="col-sm-10 col-sm-offset-2 columns">
-                          <input type="checkbox" name="billing_shipping_same" data-toggle="#shipping_address_form" value="true"> <%= t("sentence.shipping_to_different_address") %>
+                          <input type="checkbox" name="billing_shipping_same" data-toggle-disable="#shipping_address_form" value="true" id="bill-to-ship"> <%= t("sentence.shipping_to_different_address") %>
                         </div>
                       </div>
                     </div>                    
@@ -173,8 +173,10 @@
   braintree.setup(clientToken, "custom", {
     id: "js-braintree",
     onPaymentMethodReceived: function (obj) {
+      payment_method_nonce = obj.nonce;
       $myForm = $("#js-braintree");
       $myForm.preventDefault;
+      $myForm.append('<input type="hidden" name="payment_method_nonce" value="' + payment_method_nonce + '" /> ');
       if($myForm.isValid()){
         $myForm.submit();
       }      

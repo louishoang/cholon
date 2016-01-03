@@ -44,8 +44,9 @@ class OrdersController < ApplicationController
   end
 
   def result
-    binding.pry
     @order = current_order
+    handle_billing_to_shipping unless params[:billing_shipping_same]
+    binding.pry
     if @order.update_attributes(order_params)
       @order.charge!(params[:payment_method_nonce])
     else
@@ -62,7 +63,12 @@ class OrdersController < ApplicationController
     params.require(:order).permit(:id, :subtotal, :tax, :total, :status, :shipping_price, :user_id,
     order_items_attributes: [:id, :quantity, :product_id, :order_id, :unit_price, :total_price,
       :seller_id, :product_variant_id],
-    billing_address_attributes: [:first_name, :last_name, :business_name, :address1, :address2, :city, :stats, :zip_code],
-    shipping_address_attributes: [:first_name, :last_name, :business_name, :address1, :address2, :city, :stats, :zip_code])
+    billing_address_attributes: [:first_name, :last_name, :business_name, :address1, :address2, :city, :state, :zip_code],
+    shipping_address_attributes: [:first_name, :last_name, :business_name, :address1, :address2, :city, :state, :zip_code])
+  end
+
+  def handle_billing_to_shipping
+    params[:order][:shipping_address_attributes] = params[:order][:billing_address_attributes]
+    params
   end
 end

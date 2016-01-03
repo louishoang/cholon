@@ -688,12 +688,31 @@ $(document).on("click", ".checkout-remove", function(e){
   });
 })
 
-$(document).on("click", "input[data-toggle]", function(e){
-  $target = $($(this).data("toggle"));
+
+$(function(){
+  if($("#js-braintree").length > 0){
+    $billToShip = $("#bill-to-ship");
+    $shipForm = $("#shipping_address_form");
+    if($billToShip.not(":checked")){
+      $shipForm.find("input, select, textarea").each(function(i, elm){
+        $(elm).attr("disabled", "disabled");
+      });
+    } 
+  }
+})
+
+$(document).on("click", "input[data-toggle-disable]", function(e){
+  $target = $($(this).data("toggle-disable"));
   if($(this).is(":checked")){
     $target.slideDown("slow");
+    $target.find("input, select, textarea").each(function(i, elm){
+      $(elm).attr("disabled", false);
+    });
     renderUI($target);
   }else{
     $target.hide();
+    $target.find("input, select, textarea").each(function(i, elm){
+      $(elm).attr("disabled", "disabled");
+    });
   }
 });
