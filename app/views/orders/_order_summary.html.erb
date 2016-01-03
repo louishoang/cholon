@@ -23,7 +23,7 @@
         <td>
           <div class="cart-checkout-btn text-center">
             <button type="submit" class="btn btn-lime">
-              <%= view_mode == :checkout ? t("PROCEED TO CHECKOUT") : t("PLACE ORDER") %>
+              <%= view_mode == :checkout ? t("PLACE ORDER") : t("PROCEED TO CHECKOUT") %>
             </button>
             <span class="text-center">Checkout with <%= entity.order_items.sum(:quantity) %> item(s) in cart!</span>
           </div>

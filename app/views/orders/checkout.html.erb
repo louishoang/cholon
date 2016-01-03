@@ -84,7 +84,7 @@
                           <%= t"Credit Card Number" %>
                         <% end %>
                         <div class="col-sm-9">
-                          <%= cc_form.text_field :number, class: "form-control unicase-form-control text-input", "data-braintree-name" => "number", "data-validation" => "required" %>
+                          <%= cc_form.text_field :number, class: "form-control unicase-form-control text-input", "data-braintree-name" => "number", "data-validation" => "required", :autocomplete => "off" %>
                         </div>
                       </div>
                       <div class="form-group">
@@ -106,7 +106,7 @@
                               <%= t"CVV" %>
                             <% end %>
                             <div class="col-sm-9">
-                              <%= cc_form.number_field :cvv, class: "form-control unicase-form-control text-input", "data-braintree-name" => "cvv", "data-validation" => "required" %>
+                              <%= cc_form.text_field :cvv, class: "form-control unicase-form-control text-input", "data-braintree-name" => "cvv", "data-validation" => "required", :autocomplete => "off" %>
                             </div>
                           </div>
                         </div>
@@ -159,7 +159,7 @@
       </div>
       <div class="row inner-bottom-xs">
         <div class="col-sm-9 text-right">
-          <button type="submit" class="btn btn-lime btn-checkout-bottom"><%= t("PROCCED TO CHEKOUT") %></button>
+          <button type="submit" class="btn btn-lime btn-checkout-bottom"><%= t("PLACE ORDER") %></button>
         </div>
       </div>
     <% end %>
@@ -178,7 +178,17 @@
       $myForm.preventDefault;
       $myForm.append('<input type="hidden" name="payment_method_nonce" value="' + payment_method_nonce + '" /> ');
       if($myForm.isValid()){
-        $myForm.submit();
+        $.ajax({
+          type: "POST",
+          url: $myForm.attr("action"),
+          data: $myForm.serialize(),
+          success: function(resp){
+            $(location).attr('href', resp.location);
+          },
+          error: function(resp){
+            toastr.error(resp.responseText, "Error");
+          }
+        })
       }      
     }
   });

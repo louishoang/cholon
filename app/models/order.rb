@@ -1,7 +1,7 @@
 class Order < ActiveRecord::Base
   include Merchant
 
-  enum status: { pending: 0, placed: 1, shipped: 2, cancelled: 3, declined: 4}
+  enum status: { pending: 0, placed: 1, shipped: 2, cancelled: 3 }
 
   has_many :order_items, dependent: :destroy
   accepts_nested_attributes_for :order_items, allow_destroy: true

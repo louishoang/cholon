@@ -44,13 +44,27 @@ class OrdersController < ApplicationController
   end
 
   def result
-    @order = current_order
-    handle_billing_to_shipping unless params[:billing_shipping_same]
-    if @order.update_attributes(order_params)
-      @order.charge!(params[:payment_method_nonce])
+    if request.post?
+      @order = current_order
+      handle_billing_to_shipping unless params[:billing_shipping_same]
+      begin 
+        @order.update_attributes(order_params)
+        result = @order.charge!(params[:payment_method_nonce])
+        if result == true
+          respond_to do |format|
+            format.json{ render json: {:location => result_order_path(:order_status => :success) }}
+          end
+        else
+          raise result
+        end
+      rescue => e
+        respond_to do |format|
+          format.json {render json: e.message rescue e }
+        end
+      end
     else
-      @client_token = Braintree::ClientToken.generate
-      render :checkout
+       @order = Order.find(params[:id])
+       @shipping_address = @order.shipping_address
     end
   end
 

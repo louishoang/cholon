@@ -1,0 +1,43 @@
+<div class="breadcrumb breadcrumb-unstyled">
+  <div class="container-fluid">
+    <div class="breadcrumb-inner">
+      <ul class="list-inline list-unstyled nopadding">
+        <li><a href="/"><%= t"Home" %></a></li>
+        <li class='active'><%= t"Order Completed" %></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="body-content">
+  <div class="container inner-bottom-md">
+    <div class="row">
+      <div class="col-xs-12 columns order-thankyou">
+        <div class="row">
+          <div class="col-xs-2">
+            <i class="fa fa-thumbs-up fa-6"></i>
+          </div>
+          <div class="thanks-msg col-xs-10">
+            <%= t"Thanks for your order" %>
+            <div class="getting-ready-msg"><%= t("sentence.order_getting_ready") %></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="checkout-ty-box">
+            <div class="order-number"><%= t("Your order number is") %>: <%= @order.id %></div>
+            <div><%= t("sentence.sending_order_acknownledgement") %>: <strong><%= current_user.email %></strong></div>
+            <div class="billing_address">
+              <div id="ship-add"><%= t"Shipping Address" %></br></div>
+              <strong><%= @shipping_address.first_name.capitalize %> <%= @shipping_address.last_name.capitalize %></strong></br>
+              <% if @shipping_address.business_name.present? %>
+                <%= @shipping_address.business_name.capitalize %></br>
+              <% end %>
+              <%= @shipping_address.address1 %> <%= @shipping_address.address2 if @shipping_address.address2 %></br>
+              <%= @shipping_address.city.capitalize %>, <%= @shipping_address.state.capitalize %> - <%= @shipping_address.zip_code %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

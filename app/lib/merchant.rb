@@ -42,7 +42,6 @@ module Merchant
 
     def save_result_to_order(result)
       if result.class == Braintree::ErrorResult
-        @order.status = Order.statuses[:declined]
         @order.raw_response = result.transaction.status.humanize
       elsif result.class == Braintree::SuccessfulResult
         @order.status = Order.statuses[:placed]
@@ -54,8 +53,6 @@ module Merchant
       @order.cc_expiration_date = result.transaction.credit_card_details.expiration_date
       @order.issuing_bank = result.transaction.credit_card_details.issuing_bank
       @order.save
-
-      result.class == Braintree::SuccessfulResult ? true : false
     end
 
     def save_customer_id_to_user(result)
@@ -65,8 +62,13 @@ module Merchant
 
     def charge
       result = process_sale_transaction
-      save_result_to_user(result)
-      save_result_to_order(result)
+      if result.class == Braintree::SuccessfulResult
+        save_customer_id_to_user(result)
+        save_result_to_order(result)
+        return true
+      else
+        return result.transaction.status.humanize rescue result.transaction.status
+      end
     end
   end
 end

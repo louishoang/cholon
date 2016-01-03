@@ -6190,3 +6190,54 @@ select.height-40{
   font-weight: bold;
   margin: 25px auto;
 }
+
+.order-thankyou{
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
+}
+
+.order-thankyou i.fa-thumbs-up{
+  font-size: 100px;
+  color: #84B943;
+}
+
+.order-thankyou .thanks-msg{
+  color: #84B943;
+  font-size: 30px;
+  font-weight: bold;
+  margin: 25px auto;
+}
+
+.order-thankyou .thanks-msg .getting-ready-msg{
+  color: grey;
+  font-size: 15px;
+  margin-left: 20px;
+}
+
+.order-thankyou .checkout-ty-box{
+  background-color: white;
+  padding: 20px 30px 20px 30px;
+  border-radius: 3px;
+  border: 1px #dddddd solid;
+  box-shadow: 4px 4px 1px #EEE;
+  height: 100%;
+  overflow: hidden;
+  color: grey;
+}
+
+.order-thankyou .order-number{
+  font-size: 20px;
+  font-weight: bold;
+  color: #8ECB6E;
+}
+
+.order-thankyou .billing_address{
+  border-top: 1px dotted #9EA9B2;
+  margin-top: 20px;
+  padding-top: 20px;
+}
+
+.order-thankyou .billing_address #ship-add{
+  font-size: 15px;
+  margin-bottom: 18px;
+  font-weight: bold;
+}
