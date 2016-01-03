@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151231235221) do
+ActiveRecord::Schema.define(version: 20160103101053) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "first_name",    limit: 255, null: false
@@ -70,14 +70,20 @@ ActiveRecord::Schema.define(version: 20151231235221) do
   add_index "order_items", ["seller_id"], name: "index_order_items_on_seller_id", using: :btree
 
   create_table "orders", force: :cascade do |t|
-    t.decimal  "subtotal",                 precision: 10, scale: 2
-    t.decimal  "tax",                      precision: 10, scale: 2
-    t.decimal  "total",                    precision: 10, scale: 2
-    t.integer  "status",         limit: 4,                          default: 0
-    t.datetime "created_at",                                                    null: false
-    t.datetime "updated_at",                                                    null: false
-    t.integer  "user_id",        limit: 4,                                      null: false
-    t.decimal  "shipping_price",           precision: 8,  scale: 2
+    t.decimal  "subtotal",                         precision: 10, scale: 2
+    t.decimal  "tax",                              precision: 10, scale: 2
+    t.decimal  "total",                            precision: 10, scale: 2
+    t.integer  "status",             limit: 4,                              default: 0
+    t.datetime "created_at",                                                            null: false
+    t.datetime "updated_at",                                                            null: false
+    t.integer  "user_id",            limit: 4,                                          null: false
+    t.decimal  "shipping_price",                   precision: 8,  scale: 2
+    t.text     "raw_response",       limit: 65535
+    t.string   "cc_last_four",       limit: 255
+    t.string   "cc_type",            limit: 255
+    t.string   "cc_expiration_date", limit: 255
+    t.datetime "charged_at"
+    t.string   "issuing_bank",       limit: 255
   end
 
   add_index "orders", ["status"], name: "index_orders_on_status", using: :btree
@@ -210,6 +216,7 @@ ActiveRecord::Schema.define(version: 20151231235221) do
     t.text     "avatar_url",             limit: 65535
     t.string   "first_name",             limit: 255
     t.string   "last_name",              limit: 255
+    t.integer  "braintree_customer_id",  limit: 4
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

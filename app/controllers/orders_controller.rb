@@ -9,7 +9,7 @@ class OrdersController < ApplicationController
     rescue
       flash[:alert] = "Fedex's server is responding slow. Shipping rate is estimated only."
     end
-    @order.save #calling save to update total, shiping price
+    @order.save #calling save to update total & shipping price
   end
 
   def basket_info
@@ -46,7 +46,6 @@ class OrdersController < ApplicationController
   def result
     @order = current_order
     handle_billing_to_shipping unless params[:billing_shipping_same]
-    binding.pry
     if @order.update_attributes(order_params)
       @order.charge!(params[:payment_method_nonce])
     else

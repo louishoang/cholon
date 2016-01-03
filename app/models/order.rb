@@ -1,9 +1,12 @@
 class Order < ActiveRecord::Base
-  enum status: { pending: 0, placed: 1, shipped: 2, cancelled: 3}
+  include Merchant
+
+  enum status: { pending: 0, placed: 1, shipped: 2, cancelled: 3, declined: 4}
 
   has_many :order_items, dependent: :destroy
   accepts_nested_attributes_for :order_items, allow_destroy: true
 
+  #dependent destroy will allow order.update_attributes to delete old record and create new one
   has_one :shipping_address, class_name: "Address", foreign_type: "ShippingAddress", :dependent => :destroy
   has_one :billing_address, class_name: "Address", foreign_type: "BillingAddress", :dependent => :destroy
   accepts_nested_attributes_for :shipping_address, allow_destroy: true
@@ -24,7 +27,9 @@ class Order < ActiveRecord::Base
   end
 
   def charge!(nonce_from_client)
-    binding.pry
+    pos = Merchant::POS.new(nonce_from_the_client: nonce_from_client,
+      order: self, current_user: User.find(self.user_id))
+    pos.charge
   end
 
   private

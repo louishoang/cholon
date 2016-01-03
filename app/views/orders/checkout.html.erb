@@ -132,20 +132,20 @@
                     <div class="row" id="ck-review-summary">
                       <div class="row">
                         <div class="col-sm-6 col-sm-offset-6">
-                          <div class="col-sm-6"><%= t("Subtotal") %></div>
-                          <div class="col-sm-6 text-left nopadding"><%= number_to_currency @order.subtotal %></div>
+                          <div class="col-sm-4 nopadding"><%= t("Subtotal") %></div>
+                          <div class="col-sm-8 text-left nopadding"><%= number_to_currency @order.subtotal %></div>
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-sm-6 col-sm-offset-6">
-                          <div class="col-sm-6"><%= t("Shipping Cost") %></div>
-                          <div class="col-sm-6 text-left nopadding"><%= number_to_currency @order.shipping_price %></div>
+                          <div class="col-sm-4 nopadding"><%= t("Shipping Cost") %></div>
+                          <div class="col-sm-8 text-left nopadding"><%= number_to_currency @order.shipping_price %></div>
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-sm-6 col-sm-offset-6">
-                          <div class="col-sm-6"><%= t("Total") %></div>
-                          <div class="col-sm-6 text-left nopadding"><%= number_to_currency @order.total %></div>
+                          <div class="col-sm-4 nopadding"><%= t("Total") %></div>
+                          <div class="col-sm-8 text-left nopadding"><%= number_to_currency @order.total %></div>
                         </div>
                       </div>
                     </div>
