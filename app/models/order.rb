@@ -3,11 +3,13 @@ class Order < ActiveRecord::Base
 
   has_many :order_items, dependent: :destroy
   accepts_nested_attributes_for :order_items, allow_destroy: true
+
+  has_one :shipping_address, class_name: "Address", foreign_type: "ShippingAddress"
+  has_one :billing_address, class_name: "Address", foreign_type: "BillingAddress"
+  accepts_nested_attributes_for :shipping_address, :billing_address
+
   before_create :set_order_status
   before_save :update_total
-
-  has_one :shipping_address, -> { where address_type: Address.address_types[:shipping_address] }, class_name: "Address", foreign_key: :order_id
-  has_one :billing_address, -> { where address_type: Address.address_types[:billing_address] }, class_name: "Address", foreign_key: :order_id
 
   def calculate_shipping_price(destination_zip)
     fedex = ShippingCalculator::Fedex.new(order: self, destination_zip: destination_zip)
@@ -18,6 +20,10 @@ class Order < ActiveRecord::Base
     @shipping_speeds = ShippingSpeed.joins(order_item: :order)
       .where("orders.id = #{self.id}")
       .update_all(:selected => true)
+  end
+
+  def charge!(nonce_from_client)
+    binding.pry
   end
 
   private

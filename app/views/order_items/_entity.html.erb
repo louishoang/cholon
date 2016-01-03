@@ -8,7 +8,9 @@
     <td>
       <dl>
         <dt><%= product.name %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>x <%= entity.quantity %> </em></dt>
-        <dd><%= variant.name %></dd>
+        <% unless variant.is_default_variant? %> 
+          <dd><%= variant.name %></dd>
+        <% end %>
       </dl>
     </td>
     <td>

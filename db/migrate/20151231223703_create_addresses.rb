@@ -11,7 +11,7 @@ class CreateAddresses < ActiveRecord::Migration
       t.string :zip_code, null: false
       t.string :phone
       t.string :email
-      t.string :address_type
+      t.string :type
       t.integer :order_id, null: false
 
       t.timestamps null: false

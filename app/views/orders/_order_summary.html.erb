@@ -7,13 +7,13 @@
       <tr>
         <th>
           <div class="cart-sub-total">
-            Subtotal<span class="total-right"><%= number_to_currency entity.subtotal %></span>
+            <%= t("Subtotal") %><span class="total-right"><%= number_to_currency entity.subtotal %></span>
           </div>
           <div class="cart-sub-total">
-            Shipping Cost<span class="total-right"><%= number_to_currency entity.shipping_price %></span>
+            <%= t("Shipping Cost") %><span class="total-right"><%= number_to_currency entity.shipping_price %></span>
           </div>
           <div class="cart-grand-total">
-            Grand Total<span class="total-right"><%= number_to_currency entity.total %></span>
+            <%= t("Grand Total") %><span class="total-right"><%= number_to_currency entity.total %></span>
           </div>
         </th>
       </tr>

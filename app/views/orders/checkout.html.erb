@@ -12,7 +12,8 @@
 
 <div class="body-content">
   <div class="container-fluid">
-    <%= form_for @order, url: order_path(@order, checkout: true), html: {class: "form-horizontal register-form product-form form_ajax checkout-form", method: "PUT", :remote => true, :novalidate => true} do |f| %>
+    <%= form_for @order, url: result_order_path(@order, checkout: true), html: {class: "form-horizontal register-form product-form checkout-form jvalidate", method: "POST", :novalidate => true, :id => "js-braintree"} do |f| %>
+      <div id="payment-form"></div>
       <div class="row">
         <div class="col-xs-12 columns">
           <h2><%= t"Checkout" %></h2>
@@ -83,7 +84,7 @@
                           <%= t"Credit Card Number" %>
                         <% end %>
                         <div class="col-sm-9">
-                          <%= cc_form.text_field :number, class: "form-control unicase-form-control text-input" %>
+                          <%= cc_form.text_field :number, class: "form-control unicase-form-control text-input", "data-braintree-name" => "number", "data-validation" => "required" %>
                         </div>
                       </div>
                       <div class="form-group">
@@ -92,11 +93,11 @@
                             <%= cc_form.label :expiration_date, class: "col-sm-4 control-label info-title" %>
                             <div class="col-sm-6">
                               <div class="col-sm-5 p-l-5">
-                                <%= select_month "order[credit_cards][month]", nil, {class: "form-control unicase-form-control text-input input-styling height-40 col-sm-11", prompt: t("Month")} %>
+                                <%= select_month "order[credit_cards][month]", nil, {class: "form-control unicase-form-control text-input input-styling height-40 col-sm-11", prompt: t("Month"), "data-braintree-name" => "expiration_month", "data-validation" => "required"} %>
                               </div>
                               <div class="col-sm-1 b-slash"> /</div>
                               <div class="col-sm-5">
-                                <%= select_year "order[credit_cards][year]", nil, {class: "form-control unicase-form-control text-input input-styling height-40", prompt: t("Year")} %>
+                                <%= select_year "order[credit_cards][year]", nil, {class: "form-control unicase-form-control text-input input-styling height-40", prompt: t("Year"), "data-braintree-name" => "expiration_year", "data-validation" => "required"} %>
                               </div>
                             </div>
                           </div>
@@ -105,7 +106,7 @@
                               <%= t"CVV" %>
                             <% end %>
                             <div class="col-sm-9">
-                              <%= cc_form.number_field :cvv, class: "form-control unicase-form-control text-input" %>
+                              <%= cc_form.number_field :cvv, class: "form-control unicase-form-control text-input", "data-braintree-name" => "cvv", "data-validation" => "required" %>
                             </div>
                           </div>
                         </div>
@@ -158,9 +159,25 @@
       </div>
       <div class="row inner-bottom-xs">
         <div class="col-sm-9 text-right">
-          <button type="submit" class="btn btn-lime btn-checkout-bottom">PROCCED TO CHEKOUT</button>
+          <button type="submit" class="btn btn-lime btn-checkout-bottom"><%= t("PROCCED TO CHEKOUT") %></button>
         </div>
       </div>
     <% end %>
   </div>
 </div>
+
+<script src="https://js.braintreegateway.com/v2/braintree.js"></script>
+<script>
+  var clientToken = "<%= @client_token %>";
+
+  braintree.setup(clientToken, "custom", {
+    id: "js-braintree",
+    onPaymentMethodReceived: function (obj) {
+      $myForm = $("#js-braintree");
+      $myForm.preventDefault;
+      if($myForm.isValid()){
+        $myForm.submit();
+      }      
+    }
+  });
+</script>
