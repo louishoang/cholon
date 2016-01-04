@@ -44,8 +44,7 @@ class OrderItemsController < ApplicationController
   def save_new_item_to_order(params)
     @order_item = OrderItem.new(order_item_params)
     @order_item.order_number = current_order.order_number
-    @order_item.save
-
+    @order_item.save ; @order.save #save order to update subtotal
     json_success_respond
   end
 
@@ -54,7 +53,7 @@ class OrderItemsController < ApplicationController
     item = current_order.order_items.find_by_product_variant_id(params[:order_item][:product_variant_id]) rescue nil
     if item.present?
       item.quantity += params[:order_item][:quantity].to_i
-      item.save
+      item.save; current_order.save
       existed = true
       json_success_respond
     end
