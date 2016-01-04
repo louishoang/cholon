@@ -24,7 +24,7 @@
 
   $.fn.clCart = function(options){
     userID = Cookies.get("user_id");
-    orderID = Cookies.get("order_id");
+    orderID = Cookies.get("order_number");
 
     $(this).find(".atc-btn").each(function(index, elm){
       var $addBtn = $(elm);

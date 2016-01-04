@@ -43,7 +43,7 @@ class OrderItemsController < ApplicationController
 
   def save_new_item_to_order(params)
     @order_item = OrderItem.new(order_item_params)
-    @order_item.order_id = current_order.id
+    @order_item.order_number = current_order.order_number
     @order_item.save
 
     json_success_respond

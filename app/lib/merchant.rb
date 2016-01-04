@@ -27,7 +27,7 @@ module Merchant
       result = Braintree::Transaction.sale(
         :amount => @order.total, #under 1000 for testing
         :payment_method_nonce => @nonce_from_the_client, #"fake-valid-nonce" when test
-        :order_id => @order.id,
+        :order_id => @order.order_number,
         :customer => {
           :first_name => billing_address.first_name,
           :last_name => billing_address.last_name,

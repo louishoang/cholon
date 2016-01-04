@@ -12,7 +12,7 @@ class CreateAddresses < ActiveRecord::Migration
       t.string :phone
       t.string :email
       t.string :type
-      t.integer :order_id, null: false
+      t.string :order_number, null: false
 
       t.timestamps null: false
     end

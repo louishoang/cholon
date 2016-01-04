@@ -23,7 +23,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :orders do
+  # orders table doesn't have id column, use order number as primary key
+  resources :orders , param: :order_number do
     member do
       get "result"
       post "result"

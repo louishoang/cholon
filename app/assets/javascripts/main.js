@@ -306,10 +306,7 @@ $(function() {
   }
 
   if($(".top-cart-row").length > 0){
-    $(document).clCart({
-      user_id: 1,
-      order_id: 1
-    });
+    $(document).clCart();
   }
 
   $(document).on("renderUI", function(e, context){
@@ -673,7 +670,6 @@ $(document).on("change", ".product-option-value-select", function(e){
 });
 
 $(document).on("change", ".checkout-quantity", function(e){
-  // orderId = ($this).data("order-item-id");
   $(this).parents(".checkout-item").find(".checkout-update").removeClass("hide");
 
 });

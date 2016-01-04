@@ -5,7 +5,7 @@ class OrderItem < ActiveRecord::Base
 
   validates :quantity, presence: true, numericality: {only_integer: true, greater_than: 0}
   validates_presence_of :product_variant_id
-  validates_presence_of :order_id
+  validates_presence_of :order_number
 
   before_validation :update_product_id_unit_price_total_price
 

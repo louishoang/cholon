@@ -1,17 +1,20 @@
 class Order < ActiveRecord::Base
+  self.primary_key = :order_number
+
   include Merchant
 
   enum status: { pending: 0, placed: 1, shipped: 2, cancelled: 3 }
 
-  has_many :order_items, dependent: :destroy
+  has_many :order_items, foreign_key: :order_number, dependent: :destroy
   accepts_nested_attributes_for :order_items, allow_destroy: true
 
   #dependent destroy will allow order.update_attributes to delete old record and create new one
-  has_one :shipping_address, class_name: "Address", foreign_type: "ShippingAddress", :dependent => :destroy
-  has_one :billing_address, class_name: "Address", foreign_type: "BillingAddress", :dependent => :destroy
+  has_one :shipping_address, class_name: "Address", foreign_type: "ShippingAddress", foreign_key: :order_number, :dependent => :destroy
+  has_one :billing_address, class_name: "Address", foreign_type: "BillingAddress", foreign_key: :order_number, :dependent => :destroy
   accepts_nested_attributes_for :shipping_address, allow_destroy: true
   accepts_nested_attributes_for :billing_address, allow_destroy: true
 
+  before_create :set_order_number
   before_create :set_order_status
   before_save :update_total
 
@@ -33,6 +36,10 @@ class Order < ActiveRecord::Base
   end
 
   private
+  def set_order_number
+    self.order_number = "#{SecureRandom.random_number(Time.now.to_i)}#{Time.now.to_i}"
+  end
+
   def set_order_status
     self.status = Order.statuses[:pending]
   end

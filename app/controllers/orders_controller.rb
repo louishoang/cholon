@@ -63,7 +63,7 @@ class OrdersController < ApplicationController
         end
       end
     else
-       @order = Order.find(params[:id])
+       @order = Order.find(params[:order_number])
        @shipping_address = @order.shipping_address
     end
   end
@@ -74,7 +74,7 @@ class OrdersController < ApplicationController
   private
   def order_params
     params.require(:order).permit(:id, :subtotal, :tax, :total, :status, :shipping_price, :user_id,
-    order_items_attributes: [:id, :quantity, :product_id, :order_id, :unit_price, :total_price,
+    order_items_attributes: [:id, :quantity, :product_id, :order_number, :unit_price, :total_price,
       :seller_id, :product_variant_id],
     billing_address_attributes: [:first_name, :last_name, :business_name, :address1, :address2, :city, :state, :zip_code],
     shipping_address_attributes: [:first_name, :last_name, :business_name, :address1, :address2, :city, :state, :zip_code])
