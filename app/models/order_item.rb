@@ -1,6 +1,6 @@
 class OrderItem < ActiveRecord::Base
   belongs_to :product_variant
-  belongs_to :order
+  belongs_to :order, :foreign_key => :order_number
   has_many :shipping_speeds
 
   validates :quantity, presence: true, numericality: {only_integer: true, greater_than: 0}

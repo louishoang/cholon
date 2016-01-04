@@ -117,13 +117,16 @@
                                           <strong><%= t"Fixed Shipping Cost" %></strong>:
                                           <%= number_to_currency(product.shipping_price) %>
                                         <% elsif product.actual_cost_shipping? %>
-                                          <strong>
-                                            <a href="<%= edit_shipping_speed_path(item.selected_shipping_speed) %>" data-url="<%= order_item_path(item) %>" class="ship-speed ajax-popup-link"><i class="caret"></i>&nbsp;<%= t"Shipping Cost" %></a>
-                                          </strong>:
-                                          <%= number_to_currency(item.selected_shipping_speed.price.to_f / 100, locale: :en) %>
+                                         <% if item.selected_shipping_speed %>
+                                            <strong>
+                                              <a href="<%= edit_shipping_speed_path(item.selected_shipping_speed) %>" data-url="<%= order_item_path(item) %>" class="ship-speed ajax-popup-link"><i class="caret"></i>&nbsp;<%= t"Shipping Cost" %></a> 
+                                            </strong>:
+                                            <%= number_to_currency(item.selected_shipping_speed.price.to_f / 100, locale: :en) %>
+                                            <!-- NOTE: provide a way for user to recalculate shipping price when API fail -->
+                                          <% end %>
                                         <% end %>
                                       </div>
-                                      <% if product.actual_cost_shipping? %>
+                                      <% if product.actual_cost_shipping? && item.selected_shipping_speed %>
                                         <div class="row">
                                           <%= t"Est Delivery" %>: <%= timeframe_to_string(item.selected_shipping_speed.timeframe ) %>
                                         </div>
