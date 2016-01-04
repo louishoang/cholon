@@ -24,7 +24,7 @@ class OrdersController < ApplicationController
 
   def update
     if current_order.update_attributes(order_params)
-      if params[:checkout].present?
+      if params[:checkout].present? && params[:update_button].blank?
         render js: "window.location='#{checkout_order_path(current_order)}'"
       else
         render js: "window.location='#{order_path(current_order)}'"

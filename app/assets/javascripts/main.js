@@ -671,7 +671,6 @@ $(document).on("change", ".product-option-value-select", function(e){
 
 $(document).on("change", ".checkout-quantity", function(e){
   $(this).parents(".checkout-item").find(".checkout-update").removeClass("hide");
-
 });
 
 $(document).on("click", ".checkout-remove", function(e){
