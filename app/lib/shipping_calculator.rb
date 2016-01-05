@@ -7,11 +7,13 @@ module ShippingCalculator
       @password = ENV['FEDEX_API_PASSWORD'] #API password
       @account = ENV['FEDEX_ACCOUNT']
       @login = ENV['FEDEX_METER_NUMBER'] #meter number
+      @usps_login = ENV['USPS_USERNAME']
       @test = true #NOTE: false in production and change key
       args.each do |key, value|
         instance_variable_set("@#{key}", value)
       end
       @client = new_client
+      @usps_client = new_usps_client
     end
 
     def find_origin(product)
@@ -40,21 +42,46 @@ module ShippingCalculator
         :test => @test)
     end
 
+    def new_usps_client
+      ActiveShipping::USPS.new(
+        :login => @usps_login,
+        :test => @test)
+    end
+
     def get_rate_for_one_product
-      origin = find_origin(@product)
-      package = get_package_dimensions(@product)
-      response = @client.find_rates(origin, @destination, package)
-      all_rate_options = []
-      response.rates.sort_by(&:price).each do |rate|
-        all_rate_options << {:carrier => rate.carrier,
-          :name => rate.service_name,
-          :price => rate.price.to_f * @quantity,
-          :timeframe => rate.delivery_range}
+      responses = [] ; threads = [] ; all_rate_options = []
+
+      [@client, @usps_client].each do |client|
+        threads << get_rate_using_thread_for_product(client, find_origin(@product), get_package_dimensions(@product), responses)
+      end
+
+      threads.each { |thr| thr.join }
+      all_rate_options = format_response_to_rate_object(responses, all_rate_options) 
+    end
+
+    def get_rate_using_thread_for_product(client, origin, package, responses)
+      begin
+        Thread.new do
+          responses << client.find_rates(origin, @destination, package)
+        end
+      rescue
+      end
+    end
+
+    def format_response_to_rate_object(responses, all_rate_options)
+      responses.each do |response|
+        response.rates.sort_by(&:price).each do |rate|
+          all_rate_options << {:carrier => rate.carrier,
+            :name => rate.service_name,
+            :price => rate.price.to_f * @quantity,
+            :timeframe => rate.delivery_range}
+        end
       end
       all_rate_options
     end
 
-    def get_rate_using_thread(item)
+
+    def get_rate_using_thread_for_order(item)
       Thread.new do
         product = item.product_variant.product
         origin = find_origin(product)
@@ -87,7 +114,7 @@ module ShippingCalculator
       if order_items.present?
         order_items.each_with_index do |item, index|
           begin
-            threads << get_rate_using_thread(item)
+            threads << get_rate_using_thread_for_order(item)
           rescue => e
             #TODO : when having time, should try to recall to update shipping price correctly
             errors << e.message

@@ -108,7 +108,7 @@
               <td><%= shipping_type[:carrier] %></td>
               <td><%= shipping_type[:name] %></td>
               <td><%= number_to_currency(shipping_type[:price].to_f / 100, locale: :en) rescue "--" %></td>
-              <td><%= timeframe_to_string(shipping_type[:timeframe]) %></td>
+              <td><%= timeframe_to_string(shipping_type[:timeframe]) rescue "--" %></td>
             </tr>
           <% end %>
         <% else %>
