@@ -126,7 +126,7 @@
                                           <% end %>
                                         <% end %>
                                       </div>
-                                      <% if product.actual_cost_shipping? && item.selected_shipping_speed %>
+                                      <% if product.actual_cost_shipping? && item.selected_shipping_speed && item.selected_shipping_speed.timeframe.present? %>
                                         <div class="row">
                                           <%= t"Est Delivery" %>: <%= timeframe_to_string(item.selected_shipping_speed.timeframe ) %>
                                         </div>

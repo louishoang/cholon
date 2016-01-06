@@ -19,7 +19,7 @@ class Order < ActiveRecord::Base
   before_save :update_total
 
   def calculate_shipping_price(destination_zip)
-    carrier = ShippingCalculator::Carrier.new(order: self, destination_zip: destination_zip)
+    carrier = Shipping::Carrier.new(order: self, destination_zip: destination_zip)
     response = carrier.get_rates
   end
 
