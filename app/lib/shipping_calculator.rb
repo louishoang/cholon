@@ -1,18 +1,18 @@
 module ShippingCalculator
-  class Fedex
+  class Carrier
     attr_accessor :product, :destination, :origin, :package, :destination_zip, :order
 
     def initialize(args)
-      @key = ENV['FEDEX_API_KEY']
-      @password = ENV['FEDEX_API_PASSWORD'] #API password
-      @account = ENV['FEDEX_ACCOUNT']
-      @login = ENV['FEDEX_METER_NUMBER'] #meter number
+      @fedex_key = ENV['FEDEX_API_KEY']
+      @fedex_password = ENV['FEDEX_API_PASSWORD'] #API password
+      @fedex_account = ENV['FEDEX_ACCOUNT']
+      @fedex_login = ENV['FEDEX_METER_NUMBER'] #meter number
       @usps_login = ENV['USPS_USERNAME']
       @test = true #NOTE: false in production and change key
       args.each do |key, value|
         instance_variable_set("@#{key}", value)
       end
-      @client = new_client
+      @fedex_client = new_fedex_client
       @usps_client = new_usps_client
     end
 
@@ -34,11 +34,11 @@ module ShippingCalculator
         :units => :imperial)
     end
 
-    def new_client
-      ActiveShipping::FedEx.new(:key => @key,
-        :password => @password,
-        :account => @account,
-        :login => @login,
+    def new_fedex_client
+      ActiveShipping::FedEx.new(:key => @fedex_key,
+        :password => @fedex_password,
+        :account => @fedex_account,
+        :login => @fedex_login,
         :test => @test)
     end
 
@@ -51,7 +51,7 @@ module ShippingCalculator
     def get_rate_for_one_product
       responses = [] ; threads = [] ; all_rate_options = []
 
-      [@client, @usps_client].each do |client|
+      [@fedex_client, @usps_client].each do |client|
         threads << get_rate_using_thread_for_product(client, find_origin(@product), get_package_dimensions(@product), responses)
       end
 

@@ -126,8 +126,8 @@ class Product < ActiveRecord::Base
 
   def get_shipping_cost(destination_zip, quantity) #total quantity of an item
     begin
-      fedex = ShippingCalculator::Fedex.new(product: self, destination_zip: destination_zip, quantity: quantity.to_i)
-      all_rate_options = fedex.get_rates
+      carrier = ShippingCalculator::Carrier.new(product: self, destination_zip: destination_zip, quantity: quantity.to_i)
+      all_rate_options = carrier.get_rates
     rescue
       false
     end

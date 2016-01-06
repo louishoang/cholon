@@ -7,7 +7,7 @@ class OrdersController < ApplicationController
     begin
       @order.calculate_shipping_price(session[:current_user_zip_code]) if @order_items.present?
     rescue
-      flash[:alert] = "Fedex's server is responding slow. Shipping rate is estimated only."
+      flash[:alert] = "Shipping carriers' servers are responding slow. Shipping rates are estimated only."
     end
     @order.save #calling save to update total & shipping price
   end

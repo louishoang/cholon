@@ -19,8 +19,8 @@ class Order < ActiveRecord::Base
   before_save :update_total
 
   def calculate_shipping_price(destination_zip)
-    fedex = ShippingCalculator::Fedex.new(order: self, destination_zip: destination_zip)
-    response = fedex.get_rates
+    carrier = ShippingCalculator::Carrier.new(order: self, destination_zip: destination_zip)
+    response = carrier.get_rates
   end
 
   def apply_shipping_speed(shipping_speed)
