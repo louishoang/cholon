@@ -1,4 +1,5 @@
 class Product < ActiveRecord::Base
+  include AlgoliaSearch
   include Shipping
   extend FriendlyId
   friendly_id :name_utf8, use: [:slugged, :history]
@@ -26,6 +27,14 @@ class Product < ActiveRecord::Base
   validates :stock_quantity, presence: true
   validates :seller_id, presence: true
   validate :has_at_least_one_photo, if: lambda{self.status == Product.statuses.key(3)}
+
+  algoliasearch per_environment: true do
+    attributesToIndex ['name', 'description', 'seller_id',
+      'condition', 'location', 'slug', 'created_at', 'updated_at', 'status']
+    numericAttributesToIndex ['price', 'stock_quantity']
+    attributesForFaceting ['price', 'condition', 'status', 'shipping_method']
+    ranking ['geo(latitude)', 'geo(longitude)', 'geo(city)', 'geo(state)']
+  end
 
   scope :join_all, lambda{ |*args|
     select("DISTINCT products.*")

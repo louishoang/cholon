@@ -61,6 +61,9 @@ gem 'active_shipping'
 # location to coordinate
 gem 'geocoder'
 
+#search engine
+gem "algoliasearch-rails"
+
 #app server
 gem 'puma'
 

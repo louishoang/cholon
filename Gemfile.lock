@@ -54,6 +54,12 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.4.0)
+    algoliasearch (1.7.0)
+      httpclient (~> 2.4)
+      json (>= 1.5.1)
+    algoliasearch-rails (1.14.1)
+      algoliasearch (>= 1.2.14)
+      json (>= 1.5.1)
     arel (6.0.3)
     autoprefixer-rails (6.2.3)
       execjs
@@ -249,6 +255,7 @@ GEM
     hashie (3.4.3)
     highline (1.7.8)
     hike (1.2.3)
+    httpclient (2.7.1)
     i18n (0.7.0)
     inflecto (0.0.2)
     ipaddress (0.8.0)
@@ -438,6 +445,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_shipping
+  algoliasearch-rails
   aws-sdk (~> 1.6)
   bootstrap-sass (~> 3.3.5)
   braintree
