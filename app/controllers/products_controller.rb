@@ -7,15 +7,39 @@ class ProductsController < ApplicationController
   after_action :verify_authorized, :only => [:edit, :update, :preview, :destroy] 
 
   def index
-    @products = Product.join_all.publishable
-      .with_condition(params[:condition])
-      .price_between([params[:min_price], params[:max_price]])
+    if params[:zip_code].present?
+      loc = Geocoder.search(params[:zip_code]).first.data["geometry"]["location"]
+      latLng = [loc["lat"], loc["lng"]].join(",")
+      radius = params[:radius].to_i * 1609
+    end
+
+    queries = { hitsPerPage: 5, facets: '*',
+      facetFilters: [
+        "condition: #{params[:condition]}",
+        "shipping_method: #{params[:shipping_method]}"
+      ],
+      numericFilters: [
+        "price:#{params[:min_price] || 0} to #{params[:max_price] || 999999999999999}"
+      ]
+    }
+
+    if latLng.present?
+      queries[:aroundLatLng] = latLng
+      queries[:aroundRadius] = radius
+    end
+
+    @response = Product.raw_search(params[:query],queries)
+      
+
+    @products = @response["hits"]
+
+    # @products = Product.join_all.publishable
+    #   .with_condition(params[:condition])
+    #   .price_between([params[:min_price], params[:max_price]])
 
     @min_price = @products.minimum("price").to_f rescue Product.minimum("price").to_f
 
     @max_price = @products.maximum("price").to_f rescue Product.maximum("price").to_f
-
-    @products = @products.page(params[:page]).per(current_per_page)
   end
 
   def show

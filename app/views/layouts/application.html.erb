@@ -93,7 +93,7 @@
               </div>
               <!-- search box -->
               <div class="search-area">
-                <form>
+                <%= form_for products_path, method: :get do |f| %>
                   <div class="control-group">
                     <a href="/" role="button" class="categories-filter animate-dropdown nomargin dropdown-toggle searchby" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <%= t :categories %>
@@ -103,10 +103,10 @@
                       <li class="menu-header"><%= t :computer %></li>
                       <li role="presentation"><a role="menuitem" tabindex="-1" href="category.html">- Laptops</a></li>
                     </ul>
-                    <input class="search-field" placeholder="" />
-                    <a class="search-button" href="#" ></a>
+                    <input class="search-field" name="query" placeholder="" value="<%= params[:query] %>"/>
+                    <a onclick="$(this).parents('form').submit();" type="submit" class="search-button"></a>
                   </div>
-                </form>
+                <% end %>
               </div>
               <!-- search box end -->
             </div>

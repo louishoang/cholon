@@ -29,11 +29,24 @@ class Product < ActiveRecord::Base
   validate :has_at_least_one_photo, if: lambda{self.status == Product.statuses.key(3)}
 
   algoliasearch per_environment: true do
-    attributesToIndex ['name', 'description', 'seller_id',
-      'condition', 'location', 'slug', 'created_at', 'updated_at', 'status']
-    numericAttributesToIndex ['price', 'stock_quantity']
-    attributesForFaceting ['price', 'condition', 'status', 'shipping_method']
-    ranking ['geo(latitude)', 'geo(longitude)', 'geo(city)', 'geo(state)']
+    attribute :id, :name, :description, :seller_id, :condition, :location, :slug, :status, :city, :state, :stock_quantity,
+      :shipping_method, :price
+    attribute :created_at_i do
+      created_at.to_i
+    end
+    attribute :updated_at_i do
+      updated_at.to_i
+    end
+    attribute :price do
+      price.to_f
+    end
+    attributesToIndex ['name', 'unordered(description)', 'seller_id',
+      'condition', 'location', 'slug', 'created_at', 'updated_at', 'status',
+      'geo(city)', 'geo(state)']
+    geoloc :latitude, :longitude
+    numericAttributesToIndex ["price", "stock_quantity"]
+    attributesForFaceting ['price', 'condition', 'shipping_method']
+    ranking ['typo', 'geo', 'words', 'proximity', 'attribute', 'exact', 'custom']
   end
 
   scope :join_all, lambda{ |*args|
