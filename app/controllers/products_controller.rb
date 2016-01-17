@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   include CacheManager
+  include Workers::ProductWorker
 
   before_action :authenticate_user!
   prepend_before_filter :find_product, :only => [:create_variants, :edit, :update, :show, :shipping_handling, :calculate_shipping, :preview, :set_publishable, :create_product_attributes]
@@ -7,43 +8,11 @@ class ProductsController < ApplicationController
   after_action :verify_authorized, :only => [:edit, :update, :preview, :destroy] 
 
   def index
-    if params[:zip_code].present?
-      loc = Geocoder.search(params[:zip_code]).first.data["geometry"]["location"]
-      latLng = [loc["lat"], loc["lng"]].join(",")
-      radius = params[:radius].to_i * 1609
-    end
-
-    slave = params[:sort_by] ? "Product_by_#{params[:sort_by]}" : nil
-
-    queries = { hitsPerPage: 5, page: params[:page].to_i, facets: '*',
-      facetFilters: [
-        "condition: #{params[:condition]}",
-        "shipping_method: #{params[:shipping_method]}"
-      ],
-      numericFilters: [
-        "price:#{params[:min_price] || 0} to #{params[:max_price] || 999999999999999}"
-      ],
-      slave: slave
-    }
-
-    if latLng.present?
-      queries[:aroundLatLng] = latLng
-      queries[:aroundRadius] = radius
-    end
-
-    @response = Product.search(params[:query],queries)
-      
-    @products = @response
+    @response, @products = query_products(params)
 
     @min_price = @products.minimum("price").to_f rescue Product.minimum("price").to_f
-
     @max_price = @products.maximum("price").to_f rescue Product.maximum("price").to_f
-
-    if @min_price == @max_price
-      @min_price -= 1
-      @max_price += 1
-    end
-
+    @max_price += 1 if @min_price == @max_price
   end
 
   def show

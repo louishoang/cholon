@@ -150,10 +150,6 @@
               <span class="lbl"><%= t"Sort by" %>:</span>
               <div class="fld inline">
                 <div class="dropdown dropdown-small dropdown-med dropdown-white inline">
-
-
-                      
-      
                   <button data-toggle="dropdown" type="button" class="btn dropdown-toggle btn-sort-by">
                     <%= current_sort_by_text %> <span class="caret"></span>
                   </button>
@@ -186,7 +182,7 @@
             <%= t"There is no product matching your criteria!" %>
           <% end %>
         </div>
-      <%= render "shared/pagination/index", format: [:html], entities: @products %> 
+      <%= render "shared/pagination/index", format: [:html], entities: @products %>
       </div>
       <div class="col-md-2 ads-right m-t-15">
         <img src="http://www.detourdesign.com/misc/120x600banner1.jpg"/>
