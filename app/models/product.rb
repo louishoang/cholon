@@ -28,7 +28,7 @@ class Product < ActiveRecord::Base
   validates :seller_id, presence: true
   validate :has_at_least_one_photo, if: lambda{self.status == Product.statuses.key(3)}
 
-  algoliasearch per_environment: true do
+  algoliasearch per_environment: true, if: :publishable? do
     attribute :id, :name, :description, :seller_id, :condition, :location, :slug, :status, :city, :state, :stock_quantity,
       :shipping_method, :price
     attribute :created_at_i do
@@ -42,11 +42,23 @@ class Product < ActiveRecord::Base
     end
     attributesToIndex ['name', 'unordered(description)', 'seller_id',
       'condition', 'location', 'slug', 'created_at', 'updated_at', 'status',
-      'geo(city)', 'geo(state)']
+      'geo(city)', 'geo(state)', 'price']
     geoloc :latitude, :longitude
     numericAttributesToIndex ["price", "stock_quantity"]
     attributesForFaceting ['price', 'condition', 'shipping_method']
-    ranking ['typo', 'geo', 'words', 'proximity', 'attribute', 'exact', 'custom']
+
+    add_slave 'Product_by_price_asc', per_environment: true do
+      customRanking ['asc(price)']
+    end
+
+    add_slave 'Product_by_price_desc', per_environment: true do
+      customRanking ['desc(price)']
+    end
+
+    add_slave 'Product_by_created_at_i_desc', per_environment: true do
+      customRanking ['desc(created_at_i)']
+    end
+
   end
 
   scope :join_all, lambda{ |*args|
@@ -87,6 +99,10 @@ class Product < ActiveRecord::Base
       where("products.price BETWEEN ? AND ?", lowest_price, highest_price)
     end
   }
+
+  def publishable?
+    self.status == Product.statuses.key(2)
+  end
 
   def all_photos
     to_return = []

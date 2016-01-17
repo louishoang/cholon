@@ -28,4 +28,18 @@ module ApplicationHelper
   def timeframe_to_string(timeframe)
     timeframe.uniq.map{|x| x.to_s(:month_date_shipping)}.join("-") rescue "Unknown"
   end
+
+  def current_sort_by_text
+    to_return = case params[:sort_by]
+    when 'price_asc'
+      t"Price: Lowest first"
+    when 'price_desc'
+      t"Price: Highest first"
+    when 'created_at_i_desc'
+      t"Newest"
+    else
+      t"Best Match"
+    end
+    to_return
+  end
 end

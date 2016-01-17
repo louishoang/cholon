@@ -150,14 +150,18 @@
               <span class="lbl"><%= t"Sort by" %>:</span>
               <div class="fld inline">
                 <div class="dropdown dropdown-small dropdown-med dropdown-white inline">
+
+
+                      
+      
                   <button data-toggle="dropdown" type="button" class="btn dropdown-toggle btn-sort-by">
-                    <%= t"Best Match" %> <span class="caret"></span>
+                    <%= current_sort_by_text %> <span class="caret"></span>
                   </button>
-                  <ul role="menu" class="dropdown-menu">
-                    <li role="presentation"><a href="#"><%= t"Best Match" %></a></li>
-                    <li role="presentation"><a href="#"><%= t"Price: Lowest first" %></a></li>
-                    <li role="presentation"><a href="#"><%= t"Price: Highest first" %></a></li>
-                    <li role="presentation"><a href="#"><%= t"Item Location: Nearest first " %></a></li>
+                  <ul class="dropdown-menu">
+                    <li class="<%= 'active' if params[:sort_by].blank? %>" role="presentation"><a href="<%= url_for(params.except(:sort_by)) %>"><%= t"Best Match" %></a></li>
+                    <li class="<%= 'active' if params[:sort_by] == 'price_asc' %>" role="presentation"><a href="<%= url_for(params.merge(sort_by: 'price_asc')) %>"><%= t"Price: Lowest first" %></a></li>
+                    <li class="<%= 'active' if params[:sort_by] == 'price_desc' %>" role="presentation"><a href="<%= url_for(params.merge(sort_by: 'price_desc')) %>"><%= t"Price: Highest first" %></a></li>
+                    <li class="<%= 'active' if params[:sort_by] == 'created_at_i_desc' %>" role="presentation"><a href="<%= url_for(params.merge(sort_by: 'created_at_i_desc')) %>"><%= t"Newest" %></a></li>
                   </ul>
                 </div>
               </div>
@@ -182,7 +186,7 @@
             <%= t"There is no product matching your criteria!" %>
           <% end %>
         </div>
-      
+      <%= render "shared/pagination/index", format: [:html], entities: @products %> 
       </div>
       <div class="col-md-2 ads-right m-t-15">
         <img src="http://www.detourdesign.com/misc/120x600banner1.jpg"/>

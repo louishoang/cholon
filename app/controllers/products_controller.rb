@@ -13,14 +13,17 @@ class ProductsController < ApplicationController
       radius = params[:radius].to_i * 1609
     end
 
-    queries = { hitsPerPage: 5, facets: '*',
+    slave = params[:sort_by] ? "Product_by_#{params[:sort_by]}" : nil
+
+    queries = { hitsPerPage: 5, page: params[:page].to_i, facets: '*',
       facetFilters: [
         "condition: #{params[:condition]}",
         "shipping_method: #{params[:shipping_method]}"
       ],
       numericFilters: [
         "price:#{params[:min_price] || 0} to #{params[:max_price] || 999999999999999}"
-      ]
+      ],
+      slave: slave
     }
 
     if latLng.present?
@@ -28,18 +31,19 @@ class ProductsController < ApplicationController
       queries[:aroundRadius] = radius
     end
 
-    @response = Product.raw_search(params[:query],queries)
+    @response = Product.search(params[:query],queries)
       
-
-    @products = @response["hits"]
-
-    # @products = Product.join_all.publishable
-    #   .with_condition(params[:condition])
-    #   .price_between([params[:min_price], params[:max_price]])
+    @products = @response
 
     @min_price = @products.minimum("price").to_f rescue Product.minimum("price").to_f
 
     @max_price = @products.maximum("price").to_f rescue Product.maximum("price").to_f
+
+    if @min_price == @max_price
+      @min_price -= 1
+      @max_price += 1
+    end
+
   end
 
   def show
