@@ -1,4 +1,5 @@
 class Product < ActiveRecord::Base
+  include Productable
   include AlgoliaSearch
   include Shipping
   extend FriendlyId
@@ -30,18 +31,13 @@ class Product < ActiveRecord::Base
 
   algoliasearch per_environment: true, if: :publishable? do
     attribute :id, :name, :description, :seller_id, :condition, :location, :slug, :status, :city, :state, :stock_quantity,
-      :shipping_method, :price
-    attribute :created_at_i do
-      created_at.to_i
-    end
-    attribute :updated_at_i do
-      updated_at.to_i
-    end
+      :shipping_method, :price, :product_image
+
     attribute :price do
       price.to_f
     end
     attributesToIndex ['name', 'unordered(description)', 'seller_id',
-      'condition', 'location', 'slug', 'created_at', 'updated_at', 'status',
+      'condition', 'location', 'slug', 'status',
       'geo(city)', 'geo(state)', 'price']
     geoloc :latitude, :longitude
     numericAttributesToIndex ["price", "stock_quantity"]
@@ -58,7 +54,6 @@ class Product < ActiveRecord::Base
     add_slave 'Product_by_created_at_i_desc', per_environment: true do
       customRanking ['desc(created_at_i)']
     end
-
   end
 
   scope :join_all, lambda{ |*args|

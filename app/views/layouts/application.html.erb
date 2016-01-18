@@ -93,7 +93,7 @@
               </div>
               <!-- search box -->
               <div class="search-area">
-                <%= form_for products_path, method: :get do |f| %>
+                <%= form_tag products_path, method: :get do |f| %>
                   <div class="control-group">
                     <a href="/" role="button" class="categories-filter animate-dropdown nomargin dropdown-toggle searchby" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <%= t :categories %>

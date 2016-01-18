@@ -13,29 +13,31 @@
   <div class="container-fluid">
     <div class="col-md-2 sidebar nopadding">
       <h3 class="section-title"><%= t"Filter By" %></h3>
-      <!-- Filter by condition -->
-      <div class="sidebar-module-container">
-        <div class="sidebar-widget outer-bottom-xs wow fadeInUp">
-          <div class="widget-header">
-            <h4 class="widget-title"><%= t"Condition" %></h4>
-          </div>
-          <div class="sidebar-widget-body m-t-20">
-            <ul>
-              <% Product.conditions.each do |condition, _in| %>
-                <% url_on_checked = url_for(params.merge({:condition => condition })) %>
-                <% url_on_unchecked = url_for(params.except(:condition)) %>
-                <% _facets = @response["facets"]["condition"][condition] || 0 rescue 0 %>
-                <li class=" <%= 'hide' if _facets == 0 %>">
-                  <label>
-                    <input data-checked-url="<%= url_on_checked %>" data-unchecked-url="<%= url_on_unchecked %>" type="checkbox" id="<%= condition %>" name="condition" value="<%= condition %>" class="filter-params" <%= 'checked' if params[:condition] == condition %>/>&nbsp;&nbsp;
-                    <%= condition.humanize %>  (<%= _facets %>)
-                  </label>
-                </li>
-              <% end %>
-            </ul>
+      <% if @response["facets"]["condition"].present? %>
+        <!-- Filter by condition -->
+        <div class="sidebar-module-container">
+          <div class="sidebar-widget outer-bottom-xs wow fadeInUp">
+            <div class="widget-header">
+              <h4 class="widget-title"><%= t"Condition" %></h4>
+            </div>
+            <div class="sidebar-widget-body m-t-20">
+              <ul>
+                <% Product.conditions.each do |condition, _in| %>
+                  <% url_on_checked = url_for(params.merge({:condition => condition })) %>
+                  <% url_on_unchecked = url_for(params.except(:condition)) %>
+                  <% _facets = @response["facets"]["condition"][condition] || 0 rescue 0 %>
+                  <li class=" <%= 'hide' if _facets == 0 %>">
+                    <label>
+                      <input data-checked-url="<%= url_on_checked %>" data-unchecked-url="<%= url_on_unchecked %>" type="checkbox" id="<%= condition %>" name="condition" value="<%= condition %>" class="filter-params" <%= 'checked' if params[:condition] == condition %>/>&nbsp;&nbsp;
+                      <%= condition.humanize %>  (<%= _facets %>)
+                    </label>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
+      <% end %>
       <!-- Filter by price range -->
       <div class="sidebar-module-container">
         <div class="sidebar-widget outer-bottom-xs wow fadeInUp">
@@ -117,28 +119,30 @@
         </div>
       </div>
       <!-- Filter by shipping -->
-      <div class="sidebar-module-container">
-        <div class="sidebar-widget outer-bottom-xs wow fadeInUp">
-          <div class="widget-header">
-            <h4 class="widget-title"><%= t"Shipping Method" %></h4>
-          </div>
-          <div class="sidebar-widget-body m-t-20">
-            <ul>
-              <% Product.shipping_methods.each do |method, _in| %>
-                  <% url_shipping = url_for(params.merge({:shipping => method})) %>
-                  <% url_no_shipping = url_for(params.except(:shipping)) %>
-                  <% _facet = @response["facets"]["shipping_method"][method] || 0 rescue 0%>
-                <li class="<%= 'hide' if _facet == 0 %>">
-                  <label>
-                    <input data-checked-url="<%= url_shipping %>" data-unchecked-url="<%= url_no_shipping %>" type="checkbox" id="<%= method %>" name="shipping" value="New" class="filter-params" <%= 'checked' if params[:shipping] == method %>/>&nbsp;&nbsp;
-                    <%= method.humanize %>  (<%= _facet %>)
-                  </label>
-                </li>
-              <% end %>
-            </ul>
+      <% if @response["facets"]["shipping_method"].present? %>
+        <div class="sidebar-module-container">
+          <div class="sidebar-widget outer-bottom-xs wow fadeInUp">
+            <div class="widget-header">
+              <h4 class="widget-title"><%= t"Shipping Method" %></h4>
+            </div>
+            <div class="sidebar-widget-body m-t-20">
+              <ul>
+                <% Product.shipping_methods.each do |method, _in| %>
+                    <% url_shipping = url_for(params.merge({:shipping => method})) %>
+                    <% url_no_shipping = url_for(params.except(:shipping)) %>
+                    <% _facet = @response["facets"]["shipping_method"][method] || 0 rescue 0%>
+                  <li class="<%= 'hide' if _facet == 0 %>">
+                    <label>
+                      <input data-checked-url="<%= url_shipping %>" data-unchecked-url="<%= url_no_shipping %>" type="checkbox" id="<%= method %>" name="shipping" value="New" class="filter-params" <%= 'checked' if params[:shipping] == method %>/>&nbsp;&nbsp;
+                      <%= method.humanize %>  (<%= _facet %>)
+                    </label>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
+      <% end %>
     </div>
 
     <!-- Middle panel start -->
