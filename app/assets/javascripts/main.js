@@ -754,7 +754,11 @@ $(document).on("click", ".msearch-link", function(e){
   }else{
     $form.submit();
   }
-})
+});
 
-
-
+$(document).on("click", "#categories-filter", function(e){
+  e.preventDefault();
+  $this = $(this);
+  $panel = $("#search-by-menu");
+  $panel.toggle();
+});

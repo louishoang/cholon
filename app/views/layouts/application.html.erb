@@ -95,14 +95,33 @@
               <div class="search-area">
                 <%= form_tag products_path, method: :get do |f| %>
                   <div class="control-group">
-                    <a href="/" role="button" class="categories-filter animate-dropdown nomargin dropdown-toggle searchby" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a href="javascript:;" role="button" class="categories-filter nomargin searchby" id="categories-filter">
                       <%= t :categories %>
                       <span class="caret"></span>
                     </a>
-                    <ul class="dropdown-menu searchby-menu" role="menu" >
-                      <li class="menu-header"><%= t :computer %></li>
-                      <li role="presentation"><a role="menuitem" tabindex="-1" href="category.html">- Laptops</a></li>
-                    </ul>
+                    <div id="search-by-menu" class="popup-tab" role="menu">
+                      <div class="row-fluid tab-header">
+                        <a href="javascript:;" class="close-tab-link">
+                          <span class="close-tab"></span>
+                        </a>
+                      </div>
+                      <div class="row-fluid m-t-20 search-cat-list">
+                        <% Category.main_category.in_groups_of(3).each do |group| %>
+                          <div class="row-fluid">
+                            <% group.each do |main_cat| %>
+                              <div class="col-sm-12 col-md-4">
+                                <h5 class="menu-header"><%= t(main_cat.name) %>  &raquo;</h5>
+                                <ul class="sub-cat">
+                                  <% main_cat.childrens.each do |cat| %>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;" class="search-by-cat"> <%= t(cat.name) %></a></li>
+                                  <% end %>
+                                </ul>
+                              </div>
+                            <% end %>
+                          </div>
+                        <% end %>
+                      </div>
+                    </div>
                     <input class="search-field" id="main-search" name="query" placeholder="Search..." value="<%= params[:query] %>"/>
                     <a onclick="$(this).parents('form').submit();" type="submit" class="search-button"></a>
                   </div>
@@ -148,35 +167,6 @@
                     </div>
                   </a>
                 <% end %>
-               <!--  <ul class="dropdown-menu">
-                  <li>
-                    <div class="cart-item product-summary">
-                      <div class="row">
-                        <div class="col-xs-4">
-                          <div class="image">
-                            <a href="detail.html"><%= image_tag("cart.jpg", alt: "Cart") %></a>
-                          </div>
-                        </div>
-                        <div class="col-xs-7">
-
-                          <h3 class="name"><a href="index.php?page-detail">Simple Product</a></h3>
-                          <div class="price">$600.00</div>
-                        </div>
-                        <div class="col-xs-1 action">
-                          <a href="#"><i class="fa fa-trash"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="clearfix"></div><hr>
-                    <div class="clearfix cart-total">
-                      <div class="pull-right">
-                        <span class="text">Sub Total :</span><span class='price'>$600.00</span>
-                      </div>
-                      <div class="clearfix"></div>
-                      <a href="checkout.html" class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>
-                    </div>
-                  </li>
-                </ul> -->
               </div>
             </div>
           </div>

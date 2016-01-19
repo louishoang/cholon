@@ -50,13 +50,14 @@ a {
   transition: all 0.2s linear 0s;
 }
 body {
-  font-size: 13px;
-  color: #666666;
+  font-size: 14px;
+  color: #000;
+  font-weight: 400;
   background-color: #f8f8f8 !important;
   overflow-x: hidden;
   margin: 0;
   padding: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important;
 }
 ul {
   margin: 0;
@@ -6249,19 +6250,7 @@ select.height-40{
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*Algolia auto complete for main search start*/
 
 .algolia-autocomplete input {
   vertical-align: none;
@@ -6312,4 +6301,70 @@ select.height-40{
 .algolia-autocomplete .aa-dataset-0 a.msearch-link{
   text-decoration: none;
   color: black;
+}
+
+/* Algolia auto complete for main search END   */
+
+
+#search-by-menu{
+  display: none;
+  position: absolute;
+  z-index: 999999999;
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ddd;
+  box-shadow: 1px 3px 4px 0 rgba(0,0,0,0.15);
+  width: 100%;
+}
+
+@media only screen and (min-width : 1200px) {
+  #search-by-menu{
+    width: 750px;
+  }
+}
+
+#search-by-menu .menu-header{
+  font-weight: bold;
+  font-size: 15px;
+  color: #414141;
+}
+
+#search-by-menu .sub-cat .search-by-cat{
+  text-decoration: none;
+  color: #555;
+}
+
+#search-by-menu .sub-cat .search-by-cat:hover{
+  text-decoration: underline;
+  color: #1d6dcf;
+}
+
+#search-by-menu .sub-cat li{
+  list-style-type:none;
+  padding: 5px 2px 5px 2px;
+}
+
+#search-by-menu .search-cat-list{
+  border-top: 1px solid #e3e3e3;
+  padding-top: 15px;
+  height: 375px;
+  overflow-y: scroll;
+}
+
+.close-tab:after{
+  content: '✖'; /* UTF-8 symbol */
+  color: black;
+  font-size: 16px;
+}
+
+.popup-tab .tab-header{
+  float: right;
+    position: relative;
+    top: -10px;
+    right: 15px;
+}
+
+.popup-tab .tab-header .close-tab-link{
+  text-decoration: none;
+  font-size: 20px;
 }

@@ -28,7 +28,7 @@
                   <% _facets = @response["facets"]["condition"][condition] || 0 rescue 0 %>
                   <li class=" <%= 'hide' if _facets == 0 %>">
                     <label>
-                      <input data-checked-url="<%= url_on_checked %>" data-unchecked-url="<%= url_on_unchecked %>" type="checkbox" id="<%= condition %>" name="condition" value="<%= condition %>" class="filter-params" <%= 'checked' if params[:condition] == condition %>/>&nbsp;&nbsp;
+                      <input data-checked-url="<%= url_on_checked %>" data-unchecked-url="<%= url_on_unchecked %>" type="checkbox" id="<%= condition %>" name="condition" value="<%= condition %>" class="filter-params css-checkbox" <%= 'checked' if params[:condition] == condition %>/>&nbsp;&nbsp;
                       <%= condition.humanize %>  (<%= _facets %>)
                     </label>
                   </li>
