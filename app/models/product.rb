@@ -31,17 +31,22 @@ class Product < ActiveRecord::Base
 
   algoliasearch per_environment: true, if: :publishable? do
     attribute :id, :name, :description, :seller_id, :condition, :location, :slug, :status, :city, :state, :stock_quantity,
-      :shipping_method, :price, :product_image
+      :shipping_method, :price, :product_image, :category_ids
 
     attribute :price do
       price.to_f
     end
+
     attributesToIndex ['name', 'unordered(description)', 'seller_id',
       'condition', 'location', 'slug', 'status',
       'geo(city)', 'geo(state)', 'price']
     geoloc :latitude, :longitude
     numericAttributesToIndex ["price", "stock_quantity"]
-    attributesForFaceting ['price', 'condition', 'shipping_method']
+    attributesForFaceting ['price', 'condition', 'shipping_method', 'category_ids']
+
+    # tags do
+    #   category_ids.map(&:to_s)
+    # end
 
     add_slave 'Product_by_price_asc', per_environment: true do
       customRanking ['asc(price)']
@@ -55,45 +60,6 @@ class Product < ActiveRecord::Base
       customRanking ['desc(created_at_i)']
     end
   end
-
-  scope :join_all, lambda{ |*args|
-    select("DISTINCT products.*")
-    .joins("LEFT OUTER JOIN product_variants ON products.id = product_variants.product_id")
-    .joins("LEFT OUTER JOIN product_categories ON products.id = product_categories.product_id")
-    .joins("LEFT OUTER JOIN categories ON product_categories.category_id = categories.id")
-  }
-
-  scope :publishable, -> { where(status: Product.statuses[:publishable]) }
-
-  scope :with_categories, lambda{ |*args|
-    if args.present? && args[0].present?
-      category_ids = args[0].split(",")
-      where("categories.id IN (?)", category_ids)
-    end
-  } 
-
-  scope :with_category, lambda{ |args|
-    if args.present?
-      where("categories.id = ?", args)
-    end
-  } 
-
-  scope :with_condition, lambda{ |args|
-    if args.present?
-      where("products.condition = ?", args)
-    end
-  }
-
-  scope :price_between, lambda { |args|
-    if args.present? && args.is_a?(Array) && args[0].present?
-      lowest_price = args[0]
-      highest_price = args[1]
-      if lowest_price.to_f == highest_price.to_f
-        highest_price = highest_price.to_f + 1
-      end
-      where("products.price BETWEEN ? AND ?", lowest_price, highest_price)
-    end
-  }
 
   def publishable?
     self.status == Product.statuses.key(2)

@@ -20,7 +20,12 @@ module Workers::ProductWorker
       queries[:aroundRadius] = radius
     end
 
+    if params[:category].present?
+      queries[:facetFilters] << "category_ids:#{params[:category]}"
+    end
+
     response = Product.raw_search(params[:query], queries)
+
 
     products = Kaminari.paginate_array(response["hits"]).page(response["page"]).per(48)
     [response, products]

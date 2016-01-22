@@ -96,11 +96,12 @@
                 <%= form_tag products_path, method: :get do |f| %>
                   <div class="control-group">
                     <a href="javascript:;" role="button" class="categories-filter nomargin searchby" id="categories-filter">
-                      <%= t :categories %>
+                      <span id="scat"><%= t(Category.find(params[:category]).name)[0..10] rescue t(:categories) %></span>
                       <span class="caret"></span>
                     </a>
                     <div id="search-by-menu" class="popup-tab" role="menu">
                       <div class="row-fluid tab-header">
+                        <a href="javascript:;" class="search-by-cat" id="reset-searchcat" data-default-text="<%= t(:categories) %>"> <%= t("Reset To Default") %></a>
                         <a href="javascript:;" class="close-tab-link">
                           <span class="close-tab"></span>
                         </a>
@@ -113,7 +114,7 @@
                                 <h5 class="menu-header"><%= t(main_cat.name) %>  &raquo;</h5>
                                 <ul class="sub-cat">
                                   <% main_cat.childrens.each do |cat| %>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;" class="search-by-cat"> <%= t(cat.name) %></a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;" class="search-by-cat" data-category-id="<%= cat.id %>"> <%= t(cat.name) %></a></li>
                                   <% end %>
                                 </ul>
                               </div>
@@ -123,6 +124,7 @@
                       </div>
                     </div>
                     <input class="search-field" id="main-search" name="query" placeholder="Search..." value="<%= params[:query] %>"/>
+                    <input type="hidden" id="main-search-category" name="category" value="<%= params[:category] %>"/>
                     <a onclick="$(this).parents('form').submit();" type="submit" class="search-button"></a>
                   </div>
                 <% end %>

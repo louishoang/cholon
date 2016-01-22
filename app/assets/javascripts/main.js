@@ -762,3 +762,25 @@ $(document).on("click", "#categories-filter", function(e){
   $panel = $("#search-by-menu");
   $panel.toggle();
 });
+
+$(document).on("click", ".close-tab", function(e){
+  e.preventDefault();
+  $catPanel = $("#search-by-menu");
+  $catPanel.toggle();
+});
+
+
+$(document).on("click", ".search-by-cat", function(e){
+  e.preventDefault();
+  $searchCatField = $("#main-search-category");
+  categoryID = $(this).data("category-id")
+  $searchCatField.val(categoryID);
+
+  if(categoryID == undefined){
+    $("#scat").text($(this).data("default-text"));
+  }else{
+    $("#scat").text($(this).text().slice(0, 10) + "...");
+  }
+  $catPanel = $("#search-by-menu");
+  $catPanel.toggle();
+});
