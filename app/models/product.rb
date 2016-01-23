@@ -29,6 +29,8 @@ class Product < ActiveRecord::Base
   validates :seller_id, presence: true
   validate :has_at_least_one_photo, if: lambda{self.status == Product.statuses.key(3)}
 
+  PUBLIC_INDEX_NAME  = "Product_#{Rails.env}"
+
   algoliasearch per_environment: true, if: :publishable? do
     attribute :id, :name, :description, :seller_id, :condition, :location, :slug, :status, :city, :state, :stock_quantity,
       :shipping_method, :price, :product_image, :category_ids
@@ -58,6 +60,10 @@ class Product < ActiveRecord::Base
 
     add_slave 'Product_by_created_at_i_desc', per_environment: true do
       customRanking ['desc(created_at_i)']
+    end
+
+    add_slave 'Prodct_by_category_ids', per_environment: true do
+      attributesToIndex [:category_ids]
     end
   end
 

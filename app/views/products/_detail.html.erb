@@ -107,7 +107,7 @@
       <div class="snapshot-body">
         <ul class="snapshot-dimensions">
           <li class="snapshot-title">
-            <span><i class="fa fa-rocket m-r-10"></i> About The Merchant</span>
+            <span><i class="fa fa-rocket m-r-10"></i> About The Merchant:</span>
             <div class="snapshot-info m-t-10">
               <div class="rating-reviews">
                 <span class="prepend"><%= product.seller.full_name %>: </span>
@@ -117,13 +117,13 @@
             </div>
           </li>
           <li class="snapshot-title m-t-10">
-            <span><i class="fa fa-gift m-r-10"></i> <%= t"CONDITION" %></span>
+            <span><i class="fa fa-gift m-r-10"></i> <%= t"CONDITION" %>:</span>
             <div class="snapshot-info m-t-10">
               <%= product.condition.humanize %>
             </div>
           </li>
           <li class="snapshot-title m-t-10">
-            <span><i class="fa fa-calendar-check-o m-r-10"></i> <%= t"AVAILABILITY" %></span>
+            <span><i class="fa fa-calendar-check-o m-r-10"></i> <%= t"AVAILABILITY" %>:</span>
             <div class="snapshot-info m-t-10">
               <% if product.stock_quantity > 0 %>
                 <span class="in-stock">In Stock</span>(&nbsp;<span class="value nomargin"><%= product.stock_quantity %></span>&nbsp;)
@@ -133,7 +133,7 @@
             </div>
           </li>
           <li class="snapshot-title m-t-10">
-            <span><i class="fa fa-truck m-r-10"></i> <%= t"Shipping" %></span>
+            <span><i class="fa fa-truck m-r-10"></i> <%= t"Shipping" %>:</span>
             <div class="snapshot-info m-t-10">
               <%= t("product_shipping_method.#{product.shipping_method}") %>
               <% if product.actual_cost_shipping? %>

@@ -13,23 +13,22 @@
   <div class="container-fluid">
     <div class="col-md-2 sidebar nopadding">
       <h3 class="section-title"><%= t"Filter By" %></h3>
-
       <% categories = @response["facets"]["category_ids"].keys.uniq rescue nil %>
       <% if categories.present? %>
         <div class="sidebar-module-container">
           <div class="sidebar-widget outer-bottom-xs wow fadeInUp">
             <div class="widget-header">
-              <h4 class="widget-title"><%= t"Categories" %></h4>
+              <div class="widget-title"><%= t"Categories" %></div>
             </div>
-            <div class="sidebar-widget-body m-t-20">
+            <div class="sidebar-widget-body m-t-20 thin-scrollbar">
               <ul>
                 <% Category.where(:id => categories).each do |cat| %>
-                  <% url_on_checked = url_for(params.merge({:category => cat.id })) %>
+                  <% url_on_checked = url_for(params.merge({:category => merge_params(params[:category], cat.id) })) %>
                   <% url_on_unchecked = url_for(params.except(:category)) %>
                   <% _facets = @response["facets"]["category_ids"][cat.id.to_s] || 0 rescue 0 %>
                   <li class=" <%= 'hide' if _facets == 0 %>">
-                    <label>
-                      <input data-checked-url="<%= url_on_checked %>" data-unchecked-url="<%= url_on_unchecked %>" type="checkbox" id="<%= cat.id %>" name="category" value="<%= cat.id %>" class="filter-params css-checkbox" <%= 'checked' if params[:category] == cat.id.to_s %>/>&nbsp;&nbsp;
+                    <label class="text-indent">
+                      <input data-checked-url="<%= url_on_checked %>" data-unchecked-url="<%= url_on_unchecked %>" type="checkbox" id="<%= cat.id %>" name="category" value="<%= cat.id %>" class="filter-params css-checkbox" <%= 'checked' if params[:category].split(",").include?(cat.id.to_s) rescue false %>/>&nbsp;&nbsp;
                       <%= t(cat.name) %>  (<%= _facets %>)
                     </label>
                   </li>
@@ -55,8 +54,8 @@
                   <% url_on_unchecked = url_for(params.except(:condition)) %>
                   <% _facets = @response["facets"]["condition"][condition] || 0 rescue 0 %>
                   <li class=" <%= 'hide' if _facets == 0 %>">
-                    <label>
-                      <input data-checked-url="<%= url_on_checked %>" data-unchecked-url="<%= url_on_unchecked %>" type="checkbox" id="<%= condition %>" name="condition" value="<%= condition %>" class="filter-params css-checkbox" <%= 'checked' if params[:condition] == condition %>/>&nbsp;&nbsp;
+                    <label class="text-indent">
+                      <input data-checked-url="<%= url_on_checked %>" data-unchecked-url="<%= url_on_unchecked %>" type="checkbox" id="<%= condition %>" name="condition" value="<%= condition %>" class="filter-params css-checkbox" <%= 'checked' if params[:condition].split(",").include?(condition) rescue false %>/>&nbsp;&nbsp;
                       <%= t(condition.humanize) %>  (<%= _facets %>)
                     </label>
                   </li>
@@ -160,8 +159,8 @@
                     <% url_no_shipping = url_for(params.except(:shipping)) %>
                     <% _facet = @response["facets"]["shipping_method"][method] || 0 rescue 0%>
                   <li class="<%= 'hide' if _facet == 0 %>">
-                    <label>
-                      <input data-checked-url="<%= url_shipping %>" data-unchecked-url="<%= url_no_shipping %>" type="checkbox" id="<%= method %>" name="shipping" value="New" class="filter-params" <%= 'checked' if params[:shipping] == method %>/>&nbsp;&nbsp;
+                    <label class="text-indent">
+                      <input data-checked-url="<%= url_shipping %>" data-unchecked-url="<%= url_no_shipping %>" type="checkbox" id="<%= method %>" name="shipping" value="New" class="filter-params" <%= 'checked' if params[:shipping].split(",").include?(method) rescue false %>/>&nbsp;&nbsp;
                       <%= t(method.humanize) %>  (<%= _facet %>)
                     </label>
                   </li>

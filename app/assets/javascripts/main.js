@@ -784,3 +784,14 @@ $(document).on("click", ".search-by-cat", function(e){
   $catPanel = $("#search-by-menu");
   $catPanel.toggle();
 });
+
+
+$(document).ready(function(){
+  //thin scrollbar
+
+  $(".thin-scrollbar").mCustomScrollbar({
+    theme:"minimal-dark",
+    scrollbarPosition:"outside",
+    advanced:{ autoExpandHorizontalScroll: true }
+  });
+})
