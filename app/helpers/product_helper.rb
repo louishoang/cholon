@@ -14,4 +14,16 @@ module ProductHelper
       new_attr
     end
   end
+
+  def current_category_facet(search_resp)
+    search_resp.facet(:category_ids).rows.map{|x| [x.value, x.count]} rescue nil
+  end
+
+  def current_condition_facet(search_resp)
+    search_resp.facet(:condition).rows.map{|x| [x.value, x.count]} rescue nil
+  end
+
+  def current_shipping_method_facet(search_resp)
+    search_resp.facet(:shipping_method).rows.map{|x| [x.value, x.count]} rescue nil
+  end
 end

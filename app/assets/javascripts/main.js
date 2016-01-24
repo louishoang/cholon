@@ -723,27 +723,27 @@ function searchCallback(err, content) {
   });
 }
 
-var client = algoliasearch("7GLGGS4YWT", "91869dae763e305c0daf5a9603d7536e"); // public credentials
-var index = client.initIndex('Product_by_price_asc_development');
+// var client = algoliasearch("7GLGGS4YWT", "91869dae763e305c0daf5a9603d7536e"); // public credentials
+// var index = client.initIndex('Product_by_price_asc_development');
 
-$(function(){
-  // typeahead.js initialization
-  autocomplete('#main-search', { hint: false }, [
-    {
-      source: index.ttAdapter({ hitsPerPage: 10 }),
-      displayKey: 'name',
-      templates: {
-        suggestion: function(hit) {
-          return "<a href='javascript:;' class='msearch-link'><span>" + hit.name + "</span></a>";
-        }
-      }
-    },
+// $(function(){
+//   // typeahead.js initialization
+//   autocomplete('#main-search', { hint: false }, [
+//     {
+//       source: index.ttAdapter({ hitsPerPage: 10 }),
+//       displayKey: 'name',
+//       templates: {
+//         suggestion: function(hit) {
+//           return "<a href='javascript:;' class='msearch-link'><span>" + hit.name + "</span></a>";
+//         }
+//       }
+//     },
 
-  ]).on('autocomplete:selected', function(event, suggestion, dataset) {
+//   ]).on('autocomplete:selected', function(event, suggestion, dataset) {
 
-    console.log(suggestion, dataset);
-  });
-});
+//     console.log(suggestion, dataset);
+//   });
+// });
 
 $(document).on("click", ".msearch-link", function(e){
   e.preventDefault();

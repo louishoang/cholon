@@ -19,7 +19,6 @@
 //= require jquery.form-validator
 //= require tinymce
 //= require cl_cart
-//= require algolia/v3/algoliasearch.min
 //= require_tree .
 
 $(function() {

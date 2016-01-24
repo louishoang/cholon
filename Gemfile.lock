@@ -54,12 +54,6 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.4.0)
-    algoliasearch (1.7.0)
-      httpclient (~> 2.4)
-      json (>= 1.5.1)
-    algoliasearch-rails (1.14.1)
-      algoliasearch (>= 1.2.14)
-      json (>= 1.5.1)
     arel (6.0.3)
     autoprefixer-rails (6.2.3)
       execjs
@@ -255,7 +249,6 @@ GEM
     hashie (3.4.3)
     highline (1.7.8)
     hike (1.2.3)
-    httpclient (2.7.1)
     i18n (0.7.0)
     inflecto (0.0.2)
     ipaddress (0.8.0)
@@ -317,6 +310,7 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (= 0.3.0)
+    pr_geohash (1.0.0)
     pry (0.10.3)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -366,6 +360,8 @@ GEM
     responders (2.1.1)
       railties (>= 4.2.0, < 5.1)
     rmagick (2.15.4)
+    rsolr (1.0.13)
+      builder (>= 2.1.2)
     rspec-core (3.4.1)
       rspec-support (~> 3.4.0)
     rspec-expectations (3.4.0)
@@ -419,6 +415,14 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
+    sunspot (2.2.4)
+      pr_geohash (~> 1.0)
+      rsolr (~> 1.0.7)
+    sunspot_rails (2.2.4)
+      nokogiri
+      rails (>= 3)
+      sunspot (= 2.2.4)
+    sunspot_solr (2.2.4)
     temple (0.7.6)
     terminal-table (1.5.2)
     thor (0.19.1)
@@ -445,7 +449,6 @@ PLATFORMS
 
 DEPENDENCIES
   active_shipping
-  algoliasearch-rails
   aws-sdk (~> 1.6)
   bootstrap-sass (~> 3.3.5)
   braintree
@@ -484,6 +487,8 @@ DEPENDENCIES
   shoulda
   shoulda-matchers
   spring
+  sunspot_rails
+  sunspot_solr
   tinymce-rails
   tinymce-rails-langs
   uglifier (>= 1.3.0)

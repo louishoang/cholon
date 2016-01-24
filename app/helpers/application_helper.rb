@@ -35,7 +35,7 @@ module ApplicationHelper
       t"Price: Lowest first"
     when 'price_desc'
       t"Price: Highest first"
-    when 'created_at_i_desc'
+    when 'created_at_desc'
       t"Newest"
     else
       t"Best Match"

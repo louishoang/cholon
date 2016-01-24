@@ -3,7 +3,7 @@
 <% gl = local_assigns.fetch(:gl, nil) %>
 
 <% if view_mode == :showroom %>
-  <% photo = entity["product_image"] %>
+  <% photo = entity.product_image %>
   <!-- LIST VIEW START -->
   <% if gl == "list" %> 
     <div class="product-list product">

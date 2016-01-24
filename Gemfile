@@ -62,7 +62,7 @@ gem 'active_shipping'
 gem 'geocoder'
 
 #search engine
-gem "algoliasearch-rails"
+gem 'sunspot_rails'
 
 #app server
 gem 'puma'
@@ -74,6 +74,7 @@ gem "braintree"
 group :development do
   gem 'rack-mini-profiler'
   gem 'brakeman', :require => false #security vulnerable detector
+  gem 'sunspot_solr'
 end
 
 group :development, :test do
