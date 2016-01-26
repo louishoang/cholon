@@ -29,8 +29,8 @@ class Product < ActiveRecord::Base
   validate :has_at_least_one_photo, if: lambda{self.status == Product.statuses.key(3)}
 
   searchable do
-    text :name, :boost => 5
-    text :description
+    text :name, :as => :code_textp, :boost => 5
+    text :description, :as => :code_textp
     integer :id, :seller_id, :stock_quantity
     string :shipping_method
     string :condition, :location, :slug, :status, :city, :state, :product_image
