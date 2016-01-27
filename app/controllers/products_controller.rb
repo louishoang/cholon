@@ -15,6 +15,11 @@ class ProductsController < ApplicationController
     @max_price += 1 if @min_price == @max_price
   end
 
+  def typeahead
+    @response, @products = query_products(params)
+    render json: @products
+  end
+
   def show
     @default_variant = @product.default_variant
 

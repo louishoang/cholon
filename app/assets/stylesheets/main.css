@@ -1150,6 +1150,7 @@ a {
   margin: 8px 0 0;
 }
 .main-header .top-search-holder .search-area .search-field {
+  vertical-align: middle !important;
   border: medium none;
   -webkit-border-radius: 5px 0 0 5px;
   -moz-border-radius: 5px 0 0 5px;
@@ -1158,6 +1159,7 @@ a {
   min-width: 360px;
   max-width: 400px;
   vertical-align: middle;
+  font-size: 15px;
 }
 
 .main-header .top-search-holder .search-area .search-field:focus{
@@ -6269,23 +6271,18 @@ select.height-40{
 }
 
 
-/*Algolia auto complete for main search start*/
+/*Typeahead auto complete for main search start*/
 
-.algolia-autocomplete input {
-  vertical-align: none;
-  font-size: 16px;
-    color: #767676;
+.twitter-typeahead .tt-query,
+.twitter-typeahead .tt-hint {
+  margin-bottom: 0;
+  color: #A9A9A9;
 }
-.algolia-autocomplete .aa-input, .algolia-autocomplete .aa-hint {
-  width: 100%;
-}
-.algolia-autocomplete .aa-hint {
-  color: #999;
-}
-.algolia-autocomplete .aa-dropdown-menu {
+
+.tt-dropdown-menu {
   background-color: white;
   min-height: 30px;
-  font-size: 18px;
+  font-size: 16px;
   position: relative;
   z-index: 1;
   color: black;
@@ -6295,35 +6292,35 @@ select.height-40{
   border-radius: 2px;
 }
 
-.algolia-autocomplete .aa-dropdown-menu .aa-dataset-0{
+.tt-dropdown-menu .tt-dataset-0{
   padding: 5px;
 }
 
-.algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
+.tt-suggestion {
   cursor: pointer;
-  padding: 5px 4px;
-}
-.algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
-  background-color: #B2D7FF;
-}
-.algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {
-  font-weight: bold;
-  font-style: normal;
-}
-.algolia-autocomplete .category {
-  text-align: left;
-  background: #efefef;
-  padding: 10px 5px;
-  font-weight: bold;
+  padding: 5px 20px;
 }
 
-.algolia-autocomplete .aa-dataset-0 a.msearch-link{
+.tt-suggestion.tt-cursor {
+  color: #fff;
+  background-color: #ABD07E;
+}
+
+.tt-suggestion.tt-cursor a {
   text-decoration: none;
   color: black;
 }
 
-/* Algolia auto complete for main search END   */
+.tt-suggestion p {
+  margin: 0;
+}
 
+a.msearch-link{
+  text-decoration: none;
+  color: black;
+}
+
+/* typeahead auto complete for main search END   */
 
 #search-by-menu{
   display: none;

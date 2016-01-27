@@ -64,6 +64,9 @@ gem 'geocoder'
 #search engine
 gem 'sunspot_rails'
 
+# Typeahead gem
+gem 'bootstrap-typeahead-rails'
+
 #app server
 gem 'puma'
 

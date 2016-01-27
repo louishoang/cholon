@@ -67,6 +67,8 @@ GEM
     bootstrap-sass (3.3.5)
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.2.19)
+    bootstrap-typeahead-rails (0.10.5.1)
+      railties (>= 3.0)
     braintree (2.57.0)
       builder (>= 2.0.0)
     brakeman (3.1.4)
@@ -452,6 +454,7 @@ DEPENDENCIES
   active_shipping
   aws-sdk (~> 1.6)
   bootstrap-sass (~> 3.3.5)
+  bootstrap-typeahead-rails
   braintree
   brakeman
   capybara

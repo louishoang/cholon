@@ -723,6 +723,46 @@ function searchCallback(err, content) {
   });
 }
 
+
+
+
+$(function(){
+
+  // initialize bloodhound engine
+  var searchSelector = 'input.typeahead';
+
+  var bloodhound = new Bloodhound({
+    datumTokenizer: function (d) {
+      return Bloodhound.tokenizers.whitespace(d.value);
+    },
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+
+    // sends ajax request to remote url where %QUERY is user input
+    remote: '/products/typeahead/%QUERY',
+    limit: 10
+  });
+  bloodhound.initialize();
+
+// initialize typeahead widget and hook it up to bloodhound engine
+// #typeahead is just a text input
+
+
+  $(searchSelector).typeahead(null, {
+    displayKey: 'name',
+    source: bloodhound.ttAdapter(),
+    templates: {
+      suggestion:function(hit) {
+        return "<a href='javascript:;' class='msearch-link'><span>" + hit.name + "</span></a>";
+      }
+    }
+  });
+
+  // this is the event that is fired when a user clicks on a suggestion
+  $(searchSelector).bind('typeahead:selected', function(event, datum, name) {
+    console.log(datum.id);
+  });
+});
+
 // var client = algoliasearch("7GLGGS4YWT", "91869dae763e305c0daf5a9603d7536e"); // public credentials
 // var index = client.initIndex('Product_by_price_asc_development');
 
