@@ -4,10 +4,7 @@ module Workers::ProductWorker
     lat, lng, radius = geocode_lat_long(params) if params[:radius].present? && params[:zip_code].present?
 
     response = Product.search do 
-      fulltext params[:query] do
-        phrase_fields :name => 2.0
-        query_phrase_slop 3
-      end
+      fulltext params[:query]
       with(:category_ids, params[:category]) if params[:category].present?
       facet :condition, :category_ids, :shipping_method
       order_by sort_by, order if params[:sort_by]
@@ -15,7 +12,6 @@ module Workers::ProductWorker
       paginate :page => params[:page], :per_page => params[:per_page]
     end
     products = response.results
-
     [response, products]
   end
 
