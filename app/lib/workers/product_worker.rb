@@ -5,7 +5,9 @@ module Workers::ProductWorker
 
     response = Product.search do 
       fulltext params[:query]
-      with(:category_ids, params[:category]) if params[:category].present?
+      with(:category_ids, params[:category].split(",")) if params[:category].present?
+      with(:condition, params[:condition].split(",")) if params[:condition].present?
+      with(:shipping_method, params[:shipping].split(",")) if params[:shipping].present?
       facet :condition, :category_ids, :shipping_method
       order_by sort_by, order if params[:sort_by]
       with(:location).in_radius(lat, lng, radius) if params[:radius].present? && params[:zip_code].present?
