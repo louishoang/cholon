@@ -4,7 +4,10 @@ module Workers::ProductWorker
     lat, lng, radius = geocode_lat_long(params) if params[:radius].present? && params[:zip_code].present?
 
     response = Product.search do 
-      fulltext params[:query]
+      fulltext params[:query] do
+        phrase_fields :name => 3.0  #match any word in query, score 3x higher if the word appear in title
+        phrase_slop   1 #with one word between them
+      end
       with(:category_ids, params[:category].split(",")) if params[:category].present?
       with(:condition, params[:condition].split(",")) if params[:condition].present?
       with(:shipping_method, params[:shipping].split(",")) if params[:shipping].present?
