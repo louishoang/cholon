@@ -46,4 +46,11 @@ module ApplicationHelper
     end
     to_return
   end
+
+  def any_filter_or_search?(params)
+    [:query, :min_price, :max_price, :shipping, :category, :condition].each do |_filter|
+      return true if params[_filter].present?
+    end
+    false
+  end
 end
