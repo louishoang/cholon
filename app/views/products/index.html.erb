@@ -24,7 +24,7 @@
               <ul>
                 <% Category.where(:id => categories.map{|x| x[0]}).uniq.each do |cat| %>
                   <% url_on_checked = merge_params_if_existed(params, "category", cat.id) %>
-                  <% url_on_unchecked = dhskhfdskjf_params(params, "category", cat.id) %>
+                  <% url_on_unchecked = remove_params(params, "category", cat.id) %>
                   <% _facets = categories.select{|x| x[0] == cat.id}.first[1] || 0 rescue 0 %>
                   <li>
                     <label class="text-indent">
@@ -39,7 +39,7 @@
         </div>
       <% end %>
 
-      <% if @response.facet(:condition).present? %>
+      <% if @response.facet(:condition).present? || params[:condition].present? %>
         <!-- Filter by condition -->
         <div class="sidebar-module-container">
           <div class="sidebar-widget outer-bottom-xs wow fadeInUp">
@@ -50,10 +50,10 @@
               <ul>
                 <% conditions = current_condition_facet(@response) %>
                 <% Product.conditions.each do |condition, _in| %>
-                  <% url_on_checked = url_for(params.merge({:condition => condition })) %>
-                  <% url_on_unchecked = url_for(params.except(:condition)) %>
+                  <% url_on_checked = merge_params_if_existed(params, "condition", condition) %>
+                  <% url_on_unchecked = remove_params(params, "condition", condition) %>
                   <% _facets = conditions.select{|x| x[0] == condition}.first[1] || 0 rescue 0 %>
-                  <li class=" <%= 'hide' if _facets == 0 %>">
+                  <li class=" <%= 'hide' if _facets == 0 && not_a_filter_query("condition", condition)%>">
                     <label class="text-indent">
                       <input data-checked-url="<%= url_on_checked %>" data-unchecked-url="<%= url_on_unchecked %>" type="checkbox" id="<%= condition %>" name="condition" value="<%= condition %>" class="filter-params css-checkbox" <%= 'checked' if params[:condition].split(",").include?(condition) rescue false %>/>&nbsp;&nbsp;
                       <%= t(condition.humanize) %>  (<%= _facets %>)
@@ -156,12 +156,12 @@
               <ul>
                 <% shipping_methods = current_shipping_method_facet(@response) %>
                 <% Product.shipping_methods.each do |method, _in| %>
-                    <% url_shipping = url_for(params.merge({:shipping => method})) %>
-                    <% url_no_shipping = url_for(params.except(:shipping)) %>
-                    <% _facet = shipping_methods.select{|x| x[0] == method}.first[1] || 0 rescue 0  %>
-                  <li class="<%= 'hide' if _facet == 0 %>">
+                  <% url_on_checked = merge_params_if_existed(params, "shipping", method) %>
+                  <% url_on_unchecked = remove_params(params, "shipping", method) %>
+                  <% _facet = shipping_methods.select{|x| x[0] == method}.first[1] || 0 rescue 0  %>
+                  <li class="<%= 'hide' if _facet == 0 && not_a_filter_query("shipping", method) %>">
                     <label class="text-indent">
-                      <input data-checked-url="<%= url_shipping %>" data-unchecked-url="<%= url_no_shipping %>" type="checkbox" id="<%= method %>" name="shipping" value="New" class="filter-params" <%= 'checked' if params[:shipping].split(",").include?(method) rescue false %>/>&nbsp;&nbsp;
+                      <input data-checked-url="<%= url_on_checked %>" data-unchecked-url="<%= url_on_unchecked %>" type="checkbox" id="<%= method %>" name="shipping" value="New" class="filter-params" <%= 'checked' if params[:shipping].split(",").include?(method) rescue false %>/>&nbsp;&nbsp;
                       <%= t(method.humanize) %>  (<%= _facet %>)
                     </label>
                   </li>

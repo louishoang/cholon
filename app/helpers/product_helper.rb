@@ -22,16 +22,16 @@ module ProductHelper
   def merge_params_if_existed(params, ptype, value)
     list = params[ptype].split(",") rescue nil
     if list.blank?
-      url_for(params.merge({:category => value.to_s}))
+      url_for(params.merge({"#{ptype}" => value.to_s}))
     elsif list.present? && !list.include?(value.to_s)
       list << value.to_s
-      url_for(params.merge({:category => list.join(",")}))
+      url_for(params.merge({"#{ptype}" => list.join(",")}))
     else
       url_for(params)
     end
   end
 
-  def dhskhfdskjf_params(params, ptype, value)
+  def remove_params(params, ptype, value)
     list = params[ptype].split(",") rescue nil
     if list.present? && list.size == 1
       url_for(params.except(ptype))
@@ -41,5 +41,9 @@ module ProductHelper
       _params[ptype] = _list.join(",")
       url_for(_params)
     end
+  end
+
+  def not_a_filter_query(ptype, value)
+    params[ptype].blank? || (params[ptype].present? && !params[ptype].split(",").include?(value))
   end
 end
