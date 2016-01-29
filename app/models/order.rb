@@ -55,7 +55,7 @@ class Order < ActiveRecord::Base
         self.shipping_price += item.selected_shipping_speed.price.to_f / 100
       else
         product = Product.find(item.product_id) rescue nil
-        self.shipping_price += product.shipping_price if product.shipping_price
+        self.shipping_price += product.shipping_price if product.shipping_price rescue nil
       end
     end
   end

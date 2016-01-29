@@ -14,7 +14,7 @@ class OrderItem < ActiveRecord::Base
   end
 
   def update_product_id_unit_price_total_price
-    if self.product_variant_id.present?
+    if self.product_variant.present?
       self.product_id = self.product_variant.product_id
       self.unit_price = self.product_variant.price
       self.total_price = self.unit_price * self.quantity
