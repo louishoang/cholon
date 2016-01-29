@@ -11,7 +11,13 @@ module Workers::ProductWorker
       with(:category_ids, params[:category].split(",")) if params[:category].present?
       with(:condition, params[:condition].split(",")) if params[:condition].present?
       with(:shipping_method, params[:shipping].split(",")) if params[:shipping].present?
-      facet :condition, :category_ids, :shipping_method
+      if params[:min_price].present?
+        all_of do
+          with(:price).greater_than(params[:min_price])
+          with(:price).less_than(params[:max_price])
+        end
+      end
+      facet :condition, :category_ids, :shipping_method, :price
       order_by sort_by, order if params[:sort_by]
       with(:location).in_radius(lat, lng, radius) if params[:radius].present? && params[:zip_code].present?
       paginate :page => params[:page], :per_page => params[:per_page]

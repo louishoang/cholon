@@ -29,6 +29,10 @@ module ApplicationHelper
     timeframe.uniq.map{|x| x.to_s(:month_date_shipping)}.join("-") rescue "Unknown"
   end
 
+  def price_filter_string(params)
+    "#{number_to_currency(params[:min_price])} - #{number_to_currency(params[:max_price])}"
+  end
+
   def current_sort_by_text
     to_return = case params[:sort_by]
     when 'price_asc'

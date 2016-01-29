@@ -10,8 +10,8 @@ class ProductsController < ApplicationController
   def index
     @response, @products = query_products(params)
 
-    @min_price = @products.minimum("price").to_f rescue Product.minimum("price").to_f
-    @max_price = @products.maximum("price").to_f rescue Product.maximum("price").to_f
+    @min_price = Product.minimum("price").to_f
+    @max_price = Product.maximum("price").to_f
     @max_price += 1 if @min_price == @max_price
   end
 
