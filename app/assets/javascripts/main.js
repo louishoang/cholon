@@ -763,28 +763,6 @@ $(function(){
   });
 });
 
-// var client = algoliasearch("7GLGGS4YWT", "91869dae763e305c0daf5a9603d7536e"); // public credentials
-// var index = client.initIndex('Product_by_price_asc_development');
-
-// $(function(){
-//   // typeahead.js initialization
-//   autocomplete('#main-search', { hint: false }, [
-//     {
-//       source: index.ttAdapter({ hitsPerPage: 10 }),
-//       displayKey: 'name',
-//       templates: {
-//         suggestion: function(hit) {
-//           return "<a href='javascript:;' class='msearch-link'><span>" + hit.name + "</span></a>";
-//         }
-//       }
-//     },
-
-//   ]).on('autocomplete:selected', function(event, suggestion, dataset) {
-
-//     console.log(suggestion, dataset);
-//   });
-// });
-
 $(document).on("click", ".msearch-link", function(e){
   e.preventDefault();
   $form = $(this).parents("form");
@@ -793,6 +771,12 @@ $(document).on("click", ".msearch-link", function(e){
     return
   }else{
     $form.submit();
+  }
+});
+
+$(document).on("keypress", "#main-search", function(e){
+  if(e.which == 13){
+    $(this).parents("form").submit();
   }
 });
 
@@ -808,7 +792,6 @@ $(document).on("click", ".close-tab", function(e){
   $catPanel = $("#search-by-menu");
   $catPanel.toggle();
 });
-
 
 $(document).on("click", ".search-by-cat", function(e){
   e.preventDefault();
@@ -828,7 +811,6 @@ $(document).on("click", ".search-by-cat", function(e){
 
 $(document).ready(function(){
   //thin scrollbar
-
   $(".thin-scrollbar").mCustomScrollbar({
     theme:"minimal-dark",
     scrollbarPosition:"outside",

@@ -6394,3 +6394,26 @@ a.msearch-link{
 .thin-scrollbar{
   max-height: 250px;
 }
+
+#cFilter{
+  padding: 0px 0px 20px 10px;
+  border-bottom: 1px solid #EFEEEE;
+  margin-bottom: 25px;
+}
+
+#cFilter #filter-by{
+  color: #737373;
+  font-weight: 500;
+}
+
+#cFilter .cFilter-tag{
+  margin-left: 10px;
+  border: 1px solid #DDDDDD;
+  border-radius: 2px;
+  color: #454545!important;
+  display: inline-block;
+  font-size: 12px;
+  height: 25px;
+  padding: 3px 7px 3px 7px;
+  text-decoration: none;
+}

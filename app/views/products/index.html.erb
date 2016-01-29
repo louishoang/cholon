@@ -207,6 +207,29 @@
           </div>
         </div>
         <div class="col-sm-12 col-md-12 showroom-container">
+          <% if params[:query].present? %>
+            <div class="row-fluid">
+              <div class="col-sm-12 col-md-12" id="cFilter">
+                <span id="filter-by"><%= t"Filtering by" %>:</span>
+                  <a href="<%= products_path %>" class="cFilter-tag"><i class="fa fa-times"></i>  <%= params[:query] %></a>
+                <% if params[:category].present? %>
+                  <% Category.where(:id => params[:category].split(",")).each do |cat| %>
+                    <a href="<%= remove_params(params, "category", cat.id) %>" class="cFilter-tag"><i class="fa fa-times"></i>  <%= t"#{cat.name}" %></a>
+                  <% end %>
+                  <% if params[:condition].present? %>
+                    <% Product.conditions.each do |condition, _in| %>
+                      <a href="<%= remove_params(params, "condition", condition) %>" class="cFilter-tag <%= 'hide' unless params[:condition].split(",").include?(condition) %>"><i class="fa fa-times"></i>  <%= t"#{condition}" %></a>
+                    <% end %>
+                  <% end %>
+                  <% if params[:shipping].present? %>
+                    <% Product.shipping_methods.each do |method, _in| %>
+                      <a href="<%= remove_params(params, "shipping", method) %>" class="cFilter-tag <%= 'hide' unless params[:shipping].split(",").include?(method) %>"><i class="fa fa-times"></i>  <%= t"#{method}" %></a>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
           <% gl = params[:gl] || "grid" %> <!-- grid or list view-->
           <% if @products.present? %>
             <%= render partial: "entity.html", collection: @products, :locals => { view_mode: :showroom, gl: gl } %>
