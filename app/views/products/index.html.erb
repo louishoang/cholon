@@ -22,9 +22,9 @@
             </div>
             <div class="sidebar-widget-body m-t-20 thin-scrollbar">
               <ul>
-                <% Category.where(:id => categories).each do |cat| %>
-                  <% url_on_checked = url_for(params.merge({:category => merge_params(params[:category], cat.id) })) %>
-                  <% url_on_unchecked = url_for(params.except(:category)) %>
+                <% Category.where(:id => categories.map{|x| x[0]}).uniq.each do |cat| %>
+                  <% url_on_checked = merge_params_if_existed(params, "category", cat.id) %>
+                  <% url_on_unchecked = dhskhfdskjf_params(params, "category", cat.id) %>
                   <% _facets = categories.select{|x| x[0] == cat.id}.first[1] || 0 rescue 0 %>
                   <li>
                     <label class="text-indent">
