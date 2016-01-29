@@ -46,4 +46,19 @@ module ProductHelper
   def not_a_filter_query(ptype, value)
     params[ptype].blank? || (params[ptype].present? && !params[ptype].split(",").include?(value))
   end
+
+  def price_filter_string(params)
+    "#{number_to_currency(params[:min_price])} - #{number_to_currency(params[:max_price])}"
+  end
+
+  def any_filter_or_search?(params)
+    [:query, :min_price, :max_price, :shipping, :category, :condition, :zip_code].each do |_filter|
+      return true if params[_filter].present?
+    end
+    false
+  end
+
+  def location_filter_string(params)
+    "#{params[:radius]} mile(s) from #{params[:zip_code]}"
+  end
 end

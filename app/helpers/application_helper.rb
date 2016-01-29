@@ -29,10 +29,6 @@ module ApplicationHelper
     timeframe.uniq.map{|x| x.to_s(:month_date_shipping)}.join("-") rescue "Unknown"
   end
 
-  def price_filter_string(params)
-    "#{number_to_currency(params[:min_price])} - #{number_to_currency(params[:max_price])}"
-  end
-
   def current_sort_by_text
     to_return = case params[:sort_by]
     when 'price_asc'
@@ -45,12 +41,5 @@ module ApplicationHelper
       t"Best Match"
     end
     to_return
-  end
-
-  def any_filter_or_search?(params)
-    [:query, :min_price, :max_price, :shipping, :category, :condition].each do |_filter|
-      return true if params[_filter].present?
-    end
-    false
   end
 end

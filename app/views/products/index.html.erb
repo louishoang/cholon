@@ -230,7 +230,10 @@
                   <% end %>
                 <% end %>
                 <% if params[:min_price].present? %>
-                  <a href="<%= url_for(params.except(:min_price, :max_price)) %>" class="cFilter-tag"><i class="fa fa-times"></i>  <%= t"Price" %> <%= price_filter_string(params)  %></a>
+                  <a href="<%= url_for(params.except(:min_price, :max_price)) %>" class="cFilter-tag"><i class="fa fa-times"></i>  <em><strong><%= t"Price" %>:</strong></em> <%= price_filter_string(params)  %></a>
+                <% end %>
+                <% if params[:zip_code].present? %>
+                  <a href="<%= url_for(params.except(:zip_code, :radius)) %>" class="cFilter-tag"><i class="fa fa-times"></i>  <em><strong><%= t"Item Location" %>:</strong></em> <%= location_filter_string(params)  %></a>
                 <% end %>
               </div>
             </div>
