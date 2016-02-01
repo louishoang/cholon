@@ -46,7 +46,48 @@ if (getUrlParameter("locale") == "vi_VN"){
   var wbbOptLang = "en_CA";
 }
 
+// prevent hidden element to be submitted with form
+$.fn.disableAndHide = function(){
+  return this.each(function(){
+    $(this).addClass("hide");
+    $(this).find("input, select, textarea").each(function(i, elm){
+      $(elm).attr("disabled", "disabled");
+    });
+  }); 
+}
+
+$.fn.enableAndShow = function(){
+  return this.each(function(){
+    $(this).removeClass("hide");
+    $(this).find("input, select, textarea").each(function(i, elm){
+      $(elm).removeAttr("disabled");
+    });
+  });
+}
+
+
 var renderUI = function(cx){
+  $(".rateit", cx).rateit();
+  //price range slider
+  if ($(".price-slider").length > 0){
+    min = parseFloat($(".price-slider").data("min"));
+    max = parseFloat($(".price-slider").data("max"));
+    minSelected = parseFloat(getUrlParameter("min_price")) || min;
+    maxSelected = parseFloat(getUrlParameter("max_price")) || max
+
+    $( ".price-slider", cx).slider({
+      range: true,
+      min: min,
+      max: max,
+      value: [minSelected , maxSelected],
+      tooltip: 'hide',
+    }).on("slide", function( event, ui ) {
+      $holder = $(this).closest(".price-range-holder");
+      $holder.find(".min").text("$" + event.value[0].toFixed(2));
+      $holder.find(".max").text("$" + event.value[1].toFixed(2));
+   });
+  }
+
   //HTML text editor
   tinymce.init({
     selector: ".text-editor",
@@ -114,7 +155,14 @@ var renderUI = function(cx){
     delay: 500,
     minLength: 2,
     source: "/product_options"
-  })
+  });
+
+  //thin scrollbar
+  $(".thin-scrollbar", cx).mCustomScrollbar({
+    theme:"minimal-dark",
+    scrollbarPosition:"outside",
+    advanced:{ autoExpandHorizontalScroll: true }
+  });
 
   //select2
   $(".select2class", cx).select2({});
@@ -430,44 +478,34 @@ $(function() {
     }
   });
 
-  //price range slider
-  if ($(".price-slider").length > 0){
-    min = parseFloat($(".price-slider").data("min"));
-    max = parseFloat($(".price-slider").data("max"));
-    minSelected = parseFloat(getUrlParameter("min_price")) || min;
-    maxSelected = parseFloat(getUrlParameter("max_price")) || max
-
-    $( ".price-slider" ).slider({
-      range: true,
-      min: min,
-      max: max,
-      value: [minSelected , maxSelected],
-      tooltip: 'hide',
-    }).on("slide", function( event, ui ) {
-      $holder = $(this).closest(".price-range-holder");
-      $holder.find(".min").text("$" + event.value[0].toFixed(2));
-      $holder.find(".max").text("$" + event.value[1].toFixed(2));
-   });
-  }
-
-
   // Filter checkbox
-  $(".filter-params").on("click", function(e){
+  $(document).on("click", ".filter-params",function(e){
     urlOnChecked = $(this).data("checked-url");
     urlOnUnchecked = $(this).data("unchecked-url");
-
+    $resultDiv = $("#main-pd-index");
     // when clicked element is a div
     isSelectedValue = $(this).is("div") && getUrlParameter("rating") === undefined && $(this).data("rateit-value") + "Up";
     // when clicked element is a checkbox
     isChecked = $(this).is(":checked") && $(this).is("input");
 
     if(isChecked || isSelectedValue){
-      window.location.href = urlOnChecked;
+      $resultDiv.data("url", urlOnChecked);
+      history.pushState({}, '', urlOnChecked);
     }else{
-      window.location.href = urlOnUnchecked;
+      $resultDiv.data("url", urlOnUnchecked);
+      history.pushState({}, '', urlOnUnchecked);
     }
-    $(e.target)
-  })
+    CL.refresh($resultDiv);
+  }).on("click", ".cFilter-tag", function(e){
+    e.preventDefault();
+    $resultDiv = $("#main-pd-index");
+    url = $(this).attr("href");
+    // #Refresh search result division
+    $resultDiv.data("url", url);
+    CL.refresh($resultDiv);
+    // #change browser history
+    history.pushState({}, '', url);
+  });
 
   //Filter checkbox wrapped inside anchor
   $(".checkbox-as-link").on("click", function(e){
@@ -536,26 +574,6 @@ $(function() {
       $actualPrice.disableAndHide();
     }
   });
-
-  // prevent hidden element to be submitted with form
-  $.fn.disableAndHide = function(){
-    return this.each(function(){
-      $(this).addClass("hide");
-      $(this).find("input, select, textarea").each(function(i, elm){
-        $(elm).attr("disabled", "disabled");
-      });
-    }); 
-  }
-
-  $.fn.enableAndShow = function(){
-    return this.each(function(){
-      $(this).removeClass("hide");
-      $(this).find("input, select, textarea").each(function(i, elm){
-        $(elm).removeAttr("disabled");
-      });
-    });
-  }
-
 
   if($(".ajax-content").length > 0){
     $(".ajax-content").each(function(index, elm){
@@ -724,8 +742,6 @@ function searchCallback(err, content) {
 }
 
 
-
-
 $(function(){
 
   // initialize bloodhound engine
@@ -772,28 +788,19 @@ $(document).on("click", ".msearch-link", function(e){
   }else{
     $form.submit();
   }
-});
-
-$(document).on("keypress", "#main-search", function(e){
+}).on("keypress", "#main-search", function(e){
   if(e.which == 13){
     $(this).parents("form").submit();
   }
-});
-
-$(document).on("click", "#categories-filter", function(e){
+}).on("click", "#categories-filter", function(e){
   e.preventDefault();
-  $this = $(this);
   $panel = $("#search-by-menu");
   $panel.toggle();
-});
-
-$(document).on("click", ".close-tab", function(e){
+}).on("click", ".close-tab", function(e){
   e.preventDefault();
   $catPanel = $("#search-by-menu");
   $catPanel.toggle();
-});
-
-$(document).on("click", ".search-by-cat", function(e){
+}).on("click", ".search-by-cat", function(e){
   e.preventDefault();
   $searchCatField = $("#main-search-category");
   categoryID = $(this).data("category-id")
@@ -807,13 +814,3 @@ $(document).on("click", ".search-by-cat", function(e){
   $catPanel = $("#search-by-menu");
   $catPanel.toggle();
 });
-
-
-$(document).ready(function(){
-  //thin scrollbar
-  $(".thin-scrollbar").mCustomScrollbar({
-    theme:"minimal-dark",
-    scrollbarPosition:"outside",
-    advanced:{ autoExpandHorizontalScroll: true }
-  });
-})

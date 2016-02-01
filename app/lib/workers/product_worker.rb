@@ -13,8 +13,8 @@ module Workers::ProductWorker
       with(:shipping_method, params[:shipping].split(",")) if params[:shipping].present?
       if params[:min_price].present?
         all_of do
-          with(:price).greater_than(params[:min_price])
-          with(:price).less_than(params[:max_price])
+          with(:price).greater_than_or_equal_to(params[:min_price])
+          with(:price).less_than_or_equal_to(params[:max_price])
         end
       end
       facet :condition, :category_ids, :shipping_method, :price
@@ -41,5 +41,15 @@ module Workers::ProductWorker
     order = params[:sort_by].match(/(asc|desc)/)[1]
     sort_by = params[:sort_by].gsub(/_(asc|desc)/, "")
     [sort_by.to_sym, order.to_sym]
+  end
+
+  def product_price_min_max
+    @min_price = Product.minimum("price").to_f
+    @max_price = Product.maximum("price").to_f
+    @max_price += 1 if @min_price == @max_price
+  end
+
+  def refresh_search_result?
+    params[:refresh].present? && params[:refresh] == "true"
   end
 end

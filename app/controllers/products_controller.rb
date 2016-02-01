@@ -9,10 +9,13 @@ class ProductsController < ApplicationController
 
   def index
     @response, @products = query_products(params)
-
-    @min_price = Product.minimum("price").to_f
-    @max_price = Product.maximum("price").to_f
-    @max_price += 1 if @min_price == @max_price
+    product_price_min_max
+    if refresh_search_result?
+      respond_to do |format|
+        format.js
+        format.html
+      end
+    end
   end
 
   def typeahead

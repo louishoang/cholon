@@ -62,6 +62,5 @@
       }
       return quantity;
     }
-    
   };
 }( jQuery ));

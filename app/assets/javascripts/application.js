@@ -18,6 +18,7 @@
 //= require dropzone
 //= require jquery.form-validator
 //= require tinymce
+//= require cl
 //= require cl_cart
 //= require bootstrap-typeahead-rails
 //= require_tree .
