@@ -67,7 +67,93 @@ $.fn.enableAndShow = function(){
 
 
 var renderUI = function(cx){
+  // #filter params by submitting form
+  $(".form-filter-params", cx).on("submit", function(e){
+    $form = $(this);
+    data = $form.serialize();
+    e.preventDefault();
+    
+    CL.showLoading($("#main-pd-index"));
+    $.ajax({
+      url: "/products",
+      data: data
+    });
+  });
+
+  // Jquery validation
+  $.formUtils.addValidator({
+    name : 'currency',
+    validatorFunction : function(value, $el, config, language, $form) {
+      var isValidMoney = /^\d{0,9}(\.\d{0,2})?$/.test($el.val());
+      return $el.val().length > 0 && isValidMoney;
+    },
+    errorMessage : 'Wrong currency format. Ex: 20 or 20.95',
+    errorMessageKey: 'badCurrencyFormat'
+  });
+
+  if($(".jvalidate").length > 0){
+    if($('#product_name').length > 0){
+      $('#product_name').restrictLength($('#maxlength'));
+    }
+    $.validate({
+      ignore: [],
+      form: ".jvalidate",
+      modules : 'html5',
+      validateOnBlur : false,
+      validateHiddenInputs: true,
+      onError : function($form) {
+        $form.find(".has-error").each(function(index, elm){
+
+          // fix html text editor on validation
+          $tinymcePanel = $(elm).find(".mce-tinymce.mce-container.mce-panel");
+          if($tinymcePanel.length > 0){
+            $tinymcePanel.attr("style", "border: 1px solid red");
+            $tinymcePanel.removeClass("has-error");
+          }
+
+          // fix select2 on validation
+          $select2 = $(elm).find(".select2class.error");
+          if($select2.length > 0){
+            $(elm).find(".select2-selection--single").attr("style", "border-color: red");
+            $(elm).removeClass("has-error");
+          }
+        });
+      },
+      onSuccess : function($form) {
+      },
+      onValidate : function($form) {
+      },
+      onElementValidate : function(valid, $el, $form, errorMess) {
+        console.log('Input ' +$el.attr('name')+ ' is ' + ( valid ? 'VALID':'NOT VALID') );
+      }
+    });
+
+    //adjust for jquery validation on html text editor 
+    $(".text-editor").on("validation", function(evt, valid){
+      if(valid){
+        $tinymcePanel = $(".mce-tinymce.mce-container.mce-panel");
+        $tinymcePanel.attr("style", "border: 1px solid #3c763d");
+      }
+    });
+
+    //adjust for jquery validation on select2 
+    $(".jvalidate").on("select2:select", function(e){
+      if($(e.target).hasClass("error")){
+        if($(e.target).val() !== undefined){
+          $formGroup = $(e.target).parents(".form-group")
+          $formGroup.addClass("has-success");
+          $formGroup.find(".select2-selection--single").attr("style", "border-color: #3c763d")
+          $formGroup.find(".help-block").remove();
+          $(e.target).removeClass("error");
+        }
+      }
+    });
+  };
+
+  // #rate five star
   $(".rateit", cx).rateit();
+
+
   //price range slider
   if ($(".price-slider").length > 0){
     min = parseFloat($(".price-slider").data("min"));
@@ -271,76 +357,6 @@ $(function() {
     }
   };
 
-  $.formUtils.addValidator({
-    name : 'currency',
-    validatorFunction : function(value, $el, config, language, $form) {
-      var isValidMoney = /^\d{0,9}(\.\d{0,2})?$/.test($el.val());
-      return $el.val().length > 0 && isValidMoney;
-    },
-    errorMessage : 'Wrong currency format. Ex: 20 or 20.95',
-    errorMessageKey: 'badCurrencyFormat'
-  });
-
-  // Jquery validation
-  if($(".jvalidate").length > 0){
-    if($('#product_name').length > 0){
-      $('#product_name').restrictLength($('#maxlength'));
-    }
-    $.validate({
-      ignore: [],
-      form: ".jvalidate",
-      modules : 'html5',
-      validateOnBlur : false,
-      validateHiddenInputs: true,
-      onError : function($form) {
-        $form.find(".has-error").each(function(index, elm){
-
-          // fix html text editor on validation
-          $tinymcePanel = $(elm).find(".mce-tinymce.mce-container.mce-panel");
-          if($tinymcePanel.length > 0){
-            $tinymcePanel.attr("style", "border: 1px solid red");
-            $tinymcePanel.removeClass("has-error");
-          }
-
-          // fix select2 on validation
-          $select2 = $(elm).find(".select2class.error");
-          if($select2.length > 0){
-            $(elm).find(".select2-selection--single").attr("style", "border-color: red");
-            $(elm).removeClass("has-error");
-          }
-        });
-      },
-      onSuccess : function($form) {
-      },
-      onValidate : function($form) {
-      },
-      onElementValidate : function(valid, $el, $form, errorMess) {
-        console.log('Input ' +$el.attr('name')+ ' is ' + ( valid ? 'VALID':'NOT VALID') );
-      }
-    });
-
-    //adjust for jquery validation on html text editor 
-    $(".text-editor").on("validation", function(evt, valid){
-      if(valid){
-        $tinymcePanel = $(".mce-tinymce.mce-container.mce-panel");
-        $tinymcePanel.attr("style", "border: 1px solid #3c763d");
-      }
-    });
-
-    //adjust for jquery validation on select2 
-    $(".jvalidate").on("select2:select", function(e){
-      if($(e.target).hasClass("error")){
-        if($(e.target).val() !== undefined){
-          $formGroup = $(e.target).parents(".form-group")
-          $formGroup.addClass("has-success");
-          $formGroup.find(".select2-selection--single").attr("style", "border-color: #3c763d")
-          $formGroup.find(".help-block").remove();
-          $(e.target).removeClass("error");
-        }
-      }
-    });
-  }
-
   //jquery hover dropdown
   $('.dropdown-toggle').dropdownHover({
     delay: 200,
@@ -478,13 +494,23 @@ $(function() {
     }
   });
 
+  function isSelectedFilter(elm){
+    if(getUrlParameter("rating") === undefined){
+      return true;
+    };
+    if (getUrlParameter("rating").split("%2C").indexOf($(elm).data("rateit-range")) == -1){
+      return true;
+    };
+    return false;
+  }
+
   // Filter checkbox
   $(document).on("click", ".filter-params",function(e){
     urlOnChecked = $(this).data("checked-url");
     urlOnUnchecked = $(this).data("unchecked-url");
     $resultDiv = $("#main-pd-index");
     // when clicked element is a div
-    isSelectedValue = $(this).is("div") && getUrlParameter("rating") === undefined && $(this).data("rateit-value") + "Up";
+    isSelectedValue = $(this).is("div") && isSelectedFilter($(this));
     // when clicked element is a checkbox
     isChecked = $(this).is(":checked") && $(this).is("input");
 

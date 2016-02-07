@@ -1,7 +1,9 @@
 module Workers::ProductWorker
+  include ProductHelper
   def query_products(params)
     sort_by, order = produce_sort_by(params) if params[:sort_by]
     lat, lng, radius = geocode_lat_long(params) if params[:radius].present? && params[:zip_code].present?
+    seller_rating_range = combine_seller_rating_range(params)[0]..combine_seller_rating_range(params)[1] if params[:rating].present? 
 
     response = Product.search do 
       fulltext params[:query] do
@@ -11,6 +13,10 @@ module Workers::ProductWorker
       with(:category_ids, params[:category].split(",")) if params[:category].present?
       with(:condition, params[:condition].split(",")) if params[:condition].present?
       with(:shipping_method, params[:shipping].split(",")) if params[:shipping].present?
+      if params[:rating].present?
+        with(:average_selling_rating, seller_rating_range)
+      end
+      with(:status, "publishable")
       if params[:min_price].present?
         all_of do
           with(:price).greater_than_or_equal_to(params[:min_price])

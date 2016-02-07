@@ -8,8 +8,8 @@ var CL = CL || {
       $(link).attr("disabled", "disabled");
     });
   },
-  removeLoading: function(elm){
-    $(elm).removeClass("loading");
+  removeLoading: function(){
+    $(document).find(".loading").removeClass("loading");
     $(document).find(".la-line-spin-fade-rotating").remove();
   },
   //send ajax request to get new content
@@ -18,11 +18,7 @@ var CL = CL || {
     if(url != undefined){
       $.ajax({
         url: url,
-        data: {refresh: true},
-        success: function(){
-          CL.removeLoading(elm);
-          renderUI($(elm));
-        }
+        data: {refresh: true}
       })
     }
   },

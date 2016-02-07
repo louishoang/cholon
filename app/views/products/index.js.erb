@@ -1,1 +1,7 @@
-$("#main-pd-index").html("<%= raw escape_javascript(render(:partial => 'main_pd_index')) %>");
+$.when($("#main-pd-index").html("<%= raw escape_javascript(render(:partial => 'main_pd_index', locals: {lazy_load: false})) %>")).then(function(){
+  renderUI($("#main-pd-index"));
+  CL.removeLoading();
+});
+<% if params[:radius].present? %>
+  history.pushState({}, '', encodeURI("<%= URI.unescape(@history_url) %>"));
+<% end %>

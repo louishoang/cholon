@@ -19,6 +19,22 @@ module ProductHelper
     search_resp.facet(:shipping_method).rows.map{|x| [x.value, x.count]} rescue nil
   end
 
+  def params_rating_existed?(range)
+    return false if params[:rating].blank?
+    params_range = params[:rating].split(",")
+    params_range.include?(range.to_s)
+  end
+
+  def combine_seller_rating_range(params)
+    return nil if params[:rating].blank?
+    params_range = []
+    params[:rating].split(",").map do |range|
+      range.gsub!("...", "..")
+      params_range << range.split("..").map(&:to_i)
+    end
+    params_range = params_range.flatten.uniq.sort if params_range.present?
+  end
+
   def merge_params_if_existed(params, ptype, value)
     list = params[ptype].split(",") rescue nil
     if list.blank?
@@ -36,7 +52,7 @@ module ProductHelper
     if list.present? && list.size == 1
       url_for(params.except(ptype))
     elsif list.present?
-      _list = list; _params = params.clone #prevent direct params change
+      _list = list; _params = params.clone #prevent mutate params
       _list.delete(value.to_s)
       _params[ptype] = _list.join(",")
       url_for(_params)

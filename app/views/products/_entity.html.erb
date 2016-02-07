@@ -1,4 +1,5 @@
 <% view_mode = local_assigns.fetch(:view_mode, nil) %>
+<% lazy_load = local_assigns.fetch(:lazy_load, true) %>
 <!-- grid or list view-->
 <% gl = local_assigns.fetch(:gl, nil) %>
 
@@ -12,7 +13,12 @@
           <div class="product-image">
             <div class="image">
               <% if photo.present? %>
-                <a href="<%= product_path(entity["slug"])%>"><img  src="/assets/blank.gif" data-echo="<%= photo %>" alt="<%= entity["name"] %>"></a>
+                <% if lazy_load %> 
+                  <a href="<%= product_path(entity["slug"])%>"><img src="/assets/blank.gif" data-echo="<%= photo %>" alt="<%= entity["name"] %>"></a>
+                <% else %>
+                <!-- Turn off lazing load when render to string -->
+                  <a href="<%= product_path(entity["slug"])%>"><img src="<%= photo %>" alt="<%= entity["name"] %>"></a>
+                <% end %>
               <% else %>
                 <a href="<%= product_path(entity["slug"])%>"><img  src="http://placehold.it/240x240" data-echo="http://placehold.it/240x240" alt="<%= entity.name %>"></a>
               <% end %>
@@ -58,7 +64,11 @@
         <div class="product-image">
           <div class="image">
             <% if photo.present? %>
-              <a href="<%= product_path(entity['slug'])%>"><img  src="/assets/blank.gif" data-echo="<%= photo %>" alt="<%= entity['name'] %>"></a>
+              <% if lazy_load %> 
+                <a href="<%= product_path(entity["slug"])%>"><img src="/assets/blank.gif" data-echo="<%= photo %>" alt="<%= entity["name"] %>"></a>
+              <% else %>
+                <a href="<%= product_path(entity["slug"])%>"><img src="<%= photo %>" alt="<%= entity["name"] %>"></a>
+              <% end %>
             <% else %>
               <a href="<%= product_path(entity['slug'])%>"><img  src="http://placehold.it/240x240" data-echo="http://placehold.it/240x240" alt="<%= entity['name'] %>"></a>
             <% end %>

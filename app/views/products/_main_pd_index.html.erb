@@ -1,3 +1,4 @@
+<% lazy_load = local_assigns.fetch(:lazy_load, true) %>
 <div class="body-content neg-m-t-20" id="main-pd-index">
   <div class="container-fluid">
     <div class="col-md-2 sidebar nopadding">
@@ -11,7 +12,7 @@
             </div>
             <div class="sidebar-widget-body m-t-20 thin-scrollbar">
               <ul>
-                <% Category.where(:id => categories.map{|x| x[0]}).uniq.each do |cat| %>
+                <% Category.where(:id => categories.map{|x| x[0]}).children_category.uniq.each do |cat| %>
                   <% url_on_checked = merge_params_if_existed(params, "category", cat.id) %>
                   <% url_on_unchecked = remove_params(params, "category", cat.id) %>
                   <% _facets = categories.select{|x| x[0] == cat.id}.first[1] || 0 rescue 0 %>
@@ -83,12 +84,12 @@
           </div>
           <div class="sidebar-widget-body m-t-20">
             <ul>
-              <% [4, 3, 2, 1].each do |number| %>
+              <% [4..5, 3...4, 2...3, 1...2].each do |range| %>
                 <li>
-                  <% url_rating = url_for(params.merge({:rating => number.to_s + "Up"})) %>
-                  <% url_no_rating = url_for(params.except(:rating)) %>
+                  <% url_on_checked = merge_params_if_existed(params, "rating", range) %>
+                  <% url_on_unchecked = remove_params(params, "rating", range) %>
                   <label class="filter-link">
-                    <div class="filter-params rateit <%= 'selected' if params[:rating] == number.to_s + "Up" %>" data-rateit-value="<%=number %>" data-rateit-ispreset="true" data-rateit-readonly="true" data-checked-url="<%= url_rating %>" data-unchecked-url="<%= url_no_rating %>"><span class="ratenup"><%= t"& Up" %></span></div>
+                    <div class="filter-params rateit <%= 'selected' if params_rating_existed?(range) %>" data-rateit-value="<%= (range).first %>" data-rateit-range="<%= range %>" data-rateit-ispreset="true" data-rateit-readonly="true" data-checked-url="<%= url_on_checked %>" data-unchecked-url="<%= url_on_unchecked %>"><span class="ratenup"><%= t"& Up" %></span></div>
                   </label>
                 </li>
               <% end %>
@@ -115,20 +116,21 @@
               </li>
               <li class="dist-or"><span><%= t"OR" %></span></li>
               <li>
-                <form class="form-inline">
+                <%= form_tag products_path, class: "form-inline form-filter-params jvalidate", method: "GET" do |form| %>
                   <div class="row row-dist">
                     <div class="form-group nopadding">
-                      <input type="text" class="form-control input-mini" name="radius" value="<%= params[:radius] || 100 %>">
+                      <input type="text" class="form-control input-mini" name="radius" value="<%= params[:radius] || 100 %>" data-validation="required">
                     </div>
                     <div class="form-group nopadding">
                       <span class="dist-from"><%= t"miles from" %></span>
-                      <input type="text" class="form-control input-mini" name="zip_code" value="<%= params[:zip_code] %>" placeholder="94512">
+                      <input type="text" class="form-control input-mini" name="zip_code" value="<%= params[:zip_code] %>" placeholder="94512" data-validation="required">
+                      <input type="hidden" name="refresh" value="true"/>
                     </div>
                   </div>
                   <div class="row-fluid text-right m-t-20">
                     <button type="submit" class="btn btn-lime"><%= t"Show Now"%></button>
                   </div>
-                </form>
+                <% end %>
               </li>
             </ul>
           </div>
@@ -229,7 +231,7 @@
           <% end %>
           <% gl = params[:gl] || "grid" %> <!-- grid or list view-->
           <% if @products.present? %>
-            <%= render partial: "entity.html", collection: @products, :locals => { view_mode: :showroom, gl: gl } %>
+            <%= render partial: "entity.html", collection: @products, :locals => { view_mode: :showroom, gl: gl, lazy_load: lazy_load } %>
           <% else %>
             <%= t"There is no product matching your criteria!" %>
           <% end %>

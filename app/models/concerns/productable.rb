@@ -24,6 +24,10 @@ module Productable
     list
   end
 
+  def average_selling_rating
+    rand(0.0..5.0).round(1)
+  end
+
   class_methods do
     
   end

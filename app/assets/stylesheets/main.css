@@ -6422,3 +6422,14 @@ div.loading{
   -webkit-transition: opacity 0;
   transition: opacity 0;
 }
+
+.form-filter-params .form-error{
+  display: none;
+}
+
+.form-filter-params input.error{
+  background-image: none;
+  border-color: #b94a48;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+}

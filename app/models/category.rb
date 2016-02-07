@@ -7,4 +7,5 @@ class Category < ActiveRecord::Base
   has_many :products, :through => :product_categories
 
   scope :main_category, -> {where("parent_id IS NULL")}
+  scope :children_category, -> {where("parent_id IS NOT NULL")}
 end

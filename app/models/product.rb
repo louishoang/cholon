@@ -33,8 +33,10 @@ class Product < ActiveRecord::Base
     text :description, :boost => 2
     integer :id, :seller_id, :stock_quantity
     string :shipping_method
-    string :condition, :location, :slug, :status, :city, :state
+    string :condition, :location, :slug, :city, :state
+    string :status
     double :price 
+    double :average_selling_rating
     integer :category_ids, :multiple => true
     time :created_at, :updated_at
     latlon(:location) { Sunspot::Util::Coordinates.new(latitude, longitude) }

@@ -8,6 +8,7 @@ class ProductsController < ApplicationController
   after_action :verify_authorized, :only => [:edit, :update, :preview, :destroy] 
 
   def index
+    @history_url = url_for(params) if params[:refresh]
     @response, @products = query_products(params)
     product_price_min_max
     if refresh_search_result?
