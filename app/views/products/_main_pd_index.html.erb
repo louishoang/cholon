@@ -226,6 +226,9 @@
                 <% if params[:zip_code].present? %>
                   <a href="<%= url_for(params.except(:zip_code, :radius)) %>" class="cFilter-tag"><i class="fa fa-times"></i>  <em><strong><%= t"Item Location" %>:</strong></em> <%= location_filter_string(params)  %></a>
                 <% end %>
+                <% if params[:rating].present? %>
+                  <a href="<%= url_for(params.except(:rating)) %>" class="cFilter-tag"><i class="fa fa-times"></i>  <em><strong><%= t"Seller Rating" %>:</strong></em> <%= seller_rating_string(params)  %></a>
+                <% end %>
               </div>
             </div>
           <% end %>

@@ -14,7 +14,7 @@ module Workers::ProductWorker
       with(:condition, params[:condition].split(",")) if params[:condition].present?
       with(:shipping_method, params[:shipping].split(",")) if params[:shipping].present?
       if params[:rating].present?
-        with(:average_selling_rating, seller_rating_range)
+        with(:average_seller_rating, seller_rating_range)
       end
       with(:status, "publishable")
       if params[:min_price].present?

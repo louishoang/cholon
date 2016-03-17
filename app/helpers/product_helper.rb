@@ -77,4 +77,12 @@ module ProductHelper
   def location_filter_string(params)
     "#{params[:radius]} mile(s) from #{params[:zip_code]}"
   end
+
+  def seller_rating_string(params)
+    triple_dot = params[:rating].match(/\.\.\./) rescue nil
+    ratings = triple_dot.present? ? params[:rating].split("...") : params[:rating].split("..") rescue nil
+    if ratings.present?
+      "From #{ratings.first} - #{ratings.last} star(s)"
+    end
+  end
 end
