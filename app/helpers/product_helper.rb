@@ -85,4 +85,13 @@ module ProductHelper
       "From #{ratings.first} - #{ratings.last} star(s)"
     end
   end
+
+  def main_nav_link_by_category(cat_id)
+    html_to_return = []
+    Category.where("parent_id = ?", cat_id).order(:name).each do |_cat|
+      html_to_return << "<li><a href='#{products_path(category: _cat.id)}'>#{t(_cat.name)}</a></li>"
+    end
+
+    html_to_return.join("").html_safe
+  end
 end
