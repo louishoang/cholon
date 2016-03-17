@@ -42,6 +42,8 @@ $(function() {
     "hideMethod": "fadeOut"
   };
 
+
+
   $(".form_ajax").on("ajax:success", function(e, data, status, xhr){
     _message = data.message;
     if(_message !== undefined){
