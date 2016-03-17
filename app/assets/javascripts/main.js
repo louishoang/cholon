@@ -67,6 +67,12 @@ $.fn.enableAndShow = function(){
 
 
 var renderUI = function(cx){
+  //jquery hover dropdown
+  $('.dropdown-toggle', cx).dropdownHover({
+    delay: 200,
+    hoverDelay: 300
+  });
+
   // #owl-carousel
  
   $("#owl-home").owlCarousel({
@@ -375,12 +381,6 @@ $(function() {
       }
     }
   };
-
-  //jquery hover dropdown
-  $('.dropdown-toggle').dropdownHover({
-    delay: 200,
-    hoverDelay: 300
-  });
 
   $basket = $(document).find(".items-cart-inner");
   if($basket.length > 0){
