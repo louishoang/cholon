@@ -97,6 +97,7 @@ module Shipping
       if order_items.present?
         order_items.each_with_index do |item, index|
           begin
+            next if item.selected_shipping_speed.present?
             product = item.product_variant.product
             origin = find_origin(product)
             package = get_package_dimensions(product)

@@ -9,6 +9,12 @@ class OrderItem < ActiveRecord::Base
 
   before_validation :update_product_id_unit_price_total_price
 
+  scope :trending, lambda{|*args|
+    select("product_id, SUM(quantity) as total_count")
+    .group(:product_id)
+    .order("total_count desc")
+  }
+
   def selected_shipping_speed
     self.shipping_speeds.is_selected.first rescue nil
   end

@@ -23,7 +23,7 @@ module Workers::ProductWorker
           with(:price).less_than_or_equal_to(params[:max_price])
         end
       end
-      facet :condition, :category_ids, :shipping_method, :price
+      facet :condition, :category_ids, :shipping_method, :price, :average_seller_rating
       order_by sort_by, order if params[:sort_by]
       with(:location).in_radius(lat, lng, radius) if params[:radius].present? && params[:zip_code].present?
       paginate :page => params[:page], :per_page => params[:per_page]

@@ -29,6 +29,10 @@
   background-color: #f39c12 !important;
   color: #fff !important;
 }
+
+.grey-text{
+  color: #717171;
+}
 .dark-green-text {
   color: #12cca7 !important;
 }
@@ -2494,11 +2498,16 @@ a {
   font-size: 35px;
 }
 .info-boxes .info-box .info-box-heading {
-  font-size: 35px;
+  font-size: 24px;
   line-height: 30px;
   text-transform: uppercase;
-  font-family: 'BebasNeueBold';
+  font-family: 'Droid Sans', sans-serif;
   margin-top: 5px;
+  font-weight: 600;
+}
+.info-boxes .info-box .info-box-heading.compact{
+  font-size: 22px;
+  font-weight: 600;
 }
 .info-boxes .info-box .info-box-heading.orange {
   color: #ffb847;
@@ -6432,4 +6441,59 @@ div.loading{
   border-color: #b94a48;
   -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
   box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+}
+
+.hp-row{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #CCCCCC;
+}
+
+.feature-product-large{
+  width: 100%;
+  height: 100%;
+}
+
+.feature-product-small{
+  width: 100%;
+  height: 100%;
+}
+
+.feature-product-mt{
+  margin-top: 10px;
+}
+
+#feature-product-home .fp-9{
+  padding-right: 0px;
+}
+#feature-product-home .fp-3{
+  padding-left: 0px;
+}
+.fp-description{
+  word-break: break-all;
+}
+.fp-price{
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 50px;
+  color: #abd07e;
+}
+
+h1.less-margin-bottom{
+  margin-bottom: 10px !important;
+}
+.show-more{
+  font-size: smaller;
+}
+
+a.no-decor{
+  color: inherit;
+  text-decoration: none;
+}
+
+a.no-decor:hover {
+  color: inherit; 
+  text-decoration:none; 
+  cursor:pointer;  
 }

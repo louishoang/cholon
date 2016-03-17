@@ -63,6 +63,7 @@ gem 'geocoder'
 
 #search engine
 gem 'sunspot_rails'
+gem 'progress_bar'
 
 # Typeahead gem
 gem 'bootstrap-typeahead-rails'

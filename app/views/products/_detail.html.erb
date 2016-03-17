@@ -47,10 +47,10 @@
             <% @product_option_hash.each do |k, v| %>
               <% product_option_name = ProductOption.find(k).name %>
               <div class="col-sm-12">
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                   <span class="label"><%= product_option_name %> :</span>
                 </div>
-                <div class="col-sm-10">
+                <div class="col-sm-9">
                   <%= select_tag("product_option_value", options_for_select(v.map{|x| [x.name, x.id]}, nil), class: "form-control selectpicker attribute_select no-print product-option-value-select", :prompt => "Select One") %>
                 </div>
               </div>

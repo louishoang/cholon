@@ -67,6 +67,25 @@ $.fn.enableAndShow = function(){
 
 
 var renderUI = function(cx){
+  // #owl-carousel
+ 
+  $("#owl-home").owlCarousel({
+ 
+      navigation : true, // Show next and prev buttons
+      slideSpeed : 300,
+      paginationSpeed : 400,
+      singleItem:true
+ 
+      // "singleItem:true" is a shortcut for:
+      // items : 1, 
+      // itemsDesktop : false,
+      // itemsDesktopSmall : false,
+      // itemsTablet: false,
+      // itemsMobile : false
+ 
+  });
+
+
   // #filter params by submitting form
   $(".form-filter-params", cx).on("submit", function(e){
     $form = $(this);
@@ -840,3 +859,4 @@ $(document).on("click", ".msearch-link", function(e){
   $catPanel = $("#search-by-menu");
   $catPanel.toggle();
 });
+

@@ -13,6 +13,14 @@ module Productable
     self.variant_with_photo.first.default_image.photo(:medium) rescue nil
   end
 
+  def featured_image
+    self.variant_with_photo.first.default_image.photo(:featured) rescue nil
+  end
+
+  def featured_small_images
+    self.product_variants.map(&:product_photos).flatten.compact.sample(3) rescue []
+  end
+
   def category_ids
     list = []
     first_cat = self.categories.first
@@ -24,8 +32,8 @@ module Productable
     list
   end
 
-  def average_selling_rating
-    rand(0.0..5.0).round(1)
+  def average_seller_rating
+    rand(0.0..5.0).round(2)
   end
 
   class_methods do
@@ -71,5 +79,7 @@ module Productable
         where("products.price BETWEEN ? AND ?", lowest_price, highest_price)
       end
     }
+
+    scope :for_homepage, -> {where("for_homepage = true")}
   end
 end
