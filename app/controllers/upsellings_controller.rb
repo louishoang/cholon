@@ -1,5 +1,5 @@
 class UpsellingsController < ApplicationController
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
   before_filter :find_product, :only => [:similar_products]
   
   def similar_products

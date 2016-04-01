@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
   include CacheManager
   include Workers::ProductWorker
 
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :except => [:index, :show, :calculate_shipping, :shipping_handling]
   prepend_before_filter :find_product, :only => [:create_variants, :edit, :update, :show, :shipping_handling, :calculate_shipping, :preview, :set_publishable, :create_product_attributes]
   before_filter :clear_browser_cache, :only => [:new, :create_variants]
   after_action :verify_authorized, :only => [:edit, :update, :preview, :destroy] 
