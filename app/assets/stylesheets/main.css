@@ -103,6 +103,9 @@ img[src="assets/images/blank.gif"] {
 .m-t-40{
   margin-top: 40px;
 }
+.m-t-30 {
+  margin-top: 30px;
+}
 .m-t-20 {
   margin-top: 20px;
 }
@@ -6457,6 +6460,13 @@ div.loading{
 .feature-product-small{
   width: 100%;
   height: 100%;
+  display: none;
+}
+
+@media only screen and (min-width : 1000px) {
+  .feature-product-small{
+    display: block;
+  }
 }
 
 .feature-product-mt{
