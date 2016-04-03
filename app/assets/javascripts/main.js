@@ -863,3 +863,37 @@ $(document).on("click", ".msearch-link", function(e){
   $catPanel.toggle();
 });
 
+
+// #word around to fix bootstrap dropdown toggle on mobile
+// until there is a official fix
+$(document).on("click", ".dropdown-toggle", function(e){
+  $select = $(this);
+
+  if($select.attr("aria-expanded") == "false"){
+    $select.attr("aria-expanded", true);
+
+    $select.parents("ul").find(".yamm").removeClass("yamm");
+
+    $select.parents(".dropdown").addClass("yamm open");
+  }else{
+    $select.parents(".dropdown").removeClass("yamm open");
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

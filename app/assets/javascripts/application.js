@@ -15,6 +15,7 @@
 //= require jquery-ui/autocomplete
 //= require bootstrap-sprockets
 //= require bootstrap
+//= require bootstrap-hover-dropdown
 //= require dropzone
 //= require jquery.form-validator
 //= require tinymce
