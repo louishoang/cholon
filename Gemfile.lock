@@ -1,4 +1,13 @@
 GIT
+  remote: git://github.com/smartinez87/exception_notification.git
+  revision: c745491a10c193cfba43d44ba00d1dd39f5be71c
+  branch: master
+  specs:
+    exception_notification (4.1.4)
+      actionmailer (~> 4.0)
+      activesupport (~> 4.0)
+
+GIT
   remote: https://github.com/louishoang/jquery-form-validator-rails.git
   revision: 11779534563cad07545786b734b42c8190515880
   specs:
@@ -116,8 +125,6 @@ GEM
       dotenv (= 2.1.0)
       railties (>= 4.0, < 5.1)
     erubis (2.7.0)
-    exception_notification (3.0.1)
-      actionmailer (>= 3.0.4)
     excon (0.45.4)
     execjs (2.6.0)
     factory_girl (4.5.0)
@@ -467,7 +474,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   devise
   dotenv-rails
-  exception_notification
+  exception_notification!
   factory_girl_rails
   faker
   fog
