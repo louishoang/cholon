@@ -74,6 +74,9 @@ gem 'puma'
 #payment
 gem "braintree"
 
+#exception 
+gem 'exception_notification'
+
 
 group :development do
   gem 'rack-mini-profiler'
