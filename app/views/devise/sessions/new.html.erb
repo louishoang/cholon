@@ -20,9 +20,9 @@
           <div class="social-sign-in outer-top-xs">
             <%- resource_class.omniauth_providers.each do |provider| %>
               <% if provider.to_s.titleize == "Facebook" %>
-                <a href="<%= omniauth_authorize_path(resource_name, provider) %>" class="facebook-sign-in" onclick="alert('no ssl'); return false;"><i class="fa fa-facebook"></i> <%= t"Sign In with Facebook"%></a>
+                <a href="<%= omniauth_authorize_path(resource_name, provider) %>" class="facebook-sign-in"><i class="fa fa-facebook"></i> <%= t"Sign In with Facebook"%></a>
               <% elsif provider.to_s.titleize == "Google Oauth2" %>
-                <a href="<%= omniauth_authorize_path(resource_name, provider) %>" class="google-sign-in" onclick="alert('no ssl'); return false;"><i class="fa fa-google-plus"></i> <%= t"Sign In with Google" %></a>
+                <a href="<%= omniauth_authorize_path(resource_name, provider) %>" class="google-sign-in"><i class="fa fa-google-plus"></i> <%= t"Sign In with Google" %></a>
               <% end %>
             <% end -%>     
           </div>
