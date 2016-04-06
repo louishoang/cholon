@@ -78,14 +78,14 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { :host => "cholonvietnam.com" }
 
-
-  config.action_mailer.delivery_method = :smtp  
-  config.action_mailer.smtp_settings = {  
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
     :address => 'email-smtp.us-east-1.amazonaws.com',
     :authentication => :login,
+    :domain => "cholonvietnam.com",
     :user_name => ENV['AWS_SMTP_USER'],
     :password => ENV['AWS_SMTP_PASSWORD'],
-    :enable_starttls_auto => true,
-    :port => 465
+    :port => 465,
+    :enable_starttls_auto => true
   }
 end
