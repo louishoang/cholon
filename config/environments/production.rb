@@ -39,7 +39,7 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
 
   # Set to :debug to see everything in the log.
   config.log_level = :debug
@@ -75,4 +75,17 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.action_mailer.default_url_options = { :host => "cholonvietnam.com" }
+
+
+  config.action_mailer.delivery_method = :smtp  
+  config.action_mailer.smtp_settings = {  
+    :address => 'email-smtp.us-east-1.amazonaws.com',
+    :authentication => :login,
+    :user_name => ENV['AWS_SMTP_USER'],
+    :password => ENV['AWS_SMTP_PASSWORD'],
+    :enable_starttls_auto => true,
+    :port => 465
+  }
 end
