@@ -94,4 +94,17 @@ module ProductHelper
 
     html_to_return.join("").html_safe
   end
+
+  def seo_for(entity, request)
+    begin
+      set_meta_tags title: entity.name
+      set_meta_tags og: {
+        title:    entity.name,
+        url:      request.original_url,
+        image:    entity.all_photos.first.photo.url(:detail)
+      }
+    rescue 
+      ""
+    end
+  end
 end

@@ -68,8 +68,11 @@ gem 'progress_bar'
 # Typeahead gem
 gem 'bootstrap-typeahead-rails'
 
-#app server
+#app server 
 gem 'puma'
+
+#seo 
+gem 'meta-tags'
 
 #payment
 gem "braintree"
