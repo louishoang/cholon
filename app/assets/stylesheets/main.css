@@ -100,6 +100,9 @@ img[src="assets/images/blank.gif"] {
 .btn-upper {
   text-transform: uppercase;
 }
+.m-b-20{
+  margin-bottom: 20px;
+}
 .m-t-40{
   margin-top: 40px;
 }
@@ -6549,13 +6552,6 @@ a.no-decor:hover {
 }
 
 
-
-
-
-
-
-
-
 /*==================================================
  * Effect 5
  * ===============================================*/
@@ -6582,4 +6578,13 @@ a.no-decor:hover {
   transform: rotate(8deg);
   right: 10px;
   left: auto;
+}
+
+
+.text-centered{
+  text-align: center;
+}
+
+#payment-paypal{
+  margin-left: 20px;
 }
