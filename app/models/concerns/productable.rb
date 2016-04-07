@@ -13,6 +13,10 @@ module Productable
     self.variant_with_photo.first.default_image.photo(:medium) rescue nil
   end
 
+  def default_image
+    self.default_variant.default_image.photo(:medium) rescue nil
+  end
+
   def featured_image
     self.variant_with_photo.first.default_image.photo(:featured) rescue nil
   end

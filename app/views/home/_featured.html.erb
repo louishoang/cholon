@@ -1,0 +1,56 @@
+<div class="row-fluid">
+  <div class="col-xs-12 col-sm-12 col-md-12">
+    <div class="row-fluid hp-row m-t-10">
+      <h3 class="grey-text"><%= t"Today's Featured Products" %></h3>
+    </div>
+  </div>
+</div>
+<div class="row-fluid" id="feature-product-home">
+  <div class="col-xs-12 col-sm-12 col-md-12 nopadding">
+    <% @feature_products.in_groups_of(2).each do |pair| %>
+      <div class="row-fluid">
+        <div class="col-xs-12 col-sm-12 col-md-12 m-t-10 nopadding">
+          <% pair.each do |fp| %>
+            <% if fp.present? %>
+              <a href="<%= product_path(fp.slug)%>" class="no-decor">
+                <div class="col-xs-12 col-md-6 columns nopadding">
+                  <div class="row-fluid">
+                    <div class="col-xs-12 col-sm-12 col-md-12 m-t-20 nopadding">
+                      <div class="col-xs-12 col-md-9 columns fp-9">
+                        <%= image_tag(fp.featured_image, alt: fp.name, class: "feature-product-large") %>
+                      </div>
+                      <div class="col-xs-12 col-md-3 columns fp-3">
+                        <% fp.featured_small_images.each_with_index do |_entity, index| %>
+                          <div class="row-fluid">
+                            <%= image_tag(_entity.photo(:featured_small), alt: fp.name, class: index > 0 ? "feature-product-small feature-product-mt" : "feature-product-small") %>
+                          </div>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row-fluid single-product m-t-20">           
+                    <div class="row-fluid product-info">
+                      <div class="col-xs-12 col-md-9 columns fp-description product-description m-t-30">
+                        <h1 class="name less-margin-bottom"><%= fp.name %></h1>
+                        <div class="description-body">
+                          <% description = ActionView::Base.full_sanitizer.sanitize(fp.description) %>
+                          <%= description[0..200] %>
+                          <% if description.size > 200 %>
+                            <a href="<%= product_path(fp) %>" class="show-more">show more &raquo;</a>
+                          <% end %>
+                        </div>
+                      </div>
+                      <div class="col-xs-12 col-md-3 columns text-center">
+                        <div class="fp-price"><%= number_to_currency(fp.price) %></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

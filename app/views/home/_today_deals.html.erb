@@ -1,0 +1,41 @@
+<div class="container-fluid">
+  <div class="col-xs-12 col-sm-12 col-md-12 m-t-40">
+    <div class="row-fluid hp-row">
+      <h3 class="grey-text"><%= t"Today's Deals" %></h3>
+    </div>
+    <div class="row-fluid m-t-40">
+      <div class="cl-carousel custom-carousel">
+        
+        <% @today_deals.each do |entity| %>
+
+          <% photo = entity.product_image %>
+
+          <div class="item">
+            <div class="products today-deal">
+              <div class="product">   
+                <div class="product-image">
+                  <div class="image">
+                    <% if photo.present? %>
+                      <a href="<%= product_path(entity)%>"><img src="<%= photo %>" alt="<%= entity.name %>" class="today-deal"></a>
+                    <% else %>
+                      <a href="<%= product_path(entity)%>"><img src="http://placehold.it/235x216" alt="<%= entity.name %>"></a>
+                    <% end %>
+                  </div><!-- /.image -->      
+                  <div class="tag new"><span>new</span></div>                              
+                </div><!-- /.product-image -->
+                <div class="product-info text-left">
+                  <h3 class="name"><a href="<%= product_path(entity)%>"><%= entity.name %></a></h3>
+                  <div class="rating rateit-small"></div>
+                  <div class="product-price"> 
+                    <span class="price"><%= number_to_currency(entity.price, locale: :en) %></span>   
+                    <span class="price-before-discount"><%= number_to_currency(entity.price + (entity.price*10/100), locale: :en) %></span>
+                  </div>  
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

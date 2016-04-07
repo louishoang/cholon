@@ -379,6 +379,11 @@ select.dash-after::after{
   font-weight: bolder;
   margin-left: 10px;
 }
+
+.cl-carousel{
+  text-align: center;
+}
+
 .home-owl-carousel .owl-controls,
 .blog-slider .owl-controls,
 .brand-slider .owl-controls {
@@ -396,7 +401,7 @@ select.dash-after::after{
   position: absolute;
   width: 20px;
   height: 20px;
-  top: -36px;
+  top: -50px;
   right: 27px;
   -webkit-transition: all linear 0.2s;
   -moz-transition: all linear 0.2s;
@@ -421,7 +426,7 @@ select.dash-after::after{
   position: absolute;
   width: 20px;
   height: 20px;
-  top: -36px;
+  top: -50px;
   right: 0px;
   -webkit-transition: all linear 0.2s;
   -moz-transition: all linear 0.2s;
@@ -2656,7 +2661,7 @@ a {
   -moz-border-radius: 50px;
   border-radius: 50px;
   color: #fff;
-  right: 25px;
+  right: 5px;
   /*11px;*/
   text-align: center;
 }
@@ -6456,12 +6461,24 @@ div.loading{
 .feature-product-large{
   width: 100%;
   height: 100%;
+  float: left;
+  box-shadow: 3px 3px 1px #DDDDDD;
+  -webkit-box-shadow: 1px 1px 1px #DDDDDD;
+  -moz-box-shadow: 3px 3px 1px #DDDDDD;
+  box-shadow: 1px;
 }
 
 .feature-product-small{
   width: 100%;
-  height: 100%;
+  height: 89px;
   display: none;
+  margin-left: 1px;
+  display: block;
+  float: left;
+  box-shadow: 3px 3px 1px #DDDDDD;
+  -webkit-box-shadow: 1px 1px 1px #DDDDDD;
+  -moz-box-shadow: 3px 3px 1px #DDDDDD;
+  box-shadow: 1px;
 }
 
 @media only screen and (min-width : 1000px) {
@@ -6471,7 +6488,7 @@ div.loading{
 }
 
 .feature-product-mt{
-  margin-top: 10px;
+  margin-top: 1.7px;
 }
 
 #feature-product-home .fp-9{
@@ -6507,4 +6524,12 @@ a.no-decor:hover {
   color: inherit; 
   text-decoration:none; 
   cursor:pointer;  
+}
+
+.today-deal .product{
+  margin-left: 20px;
+}
+
+.today-deal .image img{
+  width: 100%;
 }

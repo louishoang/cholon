@@ -75,7 +75,7 @@ var renderUI = function(cx){
 
   // #owl-carousel
  
-  $("#owl-home").owlCarousel({
+  $("#owl-home", cx).owlCarousel({
     navigation : true, // Show next and prev buttons
     slideSpeed : 300,
     paginationSpeed : 400,
@@ -86,9 +86,9 @@ var renderUI = function(cx){
     }
   });
 
-  $("#cl-brand").owlCarousel({
+  $(".cl-carousel", cx).owlCarousel({
     navigation : true,
-    items: 6,
+    items: 5,
     loop: true,
     margin: 20,
     responsiveClass: true,

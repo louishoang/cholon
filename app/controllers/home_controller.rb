@@ -1,8 +1,23 @@
 class HomeController < ApplicationController
 
   def index
-    @feature_products = Product.take(6)
+    collect_featured_products
+    collect_trending_products
+    collect_todays_deals
+  end
 
+
+
+  private
+  def collect_todays_deals
+    @today_deals = Product.order("created_at desc").take(10)
+  end
+
+  def collect_featured_products
+    @feature_products = Product.take(6)  
+  end
+
+  def collect_trending_products
     @trending_product_ids = OrderItem.trending.take(10).map(&:product_id) rescue []
 
     if @trending_product_ids.blank? || @trending_product_ids.size < 10
