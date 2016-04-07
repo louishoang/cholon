@@ -21,6 +21,7 @@
 //= require tinymce
 //= require cl
 //= require cl_cart
+//= require owl.carousel.min.js
 //= require bootstrap-typeahead-rails
 //= require_tree .
 

@@ -88,12 +88,12 @@ var renderUI = function(cx){
 
   $("#cl-brand").owlCarousel({
     navigation : true,
-    loop:true,
-    margin:10,
-    responsiveClass:true,
+    items: 6,
+    loop: true,
+    margin: 20,
+    responsiveClass: true,
     slideSpeed : 300,
     paginationSpeed : 400,
-    item: 6,
     slideSpeed : 100,
     navigationText: ["", ""]
   });   
