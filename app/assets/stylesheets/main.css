@@ -6463,7 +6463,6 @@ div.loading{
 
 .feature-product-large{
   width: 100%;
-  height: 100%;
   float: left;
   box-shadow: 3px 3px 1px #DDDDDD;
   -webkit-box-shadow: 1px 1px 1px #DDDDDD;
@@ -6472,11 +6471,9 @@ div.loading{
 }
 
 .feature-product-small{
-  width: 100%;
-  height: 89px;
+  width: 105%;
   display: none;
   margin-left: 1px;
-  display: block;
   float: left;
   box-shadow: 3px 3px 1px #DDDDDD;
   -webkit-box-shadow: 1px 1px 1px #DDDDDD;
@@ -6491,7 +6488,7 @@ div.loading{
 }
 
 .feature-product-mt{
-  margin-top: 1.7px;
+  margin-top: 0.2em;
 }
 
 #feature-product-home .fp-9{
