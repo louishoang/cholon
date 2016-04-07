@@ -288,6 +288,8 @@ var renderUI = function(cx){
   //jquery equal height
   $(".top", cx).matchHeight({});
 
+  $(".eqHeight", cx).matchHeight({});
+
   //image upload dropzone
   var dropZoneExist = $(cx).find(".dropzone").size() > 0;
 
