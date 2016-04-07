@@ -6533,3 +6533,7 @@ a.no-decor:hover {
 .today-deal .image img{
   width: 100%;
 }
+
+.today-deal .product-info{
+  padding-left: 5px;
+}

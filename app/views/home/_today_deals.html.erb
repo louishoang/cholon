@@ -25,7 +25,7 @@
                 </div><!-- /.product-image -->
                 <div class="product-info text-left">
                   <h3 class="name"><a href="<%= product_path(entity)%>"><%= entity.name %></a></h3>
-                  <div class="rating rateit-small"></div>
+                  <div class="rateit" data-rateit-value="5" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
                   <div class="product-price"> 
                     <span class="price"><%= number_to_currency(entity.price, locale: :en) %></span>   
                     <span class="price-before-discount"><%= number_to_currency(entity.price + (entity.price*10/100), locale: :en) %></span>
