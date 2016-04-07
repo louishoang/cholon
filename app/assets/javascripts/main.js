@@ -76,23 +76,27 @@ var renderUI = function(cx){
   // #owl-carousel
  
   $("#owl-home").owlCarousel({
- 
-      navigation : true, // Show next and prev buttons
-      slideSpeed : 300,
-      paginationSpeed : 400,
-      responsive:{
-        0: { items:1 },
-        600: { items:1 },
-        1000: { items:1 }
-        }
-      // "singleItem:true" is a shortcut for:
-      // items : 1, 
-      // itemsDesktop : false,
-      // itemsDesktopSmall : false,
-      // itemsTablet: false,
-      // itemsMobile : false
- 
+    navigation : true, // Show next and prev buttons
+    slideSpeed : 300,
+    paginationSpeed : 400,
+    responsive:{
+      0: { items:1 },
+      600: { items:1 },
+      1000: { items:1 }
+    }
   });
+
+  $("#cl-brand").owlCarousel({
+    navigation : true,
+    loop:true,
+    margin:10,
+    responsiveClass:true,
+    slideSpeed : 300,
+    paginationSpeed : 400,
+    item: 6,
+    slideSpeed : 100,
+    navigationText: ["", ""]
+  });   
 
 
   // #filter params by submitting form
