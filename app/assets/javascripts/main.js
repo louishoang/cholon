@@ -106,8 +106,8 @@ var renderUI = function(cx){
 
   // #filter params by submitting form
   $(".form-filter-params", cx).on("submit", function(e){
-    var $form = $(this);
-    var data = $form.serialize();
+    $form = $(this);
+    data = $form.serialize();
     e.preventDefault();
     
     CL.showLoading($("#main-pd-index"));
@@ -193,10 +193,10 @@ var renderUI = function(cx){
 
   //price range slider
   if ($(".price-slider").length > 0){
-    var min = parseFloat($(".price-slider").data("min"));
-    var max = parseFloat($(".price-slider").data("max"));
-    var minSelected = parseFloat(getUrlParameter("min_price")) || min;
-    var maxSelected = parseFloat(getUrlParameter("max_price")) || max
+    min = parseFloat($(".price-slider").data("min"));
+    max = parseFloat($(".price-slider").data("max"));
+    minSelected = parseFloat(getUrlParameter("min_price")) || min;
+    maxSelected = parseFloat(getUrlParameter("max_price")) || max
 
     $( ".price-slider", cx).slider({
       range: true,
@@ -299,8 +299,8 @@ var renderUI = function(cx){
   var dropZoneExist = $(cx).find(".dropzone").size() > 0;
 
   if (dropZoneExist){
-    var $myDropZone = $(cx).find(".dropzone");
-    var $replaceValue = $($myDropZone.data("replace-value"));;
+    $myDropZone = $(cx).find(".dropzone");
+    $replaceValue = $($myDropZone.data("replace-value"));;
 
     Dropzone.autoDiscover = false;
     var dropzone = new Dropzone (".dropzone", {
@@ -398,8 +398,8 @@ $(function() {
 
   $basket = $(document).find(".items-cart-inner");
   if($basket.length > 0){
-    var $basketCount = $basket.find(".basket-item-count .count");
-    var $basketSubTotal = $basket.find(".total-price .value");
+    $basketCount = $basket.find(".basket-item-count .count");
+    $basketSubTotal = $basket.find(".total-price .value");
   }
 
   if($(".top-cart-row").length > 0){
