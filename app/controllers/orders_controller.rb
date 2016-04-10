@@ -4,11 +4,11 @@ class OrdersController < ApplicationController
   def show
     @order = current_order
     @order_items = @order.order_items.includes(product_variant: :product).group_by(&:seller_id)
-    begin
+    # begin
       @order.calculate_shipping_price(session[:current_user_zip_code]) if @order_items.present?
-    rescue
-      flash[:alert] = "Shipping carriers' servers are responding slow. Shipping rates are estimated only."
-    end
+    # rescue
+    #   flash[:alert] = "Shipping carriers' servers are responding slow. Shipping rates are estimated only."
+    # end
     @order.save #calling save to update total & shipping price
   end
 

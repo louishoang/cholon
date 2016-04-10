@@ -95,17 +95,17 @@ module Shipping
           @order.id, Product.shipping_methods[:actual_cost_shipping]) rescue nil
 
       if order_items.present?
+
         order_items.each_with_index do |item, index|
           begin
-
             # only call API if shipping price is not stored
-            if item.selected_shipping_speed.present?
+            if item.selected_shipping_speed.blank?
               product = item.product_variant.product
               origin = find_origin(product)
               package = get_package_dimensions(product)
               responses = get_rate_for_one_product(product)
             end
-            save_rates_to_shipping_speed(item, responses)
+            save_rates_to_shipping_speed(item, responses) if responses.present?
           ensure
             item.save
           end
