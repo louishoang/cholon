@@ -6,6 +6,67 @@ $(function() {
     }).appendTo("body").fadeIn(200);
   };
 
+
+
+
+  // FLOT CHART
+  $(".cl-pie").each(function(){
+    $piechart = $(this);
+
+    var data = [],
+      series = Math.floor(Math.random() * 6) + 3;
+
+    for (var i = 0; i < series; i++) {
+      data[i] = {
+        label: "Series" + (i + 1),
+        data: Math.floor(Math.random() * 100) + 1
+      }
+    }
+
+    // prevent error when no data pie chart
+    if(!data){ data = [ { label: "No Data", data: 100, color: "#5BC0DE" }];}
+              
+    $.plot($piechart, data, {
+      legend:{       
+        container:$("#pieLegendContainer"),            
+        noColumns: 0
+      },
+      series: {
+        pie: {
+          show: true,
+          radius: 1,
+          label: {
+            show: true,
+            radius: 2/3,
+            formatter: labelFormatter,
+            threshold: 0.1
+          }
+        }
+      },
+      grid: {
+        hoverable: true,
+        clickable: true
+      }
+    });
+
+    function labelFormatter(label, series) {
+      return '<div style="font-size:8pt; text-align:center; padding:2px; color:white;">' + label + '<br>' + Math.round(series.percent) + '%</div>';
+    }
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+  // #MAIN CHART
+
   $(".cl-flot").each(function(){
     $chart = $(this);
 

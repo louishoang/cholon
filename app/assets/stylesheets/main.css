@@ -6634,11 +6634,14 @@ a.no-decor:hover {
 .main .chart-value .value{
   margin-top: 0px;
   margin-bottom: 0px;
-
 }
 
 .cl-flot{
   height: 350px;
+}
+
+.cl-pie{
+  height: 250px;
 }
 
 .tooltipflot {
