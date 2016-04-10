@@ -26,7 +26,8 @@
       <% else %>
         <%= form_for @order, url: order_path(@order, checkout: true), html: {class: "form-vertical register-form product-form form_ajax", method: "PUT", :remote => true, :novalidate => true} do |f| %>
           <div class="col-xs-12 col-md-9 columns">
-            <% indices = @order.order_items.map(&:id) %>
+            <% index = 0 %>
+
             <% @order_items.each do |group| %>
               <div class="checkout-box">
                 <div class="row-fluid">
@@ -40,8 +41,10 @@
                         </h5>
                       </div>
                       <div class="custom-panel-body">
+                        <%=  %>
+
                         <% group.last.each do |item| %>
-                          <% index = indices.index(item.id) %>
+
                           <%= f.fields_for :order_items, item do |item_form| %>
                             <% variant = item.product_variant %>
                             <% photo = item.first_availble_photo %>
@@ -95,7 +98,7 @@
                                     <div class="col-xs-12 columns">
                                       <div class="col-xs-6 col-md-6 columns checkout-item-quantity nopadding">
                                         <span class="label"><%= t'Qty' %> :</span>
-                                        <input type="hidden" name="order[order_items_attributes][<%= index %>][id]" value="<%= item.id %>">
+                                        <input type="hidden" name="order[order_items_attributes][<%= index %>][id]" value="<%= item.id %>"/>
                                         <input type="number" min="0" step="1" name="order[order_items_attributes][<%= index %>][quantity]" value="<%= item.quantity %>" class="atc-quantity cust-spinner checkout-quantity"/>
                                       </div>
                                       <div class="col-xs-6 col-md-6 columns">
@@ -140,6 +143,8 @@
                               </div>
                             </div>
                           <% end %>
+
+                          <% index += 1 %>
                         <% end %>
                       </div>
                     </div>
