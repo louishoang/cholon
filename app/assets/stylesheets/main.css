@@ -6641,5 +6641,20 @@ a.no-decor:hover {
   height: 350px;
 }
 
-
-
+.tooltipflot {
+  background-color: rgba(0, 0, 0, 0.75);
+  font-size: 11px;
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: 2px;
+  position: absolute;
+  z-index: 55555;
+  display: block;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: left;
+  text-align: start;
+}

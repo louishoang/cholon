@@ -1,4 +1,11 @@
 $(function() {
+  function showTooltip(x, y, contents) {
+    $('<div id="tooltip" class="tooltipflot"><div class="tooltip-arrow"></div>' + contents + '</div>').css( {
+      top: y - 43,
+      left: x - 15,
+    }).appendTo("body").fadeIn(200);
+  };
+
   $(".cl-flot").each(function(){
     $chart = $(this);
 
@@ -47,6 +54,11 @@ $(function() {
       points: {
         show: true
       },
+      grid: {
+        hoverable: true,
+        clickable: true,
+        labelMargin: 5
+      },
       yaxis: {
         min: 0,
       },
@@ -58,5 +70,31 @@ $(function() {
     };
 
     $.plot($chart, data, options);
+
+    $chart.bind("plothover", function (event, pos, item) {
+      if (item) {
+        if (previousPoint != item.dataIndex) {
+          previousPoint = item.dataIndex;
+
+          $("#tooltip").remove();
+          var d = new Date(item.datapoint[0]);
+          var x = [d.getUTCFullYear(), d.getUTCMonth()+1, d.getUTCDate()].join("-");
+    
+          var y = item.datapoint[1].toFixed(2);
+          
+          showTooltip(item.pageX, item.pageY,
+            item.series.label + " (" + moment(x, "YYYY-MM-DD").format("MMM DD") + ") : " + y);
+        }
+      }
+      else {
+        $("#tooltip").remove();
+        previousPoint = null;
+      }
+    });
+
+
   });
+
+
+  
 });
