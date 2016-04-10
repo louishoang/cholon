@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= display_meta_tags site: 'Chợ Lớn Việt Nam' %>
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lora">
+    <link href='https://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.43/theme-default.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/select2.min.css" rel="stylesheet" />
+
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+
+    <link href="/assets/cpanels/cpanel.css" rel="stylesheet" />
+
+    <%= javascript_include_tag 'application' %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body class="cpanel">
+    <div class="header-style-1">
+      <nav class="navbar navbar-inverse navbar-fixed-top header-nav">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"><%= image_tag("logo.png", alt: "Cho Lon VietNam", id: "mini-logo") %></a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="<%= dashboard_path %>"><i class="fa fa-home nav-icon font-25"></i></a></li>
+              <li><a href="<%= dashboard_path %>"><i class="fa fa-bell nav-icon"></i></a></li>
+              <li><a href="<%= root_path %>"><i class="fa fa-shopping-bag nav-icon"></i></a></li>
+              <li>
+                <div class="btn-group">
+                  <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="user-button">
+                    <%= image_tag "loggeduser.png", alt: "user-ava", class: "mini-usr-ava" %> <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <%= link_to destroy_user_session_path, :method => :delete, :class => "pad-l-10" do %>
+                      <i class="icon fa fa-sign-out"></i> <%= t"Logout" %>
+                    <% end %>
+                  </ul>
+                </div>  
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <!-- #SIDE BAR -->
+    <nav class="navbar navbar-default sidebar" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#cpanel-sidebar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>      
+        </div>
+        <div class="collapse navbar-collapse" id="cpanel-sidebar">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Dashboard<span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-home"></span></a></li>
+            <li ><a href="#">Transactions<span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-server"></span></a></li>
+            <li ><a href="#">Message<span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-envelope"></span></a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-barcode"></span></a>
+              <ul class="dropdown-menu forAnimate" role="menu">
+                <li><a href="{{URL::to('createusuario')}}">Crear</a></li>
+                <li><a href="#">Modificar</a></li>
+                <li><a href="#">Reportar</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Informes</a></li>
+              </ul>
+            </li>          
+            <li ><a href="#">Classified Ads<span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-newspaper-o"></span></a></li>     
+            <li ><a href="#">My Account<span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-odnoklassniki"></span></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="main">
+      <%= yield %>
+    </div>
+
+   <!--  <div class="row">
+      <footer id="footer" class="footer color-bg">
+        <div class="copyright-bar">
+          <div class="container">
+            <div class="col-xs-12 col-sm-12 no-padding">
+              <div class="copyright">
+                Copyright © 2015 <a href="/">CholonVietNam.com</a>- All rights reserved
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div> -->
+    
+  </body>
+</html>

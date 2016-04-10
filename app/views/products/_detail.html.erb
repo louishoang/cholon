@@ -2,7 +2,7 @@
   <div class="col-md-8">
     <div class="product_gallery">
       <% product.all_photos.each do |p| %>
-        <a href="<%= p.photo.url(:detail) %>"><img src="<%= p.photo.url(:thumb) %>" /></a>
+        <a href="<%= p.photo.url(:original) %>"><img src="<%= p.photo.url(:thumb) %>" /></a>
       <% end %>
     </div>
     <div class="row-fluid showroom-container m-t-10">

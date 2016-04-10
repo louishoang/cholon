@@ -63,4 +63,9 @@ Rails.application.routes.draw do
     end
   end
 
+  get "dashboard/" => "cpanels/home#index", alias: :dashboard_path
+
+  namespace :cpanels do 
+    resources :home
+  end
 end

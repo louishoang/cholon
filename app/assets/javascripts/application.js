@@ -23,6 +23,24 @@
 //= require cl_cart
 //= require owl.carousel.min.js
 //= require bootstrap-typeahead-rails
+
+
+//= require flot/jquery.flot.js
+//= require flot/excanvas.js
+//= require flot/jquery.colorhelpers
+//= require flot/jquery.flot.canvas
+//= require flot/jquery.flot.categories
+//= require flot/jquery.flot.crosshair
+//= require flot/jquery.flot.errorbars
+//= require flot/jquery.flot.image
+//= require flot/jquery.flot.navigate
+//= require flot/jquery.flot.resize
+//= require flot/jquery.flot.stack
+//= require flot/jquery.flot.time
+//= require flot/jquery.flot.pie
+//= require flot/jquery.flot.symbol
+
+
 //= require_tree .
 
 $(function() {

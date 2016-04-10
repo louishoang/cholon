@@ -719,11 +719,16 @@ $(function() {
 
 //Adjust footer to bottom of page
 $(document).ready(function() {
-  var docHeight = $(window).height();
-  var footerHeight = $('#footer').height();
-  var footerTop = $('#footer').position().top + footerHeight;
-  if (footerTop < docHeight) {
-   $('#footer').css('margin-top', 50 + (docHeight - footerTop) + 'px');
+  $footer = $("#footer");
+  
+  if($footer.length != []){
+    var extraMargin = $footer.data("extra-margin") || 0;
+    var docHeight = $(window).height();
+    var footerHeight = $footer.height() || 50;
+    var footerTop = $footer.position().top + footerHeight;
+    if (footerTop < docHeight) {
+      $footer.css('margin-top', extraMargin + (docHeight - footerTop) + 'px');
+    }
   }
 });
 
@@ -747,7 +752,7 @@ $(document).on("change", ".checkout-quantity", function(e){
 
 $(document).on("click", ".checkout-remove", function(e){
   $(e.target).preventDefault;
-  url = $(this).data("url");
+  var url = $(this).data("url");
   $.ajax({
     url: url,
     method: "POST",
