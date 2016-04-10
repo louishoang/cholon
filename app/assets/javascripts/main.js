@@ -66,6 +66,7 @@ $.fn.enableAndShow = function(){
 }
 
 var renderUI = function(cx){
+  // Boostrap tooltip on hover
   $('[data-toggle="tooltip"]').tooltip({
     delay: { "show": 100, "hide": 100 }
   });
@@ -427,12 +428,12 @@ $(function() {
     // please find in tinymce callback above
     //================================================
 
-    title = $this.data("tooltip-title");
-    content = $this.data("tooltip");
-    $container = $this.closest(".container");
-    $tooltipPanel = $container.find(".tooltip-panel");
+    var title = $this.data("tooltip-title");
+    var content = $this.data("tooltip");
+    var $container = $this.closest(".container");
+    var $tooltipPanel = $container.find(".tooltip-panel");
    
-    pos = $this.offset();
+    var pos = $this.offset();
     
     $tooltipPanel.find(".panel-title").html(title);
     $tooltipPanel.find(".panel-body").html(content);
@@ -441,7 +442,7 @@ $(function() {
 
   $(".tooltip-panel").on("showAndPosition", function(e, position){
     e.preventDefault();
-    _top = position.top - 370;  // 370 is the header offset
+    var _top = position.top - 370;  // 370 is the header offset
     $(e.target).fadeIn(1000);
     $(e.target).css({
       position: "relative",
@@ -452,9 +453,9 @@ $(function() {
 
   //selec2 multi level for sub category
   $(document).on("change", ".select2class.multilevel", function(e){
-    selected = $(e.target).val();
-    url = $(e.target).data("url");
-    $subCat = $(e.target).parents(".row-fluid").find("#sub_cat_select");
+    var selected = $(e.target).val();
+    var url = $(e.target).data("url");
+    var $subCat = $(e.target).parents(".row-fluid").find("#sub_cat_select");
     $subCat.removeClass("hide");
     $subCat.addClass("spinner");
     
