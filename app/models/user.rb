@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
-  has_many :products
+  has_many :products, foreign_key: :seller_id
+  has_many :orders
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

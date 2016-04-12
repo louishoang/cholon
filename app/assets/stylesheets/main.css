@@ -6636,6 +6636,13 @@ a.no-decor:hover {
   margin-bottom: 0px;
 }
 
+.main .chart-value .value-helper{
+  vertical-align: bottom;
+  margin-left: 5px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
 .cl-flot{
   height: 350px;
 }

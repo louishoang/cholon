@@ -2,8 +2,11 @@ class Order < ActiveRecord::Base
   self.primary_key = :order_number
 
   include Merchant
+  include Reportable
 
-  enum status: { pending: 0, placed: 1, shipped: 2, cancelled: 3 }
+  enum status: { pending: 0, placed: 1, shipped: 2, cancelled: 3, delivered: 4 }
+
+  belongs_to :user
 
   has_many :order_items, foreign_key: :order_number, dependent: :destroy
   accepts_nested_attributes_for :order_items, allow_destroy: true

@@ -6,8 +6,6 @@ class HomeController < ApplicationController
     collect_todays_deals
   end
 
-
-
   private
   def collect_todays_deals
     @today_deals = Product.order("created_at desc").take(10)
