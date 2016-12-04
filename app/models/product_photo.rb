@@ -17,6 +17,7 @@ class ProductPhoto < ActiveRecord::Base
     },
     default_url: "/images/:style/missing.png",
     :storage => :s3,
+    :s3_host_name => 's3-us-west-2.amazonaws.com',
     :s3_credentials => Proc.new{|a| a.instance.s3_credentials }
 
   validates_attachment_content_type :photo, content_type: /\Aimage\/.*\Z/
@@ -24,6 +25,6 @@ class ProductPhoto < ActiveRecord::Base
 
 
   def s3_credentials
-    {:bucket => "cholon", :access_key_id => ENV['AWS_ACCESS_KEY_ID'], :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']}
+    {:bucket => ENV['S3_BUCKET_NAME'], :access_key_id => ENV['AWS_ACCESS_KEY_ID'], :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']}
   end
 end
