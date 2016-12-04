@@ -55,4 +55,9 @@ class User < ActiveRecord::Base
     end
     str
   end
+
+  # Override devise to send email async using ActiveJob
+  def send_devise_notification(notification, *args)
+    devise_mailer.send(notification, self, *args).deliver_later
+  end
 end
