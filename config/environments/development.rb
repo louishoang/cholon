@@ -15,7 +15,7 @@ Rails.application.configure do
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_url_options = {host: 'cholonvietnam.com' }
+  config.action_mailer.default_url_options = {host: 'cholucky.com' }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -38,9 +38,9 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :address => 'email-smtp.us-east-1.amazonaws.com',
+    :address => 'email-smtp.us-west-2.amazonaws.com',
     :authentication => :login,
-    :domain => "cholonvietnam.com",
+    :domain => "cholucky.com",
     :user_name => ENV['AWS_SMTP_USER'],
     :password => ENV['AWS_SMTP_PASSWORD'],
     :port => 465,
