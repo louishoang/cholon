@@ -76,16 +76,16 @@
 
       <!-- Logo, search bar and shopping cart start -->
       <div class="main-header">
-        <div class="container">
+        <div class="container-fluid">
           <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-3 logo-holder">
               <div class="logo">
                 <a href="<%= root_path %>">
-                  <%= image_tag("logo.png", alt: "Cho Lon VietNam") %>
+                  <%= image_tag("official-logo.png", alt: "Cho Lucky", id: 'main-logo') %>
                 </a>
               </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-6 top-search-holder">
+            <div class="col-xs-12 col-sm-12 col-md-7 top-search-holder">
               <div class="contact-row">
                 <div class="contact inline">
                   <i class="icon fa fa-envelope"></i> sales@cholonvietnam.com
@@ -131,7 +131,7 @@
               </div>
               <!-- search box end -->
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-3 top-cart-row">
+            <div class="col-xs-12 col-sm-12 col-md-2 top-cart-row">
               <!-- ======= SHOPPING CART  ============== -->
               <div class="dropdown-cart">
                 <% if current_order.present? %>

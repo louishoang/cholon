@@ -1149,9 +1149,11 @@ a {
   padding: 50px 0px 60px 0px;
   background-color: white;
 }
-.main-header .logo-holder {
-  margin-top: 10px;
+.main-header #main-logo{
+  width: 95%;
+  margin-top: -5%;
 }
+
 .main-header .top-search-holder .contact-row {
   line-height: 20px;
   color: #9b9b9b;
@@ -1181,8 +1183,6 @@ a {
   -moz-border-radius: 5px 0 0 5px;
   border-radius: 5px 0 0 5px;
   padding: 10px;
-  min-width: 360px;
-  max-width: 400px;
   vertical-align: middle;
   font-size: 15px;
 }
@@ -4227,6 +4227,14 @@ a {
 /*===================================================================================*/
 /* Extra small devices (phones, less than 768px) */
 @media (max-width: 767px) {
+  .top-cart-row .dropdown-cart .lnk-cart .items-cart-inner .basket {
+    display: none;
+  }
+
+  .main-header .top-search-holder .search-area .categories-filter {
+    display: none;
+  }
+
   .top-bar .header-top-inner {
     text-align: center;
   }
@@ -4243,10 +4251,12 @@ a {
   .top-bar .header-top-inner .cnt-block .list-inline li {
     margin: 7px 0;
   }
+
   .main-header .logo-holder {
     text-align: center;
     margin-bottom: 20px;
   }
+
   .main-header .top-search-holder .contact-row {
     margin-bottom: 20px;
     text-align: center;
@@ -4348,6 +4358,14 @@ a {
 }
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) and (max-width: 991px) {
+  .top-cart-row .dropdown-cart .lnk-cart .items-cart-inner .basket {
+    display: none;
+  }
+
+  .main-header #main-logo{
+    width: 50%;
+    margin-top: -5%;
+  }
   .top-bar .cnt-account ul > li {
     padding: 3px 2px;
   }
@@ -4418,6 +4436,10 @@ a {
 }
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) and (max-width: 1199px) {
+  .top-cart-row .dropdown-cart .lnk-cart .items-cart-inner .basket {
+    display: none;
+  }
+
   .main-header .top-search-holder .search-area .control-group {
     position: relative;
   }
@@ -6307,6 +6329,16 @@ select.height-40{
 
 
 /*Typeahead auto complete for main search start*/
+
+.twitter-typeahead{
+  width: 70%;
+}
+
+.twitter-typeahead .search-field{
+  width: 100%;
+}
+
+
 
 .twitter-typeahead .tt-query,
 .twitter-typeahead .tt-hint {
