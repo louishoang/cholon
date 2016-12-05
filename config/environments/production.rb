@@ -94,7 +94,7 @@ Rails.application.configure do
   # config.middleware.use ExceptionNotification::Rack,
   # :email => {
   #   :email_prefix => "[Cholon Error] ",
-  #   :sender_address => %{"notifier" <louishoang88@gmail.com>},
-  #   :exception_recipients => %w{louishoang88@gmail.com}
+  #   :sender_address => %{"notifier" <admin+exception@cholucky.com>},
+  #   :exception_recipients => %w{admin+exception@cholucky.com}
   # }
 end
