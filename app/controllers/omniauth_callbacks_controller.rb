@@ -2,7 +2,11 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def all
     @user = User.from_omniauth(request.env["omniauth.auth"])
     if @user.persisted?
-      flash[:notice] = "Successfully signed in"
+      if @user.confirmed?
+        flash[:notice] = "Successfully signed in."
+      else
+        flash[:notice] = "Please check your email to activate the account!"
+      end
       sign_in(@user)
       redirect_to root_path
     else
