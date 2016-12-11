@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui/autocomplete
+//= require jquery-ui
 //= require bootstrap-sprockets
 //= require bootstrap
 //= require bootstrap-hover-dropdown
@@ -23,6 +23,7 @@
 //= require cl_cart
 //= require owl.carousel.min.js
 //= require bootstrap-typeahead-rails
+//= require jquery.popupoverlay
 
 
 //= require flot/jquery.flot.js
