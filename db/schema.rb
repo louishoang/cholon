@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160103101053) do
+ActiveRecord::Schema.define(version: 20161211222524) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "first_name",    limit: 255, null: false
@@ -165,8 +165,10 @@ ActiveRecord::Schema.define(version: 20160103101053) do
     t.string   "height",           limit: 255
     t.string   "city",             limit: 255
     t.string   "state",            limit: 255
+    t.string   "brand",            limit: 255
   end
 
+  add_index "products", ["brand"], name: "index_products_on_brand", using: :btree
   add_index "products", ["city"], name: "index_products_on_city", using: :btree
   add_index "products", ["condition"], name: "index_products_on_condition", using: :btree
   add_index "products", ["seller_id"], name: "index_products_on_seller_id", using: :btree

@@ -31,6 +31,7 @@ class Product < ActiveRecord::Base
   searchable do
     text :name, :boost => 5
     text :description, :boost => 2
+    string :brand
     integer :id, :seller_id, :stock_quantity
     string :shipping_method
     string :condition, :location, :slug, :city, :state

@@ -13,6 +13,7 @@ module Workers::ProductWorker
       with(:category_ids, params[:category].split(",")) if params[:category].present?
       with(:condition, params[:condition].split(",")) if params[:condition].present?
       with(:shipping_method, params[:shipping].split(",")) if params[:shipping].present?
+      with(:brand, params[:brands].split(",")) if params[:brands].present?
       if params[:rating].present?
         with(:average_seller_rating, seller_rating_range)
       end

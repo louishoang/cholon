@@ -59,7 +59,14 @@ module Productable
         category_ids = args[0].split(",")
         where("categories.id IN (?)", category_ids)
       end
-    } 
+    }
+
+    scope :with_brands, lambda{ |args|
+      if args.present? && args[0].present?
+        brands = args[0].split(",")
+        where("products.brand IN (?)", brands)
+      end
+    }
 
     scope :with_category, lambda{ |args|
       if args.present?
