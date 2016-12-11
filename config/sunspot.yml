@@ -1,9 +1,9 @@
 production:
   solr:
-    hostname: node-2.hosted-solr.com
+    hostname: node-3.hosted-solr.com
     port: 443
     log_level: WARNING
-    path: /667f7c93eae-cholon-solr/core
+    path: f151163f316-cholucky/core
     user: <%= ENV["SOLR_USER"] %>
     password: <%= ENV["SOLR_PASSWORD"] %>
     # read_timeout: 2
