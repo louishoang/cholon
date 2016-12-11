@@ -21,6 +21,9 @@ module Cholon
 
 
     config.assets.enabled = true  
-    config.assets.paths << "#{Rails.root}/app/assets/fonts" 
+    config.assets.paths << "#{Rails.root}/app/assets/fonts"
+    config.to_prepare do
+      Devise::Mailer.layout "mailer.html.erb"
+    end
   end
 end
