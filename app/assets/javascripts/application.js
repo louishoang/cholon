@@ -23,8 +23,6 @@
 //= require cl_cart
 //= require owl.carousel.min.js
 //= require bootstrap-typeahead-rails
-//= require jquery.popupoverlay
-
 
 //= require flot/jquery.flot.js
 //= require flot/excanvas.js
