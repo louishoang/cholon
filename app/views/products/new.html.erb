@@ -36,8 +36,20 @@
                   <%= f.label :category, class: "info-title" do %>
                     <%= t"Category" %>: <span>*</span>
                   <% end %>
+                  <input type="text" class="form-control unicase-form-control text-input input-styling hide"
+                         name="category_name"
+                         value=""
+                         id="new_product_cat_name"/>
+                  <input type="hidden" class="form-control unicase-form-control text-input input-styling"
+                         name="product[category_id]"
+                         value=""
+                         data-validation="required"
+                         id="new_product_cat_id"/>
+                  <div>
+                    <a href="<%= select_category_categories_path %>" class="ajax-popup-link">  <%= t"Click to select a category" %></a>
+                  </div>
                 </div>
-                <div class="form-group col-sm-6 nopadding">
+                <div class="form-group col-sm-6">
                   <%= f.label :brand, class: "info-title" do %>
                     <%= t"Brand" %>:
                   <% end %>

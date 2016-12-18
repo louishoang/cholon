@@ -18,8 +18,8 @@ categories = ["Baby & Kids", "Baby & Kids Sub","Bath & Body", "Beauty", "Busines
               "Other Electronics", "Office Machines", "Office Attire & Occasional Wear",
               "Others Machines", "Outerwear", "Room For Rent/Share", "Skin Care", "Shirts & Pants",
               "Services", "Services Ads", "TVs & Videos", "Trade", "Tools & Accessories",
-              "Video Games & Softwares & DVDs", "Womens Fashions", "Women Shoes", "Women Accessories"
-              ]
+              "Video Games & Softwares & DVDs", "Womens Fashions", "Women Shoes", "Women Accessories",
+              "Eyeliner"]
 
 categories.each do |cat|
   Category.find_or_create_by(name: cat)
@@ -50,11 +50,18 @@ Category.where(:name => other_elc).update_all(:parent_id => other_elc_parent)
 
   #4
 
-beauty = ["Makeup", "Skin Care", "Bath & Body", "Lifestyle & Health",
+beauty = ["Make Up", "Skin Care", "Bath & Body", "Lifestyle & Health",
         "Tools & Accessories"]
 beauty_parent = Category.find_by_name("Beauty")
 
 Category.where(:name => beauty).update_all(:parent_id => beauty_parent)
+
+make_up = ["Eyeliner"]
+
+make_up_parent = Category.find_by_name("Make up")
+Category.where(:name => make_up).update_all(:parent_id => make_up_parent)
+
+
 
   #5
 women_fashion = ["Office Attire & Occasional Wear", "Outerwear", "Shirts & Pants",

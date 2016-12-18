@@ -1,4 +1,21 @@
-<%= label_tag :sub_category, class: "info-title" do %>
-  <%= t"Sub Category" %>: <span>*</span>
-<% end %>
-<%= select_tag("product[category_ids][]", options_for_select(@categories), {class: "form-control unicase-form-control text-input input-styling select2class col-sm-4", :include_blank => true, required: true, "data-validation" => "required"}) %>
+<div class="row-fluid">
+  <div class="form-group col-sm-12 m-t-15 no-padding-right">
+    <%= label_tag :sub_category, class: "info-title" do %>
+        <%= t"Sub Category" %>: <span>*</span>
+    <% end %>
+    <%= select_tag("product[category_ids][]",
+                   options_for_select(@categories),
+                   {class: "form-control unicase-form-control text-input input-styling select2class col-sm-4 multilevel",
+                    :include_blank => true,
+                    required: true,
+                    "data-url": sub_category_categories_path,
+        "data-validation" => "required"}) %>
+
+    <div class="col-sm-12 spinner-box hide m-t-15" id="sub_cat_select">
+    </div>
+  </div>
+</div>
+
+
+
+

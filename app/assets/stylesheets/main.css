@@ -149,6 +149,10 @@ img[src="assets/images/blank.gif"] {
   text-transform: uppercase;
 }
 
+.product-category-select .aligned-padding-right {
+  padding-right: 10px;
+}
+
 select.dash-after::after{
   content: " /";
 }

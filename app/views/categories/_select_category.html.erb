@@ -1,0 +1,22 @@
+<div class="product-category-select">
+  <h2 class="name"><%= t"Select product's category" %></h2>
+  <div class="row-fluid m-t-10">
+    <div class="col-xs-12 column">
+      <label class="info-title"><%= t"Category" %>: <span>*</span></label>
+      <%= top_level_category_select("category",
+                                    nil,
+                                    { class: "form-control unicase-form-control text-input input-styling select2class multilevel col-sm-4",
+                                      :include_blank => true,
+                                      "data-url": sub_category_categories_path,
+                                      "data-validation" => "required"
+                                     }) %>
+    </div>
+    <div class="col-sm-12 spinner-box hide m-t-15" id="sub_cat_select">
+    </div>
+  </div>
+  <div class="col-xs-12 column m-t-15">
+    <input type="hidden" id="selected-category_id" value="">
+    <input type="hidden" id="selected-category_name" value="">
+    <button type="submit" class="btn btn-lime btn-checkout-bottom" id="btn-select-cat"><%= t"Save" %></button>
+  </div>
+</div>

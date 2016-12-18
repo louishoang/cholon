@@ -454,8 +454,17 @@ $(function() {
   //selec2 multi level for sub category
   $(document).on("change", ".select2class.multilevel", function(e){
     var selected = $(e.target).val();
+    var selectedCatName = $(e.target).select2("data")[0].text;
     var url = $(e.target).data("url");
-    var $subCat = $(e.target).parents(".row-fluid").find("#sub_cat_select");
+    var $subCatRow = $(e.target).parents(".row-fluid");
+    var $subCat = $subCatRow.find("#sub_cat_select");
+
+    // Add selected category id to a hidden input so we can pass it to the new product form everytime
+    // the user choose an category
+    $("#selected-category_id").attr("value", selected);
+    $("#selected-category_name").attr("value", selectedCatName);
+
+    // Add spinnner
     $subCat.removeClass("hide");
     $subCat.addClass("spinner");
     
@@ -463,11 +472,24 @@ $(function() {
       type: "GET",
       url: url,
       data: {"category_id": selected},
-      success: function(resp){
-        $subCat.html(resp);
+      success: function(resp, textStatus, request){
+        $subCat.replaceWith(resp);
         $subCat.removeClass("spinner spinner-box");
+        renderUI($subCatRow);
       }
     });
+  });
+  
+  $(document).on("click", "#btn-select-cat", function(e){
+    var selectedCategory = $("#selected-category_id").val();
+    var selectedCatName = $("#selected-category_name").val();
+    
+    $("#new_product_cat_name").attr("value", selectedCatName).removeClass("hide");
+    $("#new_product_cat_id").attr("value", selectedCategory);
+
+    //close popup
+    var magnificPopup = $.magnificPopup.instance;
+    magnificPopup.close();
   });
 
   $(document).on("click", ".save_photos", function(e){

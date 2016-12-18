@@ -112,14 +112,16 @@
                         <% Category.main_category.in_groups_of(3).each do |group| %>
                           <div class="row-fluid">
                             <% group.each do |main_cat| %>
-                              <div class="col-sm-12 col-md-4">
-                                <h5 class="menu-header"><%= t(main_cat.name) %>  &raquo;</h5>
-                                <ul class="sub-cat">
-                                  <% main_cat.childrens.each do |cat| %>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;" class="search-by-cat" data-category-id="<%= cat.id %>"> <%= t(cat.name) %></a></li>
-                                  <% end %>
-                                </ul>
-                              </div>
+                              <% if main_cat.present? %>
+                                <div class="col-sm-12 col-md-4">
+                                  <h5 class="menu-header"><%= t(main_cat.name) %>  &raquo;</h5>
+                                  <ul class="sub-cat">
+                                    <% main_cat.childrens.each do |cat| %>
+                                      <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;" class="search-by-cat" data-category-id="<%= cat.id %>"> <%= t(cat.name) %></a></li>
+                                    <% end %>
+                                  </ul>
+                                </div>
+                              <% end %>
                             <% end %>
                           </div>
                         <% end %>

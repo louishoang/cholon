@@ -14,9 +14,18 @@ class CategoriesController < ApplicationController
   end
 
   def sub_category
-    @categories = Category.where("parent_id = ?", params[:category_id])
+    @category_id = params[:category_id]
+    @categories = Category.where("parent_id = ?", @category_id)
                     .order(:name).map{|x| [t("#{x.name}"), x.id]}
-      
-    render(:partial => "sub_category.html", :locals => {entities: @categories})
+
+    if @categories.present?
+      render(:partial => "sub_category.html")
+    else
+      render :nothing => true
+    end
+  end
+
+  def select_category
+    render(:partial => "select_category.html")
   end
 end

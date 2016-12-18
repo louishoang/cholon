@@ -96,7 +96,7 @@ group :development, :test do
   gem "factory_girl_rails"
   gem "capybara"
   gem "faker"
-  gem 'pry-rails'
+  gem 'byebug'
 end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
